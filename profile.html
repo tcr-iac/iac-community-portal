@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Profile</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f0f0; color: #333; }
+        .header { background: #2d6a2d; color: white; text-align: center; padding: 20px 30px; }
+        .header h1 { font-size: 26px; font-weight: bold; margin-bottom: 4px; }
+        .header h2 { font-size: 16px; font-style: italic; font-weight: normal; margin-bottom: 4px; }
+        .header p { font-size: 13px; color: #cce5cc; }
+        .content { max-width: 900px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .what-makes { background: #e8e8e8; padding: 20px; border-radius: 4px; }
+        .what-makes h3 { font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 12px; color: #1a1a1a; }
+        .what-makes p { font-size: 13px; line-height: 1.7; color: #444; }
+        .photo-gallery { background: #2d6a2d; border-radius: 4px; overflow: hidden; position: relative; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        .photo-gallery-label { position: relative; z-index: 2; background: rgba(0,0,0,0.5); color: white; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold; text-align: center; }
+        .community-profile { background: white; padding: 20px; border-radius: 4px; border: 1px solid #ddd; }
+        .community-profile h3 { font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px; color: #1a1a1a; letter-spacing: 1px; }
+        .profile-item { margin-bottom: 12px; }
+        .profile-item label { font-size: 13px; font-weight: bold; color: #333; display: block; margin-bottom: 3px; }
+        .profile-item p, .profile-item ul { font-size: 13px; color: #555; padding-left: 10px; }
+        .profile-item ul { list-style: disc; padding-left: 25px; }
+        .profile-item ul li { margin-bottom: 3px; }
+        .profile-item a { color: #c0392b; text-decoration: underline; font-size: 13px; }
+        .viability-section { background: white; padding: 20px; border-radius: 4px; border: 1px solid #ddd; }
+        .viability-section h3 { font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; color: #1a1a1a; letter-spacing: 1px; text-decoration: underline; }
+        .viability-score-big { text-align: center; font-size: 48px; font-weight: bold; color: #2d6a2d; margin: 10px 0; }
+        .viability-score-label { text-align: center; font-size: 11px; color: #888; margin-bottom: 15px; }
+        .index-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
+        .index-label { font-size: 11px; color: #555; width: 120px; flex-shrink: 0; }
+        .index-bar-wrap { flex: 1; background: #eee; border-radius: 3px; height: 10px; overflow: hidden; }
+        .index-bar { height: 100%; background: #2d6a2d; border-radius: 3px; }
+        .index-val { font-size: 11px; font-weight: bold; color: #333; width: 30px; text-align: right; flex-shrink: 0; }
+        .bottom-nav { max-width: 900px; margin: 0 auto 30px; padding: 0 15px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .bottom-nav button { background: #d0d0d0; border: 2px solid #aaa; border-radius: 6px; padding: 12px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .bottom-nav button:hover { background: #bbb; transform: translateY(-1px); }
+        .bottom-nav button.green { background: #2d6a2d; color: white; border-color: #1a4a1a; }
+        .bottom-nav button.green:hover { background: #1a4a1a; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1 id="town-name">Loading...</h1>
+    <h2 id="town-subtitle"></h2>
+    <p>Of the Minneapolis · St Paul Information Age Community</p>
+</div>
+<div class="content">
+    <div class="what-makes">
+        <h3>What Makes <span id="town-name-2">This Town</span><br>A Great Place to Live</h3>
+        <p id="vision-text">Information coming soon.</p>
+    </div>
+    <div class="photo-gallery">
+        <div class="photo-gallery-label">📷 Photo Gallery<br><small style="font-size:11px;font-weight:normal;">Coming Soon</small></div>
+    </div>
+    <div class="community-profile">
+        <h3>COMMUNITY PROFILE</h3>
+        <div class="profile-item"><label>Population</label><p id="population">—</p></div>
+        <div class="profile-item"><label>County</label><p id="county">—</p></div>
+        <div class="profile-item"><label>State</label><p id="state">—</p></div>
+        <div class="profile-item"><label>Service Center</label><p id="service-center">—</p></div>
+        <div class="profile-item"><label>Major Employers</label><ul><li><a href="#">Coming Soon</a></li></ul></div>
+        <div class="profile-item"><label>Meetings Schedule</label><p style="color:#aaa;font-style:italic;">To be added</p></div>
+    </div>
+    <div class="viability-section">
+        <h3>COMMUNITY VIABILITY CALCULATOR</h3>
+        <div class="viability-score-big" id="viability-score">TBD</div>
+        <div class="viability-score-label">COMMUNITY VIABILITY INDEX SCORE</div>
+        <div id="indices-container"></div>
+    </div>
+</div>
+<div class="bottom-nav">
+    <button class="green" onclick="window.location.href='index.html'">IAC</button>
+    <button onclick="window.location.href='index.html'">← Back to Map</button>
+    <button id="sc-btn" onclick="">SC Home</button>
+    <button onclick="alert('Feature coming soon!')">?</button>
+</div>
+<script>
+const TOWNS = {
+    "56401": { name:"Brainerd", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56401", county:"Crow Wing", state:"MN", population:"13,336", scid:"102", serviceCenter:"Brainerd", vision:"A thriving rural community where technology and tradition come together to create lasting opportunity for all residents of the Brainerd region.", indices:{"Environment":2,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
+    "56425": { name:"Baxter", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56425", county:"Crow Wing", state:"MN", population:"8,350", scid:"102", serviceCenter:"Brainerd", vision:"Building bridges between rural heritage and the digital future for every family in the Baxter community.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
+    "56345": { name:"Little Falls", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56345", county:"Morrison", state:"MN", population:"9,000", scid:"102", serviceCenter:"Brainerd / Little Falls", vision:"Connecting Little Falls to the Information Age while preserving the rich heritage and community spirit of Morrison County.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
+    "55912": { name:"Austin", subtitle:"A Neighborhood in the Austin Service Center", zip:"55912", county:"Mower", state:"MN", population:"29,438", scid:"101", serviceCenter:"Austin", vision:"Strengthening Austin's role as a regional hub while embracing the opportunities of the Information Age for all residents.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
+    "56007": { name:"Albert Lea", subtitle:"A Neighborhood in the Austin Service Center", zip:"56007", county:"Freeborn", state:"MN", population:"21,467", scid:"101", serviceCenter:"Austin / Albert Lea", vision:"Albert Lea — a community of resilience, opportunity, and connection in the heart of southern Minnesota.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} }
+};
+let currentTown = null;
+function loadProfile() {
+    const params = new URLSearchParams(window.location.search);
+    const zip = params.get('zip') || '56401';
+    currentTown = TOWNS[zip] || TOWNS['56401'];
+    document.getElementById('town-name').innerText = 'Welcome to The Town of ' + currentTown.name;
+    document.getElementById('town-name-2').innerText = currentTown.name;
+    document.getElementById('town-subtitle').innerText = currentTown.subtitle;
+    document.getElementById('vision-text').innerText = currentTown.vision;
+    document.getElementById('population').innerText = currentTown.population;
+    document.getElementById('county').innerText = currentTown.county + ' County';
+    document.getElementById('state').innerText = currentTown.state;
+    document.getElementById('service-center').innerText = currentTown.serviceCenter;
+    document.getElementById('sc-btn').onclick = function(){ window.location.href='portal.html?scid='+currentTown.scid; };
+    const container = document.getElementById('indices-container');
+    container.innerHTML = '';
+    Object.entries(currentTown.indices).forEach(([label, val]) => {
+        const displayVal = val !== null ? val : '—';
+        const barWidth = val !== null ? (val/10*100) : 0;
+        container.innerHTML += `<div class="index-row"><div class="index-label">${label}</div><div class="index-bar-wrap"><div class="index-bar" style="width:${barWidth}%"></div></div><div class="index-val">${displayVal}</div></div>`;
+    });
+}
+window.onload = loadProfile;
+</script>
+</body>
+</html>

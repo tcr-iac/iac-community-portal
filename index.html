@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IAC — Find Your Community Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: "Inter", Arial, sans-serif; overflow-x: hidden; }
+
+    body {
+      background-image: url("https://i.postimg.cc/tgt8PbVg/image.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-color: #1a2744;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 3rem 1rem 3rem;
+      min-height: 100vh;
+    }
+
+    .iac-card {
+      background: rgba(0,0,0,0.62);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 1rem;
+      padding: 2.5rem 2.5rem 2rem;
+      width: 100%;
+      max-width: 660px;
+      margin-bottom: 1rem;
+    }
+
+    .main-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .sub-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .iac-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, #004a99, #0066cc);
+      border-radius: 2px;
+      margin: 0 auto 1.4rem;
+    }
+
+    .quote-wrap { border-left: 3px solid #004a99; padding: 0.6rem 1rem; }
+    .quote-text {
+      font-size: 0.88rem;
+      font-family: Georgia, serif;
+      font-style: italic;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .search-card {
+      background: rgba(0,0,0,0.62);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 1rem;
+      padding: 1.75rem 2.5rem 1.5rem;
+      width: 100%;
+      max-width: 660px;
+    }
+
+    .search-heading {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    #city-input {
+      width: 100%;
+      background: rgba(255,255,255,0.92);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 0.5rem;
+      color: #111;
+      font-size: 0.97rem;
+      font-weight: 500;
+      font-family: inherit;
+      padding: 0.65rem 1rem;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    #city-input:focus {
+      border-color: #004a99;
+      box-shadow: 0 0 0 3px rgba(0,74,153,0.25);
+    }
+    #city-input::placeholder { color: #888; font-style: italic; }
+
+    #suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      min-height: 0;
+    }
+    #suggestions[hidden] { display: none; }
+
+    .pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 2rem;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 500;
+      font-family: inherit;
+      padding: 0.3rem 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .pill:hover, .pill.active { background: #004a99; border-color: #004a99; }
+
+    #result-card {
+      margin-top: 1rem;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,74,153,0.4);
+      border-radius: 0.65rem;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    #result-card[hidden] { display: none; }
+
+    .result-badge {
+      background: linear-gradient(135deg, #004a99, #0066cc);
+      color: #fff;
+      font-family: "Arial Black", sans-serif;
+      font-weight: 900;
+      font-size: 0.8rem;
+      border-radius: 0.4rem;
+      padding: 0.45rem 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .result-info { flex: 1; }
+    .result-info h3 { margin: 0 0 0.1rem; font-size: 1rem; font-weight: 700; color: #fff; }
+    .result-info p { margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+
+    #launch-btn {
+      background: linear-gradient(135deg, #004a99, #0066cc);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0,74,153,0.45);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.15s, transform 0.1s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    #launch-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    #not-found { margin-top: 1rem; text-align: center; padding: 1rem; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+    #not-found strong { color: #fff; display: block; margin-bottom: 0.2rem; }
+    #not-found[hidden] { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero card -->
+  <div class="iac-card">
+    <h1 class="main-title">Welcome to the<br>Information Age Community</h1>
+    <p class="sub-title">A Strategic Plan for Urban–Rural Revitalization</p>
+    <div class="iac-divider"></div>
+    <div class="quote-wrap">
+      <p class="quote-text">
+        "In the Industrial Age it was economic development because of the demand for infrastructure;
+        in the Information Age it is Community Development — because it is quality of life."
+      </p>
+    </div>
+  </div>
+
+  <!-- Search card -->
+  <div class="search-card">
+    <p class="search-heading">Find your community portal</p>
+    <div class="search-input-wrap">
+      <input id="city-input" type="text" placeholder="Type a city or zip code…" autocomplete="off" spellcheck="false" />
+    </div>
+    <div id="suggestions" hidden></div>
+
+    <div id="result-card" hidden>
+      <div class="result-badge" id="result-scid">SCID —</div>
+      <div class="result-info">
+        <h3 id="result-name"></h3>
+        <p id="result-meta"></p>
+      </div>
+      <a id="launch-btn" href="#">Launch Portal →</a>
+    </div>
+
+    <div id="not-found" hidden>
+      <strong id="not-found-msg">No portal found</strong>
+      Try a different city name or zip code.
+    </div>
+  </div>
+
+  <script>
+  // ── Community data ──────────────────────────────────────────
+  const COMMUNITIES = [
+    { name: 'Brainerd',     zip: '56401', scid: '102', state: 'MN', county: 'Crow Wing' },
+    { name: 'Baxter',       zip: '56425', scid: '102', state: 'MN', county: 'Crow Wing' },
+    { name: 'Little Falls', zip: '56345', scid: '102', state: 'MN', county: 'Morrison'  },
+    { name: 'Nisswa',       zip: '56468', scid: '102', state: 'MN', county: 'Crow Wing' },
+    { name: 'Austin',       zip: '55912', scid: '101', state: 'MN', county: 'Mower'     },
+    { name: 'Albert Lea',   zip: '56007', scid: '101', state: 'MN', county: 'Freeborn'  },
+  ];
+
+  const input      = document.getElementById('city-input');
+  const sugBox     = document.getElementById('suggestions');
+  const resultCard = document.getElementById('result-card');
+  const notFound   = document.getElementById('not-found');
+
+  function filter(q) {
+    return COMMUNITIES.filter(c =>
+      c.name.toLowerCase().includes(q.toLowerCase()) || c.zip.includes(q)
+    ).slice(0, 6);
+  }
+
+  function select(c) {
+    input.value = `${c.name}, ${c.state} ${c.zip}`;
+    sugBox.innerHTML = ''; sugBox.hidden = true; notFound.hidden = true;
+    document.getElementById('result-scid').textContent = `SCID — ${c.scid}`;
+    document.getElementById('result-name').textContent = c.name;
+    document.getElementById('result-meta').textContent = `${c.county} County, ${c.state} · ZIP ${c.zip}`;
+    document.getElementById('launch-btn').href = 'portal.html?scid=' + c.scid + '&zip=' + c.zip;
+    resultCard.hidden = false;
+  }
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    resultCard.hidden = true; notFound.hidden = true;
+    if (q.length < 2) { sugBox.innerHTML = ''; sugBox.hidden = true; return; }
+    const matches = filter(q);
+    sugBox.innerHTML = '';
+    if (matches.length) {
+      matches.forEach(c => {
+        const pill = document.createElement('button');
+        pill.className = 'pill';
+        pill.textContent = `${c.name}, ${c.state} ${c.zip}`;
+        pill.addEventListener('click', () => select(c));
+        sugBox.appendChild(pill);
+      });
+      sugBox.hidden = false;
+    } else if (q.length >= 3) {
+      document.getElementById('not-found-msg').textContent = `No portal found for "${q}"`;
+      notFound.hidden = false;
+    }
+  });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { const m = filter(input.value); if (m.length === 1) select(m[0]); }
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-card')) { sugBox.innerHTML = ''; sugBox.hidden = true; }
+  });
+  </script>
+</body>
+</html>
