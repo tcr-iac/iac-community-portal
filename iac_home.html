@@ -7,12 +7,7 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { height: 100%; font-family: Arial, sans-serif; background: #1a5276; }
-        
-        body {
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            min-height: 100vh;
-        }
+        body { display: flex; flex-direction: column; min-height: 100vh; }
 
         .top-bar {
             background: #154360;
@@ -29,7 +24,9 @@
         .top-bar-right span { font-size: 11px; color: #7fb3d3; }
 
         .main {
+            flex: 1;
             display: flex;
+            flex-direction: row;
             align-items: center;
             padding: 30px 50px;
             gap: 60px;
@@ -37,6 +34,9 @@
 
         .left {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             color: white;
         }
         .left h1 {
@@ -72,6 +72,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            justify-content: center;
         }
 
         .group-label {
@@ -98,30 +99,12 @@
             text-decoration: none;
             display: block;
         }
-        .nav-btn.concept {
-            background: #2471a3;
-            border: 1.5px solid #5dade2;
-        }
-        .nav-btn.concept:hover {
-            background: #5dade2;
-            border-color: white;
-            transform: translateX(-3px);
-        }
-        .nav-btn.tool {
-            background: #1a4a6b;
-            border: 1.5px solid #2e86c1;
-        }
-        .nav-btn.tool:hover {
-            background: #2471a3;
-            border-color: #5dade2;
-            transform: translateX(-3px);
-        }
+        .nav-btn.concept { background: #2471a3; border: 1.5px solid #5dade2; }
+        .nav-btn.concept:hover { background: #5dade2; border-color: white; transform: translateX(-3px); }
+        .nav-btn.tool { background: #1a4a6b; border: 1.5px solid #2e86c1; }
+        .nav-btn.tool:hover { background: #2471a3; border-color: #5dade2; transform: translateX(-3px); }
 
-        .divider {
-            border: none;
-            border-top: 1px solid #2e86c1;
-            margin: 4px 0;
-        }
+        .divider { border: none; border-top: 1px solid #2e86c1; margin: 4px 0; }
 
         .footer {
             background: #154360;
@@ -168,9 +151,7 @@
                 <a href="#" class="nav-btn concept">Regional Transit</a>
             </div>
         </div>
-
         <hr class="divider">
-
         <div>
             <div class="group-label">Strategic Tools</div>
             <div class="btn-group">
