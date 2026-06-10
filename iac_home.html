@@ -6,7 +6,13 @@
     <title>The Information Age Community</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: #1a5276; min-height: 100vh; display: flex; flex-direction: column; }
+        html, body { height: 100%; font-family: Arial, sans-serif; background: #1a5276; }
+        
+        body {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        }
 
         .top-bar {
             background: #154360;
@@ -23,23 +29,15 @@
         .top-bar-right span { font-size: 11px; color: #7fb3d3; }
 
         .main {
-            flex: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 40px 50px;
+            padding: 30px 50px;
             gap: 60px;
-            min-height: calc(100vh - 120px);
         }
 
         .left {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
             color: white;
-            min-height: 400px;
         }
         .left h1 {
             font-size: 26px;
@@ -48,7 +46,6 @@
             line-height: 1.3;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #ffffff;
         }
         .left p {
             font-size: 15px;
@@ -74,8 +71,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            justify-content: center;
+            gap: 10px;
         }
 
         .group-label {
@@ -84,17 +80,17 @@
             font-weight: bold;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             padding-left: 10px;
             border-left: 3px solid #2e86c1;
         }
-        .btn-group { display: flex; flex-direction: column; gap: 8px; }
+        .btn-group { display: flex; flex-direction: column; gap: 6px; }
 
         .nav-btn {
             color: white;
             border-radius: 8px;
-            padding: 13px 16px;
-            font-size: 14px;
+            padding: 10px 16px;
+            font-size: 13px;
             font-weight: bold;
             text-align: center;
             cursor: pointer;
@@ -124,7 +120,7 @@
         .divider {
             border: none;
             border-top: 1px solid #2e86c1;
-            margin: 2px 0;
+            margin: 4px 0;
         }
 
         .footer {
@@ -152,7 +148,6 @@
 </div>
 
 <div class="main">
-
     <div class="left">
         <h1>The Information Age Community</h1>
         <p>
@@ -187,7 +182,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="footer">
