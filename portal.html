@@ -63,7 +63,6 @@
     #video-thumb-wrapper { flex-shrink: 0; text-align: center; }
     #video-thumb {
       width: 200px; height: 120px;
-      background: rgba(0,0,0,0.4);
       border-radius: 0.5rem;
       border: 2px solid rgba(255,255,255,0.2);
       cursor: pointer; position: relative; overflow: hidden;
@@ -180,8 +179,11 @@
       cursor: pointer; line-height: 1;
     }
     #video-player {
-      width: 100%; border-radius: 0.5rem;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 0.5rem;
       display: block;
+      border: none;
     }
 
     /* MENU ITEMS */
@@ -259,12 +261,14 @@
   <button id="btn-receptionists" class="bottom-nav-btn">Community Receptionists</button>
 </footer>
 
-<!-- VIDEO MODAL -->
+<!-- VIDEO MODAL — now uses iframe for proper YouTube playback -->
 <div id="video-modal" hidden>
   <div id="video-modal-backdrop"></div>
   <div id="video-modal-box">
     <button id="video-modal-close">&#x2715;</button>
-    <video id="video-player" controls>Your browser does not support the video tag.</video>
+    <iframe id="video-player" frameborder="0" allowfullscreen
+      allow="autoplay; encrypted-media">
+    </iframe>
   </div>
 </div>
 
@@ -278,7 +282,7 @@ const SC_DATA = {
     vision1: '"Technology and tradition, working together for rural Minnesota."',
     vision2: '"Building opportunity for every community in the ecosystem."',
     tagline: 'Connecting Rural Minnesota to the Information Age',
-    videoUrl: 'https://www.youtube.com/watch?v=Gdl_vfZPQoQ',
+    videoId: 'Gdl_vfZPQoQ',
   },
   '101': {
     name: 'Austin Service Center',
@@ -287,13 +291,13 @@ const SC_DATA = {
     vision1: '"Strengthening Austin as a regional hub for the Information Age."',
     vision2: '"Opportunity for every family in southern Minnesota."',
     tagline: 'Connecting Southern Minnesota to the Information Age',
-    videoUrl: 'https://www.youtube.com/watch?v=Gdl_vfZPQoQ',
+    videoId: 'Gdl_vfZPQoQ',
   }
 };
 
 // ── Menus ───────────────────────────────────────────────────
 const MENUS = {
-  1: [ // TeleCenter Services
+  1: [
     { title: 'Cultural Support', children: [
       { title: 'Arts & Entertainment', children: [] },
       { title: 'Heritage & History', children: [] },
@@ -322,7 +326,7 @@ const MENUS = {
       ]},
     ]},
   ],
-  2: [ // Directory
+  2: [
     { title: 'Accommodation & Food Services', children: [
       { title: 'Food Services & Drinking Places', children: [
         { title: 'Full-Service Restaurants', table: true, children: [] },
@@ -338,7 +342,7 @@ const MENUS = {
       { title: 'Hospitals', children: [] },
     ]},
   ],
-  3: [ // Community Engagement
+  3: [
     { title: 'Accountability', children: [
       { title: 'Observation Budget', children: [] },
       { title: 'Issues - Community', children: [] },
@@ -456,18 +460,32 @@ const btn3 = document.getElementById('menu-btn-3');
 btn1.setAttribute('aria-selected', 'true');
 loadMenu(1);
 
-// Video
-const thumb = document.getElementById('video-thumb');
+// ── VIDEO — fixed to use YouTube iframe embed ────────────────
+const thumb  = document.getElementById('video-thumb');
 const modal  = document.getElementById('video-modal');
 const player = document.getElementById('video-player');
+
 thumb.addEventListener('click', () => {
-  window.open(sc.videoUrl, '_blank');
+  player.src = `https://www.youtube.com/embed/${sc.videoId}?autoplay=1`;
+  modal.hidden = false;
 });
+
+thumb.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    player.src = `https://www.youtube.com/embed/${sc.videoId}?autoplay=1`;
+    modal.hidden = false;
+  }
+});
+
 document.getElementById('video-modal-close').addEventListener('click', () => {
-  modal.hidden = true; player.pause(); player.src = '';
+  modal.hidden = true;
+  player.src = '';
 });
+
 document.getElementById('video-modal-backdrop').addEventListener('click', () => {
-  modal.hidden = true; player.pause(); player.src = '';
+  modal.hidden = true;
+  player.src = '';
 });
 
 // Bottom nav
