@@ -3692,6 +3692,19 @@
   { name: 'Newcastle', zip: '82701', scid: 'Newcastle', state: 'SD', county: 'Weston' },
 ];
 
+// Override SCID for service centers we have full data for
+const SCID_OVERRIDES = {
+  '56401': '102', // Brainerd
+  '56425': '102', // Baxter
+  '56345': '102', // Little Falls
+  '56468': '102', // Nisswa
+  '55912': '101', // Austin
+  '56007': '101', // Albert Lea
+};
+COMMUNITIES.forEach(c => {
+  if (SCID_OVERRIDES[c.zip]) c.scid = SCID_OVERRIDES[c.zip];
+});
+
   const input      = document.getElementById('city-input');
   const sugBox     = document.getElementById('suggestions');
   const resultCard = document.getElementById('result-card');
