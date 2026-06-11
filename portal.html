@@ -454,7 +454,7 @@ function renderItem(item, depth) {
     const btn = document.createElement('button');
     btn.className = 'menu-load-btn';
     btn.textContent = 'Load';
-    btn.addEventListener('click', e => { e.stopPropagation(); alert(`Loading: ${item.file}`); });
+    btn.addEventListener('click', e => { e.stopPropagation(); showFileOverlay(item.title, item.file); });
     row.appendChild(btn);
     wrap.appendChild(row);
   } else if (item.table) {
@@ -492,7 +492,31 @@ const RESTAURANT_DATA = {
   }
 };
 
+function showFileOverlay(title, fileName) {
+  const overlay = document.getElementById('table-overlay');
+  document.getElementById('table-overlay-title').textContent = title;
+  const tbody = document.getElementById('table-overlay-body');
+  document.querySelector('#table-overlay-box table').style.display = 'none';
+  let msgBox = document.getElementById('file-coming-soon');
+  if (!msgBox) {
+    msgBox = document.createElement('div');
+    msgBox.id = 'file-coming-soon';
+    msgBox.style.cssText = 'padding:30px;text-align:center;color:#888;';
+    document.getElementById('table-overlay-box').appendChild(msgBox);
+  }
+  msgBox.style.display = 'block';
+  msgBox.innerHTML = `
+    <div style="font-size:40px;margin-bottom:12px;">📄</div>
+    <p style="font-size:15px;color:#444;margin-bottom:6px;"><strong>${fileName}</strong></p>
+    <p style="font-size:13px;color:#aaa;">This file is not loaded yet — coming soon!</p>
+  `;
+  overlay.hidden = false;
+}
+
 function showTableOverlay(title) {
+  const msgBox = document.getElementById('file-coming-soon');
+  if (msgBox) msgBox.style.display = 'none';
+  document.querySelector('#table-overlay-box table').style.display = '';
   document.getElementById('table-overlay-title').textContent = title;
   const tbody = document.getElementById('table-overlay-body');
   tbody.innerHTML = '';
