@@ -470,22 +470,34 @@ function renderItem(item, depth) {
 
 // Sample restaurant data
 const RESTAURANT_DATA = {
-  'Full-Service Restaurants': [
-    { name: 'The Lakeside Grill', phone: '218-555-0142', address: '320 Main St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
-    { name: 'Northwoods Steakhouse', phone: '218-555-0198', address: '88 Lake Ave, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
-    { name: 'Pine River Diner', phone: '218-555-0211', address: '14 Pine Rd, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
-  ],
-  'Limited-Service Restaurants': [
-    { name: 'Quick Bites Cafe', phone: '218-555-0300', address: '5 Oak St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
-    { name: 'Brainerd Burger Co', phone: '218-555-0321', address: '102 Elm St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
-  ]
+  '102': {
+    'Full-Service Restaurants': [
+      { name: 'The Lakeside Grill', phone: '218-555-0142', address: '320 Main St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+      { name: 'Northwoods Steakhouse', phone: '218-555-0198', address: '88 Lake Ave, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+      { name: 'Pine River Diner', phone: '218-555-0211', address: '14 Pine Rd, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    ],
+    'Limited-Service Restaurants': [
+      { name: 'Quick Bites Cafe', phone: '218-555-0300', address: '5 Oak St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+      { name: 'Brainerd Burger Co', phone: '218-555-0321', address: '102 Elm St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    ]
+  },
+  '101': {
+    'Full-Service Restaurants': [
+      { name: 'Austin Family Diner', phone: '507-555-0110', address: '210 Main St, Austin, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+      { name: 'Spam Town Grill', phone: '507-555-0188', address: '45 4th Ave, Austin, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    ],
+    'Limited-Service Restaurants': [
+      { name: 'Austin Coffee House', phone: '507-555-0199', address: '12 1st St, Austin, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    ]
+  }
 };
 
 function showTableOverlay(title) {
   document.getElementById('table-overlay-title').textContent = title;
   const tbody = document.getElementById('table-overlay-body');
   tbody.innerHTML = '';
-  const rows = RESTAURANT_DATA[title] || [];
+  const scData = RESTAURANT_DATA[scid] || RESTAURANT_DATA['102'];
+  const rows = scData[title] || [];
   if (!rows.length) {
     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px;">No listings yet — sample data coming soon.</td></tr>';
   } else {
