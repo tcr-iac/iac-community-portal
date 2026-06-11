@@ -63,6 +63,7 @@
     #video-thumb-wrapper { flex-shrink: 0; text-align: center; }
     #video-thumb {
       width: 200px; height: 120px;
+      background: rgba(0,0,0,0.4);
       border-radius: 0.5rem;
       border: 2px solid rgba(255,255,255,0.2);
       cursor: pointer; position: relative; overflow: hidden;
@@ -179,12 +180,41 @@
       cursor: pointer; line-height: 1;
     }
     #video-player {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border-radius: 0.5rem;
+      width: 100%; border-radius: 0.5rem;
       display: block;
-      border: none;
     }
+
+    /* TABLE OVERLAY */
+    #table-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #table-overlay[hidden] { display: none; }
+    #table-overlay-backdrop {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    #table-overlay-box {
+      position: relative;
+      background: white; border-radius: 8px;
+      padding: 24px; width: 90%; max-width: 700px;
+      max-height: 80vh; overflow-y: auto;
+    }
+    #table-overlay-box h3 { color: #004a99; margin-bottom: 16px; }
+    #table-overlay-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; font-size: 20px; cursor: pointer; color: #888;
+    }
+    .restaurant-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .restaurant-table th {
+      background: #004a99; color: white; padding: 10px 12px; text-align: left;
+    }
+    .restaurant-table td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+    .restaurant-table tr:nth-child(even) { background: #f7f9fc; }
+    .restaurant-table a { color: #004a99; text-decoration: none; font-weight: 600; }
+    .restaurant-table a:hover { text-decoration: underline; }
 
     /* MENU ITEMS */
     .menu-item { margin-bottom: 2px; }
@@ -261,14 +291,27 @@
   <button id="btn-receptionists" class="bottom-nav-btn">Community Receptionists</button>
 </footer>
 
-<!-- VIDEO MODAL — now uses iframe for proper YouTube playback -->
+<!-- TABLE OVERLAY -->
+<div id="table-overlay" hidden>
+  <div id="table-overlay-backdrop"></div>
+  <div id="table-overlay-box">
+    <button id="table-overlay-close">&#x2715;</button>
+    <h3 id="table-overlay-title"></h3>
+    <table class="restaurant-table">
+      <thead>
+        <tr><th>Name</th><th>Phone</th><th>Address</th><th>Website</th><th>Map</th></tr>
+      </thead>
+      <tbody id="table-overlay-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
 <div id="video-modal" hidden>
   <div id="video-modal-backdrop"></div>
   <div id="video-modal-box">
     <button id="video-modal-close">&#x2715;</button>
-    <iframe id="video-player" frameborder="0" allowfullscreen
-      allow="autoplay; encrypted-media">
-    </iframe>
+    <video id="video-player" controls>Your browser does not support the video tag.</video>
   </div>
 </div>
 
@@ -282,7 +325,7 @@ const SC_DATA = {
     vision1: '"Technology and tradition, working together for rural Minnesota."',
     vision2: '"Building opportunity for every community in the ecosystem."',
     tagline: 'Connecting Rural Minnesota to the Information Age',
-    videoId: 'Gdl_vfZPQoQ',
+    videoUrl: 'https://www.youtube.com/watch?v=Gdl_vfZPQoQ',
   },
   '101': {
     name: 'Austin Service Center',
@@ -291,13 +334,13 @@ const SC_DATA = {
     vision1: '"Strengthening Austin as a regional hub for the Information Age."',
     vision2: '"Opportunity for every family in southern Minnesota."',
     tagline: 'Connecting Southern Minnesota to the Information Age',
-    videoId: 'Gdl_vfZPQoQ',
+    videoUrl: 'https://www.youtube.com/watch?v=Gdl_vfZPQoQ',
   }
 };
 
 // ── Menus ───────────────────────────────────────────────────
 const MENUS = {
-  1: [
+  1: [ // TeleCenter Services
     { title: 'Cultural Support', children: [
       { title: 'Arts & Entertainment', children: [] },
       { title: 'Heritage & History', children: [] },
@@ -326,7 +369,7 @@ const MENUS = {
       ]},
     ]},
   ],
-  2: [
+  2: [ // Directory
     { title: 'Accommodation & Food Services', children: [
       { title: 'Food Services & Drinking Places', children: [
         { title: 'Full-Service Restaurants', table: true, children: [] },
@@ -342,7 +385,7 @@ const MENUS = {
       { title: 'Hospitals', children: [] },
     ]},
   ],
-  3: [
+  3: [ // Community Engagement
     { title: 'Accountability', children: [
       { title: 'Observation Budget', children: [] },
       { title: 'Issues - Community', children: [] },
@@ -416,7 +459,7 @@ function renderItem(item, depth) {
     wrap.appendChild(row);
   } else if (item.table) {
     row.innerHTML = `<span>📋</span><span>${item.title}</span>`;
-    row.addEventListener('click', () => alert(`Loading table for: ${item.title}`));
+    row.addEventListener('click', () => showTableOverlay(item.title));
     wrap.appendChild(row);
   } else {
     row.innerHTML = `<span style="color:#aaa">•</span><span>${item.title}</span>`;
@@ -424,6 +467,47 @@ function renderItem(item, depth) {
   }
   return wrap;
 }
+
+// Sample restaurant data
+const RESTAURANT_DATA = {
+  'Full-Service Restaurants': [
+    { name: 'The Lakeside Grill', phone: '218-555-0142', address: '320 Main St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    { name: 'Northwoods Steakhouse', phone: '218-555-0198', address: '88 Lake Ave, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    { name: 'Pine River Diner', phone: '218-555-0211', address: '14 Pine Rd, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+  ],
+  'Limited-Service Restaurants': [
+    { name: 'Quick Bites Cafe', phone: '218-555-0300', address: '5 Oak St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+    { name: 'Brainerd Burger Co', phone: '218-555-0321', address: '102 Elm St, Brainerd, MN', website: 'https://example.com', map: 'https://maps.google.com' },
+  ]
+};
+
+function showTableOverlay(title) {
+  document.getElementById('table-overlay-title').textContent = title;
+  const tbody = document.getElementById('table-overlay-body');
+  tbody.innerHTML = '';
+  const rows = RESTAURANT_DATA[title] || [];
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px;">No listings yet — sample data coming soon.</td></tr>';
+  } else {
+    rows.forEach(r => {
+      tbody.innerHTML += `<tr>
+        <td>${r.name}</td>
+        <td>${r.phone}</td>
+        <td>${r.address}</td>
+        <td><a href="${r.website}" target="_blank">Visit</a></td>
+        <td><a href="${r.map}" target="_blank">Map</a></td>
+      </tr>`;
+    });
+  }
+  document.getElementById('table-overlay').hidden = false;
+}
+
+document.getElementById('table-overlay-close').addEventListener('click', () => {
+  document.getElementById('table-overlay').hidden = true;
+});
+document.getElementById('table-overlay-backdrop').addEventListener('click', () => {
+  document.getElementById('table-overlay').hidden = true;
+});
 
 function loadMenu(idx) {
   const content = document.getElementById('menu-content');
@@ -460,32 +544,18 @@ const btn3 = document.getElementById('menu-btn-3');
 btn1.setAttribute('aria-selected', 'true');
 loadMenu(1);
 
-// ── VIDEO — fixed to use YouTube iframe embed ────────────────
-const thumb  = document.getElementById('video-thumb');
+// Video
+const thumb = document.getElementById('video-thumb');
 const modal  = document.getElementById('video-modal');
 const player = document.getElementById('video-player');
-
 thumb.addEventListener('click', () => {
-  player.src = `https://www.youtube.com/embed/${sc.videoId}?autoplay=1`;
-  modal.hidden = false;
+  window.open(sc.videoUrl, '_blank');
 });
-
-thumb.addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    player.src = `https://www.youtube.com/embed/${sc.videoId}?autoplay=1`;
-    modal.hidden = false;
-  }
-});
-
 document.getElementById('video-modal-close').addEventListener('click', () => {
-  modal.hidden = true;
-  player.src = '';
+  modal.hidden = true; player.pause(); player.src = '';
 });
-
 document.getElementById('video-modal-backdrop').addEventListener('click', () => {
-  modal.hidden = true;
-  player.src = '';
+  modal.hidden = true; player.pause(); player.src = '';
 });
 
 // Bottom nav
