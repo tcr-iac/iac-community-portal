@@ -523,7 +523,7 @@ function showTableOverlay(title) {
   const scData = RESTAURANT_DATA[scid] || RESTAURANT_DATA['102'];
   const rows = scData[title] || [];
   if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px;">No listings yet — sample data coming soon.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px;">📋 No listings yet for this category — coming soon!</td></tr>';
   } else {
     rows.forEach(r => {
       tbody.innerHTML += `<tr>
