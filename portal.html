@@ -342,19 +342,19 @@ const SC_DATA = {
 const MENUS = {
   1: [ // TeleCenter Services
     { title: 'Cultural Support', children: [
-      { title: 'Arts & Entertainment', children: [] },
-      { title: 'Heritage & History', children: [] },
-      { title: 'Religious & Spiritual', children: [] },
+      { title: 'Arts & Entertainment', file: 'Arts_Entertainment_Listing.pdf', children: [] },
+      { title: 'Heritage & History', file: 'Heritage_History.pdf', children: [] },
+      { title: 'Religious & Spiritual', file: 'Religious_Spiritual_Directory.pdf', children: [] },
     ]},
     { title: 'Economic Support', children: [
-      { title: 'Business Development', children: [] },
-      { title: 'Employment Services', children: [] },
-      { title: 'E-Commerce', children: [] },
+      { title: 'Business Development', file: 'Business_Development_Resources.pdf', children: [] },
+      { title: 'Employment Services', file: 'Employment_Services.pdf', children: [] },
+      { title: 'E-Commerce', file: 'E_Commerce_Resources.pdf', children: [] },
     ]},
     { title: 'Education Facilities', children: [
-      { title: 'K-12 Schools', children: [] },
-      { title: 'Higher Education', children: [] },
-      { title: 'Vocational Training', children: [] },
+      { title: 'K-12 Schools', file: 'K12_Schools_Directory.pdf', children: [] },
+      { title: 'Higher Education', file: 'Higher_Education_Directory.pdf', children: [] },
+      { title: 'Vocational Training', file: 'Vocational_Training_Directory.pdf', children: [] },
     ]},
     { title: 'WVP Deployment', children: [
       { title: 'TeleCommuting', children: [
@@ -377,24 +377,24 @@ const MENUS = {
       ]},
     ]},
     { title: 'Retail Trade', children: [
-      { title: 'General Merchandise Stores', children: [] },
-      { title: 'Food & Beverage Stores', children: [] },
+      { title: 'General Merchandise Stores', table: true, children: [] },
+      { title: 'Food & Beverage Stores', table: true, children: [] },
     ]},
     { title: 'Health Care & Social Assistance', children: [
-      { title: 'Ambulatory Health Care', children: [] },
-      { title: 'Hospitals', children: [] },
+      { title: 'Ambulatory Health Care', table: true, children: [] },
+      { title: 'Hospitals', table: true, children: [] },
     ]},
   ],
   3: [ // Community Engagement
     { title: 'Accountability', children: [
-      { title: 'Observation Budget', children: [] },
-      { title: 'Issues - Community', children: [] },
+      { title: 'Observation Budget', file: 'Observation_Budget.pdf', children: [] },
+      { title: 'Issues - Community', file: 'Community_Issues.pdf', children: [] },
       { title: 'Legal Framework', file: 'IAC_Legal_Framework.pdf', children: [] },
-      { title: 'Public Policy', children: [] },
+      { title: 'Public Policy', file: 'Public_Policy.pdf', children: [] },
     ]},
     { title: 'Culture', children: [
       { title: 'Sports', file: 'Sports_Stats', children: [] },
-      { title: 'Arts', children: [] },
+      { title: 'Arts', file: 'Arts_Programs.pdf', children: [] },
     ]},
     { title: 'Performance', children: [
       { title: 'Contribution Trends', children: [
@@ -407,9 +407,9 @@ const MENUS = {
       ]},
     ]},
     { title: 'Fellowship', children: [
-      { title: 'Announcements', children: [] },
-      { title: 'Events', children: [] },
-      { title: 'Recognition', children: [] },
+      { title: 'Announcements', file: 'Announcements.pdf', children: [] },
+      { title: 'Events', file: 'Events_Calendar.pdf', children: [] },
+      { title: 'Recognition', file: 'Recognition.pdf', children: [] },
     ]},
   ],
 };
