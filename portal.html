@@ -495,21 +495,53 @@ const RESTAURANT_DATA = {
 function showFileOverlay(title, fileName) {
   const overlay = document.getElementById('table-overlay');
   document.getElementById('table-overlay-title').textContent = title;
-  const tbody = document.getElementById('table-overlay-body');
   document.querySelector('#table-overlay-box table').style.display = 'none';
   let msgBox = document.getElementById('file-coming-soon');
   if (!msgBox) {
     msgBox = document.createElement('div');
     msgBox.id = 'file-coming-soon';
-    msgBox.style.cssText = 'padding:30px;text-align:center;color:#888;';
+    msgBox.style.cssText = 'padding:10px;text-align:center;color:#888;';
     document.getElementById('table-overlay-box').appendChild(msgBox);
   }
+
+  const filePath = `files/${fileName}`;
+  const ext = fileName.split('.').pop().toLowerCase();
+
+  // Try to load the actual file - check if it exists
+  fetch(filePath, { method: 'HEAD' })
+    .then(res => {
+      if (res.ok) {
+        // File exists - display it
+        if (ext === 'pdf') {
+          msgBox.innerHTML = `<iframe src="${filePath}" style="width:100%;height:65vh;border:1px solid #eee;border-radius:6px;"></iframe>`;
+        } else if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
+          msgBox.innerHTML = `<img src="${filePath}" style="max-width:100%;max-height:65vh;border-radius:6px;">`;
+        } else if (['ppt','pptx','doc','docx','xls','xlsx'].includes(ext)) {
+          msgBox.innerHTML = `
+            <div style="padding:30px;">
+              <div style="font-size:40px;margin-bottom:12px;">📄</div>
+              <p style="font-size:15px;color:#444;margin-bottom:12px;"><strong>${fileName}</strong></p>
+              <a href="${filePath}" download style="background:#004a99;color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;">Download File</a>
+            </div>`;
+        } else {
+          msgBox.innerHTML = `<a href="${filePath}" target="_blank">Open ${fileName}</a>`;
+        }
+      } else {
+        showComingSoon();
+      }
+    })
+    .catch(() => showComingSoon());
+
+  function showComingSoon() {
+    msgBox.innerHTML = `
+      <div style="padding:30px;">
+        <div style="font-size:40px;margin-bottom:12px;">📄</div>
+        <p style="font-size:15px;color:#444;margin-bottom:6px;"><strong>${fileName}</strong></p>
+        <p style="font-size:13px;color:#aaa;">This file is not loaded yet — coming soon!</p>
+      </div>`;
+  }
+
   msgBox.style.display = 'block';
-  msgBox.innerHTML = `
-    <div style="font-size:40px;margin-bottom:12px;">📄</div>
-    <p style="font-size:15px;color:#444;margin-bottom:6px;"><strong>${fileName}</strong></p>
-    <p style="font-size:13px;color:#aaa;">This file is not loaded yet — coming soon!</p>
-  `;
   overlay.hidden = false;
 }
 
