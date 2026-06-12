@@ -1,53 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Information Age Community</title>
-
-<style>
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
+html,
+body {
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    background: #195a7a;
-    color: white;
+    background: #1d5b7f;
+    color: #fff;
 }
 
 body {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 /* HEADER */
 .top-bar {
-    height: 72px;
+    height: 68px;
     background: #174a67;
-    border-bottom: 2px solid #2d86b8;
+    border-bottom: 2px solid #3187ba;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 38px;
+    align-items: center;
+    padding: 0 35px;
 }
 
 .iac-logo {
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 30px;
+    font-weight: bold;
     letter-spacing: 2px;
 }
 
 .iac-sub {
-    font-size: 12px;
-    color: #8bb8d0;
-    letter-spacing: 1.2px;
-    margin-top: 2px;
+    color: #8bb8d3;
+    font-size: 11px;
+    letter-spacing: 1px;
 }
 
 .top-bar-right {
@@ -56,73 +47,64 @@ body {
 
 .top-bar-right strong {
     display: block;
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 15px;
 }
 
 .top-bar-right span {
-    font-size: 12px;
-    color: #8bb8d0;
+    color: #8bb8d3;
+    font-size: 11px;
 }
 
-/* MAIN */
+/* MAIN AREA */
 .main {
     flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 0.95fr;
-    gap: 90px;
-    padding: 0 52px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 40px;
 }
 
-/* LEFT */
+/* LEFT SIDE */
 .left {
-    margin-top: 150px;
+    width: 48%;
+    margin-top: 180px;
 }
 
 .left h1 {
     font-size: 28px;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    margin-bottom: 22px;
     text-transform: uppercase;
-    margin-bottom: 24px;
+    letter-spacing: 1px;
 }
 
 .left p {
-    max-width: 840px;
     font-size: 15px;
-    line-height: 2;
+    line-height: 1.8;
+    color: #d7eaf6;
     font-style: italic;
-    font-weight: 600;
-    color: #d8edf7;
-    margin-bottom: 28px;
+    max-width: 650px;
+    margin-bottom: 30px;
 }
 
 .video-btn {
-    width: 218px;
-    height: 42px;
-    border: 1.5px solid #52a5d5;
-    border-radius: 6px;
-    color: #76bce3;
+    display: inline-block;
+    color: #6fb7df;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    border: 1px solid #5aa8d6;
+    border-radius: 5px;
+    padding: 10px 22px;
+    font-size: 13px;
 }
 
 .video-btn:hover {
-    background: #2c86b9;
-    color: white;
+    background: #2e83b5;
 }
 
-/* RIGHT */
+/* RIGHT SIDE */
 .right {
-    width: 100%;
-    max-width: 940px;
-    margin-left: auto;
-    margin-top: 30px;
+    width: 46%;
+    max-width: 760px;
 }
 
 .section {
@@ -131,13 +113,13 @@ body {
 
 .group-label {
     color: #a9cce3;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 3px;
     text-transform: uppercase;
+    border-left: 3px solid #3d9bd6;
+    padding-left: 10px;
     margin-bottom: 8px;
-    padding-left: 14px;
-    border-left: 4px solid #3498db;
 }
 
 .btn-group {
@@ -147,139 +129,69 @@ body {
 }
 
 .nav-btn {
-    height: 43px;
-    border-radius: 7px;
+    width: 100%;
+    height: 42px;
+    border-radius: 8px;
     text-decoration: none;
     color: white;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.nav-btn.concept {
-    background: #2b7fad;
-    border: 2px solid #5dade2;
+.concept {
+    background: #2b7ead;
+    border: 2px solid #58aee0;
 }
 
-.nav-btn.tool {
-    background: #1b5575;
-    border: 2px solid #2e86c1;
+.tool {
+    background: #1b5678;
+    border: 2px solid #2f8fc5;
 }
 
 .nav-btn:hover {
-    background: #3498db;
+    background: #3c9fd8;
 }
 
 .divider {
     border: none;
-    border-top: 1.5px solid #2e86c1;
-    margin: 18px 0;
+    border-top: 1px solid #3187ba;
+    margin: 14px 0;
 }
 
 /* FOOTER */
 .footer {
-    height: 38px;
+    height: 30px;
     background: #174a67;
-    border-top: 1.5px solid #2d86b8;
-    color: #8bb8d0;
-    font-size: 11px;
-    font-weight: 600;
+    border-top: 1px solid #3187ba;
+    color: #89b8d1;
+    font-size: 10px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .footer a {
-    color: #6bb6df;
+    color: #69b7e1;
     text-decoration: none;
 }
 
 /* MOBILE */
 @media (max-width: 900px) {
     .main {
-        grid-template-columns: 1fr;
-        gap: 35px;
-        padding: 40px 30px;
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .left,
+    .right {
+        width: 100%;
     }
 
     .left {
-        margin-top: 20px;
-    }
-
-    .right {
-        margin-top: 0;
-        max-width: 100%;
+        margin-top: 30px;
+        margin-bottom: 40px;
     }
 }
-</style>
-</head>
-
-<body>
-
-<header class="top-bar">
-    <div>
-        <div class="iac-logo">IAC</div>
-        <div class="iac-sub">Information Age Community</div>
-    </div>
-
-    <div class="top-bar-right">
-        <strong>Tele-Commuter Resources, Inc.</strong>
-        <span>A 501(c)3 Non-Profit Organization</span>
-    </div>
-</header>
-
-<main class="main">
-
-    <section class="left">
-        <h1>THE INFORMATION AGE COMMUNITY</h1>
-
-        <p>
-            A community-driven framework that embraces communities with a strong orientation to a Major Metropolitan Area —
-            strengthening global competitiveness and enhancing the long-term viability of six lifestyles within a dynamic ecosystem.
-        </p>
-
-        <a href="https://youtu.be/Gdl_vfZPQoQ" target="_blank" class="video-btn">
-            ▶&nbsp; Watch our IAC Video
-        </a>
-    </section>
-
-    <section class="right">
-
-        <div class="section">
-            <div class="group-label">Community Concepts</div>
-            <div class="btn-group">
-                <a href="index.html" class="nav-btn concept">The TeleCenter</a>
-                <a href="#" class="nav-btn concept">Community Alliance</a>
-                <a href="#" class="nav-btn concept">Governance</a>
-                <a href="#" class="nav-btn concept">Regional Transit</a>
-            </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="section">
-            <div class="group-label">Strategic Tools</div>
-            <div class="btn-group">
-                <a href="files/eConsensus_Report_Format.pdf" target="_blank" class="nav-btn tool">E-Consensus Forum</a>
-                <a href="#" class="nav-btn tool">Community Information System</a>
-                <a href="index.html" class="nav-btn tool">The Lens</a>
-                <a href="files/IAC_Viability_Index_Implementation.pdf" target="_blank" class="nav-btn tool">Viability Index</a>
-                <a href="#" class="nav-btn tool">Visioning</a>
-            </div>
-        </div>
-
-    </section>
-
-</main>
-
-<footer class="footer">
-    © 2026 Tele-Commuter Resources, Inc. &nbsp;|&nbsp;
-    4315 Virginia Avenue, St Paul, MN 55126 &nbsp;|&nbsp;
-    <a href="tel:6514868408">651-486-8408</a> &nbsp;|&nbsp;
-    <a href="http://www.telecommuter.org">www.telecommuter.org</a>
-</footer>
-
-</body>
-</html>
