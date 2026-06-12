@@ -557,7 +557,9 @@ function showFileOverlay(title, fileName) {
 function showTableOverlay(title) {
   const msgBox = document.getElementById('file-coming-soon');
   if (msgBox) msgBox.style.display = 'none';
-  document.querySelector('#table-overlay-box table').style.display = '';
+  const table = document.querySelector('#table-overlay-box table');
+  table.style.display = '';
+  table.querySelector('thead tr').innerHTML = '<th>Name</th><th>Phone</th><th>Address</th><th>Website</th><th>Map</th>';
   document.getElementById('table-overlay-title').textContent = title;
   const tbody = document.getElementById('table-overlay-body');
   tbody.innerHTML = '';
@@ -638,7 +640,16 @@ document.getElementById('video-modal-backdrop').addEventListener('click', () => 
 // Bottom nav
 document.getElementById('btn-iac-lens').addEventListener('click', () => { window.location.href = 'index.html'; });
 document.getElementById('btn-neighborhoods').addEventListener('click', () => { window.location.href = `profile.html?scid=${scid}&zip=${zip}`; });
-document.getElementById('btn-contacts').addEventListener('click', () => { alert('Contacts coming soon!'); });
+document.getElementById('btn-contacts').addEventListener('click', () => {
+  const msgBox = document.getElementById('file-coming-soon');
+  if (msgBox) msgBox.style.display = 'none';
+  document.getElementById('table-overlay-title').textContent = 'Contacts';
+  const table = document.querySelector('#table-overlay-box table');
+  table.style.display = '';
+  table.querySelector('thead tr').innerHTML = '<th>Name</th><th>Phone</th><th>Email</th><th>Role</th>';
+  document.getElementById('table-overlay-body').innerHTML = '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:30px;">📋 Contact list coming soon!</td></tr>';
+  document.getElementById('table-overlay').hidden = false;
+});
 document.getElementById('btn-receptionists').addEventListener('click', () => { alert('Community Receptionists coming soon!'); });
 </script>
 </body>
