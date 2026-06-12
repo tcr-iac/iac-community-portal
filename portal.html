@@ -34,12 +34,6 @@
       flex: 1; text-align: center; font-size: 1rem;
       font-weight: 700; color: #fff; letter-spacing: 0.02em;
     }
-    #nav-search {
-      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 0.4rem; color: #fff; font-size: 0.85rem;
-      font-family: inherit; padding: 0.4rem 0.8rem; outline: none; width: 200px;
-    }
-    #nav-search::placeholder { color: rgba(255,255,255,0.5); }
 
     /* ZONE 2 — HEADER */
     #zone-header {
@@ -95,26 +89,18 @@
 
     /* ZONE 4 — MENUS */
     #zone-menus { padding: 1.5rem 2.5rem; }
-    #menu-button-row {
-      display: flex; gap: 0.5rem; margin-bottom: 1rem;
+    .menu-group { margin-bottom: 1.5rem; }
+    .menu-group-title {
+      font-size: 0.78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #004a99;
+      padding-bottom: 0.4rem; margin-bottom: 0.6rem;
+      border-bottom: 2px solid #004a99;
     }
-    #menu-button-row button {
-      flex: 1; padding: 0.7rem 1rem;
-      background: #e8eef8; border: 2px solid #c5d5ee;
-      border-radius: 0.5rem; font-family: inherit;
-      font-size: 0.9rem; font-weight: 700;
-      color: #004a99; cursor: pointer;
-      transition: all 0.2s;
-    }
-    #menu-button-row button:hover { background: #d0dff5; }
-    #menu-button-row button[aria-selected="true"] {
-      background: #004a99; color: #fff;
-      border-color: #004a99;
-    }
-    #menu-content {
+    .menu-group-content {
       background: white; border-radius: 0.5rem;
       border: 1px solid #e0e8f5;
-      min-height: 200px; padding: 1rem;
+      padding: 0.5rem;
     }
 
     /* ZONE 4.5 — APP DEMOS */
@@ -156,7 +142,7 @@
     }
     .bottom-nav-btn:hover { background: rgba(255,255,255,0.22); }
 
-    /* VIDEO MODAL */
+    /* VIDEO MODAL — full screen, no suggestions */
     #video-modal {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%; z-index: 9999;
@@ -165,22 +151,23 @@
     #video-modal-backdrop {
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0,0,0,0.92);
     }
     #video-modal-box {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 80%; max-width: 800px;
+      width: 95vw; height: 95vh;
+      max-width: 1600px;
     }
     #video-modal-close {
-      position: absolute; top: -2rem; right: 0;
+      position: absolute; top: -2.2rem; right: 0;
       background: none; border: none;
       color: white; font-size: 1.8rem;
       cursor: pointer; line-height: 1;
     }
-    #video-player {
-      width: 100%; border-radius: 0.5rem;
+    #video-player-frame {
+      width: 100%; height: 100%; border: 0; border-radius: 0.5rem;
       display: block;
     }
 
@@ -225,11 +212,23 @@
     }
     .menu-row:hover { background: #e8f0fe; }
     .menu-arrow { font-size: 10px; color: #004a99; transition: transform 0.2s; }
-    .menu-load-btn {
-      background: #004a99; color: white;
-      border: none; border-radius: 4px;
-      padding: 2px 10px; font-size: 11px;
-      cursor: pointer; margin-left: auto;
+    /* Top-level categories in caps */
+    .menu-row.depth-0 {
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 13px;
+      background: #f0f6ff;
+      border-left: 3px solid #004a99;
+    }
+    .menu-row.depth-1 {
+      font-weight: 500;
+      font-size: 13px;
+      border-left: 3px solid #0066cc;
+    }
+    .menu-row.depth-2, .menu-row.depth-3 {
+      font-weight: 400;
+      font-size: 12px;
+      border-left: 3px solid #aaa;
     }
   </style>
 </head>
@@ -240,7 +239,6 @@
   <a href="index.html" id="nav-back-link">← All</a>
   <span id="nav-portal-label">IAC PORTAL</span>
   <span id="nav-center-title">Information Age Community</span>
-  <input type="search" id="nav-search" placeholder="Search the portal..." autocomplete="off" />
 </nav>
 
 <!-- ZONE 2 — HEADER -->
@@ -266,14 +264,20 @@
   <span id="tagline-text"></span>
 </section>
 
-<!-- ZONE 4 — MENUS -->
+<!-- ZONE 4 — MENUS (all groups shown simultaneously) -->
 <section id="zone-menus">
-  <div id="menu-button-row">
-    <button id="menu-btn-1" role="tab" aria-selected="false">TeleCenter Services</button>
-    <button id="menu-btn-2" role="tab" aria-selected="false">Directory</button>
-    <button id="menu-btn-3" role="tab" aria-selected="false">Community Engagement</button>
+  <div class="menu-group">
+    <div class="menu-group-title">TeleCenter Services</div>
+    <div class="menu-group-content" id="menu-content-1"></div>
   </div>
-  <div id="menu-content"></div>
+  <div class="menu-group">
+    <div class="menu-group-title">Directory</div>
+    <div class="menu-group-content" id="menu-content-2"></div>
+  </div>
+  <div class="menu-group">
+    <div class="menu-group-title">Community Engagement</div>
+    <div class="menu-group-content" id="menu-content-3"></div>
+  </div>
 </section>
 
 <!-- ZONE 4.5 — APP DEMOS -->
@@ -306,12 +310,12 @@
   </div>
 </div>
 
-<!-- VIDEO MODAL -->
+<!-- VIDEO MODAL — full screen YouTube embed, no suggestions -->
 <div id="video-modal" hidden>
   <div id="video-modal-backdrop"></div>
   <div id="video-modal-box">
     <button id="video-modal-close">&#x2715;</button>
-    <video id="video-player" controls>Your browser does not support the video tag.</video>
+    <iframe id="video-player-frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -325,7 +329,7 @@ const SC_DATA = {
     vision1: '"Technology and tradition, working together for rural Minnesota."',
     vision2: '"Building opportunity for every community in the ecosystem."',
     tagline: 'Connecting Rural Minnesota to the Information Age',
-    videoUrl: 'https://www.youtube.com/watch?v=Gdl_vfZPQoQ',
+    videoId: 'Gdl_vfZPQoQ',
   },
   '101': {
     name: 'Austin Service Center',
@@ -334,7 +338,7 @@ const SC_DATA = {
     vision1: '"Strengthening Austin as a regional hub for the Information Age."',
     vision2: '"Opportunity for every family in southern Minnesota."',
     tagline: 'Connecting Southern Minnesota to the Information Age',
-    videoUrl: 'https://www.youtube.com/watch?v=Gdl_vfZPQoQ',
+    videoId: 'Gdl_vfZPQoQ',
   }
 };
 
@@ -358,7 +362,7 @@ const MENUS = {
     ]},
     { title: 'WVP Deployment', children: [
       { title: 'TeleCommuting', children: [
-        { title: 'Deployment Plan', file: 'WVP_Deployment.ppt', children: [] },
+        { title: 'Deployment Plan', file: 'DCM_5_States.jpg', children: [] },
       ]},
     ]},
     { title: 'Request Assistance', children: [
@@ -414,6 +418,9 @@ const MENUS = {
   ],
 };
 
+// ── Global accordion state (only one top-level item open at a time, across all groups) ──
+let currentOpenTopLevel = null; // { arrow, childDiv }
+
 // ── Render menu items ───────────────────────────────────────
 function renderItem(item, depth) {
   const wrap = document.createElement('div');
@@ -421,11 +428,7 @@ function renderItem(item, depth) {
   wrap.style.paddingLeft = `${depth * 18}px`;
 
   const row = document.createElement('div');
-  row.className = 'menu-row';
-  row.style.borderLeft = `3px solid ${depth === 0 ? '#004a99' : depth === 1 ? '#0066cc' : '#aaa'}`;
-  row.style.fontWeight = depth === 0 ? '700' : '400';
-  row.style.fontSize = `${14 - depth}px`;
-  row.style.background = depth === 0 ? '#f0f6ff' : 'white';
+  row.className = `menu-row depth-${depth}`;
 
   if (item.children && item.children.length > 0) {
     const arrow = document.createElement('span');
@@ -442,7 +445,22 @@ function renderItem(item, depth) {
 
     let open = false;
     row.addEventListener('click', () => {
-      open = !open;
+      if (depth === 0) {
+        // Global accordion: close whatever top-level item is currently open (if different)
+        if (currentOpenTopLevel && currentOpenTopLevel.childDiv !== childDiv) {
+          currentOpenTopLevel.arrow.style.transform = '';
+          currentOpenTopLevel.childDiv.style.display = 'none';
+          currentOpenTopLevel.openFlagSetter(false);
+        }
+        open = !open;
+        if (open) {
+          currentOpenTopLevel = { arrow, childDiv, openFlagSetter: (v) => { open = v; } };
+        } else {
+          currentOpenTopLevel = null;
+        }
+      } else {
+        open = !open;
+      }
       arrow.style.transform = open ? 'rotate(90deg)' : '';
       childDiv.style.display = open ? 'block' : 'none';
     });
@@ -451,11 +469,7 @@ function renderItem(item, depth) {
     wrap.appendChild(childDiv);
   } else if (item.file) {
     row.innerHTML = `<span>📄</span><span style="flex:1">${item.title}</span>`;
-    const btn = document.createElement('button');
-    btn.className = 'menu-load-btn';
-    btn.textContent = 'Load';
-    btn.addEventListener('click', e => { e.stopPropagation(); showFileOverlay(item.title, item.file); });
-    row.appendChild(btn);
+    row.addEventListener('click', () => showFileOverlay(item.title, item.file));
     wrap.appendChild(row);
   } else if (item.table) {
     row.innerHTML = `<span>📋</span><span>${item.title}</span>`;
@@ -507,11 +521,9 @@ function showFileOverlay(title, fileName) {
   const filePath = `files/${fileName}`;
   const ext = fileName.split('.').pop().toLowerCase();
 
-  // Try to load the actual file - check if it exists
   fetch(filePath, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
-        // File exists - display it
         if (ext === 'pdf') {
           window.open(filePath, '_blank');
           msgBox.innerHTML = `
@@ -588,11 +600,13 @@ document.getElementById('table-overlay-backdrop').addEventListener('click', () =
   document.getElementById('table-overlay').hidden = true;
 });
 
-function loadMenu(idx) {
-  const content = document.getElementById('menu-content');
-  content.innerHTML = '';
-  const items = MENUS[idx] || [];
-  items.forEach(item => content.appendChild(renderItem(item, 0)));
+function loadAllMenus() {
+  [1, 2, 3].forEach(idx => {
+    const content = document.getElementById(`menu-content-${idx}`);
+    content.innerHTML = '';
+    const items = MENUS[idx] || [];
+    items.forEach(item => content.appendChild(renderItem(item, 0)));
+  });
 }
 
 // ── Init ────────────────────────────────────────────────────
@@ -609,32 +623,21 @@ document.getElementById('header-vision2').textContent  = sc.vision2;
 document.getElementById('tagline-text').textContent    = sc.tagline;
 document.getElementById('nav-center-title').textContent = sc.name;
 
-// Menu tabs
-const btn1 = document.getElementById('menu-btn-1');
-const btn2 = document.getElementById('menu-btn-2');
-const btn3 = document.getElementById('menu-btn-3');
-[btn1, btn2, btn3].forEach((btn, i) => {
-  btn.addEventListener('click', () => {
-    [btn1, btn2, btn3].forEach(b => b.setAttribute('aria-selected', 'false'));
-    btn.setAttribute('aria-selected', 'true');
-    loadMenu(i + 1);
-  });
-});
-btn1.setAttribute('aria-selected', 'true');
-loadMenu(1);
+loadAllMenus();
 
-// Video
+// Video — full screen embed, no related suggestions
 const thumb = document.getElementById('video-thumb');
 const modal  = document.getElementById('video-modal');
-const player = document.getElementById('video-player');
+const frame  = document.getElementById('video-player-frame');
 thumb.addEventListener('click', () => {
-  window.open(sc.videoUrl, '_blank');
+  frame.src = `https://www.youtube.com/embed/${sc.videoId}?autoplay=1&rel=0&modestbranding=1`;
+  modal.hidden = false;
 });
 document.getElementById('video-modal-close').addEventListener('click', () => {
-  modal.hidden = true; player.pause(); player.src = '';
+  modal.hidden = true; frame.src = '';
 });
 document.getElementById('video-modal-backdrop').addEventListener('click', () => {
-  modal.hidden = true; player.pause(); player.src = '';
+  modal.hidden = true; frame.src = '';
 });
 
 // Bottom nav
