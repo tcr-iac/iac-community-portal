@@ -7,16 +7,16 @@
 
 <style>
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
     width: 100%;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    background: #195a7a;
+    background: #1b5a7b;
     color: white;
 }
 
@@ -26,15 +26,14 @@ body {
     flex-direction: column;
 }
 
-/* HEADER */
 .top-bar {
     height: 72px;
-    background: #154763;
-    border-bottom: 2px solid #2e86c1;
+    background: #164a67;
+    border-bottom: 2px solid #2f8fc5;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 35px;
+    align-items: center;
+    padding: 0 38px;
 }
 
 .iac-logo {
@@ -45,8 +44,8 @@ body {
 
 .iac-sub {
     font-size: 12px;
-    color: #88b8d2;
-    letter-spacing: 1.2px;
+    color: #8dbbd3;
+    letter-spacing: 1px;
 }
 
 .top-bar-right {
@@ -56,76 +55,81 @@ body {
 .top-bar-right strong {
     display: block;
     font-size: 16px;
-    font-weight: 800;
 }
 
 .top-bar-right span {
     font-size: 12px;
-    color: #88b8d2;
+    color: #8dbbd3;
 }
 
-/* MAIN */
 .main {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 45px;
-    gap: 70px;
+    padding: 0 50px;
 }
 
-/* LEFT SIDE */
 .left {
     width: 48%;
-    padding-top: 145px;
+    margin-top: 150px;
 }
 
 .left h1 {
     font-size: 28px;
     font-weight: 800;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
+    letter-spacing: 1.5px;
     margin-bottom: 24px;
 }
 
 .left p {
-    max-width: 860px;
     font-size: 15px;
     line-height: 2;
-    font-weight: 600;
     font-style: italic;
+    font-weight: 600;
     color: #d7edf8;
+    max-width: 780px;
     margin-bottom: 28px;
 }
 
 .video-btn {
+    display: inline-flex;
     width: 200px;
     height: 40px;
+    justify-content: center;
+    align-items: center;
     border: 1.5px solid #5dade2;
     border-radius: 6px;
-    color: #73bde6;
+    color: #70bce6;
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.video-btn:hover {
-    background: #2e86c1;
-    color: white;
-}
-
-/* RIGHT SIDE */
 .right {
     width: 48%;
-    max-width: 900px;
-    padding-top: 60px;
+    max-width: 880px;
+    margin-top: 50px;
 }
 
-.section {
-    margin-bottom: 16px;
+/* THIS FORCES ONE COLUMN */
+.btn-group {
+    display: block !important;
+    width: 100% !important;
+}
+
+.nav-btn {
+    display: flex !important;
+    width: 100% !important;
+    height: 43px;
+    margin-bottom: 8px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .group-label {
@@ -139,40 +143,14 @@ body {
     border-left: 4px solid #3498db;
 }
 
-/* IMPORTANT: FORCE ONE COLUMN */
-.btn-group {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: none !important;
-    gap: 8px;
-    width: 100%;
-}
-
-.nav-btn {
-    width: 100% !important;
-    height: 43px;
-    border-radius: 7px;
-    text-decoration: none;
-    color: white;
-    font-size: 14px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nav-btn.concept {
+.concept {
     background: #2b7fad;
     border: 2px solid #5dade2;
 }
 
-.nav-btn.tool {
+.tool {
     background: #1b5575;
     border: 2px solid #2e86c1;
-}
-
-.nav-btn:hover {
-    background: #3498db;
 }
 
 .divider {
@@ -181,10 +159,9 @@ body {
     margin: 18px 0;
 }
 
-/* FOOTER */
 .footer {
     height: 38px;
-    background: #154763;
+    background: #164a67;
     border-top: 1.5px solid #2e86c1;
     color: #88b8d2;
     font-size: 11px;
@@ -232,7 +209,7 @@ body {
 
     <section class="right">
 
-        <div class="section">
+        <div>
             <div class="group-label">Community Concepts</div>
             <div class="btn-group">
                 <a href="index.html" class="nav-btn concept">The TeleCenter</a>
@@ -244,7 +221,7 @@ body {
 
         <hr class="divider">
 
-        <div class="section">
+        <div>
             <div class="group-label">Strategic Tools</div>
             <div class="btn-group">
                 <a href="files/eConsensus_Report_Format.pdf" target="_blank" class="nav-btn tool">E-Consensus Forum</a>
