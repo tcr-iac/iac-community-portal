@@ -224,6 +224,10 @@
       </div>
     </div>
 
+    <div id="portal-coming-soon" hidden style="margin-top:0.75rem;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:0.5rem;padding:0.75rem 1rem;text-align:center;color:rgba(255,255,255,0.85);font-size:0.85rem;">
+      ⏳ <strong>Portal coming soon</strong> for this community — we are working on it!
+    </div>
+
     <div id="not-found" hidden>
       <strong id="not-found-msg">No portal found</strong>
       Try a different city name or zip code.
@@ -3716,13 +3720,36 @@ COMMUNITIES.forEach(c => {
     ).slice(0, 6);
   }
 
+  // Only these cities have real portal data right now
+  const LIVE_SCIDS = ['Brainerd', 'Austin'];
+
   function select(c) {
     input.value = `${c.name}, ${c.state} ${c.zip}`;
     sugBox.innerHTML = ''; sugBox.hidden = true; notFound.hidden = true;
     document.getElementById('result-scid').textContent = `SCID — ${c.scid}`;
     document.getElementById('result-name').textContent = c.name;
     document.getElementById('result-meta').textContent = `${c.county} County, ${c.state} · ZIP ${c.zip}`;
-    document.getElementById('launch-btn').href = 'portal.html?scid=' + c.scid + '&zip=' + c.zip;
+
+    const btn = document.getElementById('launch-btn');
+    if (LIVE_SCIDS.includes(c.scid)) {
+      // Real data — launch normally
+      btn.href = 'portal.html?scid=' + c.scid + '&zip=' + c.zip;
+      btn.style.background = '';
+      btn.style.cursor = 'pointer';
+      btn.style.opacity = '1';
+      btn.onclick = null;
+      btn.title = '';
+      document.getElementById('portal-coming-soon').hidden = true;
+    } else {
+      // No data yet — block launch and show message
+      btn.href = '#';
+      btn.style.background = '#888';
+      btn.style.cursor = 'not-allowed';
+      btn.style.opacity = '0.7';
+      btn.onclick = (e) => e.preventDefault();
+      btn.title = 'Portal not yet available for this community';
+      document.getElementById('portal-coming-soon').hidden = false;
+    }
     resultCard.hidden = false;
   }
 
