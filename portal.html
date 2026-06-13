@@ -9,7 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: "Inter", Arial, sans-serif; background: #f4f6fb; color: #1a1a2e; }
+    html { background: #f4f6fb; }
+    body {
+      font-family: "Inter", Arial, sans-serif; background: #f4f6fb; color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    /* FOOTER */
+    #zone-footer {
+      background: #003580; color: rgba(255,255,255,0.7);
+      text-align: center; padding: 1.5rem 1rem;
+      font-size: 0.85rem; font-weight: 500;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    #zone-footer a { color: #8fc1ff; text-decoration: none; }
+    #zone-footer a:hover { text-decoration: underline; }
 
     /* ZONE 1 — NAVBAR */
     #zone-navbar {
@@ -40,23 +54,23 @@
       background: linear-gradient(135deg, #003580 0%, #004a99 60%, #0066cc 100%);
       color: #fff;
       display: flex; align-items: flex-start; gap: 2rem;
-      padding: 2rem 2.5rem;
+      padding: 3rem 2.5rem;
     }
     #header-text { flex: 1; }
-    #header-sc-name { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.3rem; }
-    #header-tagline2 { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-bottom: 0.2rem; }
+    #header-sc-name { font-size: 2.4rem; font-weight: 800; margin-bottom: 0.5rem; color: #fff; }
+    #header-tagline2 { font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 0.4rem; }
     #header-iac-line { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-bottom: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
     #header-vision1, #header-vision2 {
-      font-size: 0.88rem; font-style: italic;
-      color: rgba(255,255,255,0.72); line-height: 1.6;
-      border-left: 3px solid rgba(255,255,255,0.3);
-      padding-left: 0.75rem; margin-bottom: 0.5rem;
+      font-size: 1rem; font-style: italic;
+      color: rgba(255,255,255,0.85); line-height: 1.8;
+      border-left: 3px solid #2e7d4f;
+      padding-left: 1rem; margin-bottom: 0.7rem;
     }
 
     /* Video thumbnail */
     #video-thumb-wrapper { flex-shrink: 0; text-align: center; }
     #video-thumb {
-      width: 200px; height: 120px;
+      width: 260px; height: 156px;
       background: rgba(0,0,0,0.4);
       border-radius: 0.5rem;
       border: 2px solid rgba(255,255,255,0.2);
@@ -88,59 +102,48 @@
     }
 
     /* ZONE 4 — MENUS */
-    #zone-menus { padding: 1.5rem 2.5rem; }
-    .menu-group { margin-bottom: 1.5rem; }
+    #zone-menus { padding: 2.5rem 2.5rem; display: flex; gap: 1.5rem; align-items: flex-start; }
+    .menu-group { flex: 1; min-width: 0; margin-bottom: 1.5rem; }
+    @media (max-width: 900px) {
+      #zone-menus { flex-direction: column; }
+    }
     .menu-group-title {
-      font-size: 0.78rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.12em;
+      font-size: 0.95rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.14em;
       color: #004a99;
-      padding-bottom: 0.4rem; margin-bottom: 0.6rem;
-      border-bottom: 2px solid #004a99;
+      padding-bottom: 0.6rem; margin-bottom: 0.8rem;
+      border-bottom: 3px solid #2e7d4f;
     }
     .menu-group-content {
-      background: white; border-radius: 0.5rem;
+      background: white; border-radius: 0.6rem;
       border: 1px solid #e0e8f5;
-      padding: 0.5rem;
+      padding: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,74,153,0.06);
     }
 
     /* ZONE 4.5 — APP DEMOS */
     #zone-app-demos {
-      padding: 0.75rem 2.5rem;
-      display: flex; align-items: center; gap: 1rem;
-      background: #f0f4fc;
-      border-top: 1px solid #dde6f5;
+      padding: 1.75rem 2.5rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      background: #e6f4ec;
+      border-top: 1px solid #cce6d6;
+      border-bottom: 1px solid #cce6d6;
     }
     #app-demos-label {
-      font-size: 0.75rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      color: #666;
+      font-size: 0.85rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #555;
     }
     .app-demo-btn {
-      background: #004a99; color: white;
-      border: none; border-radius: 0.4rem;
-      padding: 0.4rem 1rem; font-size: 0.82rem;
-      font-family: inherit; font-weight: 600;
-      cursor: pointer; transition: opacity 0.15s;
+      background: #2e7d4f; color: #fff;
+      border: none; border-radius: 0.5rem;
+      padding: 0.75rem 1.75rem; font-size: 0.95rem;
+      font-family: inherit; font-weight: 700;
+      cursor: pointer; transition: all 0.15s;
+      box-shadow: 0 2px 8px rgba(46,125,79,0.3);
     }
+    .app-demo-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46,125,79,0.4); }
     .app-demo-btn:hover { opacity: 0.85; }
-
-    /* ZONE 5 — BOTTOM NAV */
-    #zone-bottom-nav {
-      background: #003580;
-      display: flex; gap: 0.5rem;
-      padding: 0.75rem 2.5rem;
-    }
-    .bottom-nav-btn {
-      flex: 1; padding: 0.65rem 0.5rem;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 0.4rem;
-      color: #fff; font-family: inherit;
-      font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; transition: background 0.15s;
-      text-align: center;
-    }
-    .bottom-nav-btn:hover { background: rgba(255,255,255,0.22); }
 
     /* VIDEO MODAL — full screen, no suggestions */
     #video-modal {
@@ -207,18 +210,18 @@
     .menu-item { margin-bottom: 2px; }
     .menu-row {
       display: flex; align-items: center; gap: 8px;
-      padding: 8px 12px; cursor: pointer;
-      border-radius: 4px; transition: background 0.15s;
+      padding: 11px 14px; cursor: pointer;
+      border-radius: 6px; transition: background 0.15s;
     }
     .menu-row:hover { background: #e8f0fe; }
-    .menu-arrow { font-size: 10px; color: #004a99; transition: transform 0.2s; }
+    .menu-arrow { font-size: 10px; color: #2e7d4f; transition: transform 0.2s; }
     /* Top-level categories in caps */
     .menu-row.depth-0 {
       text-transform: uppercase;
       font-weight: 800;
       font-size: 13px;
       background: #f0f6ff;
-      border-left: 3px solid #004a99;
+      border-left: 4px solid #2e7d4f;
     }
     .menu-row.depth-1 {
       font-weight: 500;
@@ -287,12 +290,12 @@
   <button id="btn-viability" class="app-demo-btn">Viability Index</button>
 </section>
 
-<!-- ZONE 5 — BOTTOM NAV -->
-<footer id="zone-bottom-nav">
-  <button id="btn-contacts" class="bottom-nav-btn">Contacts</button>
-  <button id="btn-iac-lens" class="bottom-nav-btn">THE IAC</button>
-  <button id="btn-neighborhoods" class="bottom-nav-btn">View our Neighborhoods</button>
-  <button id="btn-receptionists" class="bottom-nav-btn">Community Receptionists</button>
+<!-- FOOTER -->
+<footer id="zone-footer">
+  &copy; 2026 Tele-Commuter Resources, Inc. &nbsp;|&nbsp;
+  4315 Virginia Avenue, St Paul, MN 55126 &nbsp;|&nbsp;
+  <a href="tel:6514868408">651-486-8408</a> &nbsp;|&nbsp;
+  <a href="http://www.telecommuter.org">www.telecommuter.org</a>
 </footer>
 
 <!-- TABLE OVERLAY -->
@@ -625,6 +628,14 @@ document.getElementById('nav-center-title').textContent = sc.name;
 
 loadAllMenus();
 
+// App Demo buttons — open the PDFs from files/
+document.getElementById('btn-econsensus').addEventListener('click', () => {
+  window.open('files/eConsensus_Report_Format.pdf', '_blank');
+});
+document.getElementById('btn-viability').addEventListener('click', () => {
+  window.open('files/IAC_Viability_Index_Implementation.pdf', '_blank');
+});
+
 // Video — full screen embed, no related suggestions
 const thumb = document.getElementById('video-thumb');
 const modal  = document.getElementById('video-modal');
@@ -640,20 +651,6 @@ document.getElementById('video-modal-backdrop').addEventListener('click', () => 
   modal.hidden = true; frame.src = '';
 });
 
-// Bottom nav
-document.getElementById('btn-iac-lens').addEventListener('click', () => { window.location.href = 'index.html'; });
-document.getElementById('btn-neighborhoods').addEventListener('click', () => { window.location.href = `profile.html?scid=${scid}&zip=${zip}`; });
-document.getElementById('btn-contacts').addEventListener('click', () => {
-  const msgBox = document.getElementById('file-coming-soon');
-  if (msgBox) msgBox.style.display = 'none';
-  document.getElementById('table-overlay-title').textContent = 'Contacts';
-  const table = document.querySelector('#table-overlay-box table');
-  table.style.display = '';
-  table.querySelector('thead tr').innerHTML = '<th>Name</th><th>Phone</th><th>Email</th><th>Role</th>';
-  document.getElementById('table-overlay-body').innerHTML = '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:30px;">📋 Contact list coming soon!</td></tr>';
-  document.getElementById('table-overlay').hidden = false;
-});
-document.getElementById('btn-receptionists').addEventListener('click', () => { alert('Community Receptionists coming soon!'); });
 </script>
 </body>
 </html>
