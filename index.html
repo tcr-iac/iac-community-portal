@@ -69,7 +69,7 @@
     .quote-wrap { border-left: 3px solid #004a99; padding: 0.6rem 1rem; }
     .quote-text {
       font-size: 0.88rem;
-      font-family: Georgia, serif;
+      font-family: "Inter", Arial, sans-serif;
       font-style: italic;
       line-height: 1.65;
       color: rgba(255,255,255,0.72);
@@ -155,7 +155,7 @@
     .result-badge {
       background: linear-gradient(135deg, #004a99, #0066cc);
       color: #fff;
-      font-family: "Arial Black", sans-serif;
+      font-family: "Inter", Arial, sans-serif;
       font-weight: 900;
       font-size: 0.8rem;
       border-radius: 0.4rem;
@@ -210,8 +210,9 @@
   <!-- Search card -->
   <div class="search-card">
     <p class="search-heading">Find your community portal</p>
-    <div class="search-input-wrap">
-      <input id="city-input" type="text" placeholder="Type a city or zip code…" autocomplete="off" spellcheck="false" />
+    <div class="search-input-wrap" style="display:flex;gap:0.6rem;align-items:center;">
+      <input id="city-input" type="text" placeholder="Type a city or zip code…" autocomplete="off" spellcheck="false" style="flex:1;" />
+      <a id="launch-btn" href="#" style="white-space:nowrap;">Launch Portal →</a>
     </div>
     <div id="suggestions" hidden></div>
 
@@ -221,7 +222,6 @@
         <h3 id="result-name"></h3>
         <p id="result-meta"></p>
       </div>
-      <a id="launch-btn" href="#">Launch Portal →</a>
     </div>
 
     <div id="not-found" hidden>
