@@ -529,14 +529,6 @@ function showFileOverlay(title, fileName) {
       if (res.ok) {
         if (ext === 'pdf') {
           window.open(filePath, '_blank');
-          msgBox.innerHTML = `
-            <div style="padding:30px;">
-              <div style="font-size:40px;margin-bottom:12px;">📄</div>
-              <p style="font-size:15px;color:#444;margin-bottom:12px;"><strong>${fileName}</strong></p>
-              <p style="font-size:13px;color:#888;margin-bottom:12px;">Opened in a new tab for the best viewing experience.</p>
-              <a href="${filePath}" target="_blank" style="background:#004a99;color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;">Open Again</a>
-            </div>`;
-          overlay.hidden = false;
           return;
         } else if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
           msgBox.innerHTML = `<img src="${filePath}" style="max-width:100%;max-height:65vh;border-radius:6px;">`;
