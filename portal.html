@@ -348,35 +348,130 @@ const SC_DATA = {
 // ── Menus ───────────────────────────────────────────────────
 const MENUS = {
   1: [ // TeleCenter Services
-    { title: 'Cultural Support', children: [
-      { title: 'Arts & Entertainment', file: 'Arts_Entertainment_Listing.pdf', children: [] },
-      { title: 'Heritage & History', file: 'Heritage_History.pdf', children: [] },
-      { title: 'Religious & Spiritual', file: 'Religious_Spiritual_Directory.pdf', children: [] },
-    ]},
-    { title: 'Economic Support', children: [
-      { title: 'Business Development', file: 'Business_Development_Resources.pdf', children: [] },
-      { title: 'Employment Services', file: 'Employment_Services.pdf', children: [] },
-      { title: 'E-Commerce', file: 'E_Commerce_Resources.pdf', children: [] },
-    ]},
-    { title: 'Education Facilities', children: [
-      { title: 'K-12 Schools', file: 'K12_Schools_Directory.pdf', children: [] },
-      { title: 'Higher Education', file: 'Higher_Education_Directory.pdf', children: [] },
-      { title: 'Vocational Training', file: 'Vocational_Training_Directory.pdf', children: [] },
-    ]},
-    { title: 'WVP Deployment', children: [
-      { title: 'TeleCommuting', children: [
-        { title: 'Deployment Plan', file: 'DCM_5_States.jpg', children: [] },
+    { title: 'Services On-Site', children: [
+      { title: 'Government After Hours', children: [
+        { title: 'License Tabs', children: [] },
+        { title: 'Permits', children: [] },
+        { title: 'Licensing', children: [] },
+        { title: 'Forms', children: [] },
       ]},
-    ]},
-    { title: 'Request Assistance', children: [
-      { title: 'Research', children: [
-        { title: 'Viability Trends', children: [
-          { title: 'Age Curve', file: 'Age_Trend_Dissolve.pdf', children: [] },
+      { title: 'Facilities', children: [
+        { title: 'Conference Room', children: [
+          { title: 'Check Availability', children: [] },
+          { title: 'Register for a Meeting', children: [] },
+        ]},
+        { title: 'Loan Library', children: [
+          { title: 'Check Availability', children: [] },
+        ]},
+        { title: 'Technology Counseling', children: [
+          { title: 'Schedule', children: [] },
+          { title: 'Advisors', children: [] },
+          { title: 'Maintenance Support', children: [] },
+        ]},
+        { title: 'Volunteerism', children: [
+          { title: 'Mentors', children: [] },
+          { title: 'Requests for Help', children: [] },
+          { title: 'Offers to Help', children: [] },
+        ]},
+      ]},
+      { title: 'Request Assistance', children: [
+        { title: 'In Home Support', children: [
+          { title: 'Health Care', children: [] },
+          { title: 'Maintenance Support', children: [] },
+          { title: 'Technology Support', children: [] },
         ]},
       ]},
     ]},
+    { title: 'Services Online', children: [
+      { title: 'TeleMedicine', children: [
+        { title: 'Identify Candidates', children: [] },
+        { title: 'Engage Negotiations', children: [] },
+        { title: 'Counseling Options', children: [] },
+      ]},
+      { title: 'TeleCommuting', children: [
+        { title: 'Job Opportunities', children: [] },
+        { title: 'Contract Development', children: [] },
+        { title: 'Deployment Plan', file: 'DCM_5_States.jpg', children: [] },
+      ]},
+      { title: 'Local Support Services', children: [
+        { title: 'Government After Hours', children: [] },
+        { title: 'On-line Physical Support', children: [] },
+        { title: 'Common IT Engagement & Services', children: [] },
+      ]},
+      { title: 'On-Line Provider Support', children: [
+        { title: 'TeleCommuting / Continuity', children: [] },
+        { title: 'The Visioning Process', children: [] },
+      ]},
+      { title: 'Employer Support', children: [
+        { title: 'e-Commerce', children: [
+          { title: 'Re-engage with Business', children: [] },
+          { title: 'Design the App', children: [] },
+        ]},
+      ]},
+      { title: 'On-Line Education', children: [
+        { title: 'Certification Accreditation', children: [] },
+        { title: 'Four Year Degrees', children: [] },
+        { title: 'On-line Physical Support', children: [] },
+        { title: 'Mentorships', children: [] },
+        { title: 'Internships / Apprenticeships', children: [] },
+      ]},
+    ]},
+    { title: 'Education', children: [
+      { title: 'Curriculum Development', children: [] },
+      { title: 'Certification Accreditation', children: [
+        { title: 'Four Year Degrees', children: [] },
+        { title: 'On-Going Education', children: [] },
+      ]},
+      { title: 'Child Assistance', children: [] },
+      { title: 'Transportation', children: [] },
+    ]},
+    { title: 'Economy', children: [
+      { title: 'e-Commerce', children: [] },
+      { title: 'Business-to-Business', children: [
+        { title: 'Remote Contracts', children: [] },
+        { title: 'Training', children: [
+          { title: 'Course Schedules', children: [] },
+          { title: 'Request a Course', children: [] },
+          { title: 'Schedule a Course', children: [] },
+        ]},
+        { title: 'Proposals', children: [] },
+      ]},
+      { title: 'Real Estate', children: [
+        { title: 'Industrial', children: [
+          { title: 'Facility Leases', children: [] },
+        ]},
+        { title: 'Commercial', children: [
+          { title: 'Office', children: [] },
+          { title: 'Retail', children: [] },
+        ]},
+      ]},
+      { title: 'Employment', children: [
+        { title: 'Internships', children: [] },
+        { title: 'Apprenticeships', children: [] },
+        { title: 'Placement', children: [
+          { title: 'Part-Time', children: [] },
+          { title: 'Full Time', children: [] },
+          { title: 'Summer', children: [] },
+          { title: 'Remote Work', children: [] },
+        ]},
+      ]},
+    ]},
+    { title: 'IAC Service Acquisition', children: [
+      { title: 'Identify Candidates', children: [] },
+      { title: 'Engage Negotiations', children: [] },
+    ]},
+    { title: 'Understanding our History', children: [
+      { title: 'Our Neighborhood — PDF Directory', children: [] },
+      { title: 'Broadband', children: [] },
+    ]},
   ],
   2: [ // Directory
+    { title: 'Data Collection', children: [
+      { title: 'Web Scrubbing', children: [] },
+      { title: 'NAICS Conversion', children: [] },
+      { title: 'Integrated Database', children: [] },
+      { title: 'Installation', children: [] },
+    ]},
     { title: 'Accommodation & Food Services', children: [
       { title: 'Food Services & Drinking Places', children: [
         { title: 'Full-Service Restaurants', table: true, children: [] },
@@ -393,30 +488,85 @@ const MENUS = {
     ]},
   ],
   3: [ // Community Engagement
-    { title: 'Accountability', children: [
-      { title: 'Observation Budget', file: 'Observation_Budget.pdf', children: [] },
-      { title: 'Issues - Community', file: 'Community_Issues.pdf', children: [] },
-      { title: 'Legal Framework', file: 'IAC_Legal_Framework.pdf', children: [] },
-      { title: 'Public Policy', file: 'Public_Policy.pdf', children: [] },
-    ]},
-    { title: 'Culture', children: [
-      { title: 'Sports', file: 'Sports_Stats', children: [] },
-      { title: 'Arts', file: 'Arts_Programs.pdf', children: [] },
-    ]},
-    { title: 'Performance', children: [
+    { title: 'Event Calendars', children: [
+      { title: 'Events', file: 'Events_Calendar.pdf', children: [] },
+      { title: 'Entertainment', children: [] },
+      { title: 'Performances', children: [] },
       { title: 'Contribution Trends', children: [
         { title: 'Annual Summary', file: 'Contribution_Stats', children: [] },
       ]},
+      { title: 'Public Hearings', children: [] },
+      { title: 'Education', children: [] },
+      { title: 'Worship', children: [] },
+    ]},
+    { title: 'Accountability', children: [
+      { title: 'Consensus Budget', file: 'Observation_Budget.pdf', children: [] },
+      { title: 'Community Concerns', children: [
+        { title: 'Issues - Community', file: 'Community_Issues.pdf', children: [] },
+      ]},
+      { title: 'Communications', children: [
+        { title: 'Media', children: [] },
+        { title: 'Institutions', children: [] },
+      ]},
+      { title: 'Educational Concerns', children: [] },
+      { title: 'Land Use & Development Concerns', children: [] },
+      { title: 'Safety Concerns', children: [] },
+      { title: 'Regulation Issues', children: [] },
+      { title: 'Fiscal Management Concerns', children: [] },
+      { title: 'Public Policy Forums', children: [
+        { title: 'Schedule', children: [] },
+        { title: 'Forum Results', file: 'Public_Policy.pdf', children: [] },
+      ]},
+    ]},
+    { title: 'Performance', children: [
+      { title: 'Statistical Reports', children: [
+        { title: 'Contribution Trends', children: [
+          { title: 'Annual Summary', file: 'Contribution_Stats', children: [] },
+        ]},
+        { title: 'Public Safety', children: [] },
+        { title: 'Viability Index', file: 'IAC_Viability_Index_Implementation.pdf', children: [] },
+      ]},
+      { title: 'Lens Participation', children: [] },
+      { title: 'Technology Availability and Deployment', children: [] },
+      { title: 'Community Value Trends', children: [] },
       { title: 'Visioning Tracking', children: [
         { title: 'The IAC', children: [
           { title: 'Annual Summary', file: 'Visioning_Trends', children: [] },
         ]},
+        { title: 'The Neighborhoods', children: [] },
       ]},
     ]},
     { title: 'Fellowship', children: [
       { title: 'Announcements', file: 'Announcements.pdf', children: [] },
-      { title: 'Events', file: 'Events_Calendar.pdf', children: [] },
-      { title: 'Recognition', file: 'Recognition.pdf', children: [] },
+      { title: 'Gatherings', children: [
+        { title: 'Dinners', children: [] },
+        { title: 'Festivals', children: [] },
+        { title: 'Reunions', children: [] },
+        { title: 'Lectures', children: [] },
+        { title: 'Rallies', children: [] },
+      ]},
+      { title: 'Recognitions', children: [
+        { title: 'Individuals', children: [] },
+        { title: 'Organizations', children: [] },
+      ]},
+    ]},
+    { title: 'Leadership', children: [
+      { title: 'Contacts', children: [
+        { title: 'Neighborhood', children: [] },
+        { title: 'Service Center', children: [] },
+      ]},
+      { title: 'Organizations', children: [
+        { title: 'Service Clubs', children: [] },
+        { title: 'Worship', children: [] },
+        { title: 'Education', children: [] },
+      ]},
+      { title: 'Election Information', children: [
+        { title: 'Candidates', children: [] },
+        { title: 'Polling Places', children: [] },
+      ]},
+    ]},
+    { title: 'Legal Framework', children: [
+      { title: 'IAC Legal Framework', file: 'IAC_Legal_Framework.pdf', children: [] },
     ]},
   ],
 };
@@ -542,6 +692,8 @@ function showFileOverlay(title, fileName) {
         } else {
           msgBox.innerHTML = `<a href="${filePath}" target="_blank">Open ${fileName}</a>`;
         }
+        msgBox.style.display = 'block';
+        overlay.hidden = false;
       } else {
         showComingSoon();
       }
@@ -555,10 +707,9 @@ function showFileOverlay(title, fileName) {
         <p style="font-size:15px;color:#444;margin-bottom:6px;"><strong>${fileName}</strong></p>
         <p style="font-size:13px;color:#aaa;">This file is not loaded yet — coming soon!</p>
       </div>`;
+    msgBox.style.display = 'block';
+    overlay.hidden = false;
   }
-
-  msgBox.style.display = 'block';
-  overlay.hidden = false;
 }
 
 function showTableOverlay(title) {
