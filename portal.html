@@ -288,6 +288,7 @@
   <p id="app-demos-label">Application Demonstrations</p>
   <button id="btn-econsensus" class="app-demo-btn">E-Consensus</button>
   <button id="btn-viability" class="app-demo-btn">Viability Index</button>
+  <button id="btn-neighborhoods" class="app-demo-btn" style="background:#888;cursor:not-allowed;opacity:0.7;" title="Coming soon — neighborhood map in development">View our Neighborhoods ⏳</button>
 </section>
 
 <!-- FOOTER -->
@@ -347,125 +348,94 @@ const SC_DATA = {
 
 // ── Menus ───────────────────────────────────────────────────
 const MENUS = {
-  1: [ // TeleCenter Services
-    { title: 'Services On-Site', children: [
-      { title: 'Government After Hours', children: [
-        { title: 'License Tabs', children: [] },
-        { title: 'Permits', children: [] },
-        { title: 'Licensing', children: [] },
-        { title: 'Forms', children: [] },
+  1: [ // TeleCenter Services — from Excel: IAC Menu TeleCenter Services.xlsx
+    { title: 'Cultural Support', children: [
+      { title: 'Cooking', children: [] },
+      { title: 'Genealogy', children: [] },
+      { title: 'History', children: [
+        { title: 'Community', children: [] },
+        { title: 'Family', children: [] },
       ]},
-      { title: 'Facilities', children: [
-        { title: 'Conference Room', children: [
-          { title: 'Check Availability', children: [] },
-          { title: 'Register for a Meeting', children: [] },
-        ]},
-        { title: 'Loan Library', children: [
-          { title: 'Check Availability', children: [] },
-        ]},
-        { title: 'Technology Counseling', children: [
-          { title: 'Schedule', children: [] },
-          { title: 'Advisors', children: [] },
-          { title: 'Maintenance Support', children: [] },
-        ]},
-        { title: 'Volunteerism', children: [
-          { title: 'Mentors', children: [] },
-          { title: 'Requests for Help', children: [] },
-          { title: 'Offers to Help', children: [] },
-        ]},
-      ]},
-      { title: 'Request Assistance', children: [
-        { title: 'In Home Support', children: [
-          { title: 'Health Care', children: [] },
-          { title: 'Maintenance Support', children: [] },
-          { title: 'Technology Support', children: [] },
-        ]},
-      ]},
+      { title: 'Story Time', children: [] },
     ]},
-    { title: 'Services Online', children: [
-      { title: 'TeleMedicine', children: [
-        { title: 'Identify Candidates', children: [] },
-        { title: 'Engage Negotiations', children: [] },
-        { title: 'Counseling Options', children: [] },
-      ]},
-      { title: 'TeleCommuting', children: [
-        { title: 'Job Opportunities', children: [] },
-        { title: 'Contract Development', children: [] },
-        { title: 'Deployment Plan', file: 'DCM_5_States.jpg', children: [] },
-      ]},
-      { title: 'Local Support Services', children: [
-        { title: 'Government After Hours', children: [] },
-        { title: 'On-line Physical Support', children: [] },
-        { title: 'Common IT Engagement & Services', children: [] },
-      ]},
-      { title: 'On-Line Provider Support', children: [
-        { title: 'TeleCommuting / Continuity', children: [] },
-        { title: 'The Visioning Process', children: [] },
-      ]},
-      { title: 'Employer Support', children: [
-        { title: 'e-Commerce', children: [
-          { title: 'Re-engage with Business', children: [] },
-          { title: 'Design the App', children: [] },
-        ]},
-      ]},
-      { title: 'On-Line Education', children: [
-        { title: 'Certification Accreditation', children: [] },
-        { title: 'Four Year Degrees', children: [] },
-        { title: 'On-line Physical Support', children: [] },
-        { title: 'Mentorships', children: [] },
-        { title: 'Internships / Apprenticeships', children: [] },
-      ]},
-    ]},
-    { title: 'Education', children: [
-      { title: 'Curriculum Development', children: [] },
-      { title: 'Certification Accreditation', children: [
-        { title: 'Four Year Degrees', children: [] },
-        { title: 'On-Going Education', children: [] },
-      ]},
-      { title: 'Child Assistance', children: [] },
-      { title: 'Transportation', children: [] },
-    ]},
-    { title: 'Economy', children: [
-      { title: 'e-Commerce', children: [] },
+    { title: 'Economic Support', children: [
       { title: 'Business-to-Business', children: [
         { title: 'Remote Contracts', children: [] },
-        { title: 'Training', children: [
-          { title: 'Course Schedules', children: [] },
-          { title: 'Request a Course', children: [] },
-          { title: 'Schedule a Course', children: [] },
-        ]},
-        { title: 'Proposals', children: [] },
-      ]},
-      { title: 'Real Estate', children: [
-        { title: 'Industrial', children: [
-          { title: 'Facility Leases', children: [] },
-        ]},
-        { title: 'Commercial', children: [
-          { title: 'Office', children: [] },
-          { title: 'Retail', children: [] },
+        { title: 'Audits', children: [
+          { title: 'Technology', children: [] },
+          { title: 'TeleCommuting', children: [] },
+          { title: 'Visioning', children: [
+            { title: 'Gates / Gallup Q12', children: [] },
+          ]},
         ]},
       ]},
+      { title: 'CARE Model', children: [
+        { title: 'Create', children: [] },
+        { title: 'Attract', children: [] },
+        { title: 'Retain', children: [] },
+        { title: 'Expand', children: [] },
+      ]},
+      { title: 'e-Commerce', children: [] },
       { title: 'Employment', children: [
-        { title: 'Internships', children: [] },
         { title: 'Apprenticeships', children: [] },
-        { title: 'Placement', children: [
-          { title: 'Part-Time', children: [] },
-          { title: 'Full Time', children: [] },
-          { title: 'Summer', children: [] },
-          { title: 'Remote Work', children: [] },
+        { title: 'Internships', children: [] },
+        { title: 'Remote Positions', children: [] },
+      ]},
+      { title: 'Funding', children: [] },
+      { title: 'Permitting', children: [] },
+      { title: 'Real Estate', children: [
+        { title: 'Commercial', children: [
+          { title: 'Sites', children: [] },
+          { title: 'Warehousing', children: [] },
         ]},
+        { title: 'Residential', children: [] },
+      ]},
+      { title: 'Training', children: [
+        { title: 'Available Courses', children: [] },
+        { title: 'Course Registration', children: [] },
+        { title: 'MRP Deployment Training', file: 'Training MRP Deployment.jpg', children: [] },
+      ]},
+      { title: 'Workforce Development', children: [] },
+    ]},
+    { title: 'Education', children: [
+      { title: 'Certification', children: [] },
+      { title: 'Continuing Education', children: [] },
+      { title: 'Degree Development', children: [] },
+      { title: 'Licensing', children: [] },
+    ]},
+    { title: 'Facilities', children: [
+      { title: 'Conference Rooms', children: [] },
+      { title: 'Counseling Services', children: [] },
+      { title: 'Forum Request', children: [] },
+      { title: 'Front Desk', children: [
+        { title: 'After-Hours Government Services', children: [] },
+      ]},
+      { title: 'Loan Library', children: [
+        { title: 'Technology Support', children: [] },
       ]},
     ]},
-    { title: 'IAC Service Acquisition', children: [
-      { title: 'Identify Candidates', children: [] },
-      { title: 'Engage Negotiations', children: [] },
+    { title: 'Online Service Support', children: [
+      { title: 'Distance Education', children: [] },
+      { title: 'e-Commerce', children: [] },
+      { title: 'Remote Work', children: [] },
+      { title: 'TeleMedicine', children: [] },
     ]},
-    { title: 'Understanding our History', children: [
-      { title: 'Our Neighborhood — PDF Directory', children: [] },
-      { title: 'Broadband', children: [] },
+    { title: 'Volunteerism', children: [
+      { title: 'Support Requests', children: [
+        { title: 'Commerce', children: [] },
+        { title: 'Non-Profit', children: [
+          { title: 'Consulting', children: [] },
+        ]},
+        { title: 'Residential', children: [
+          { title: 'Health Care', children: [] },
+          { title: 'Inside Help', children: [] },
+          { title: 'Outside Help', children: [] },
+        ]},
+      ]},
+      { title: 'Volunteer Registration', children: [] },
     ]},
   ],
-  2: [ // Directory
+  2: [ // Directory — waiting on Jack's NAICS data
     { title: 'Data Collection', children: [
       { title: 'Web Scrubbing', children: [] },
       { title: 'NAICS Conversion', children: [] },
@@ -487,88 +457,130 @@ const MENUS = {
       { title: 'Hospitals', table: true, children: [] },
     ]},
   ],
-  3: [ // Community Engagement
-    { title: 'Event Calendars', children: [
-      { title: 'Events', file: 'Events_Calendar.pdf', children: [] },
+  3: [ // Community Engagement — from Excel: IAC Menu COMMUNITY ENGAGEMENNT.xlsx
+    { title: 'Accountability', children: [
+      { title: 'Communications', children: [] },
+      { title: 'Community Concerns', children: [
+        { title: 'Development Concerns', children: [] },
+        { title: 'Fiscal Issues', children: [
+          { title: 'Bond Issues', children: [
+            { title: 'Profiles', children: [] },
+          ]},
+          { title: 'Budget', children: [
+            { title: 'Proposed', children: [] },
+            { title: 'Trends', children: [] },
+          ]},
+        ]},
+        { title: 'Infrastructure', children: [
+          { title: 'Construction', children: [] },
+          { title: 'Complaints', children: [] },
+          { title: 'Plans', children: [] },
+        ]},
+        { title: 'Technology', children: [] },
+      ]},
+      { title: 'Contribution Trends', children: [] },
+      { title: 'Education', children: [
+        { title: 'High Schools', children: [] },
+      ]},
+      { title: 'IAC Community Lens', children: [
+        { title: 'Suggestions', children: [] },
+        { title: 'Updates', children: [] },
+        { title: 'Statistics', children: [] },
+      ]},
+      { title: 'IAC Consensus Budget', children: [
+        { title: 'Annual Process', children: [] },
+        { title: 'Budgets', file: 'IAC_Consensus_Budget.pdf', children: [] },
+      ]},
+      { title: 'IAC Service Center', children: [
+        { title: 'Issues', children: [] },
+        { title: 'Neighborhood Integration', children: [] },
+      ]},
+      { title: 'IAC TeleCenter', children: [
+        { title: 'Hours', children: [] },
+        { title: 'Services', children: [] },
+        { title: 'Statistics', children: [] },
+        { title: 'Suggestions', children: [] },
+      ]},
+      { title: 'Regulatory Issues', children: [
+        { title: 'Compliance', children: [] },
+        { title: 'Inquiries', children: [] },
+        { title: 'Safety', children: [
+          { title: 'Dangerous Conditions', children: [] },
+          { title: 'Infrastructure', children: [] },
+          { title: 'Crime Statistics', children: [
+            { title: 'Current Profile', children: [] },
+            { title: 'Historic', children: [] },
+          ]},
+        ]},
+      ]},
+      { title: 'Safety Issues', children: [
+        { title: 'Nuisances', children: [] },
+        { title: 'Dangerous Conditions', children: [] },
+        { title: 'Crime Statistics', children: [
+          { title: 'Historic', children: [] },
+          { title: 'Current Profile', children: [] },
+        ]},
+      ]},
+    ]},
+    { title: 'Events', children: [
+      { title: 'Athletic', children: [] },
+      { title: 'Education Schedules', children: [
+        { title: 'School Calendar', children: [] },
+      ]},
       { title: 'Entertainment', children: [] },
       { title: 'Performances', children: [] },
-      { title: 'Contribution Trends', children: [
-        { title: 'Annual Summary', file: 'Contribution_Stats', children: [] },
-      ]},
       { title: 'Public Hearings', children: [] },
-      { title: 'Education', children: [] },
-      { title: 'Worship', children: [] },
-    ]},
-    { title: 'Accountability', children: [
-      { title: 'Consensus Budget', file: 'Observation_Budget.pdf', children: [] },
-      { title: 'Community Concerns', children: [
-        { title: 'Issues - Community', file: 'Community_Issues.pdf', children: [] },
-      ]},
-      { title: 'Communications', children: [
-        { title: 'Media', children: [] },
-        { title: 'Institutions', children: [] },
-      ]},
-      { title: 'Educational Concerns', children: [] },
-      { title: 'Land Use & Development Concerns', children: [] },
-      { title: 'Safety Concerns', children: [] },
-      { title: 'Regulation Issues', children: [] },
-      { title: 'Fiscal Management Concerns', children: [] },
       { title: 'Public Policy Forums', children: [
-        { title: 'Schedule', children: [] },
-        { title: 'Forum Results', file: 'Public_Policy.pdf', children: [] },
+        { title: 'Schedules', children: [] },
+        { title: 'Results', file: 'Public_Policy.pdf', children: [] },
       ]},
-    ]},
-    { title: 'Performance', children: [
-      { title: 'Statistical Reports', children: [
-        { title: 'Contribution Trends', children: [
-          { title: 'Annual Summary', file: 'Contribution_Stats', children: [] },
-        ]},
-        { title: 'Public Safety', children: [] },
-        { title: 'Viability Index', file: 'IAC_Viability_Index_Implementation.pdf', children: [] },
-      ]},
-      { title: 'Lens Participation', children: [] },
-      { title: 'Technology Availability and Deployment', children: [] },
-      { title: 'Community Value Trends', children: [] },
-      { title: 'Visioning Tracking', children: [
-        { title: 'The IAC', children: [
-          { title: 'Annual Summary', file: 'Visioning_Trends', children: [] },
-        ]},
-        { title: 'The Neighborhoods', children: [] },
+      { title: 'Worship', children: [
+        { title: 'Service Schedules', children: [] },
       ]},
     ]},
     { title: 'Fellowship', children: [
-      { title: 'Announcements', file: 'Announcements.pdf', children: [] },
-      { title: 'Gatherings', children: [
-        { title: 'Dinners', children: [] },
-        { title: 'Festivals', children: [] },
-        { title: 'Reunions', children: [] },
-        { title: 'Lectures', children: [] },
-        { title: 'Rallies', children: [] },
-      ]},
-      { title: 'Recognitions', children: [
+      { title: 'Announcements', children: [] },
+      { title: 'Dinners', children: [] },
+      { title: 'Gatherings', children: [] },
+      { title: 'Festivals', children: [] },
+      { title: 'Lectures', children: [] },
+      { title: 'Raffles', children: [] },
+      { title: 'Recognition', children: [
         { title: 'Individuals', children: [] },
         { title: 'Organizations', children: [] },
       ]},
+      { title: 'Reunions', children: [] },
     ]},
     { title: 'Leadership', children: [
-      { title: 'Contacts', children: [
-        { title: 'Neighborhood', children: [] },
-        { title: 'Service Center', children: [] },
+      { title: 'Elections', children: [
+        { title: 'Candidate Profiles', children: [] },
+        { title: 'e-Consensus Forums', children: [] },
+        { title: 'Schedules & Locations', children: [] },
+        { title: 'Results', children: [] },
       ]},
-      { title: 'Organizations', children: [
-        { title: 'Service Clubs', children: [] },
-        { title: 'Worship', children: [] },
-        { title: 'Education', children: [] },
-      ]},
-      { title: 'Election Information', children: [
-        { title: 'Candidates', children: [] },
-        { title: 'Polling Places', children: [] },
+      { title: 'Service Center', children: [
+        { title: 'Associations', children: [] },
+        { title: 'Government', children: [] },
       ]},
     ]},
-    { title: 'Legal Framework', children: [
-      { title: 'IAC Legal Framework', file: 'IAC_Legal_Framework.pdf', children: [] },
+    { title: 'Performance', children: [] },
+    { title: 'The Vision', children: [
+      { title: 'The Report', file: 'IAC_Viability_Index_Implementation.pdf', children: [] },
+      { title: 'The Process', children: [] },
+      { title: 'Tracking', children: [
+        { title: 'The Updates', children: [
+          { title: 'Employers', children: [] },
+          { title: 'Institutions', children: [] },
+          { title: 'Citizens', children: [] },
+        ]},
+        { title: 'The Forums', children: [
+          { title: 'Schedule', children: [] },
+          { title: 'Results', children: [] },
+        ]},
+      ]},
     ]},
   ],
+};
 };
 
 // ── Global accordion state (only one top-level item open at a time, across all groups) ──
