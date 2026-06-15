@@ -236,115 +236,118 @@
 
   <script>
   // ── Community data ──────────────────────────────────────────
+  // SCIDs from IAC_Service Center Data.xlsx (John's master Excel):
+  //   SCID 9  = Brainerd (portal alias 102 for live portal)
+  //   SCID 102 = Brainerd (live portal)
+  //   SCID 101 = Austin (live portal)
+  //   SCID 1  = Aberdeen (SD)
+  //   SCID 2  = Albert Lea (MN)
+  //   SCID 3  = Alexandria (MN)
+  //   SCID 4  = Ashland (WI)
+  //   SCID 5  = Austin (MN) — mapped to 101 (live)
+  //   SCID 6  = Bemidji (MN)
+  //   SCID 7  = Bismarck (ND)
+  //   SCID 8  = Blue Earth (MN) — ZIP 56013 from Excel
+  //   SCID 10 = Brookings (SD)
+  //   SCID 41 = Mankato (MN)
+  //   SCID 42 = Marshall (MN)
+  //   SCID 64 = St Cloud (MN)
   const COMMUNITIES = [
-  { name: 'Brainerd', zip: '56401', scid: '102', state: 'MN', county: 'Crow Wing' },
-  { name: 'Baxter', zip: '56425', scid: '102', state: 'MN', county: 'Crow Wing' },
-  { name: 'Little Falls', zip: '56345', scid: '102', state: 'MN', county: 'Morrison' },
-  { name: 'Nisswa', zip: '56468', scid: '102', state: 'MN', county: 'Crow Wing' },
-  { name: 'Austin', zip: '55912', scid: '101', state: 'MN', county: 'Mower' },
-  { name: 'Albert Lea', zip: '56007', scid: '101', state: 'MN', county: 'Freeborn' },
-  { name: 'Mankato', zip: '56001', scid: 'Mankato', state: 'MN', county: 'Blue Earth' },
-  { name: 'Marshall', zip: '56258', scid: 'Marshall', state: 'MN', county: 'Lyon' },
-  { name: 'Rochester', zip: '55901', scid: 'Rochester', state: 'MN', county: 'Olmsted' },
-  { name: 'St Cloud', zip: '56301', scid: 'St Cloud', state: 'MN', county: 'Stearns' },
-  { name: 'Bemidji', zip: '56601', scid: 'Bemidji', state: 'MN', county: 'Beltrami' },
-  { name: 'Detroit Lakes', zip: '56501', scid: 'Detroit Lakes', state: 'MN', county: 'Becker' },
-  { name: 'Fergus Falls', zip: '56537', scid: 'Fergus Falls', state: 'MN', county: 'Otter Tail' },
-  { name: 'Hibbing', zip: '55746', scid: 'Hibbing', state: 'MN', county: 'St. Louis' },
-  { name: 'Virginia', zip: '55792', scid: 'Virginia', state: 'MN', county: 'St. Louis' },
-  { name: 'Grand Rapids', zip: '55744', scid: 'Grand Rapids', state: 'MN', county: 'Itasca' },
+  { name: 'Brainerd',           zip: '56401', scid: '102', state: 'MN', county: 'Crow Wing' },
+  { name: 'Baxter',             zip: '56425', scid: '102', state: 'MN', county: 'Crow Wing' },
+  { name: 'Little Falls',       zip: '56345', scid: '102', state: 'MN', county: 'Morrison' },
+  { name: 'Nisswa',             zip: '56468', scid: '102', state: 'MN', county: 'Crow Wing' },
+  { name: 'Austin',             zip: '55912', scid: '101', state: 'MN', county: 'Mower' },
+  { name: 'Albert Lea',         zip: '56007', scid: '2',   state: 'MN', county: 'Freeborn' },
+  { name: 'Mankato',            zip: '56001', scid: '41',  state: 'MN', county: 'Blue Earth' },
+  { name: 'Marshall',           zip: '56258', scid: '42',  state: 'MN', county: 'Lyon' },
+  { name: 'Rochester',          zip: '55901', scid: 'Rochester', state: 'MN', county: 'Olmsted' },
+  { name: 'St Cloud',           zip: '56301', scid: '64',  state: 'MN', county: 'Stearns' },
+  { name: 'Bemidji',            zip: '56601', scid: '6',   state: 'MN', county: 'Beltrami' },
+  { name: 'Detroit Lakes',      zip: '56501', scid: 'Detroit Lakes', state: 'MN', county: 'Becker' },
+  { name: 'Fergus Falls',       zip: '56537', scid: 'Fergus Falls', state: 'MN', county: 'Otter Tail' },
+  { name: 'Hibbing',            zip: '55746', scid: 'Hibbing', state: 'MN', county: 'St. Louis' },
+  { name: 'Virginia',           zip: '55792', scid: 'Virginia', state: 'MN', county: 'St. Louis' },
+  { name: 'Grand Rapids',       zip: '55744', scid: 'Grand Rapids', state: 'MN', county: 'Itasca' },
   { name: 'International Falls', zip: '56649', scid: 'International Falls', state: 'MN', county: 'Koochiching' },
-  { name: 'Thief River Falls', zip: '56701', scid: 'Thief River Falls', state: 'MN', county: 'Pennington' },
-  { name: 'Moorhead', zip: '56560', scid: 'Moorhead', state: 'MN', county: 'Clay' },
-  { name: 'Willmar', zip: '56201', scid: 'Willmar', state: 'MN', county: 'Kandiyohi' },
-  { name: 'Owatonna', zip: '55060', scid: 'Owatonna', state: 'MN', county: 'Steele' },
-  { name: 'Faribault', zip: '55021', scid: 'Faribault', state: 'MN', county: 'Rice' },
-  { name: 'Red Wing', zip: '55066', scid: 'Red Wing', state: 'MN', county: 'Goodhue' },
-  { name: 'Winona', zip: '55987', scid: 'Winona', state: 'MN', county: 'Winona' },
-  { name: 'Duluth', zip: '55802', scid: 'Duluth', state: 'MN', county: 'St. Louis' },
-  { name: 'Two Harbors', zip: '55616', scid: 'Two Harbors', state: 'MN', county: 'Lake' },
-  { name: 'Grand Marais', zip: '55604', scid: 'Grand Marais', state: 'MN', county: 'Cook' },
-  { name: 'Ely', zip: '55731', scid: 'Ely', state: 'MN', county: 'Lake' },
-  { name: 'Walker', zip: '56484', scid: 'Walker', state: 'MN', county: 'Cass' },
-  { name: 'Park Rapids', zip: '56470', scid: 'Park Rapids', state: 'MN', county: 'Hubbard' },
-  { name: 'Wadena', zip: '56482', scid: 'Wadena', state: 'MN', county: 'Wadena' },
-  { name: 'Staples', zip: '56479', scid: 'Staples', state: 'MN', county: 'Wadena' },
-  { name: 'Morris', zip: '56267', scid: 'Morris', state: 'MN', county: 'Stevens' },
-  { name: 'Montevideo', zip: '56265', scid: 'Montevideo', state: 'MN', county: 'Chippewa' },
-  { name: 'Pipestone', zip: '56164', scid: 'Pipestone', state: 'MN', county: 'Pipestone' },
-  { name: 'Worthington', zip: '56187', scid: 'Worthington', state: 'MN', county: 'Nobles' },
-  { name: 'Jackson', zip: '56143', scid: 'Jackson', state: 'MN', county: 'Jackson' },
-  { name: 'Redwood Falls', zip: '56283', scid: 'Redwood Falls', state: 'MN', county: 'Redwood' },
-  { name: 'New Ulm', zip: '56073', scid: 'New Ulm', state: 'MN', county: 'Brown' },
-  { name: 'Waseca', zip: '56093', scid: 'Waseca', state: 'MN', county: 'Waseca' },
-  { name: 'Wabasha', zip: '55981', scid: 'Wabasha', state: 'MN', county: 'Wabasha' },
-  { name: 'Preston', zip: '55965', scid: 'Preston', state: 'MN', county: 'Fillmore' },
-  { name: 'Crookston', zip: '56716', scid: 'Crookston', state: 'MN', county: 'Polk' },
-  { name: 'Hallock', zip: '56728', scid: 'Hallock', state: 'MN', county: 'Kittson' },
-  { name: 'Warroad', zip: '56763', scid: 'Warroad', state: 'MN', county: 'Roseau' },
-  { name: 'Baudette', zip: '56623', scid: 'Baudette', state: 'MN', county: 'Lake of the Woods' },
-  { name: 'Cloquet', zip: '55720', scid: 'Cloquet', state: 'MN', county: 'Carlton' },
-  { name: 'Pine City', zip: '55063', scid: 'Pine City', state: 'MN', county: 'Pine' },
-  { name: 'Hutchinson', zip: '55350', scid: 'Hutchinson', state: 'MN', county: 'McLeod' },
-  { name: 'Breckenridge', zip: '56520', scid: 'Breckenridge', state: 'MN', county: 'Wilkin' },
-  { name: 'Sauk Centre', zip: '56378', scid: 'Sauk Center', state: 'MN', county: 'Stearns' },
-  { name: 'Alexandria', zip: '56308', scid: 'Alexandria', state: 'MN', county: 'Douglas' },
-  { name: 'Fargo', zip: '58103', scid: 'Fargo', state: 'ND', county: 'Cass' },
-  { name: 'Grand Forks', zip: '58201', scid: 'Grand Forks', state: 'ND', county: 'Grand Forks' },
-  { name: 'Bismarck', zip: '58501', scid: 'Bismarck', state: 'ND', county: 'Burleigh' },
-  { name: 'Minot', zip: '58701', scid: 'Minot', state: 'ND', county: 'Ward' },
-  { name: 'Jamestown', zip: '58401', scid: 'Jamestown', state: 'ND', county: 'Stutsman' },
-  { name: 'Valley City', zip: '58072', scid: 'Valley City', state: 'ND', county: 'Barnes' },
-  { name: 'Devils Lake', zip: '58301', scid: 'Devils Lake', state: 'ND', county: 'Ramsey' },
-  { name: 'Wahpeton', zip: '58074', scid: 'Wahpeton', state: 'ND', county: 'Richland' },
-  { name: 'Dickinson', zip: '58601', scid: 'Dickinson', state: 'ND', county: 'Stark' },
-  { name: 'Williston', zip: '58801', scid: 'Williston', state: 'ND', county: 'Williams' },
-  { name: 'Sioux Falls', zip: '57103', scid: 'Sioux Falls', state: 'SD', county: 'Minnehaha' },
-  { name: 'Rapid City', zip: '57701', scid: 'Rapid City', state: 'SD', county: 'Pennington' },
-  { name: 'Aberdeen', zip: '57401', scid: 'Aberdeen', state: 'SD', county: 'Brown' },
-  { name: 'Watertown', zip: '57201', scid: 'Watertown', state: 'SD', county: 'Codington' },
-  { name: 'Brookings', zip: '57006', scid: 'Brookings', state: 'SD', county: 'Brookings' },
-  { name: 'Mitchell', zip: '57301', scid: 'Mitchell', state: 'SD', county: 'Davison' },
-  { name: 'Huron', zip: '57350', scid: 'Huron', state: 'SD', county: 'Beadle' },
-  { name: 'Pierre', zip: '57501', scid: 'Pierre', state: 'SD', county: 'Hughes' },
-  { name: 'Cedar Rapids', zip: '52401', scid: 'Cedar Rapids', state: 'IA', county: 'Linn' },
-  { name: 'Davenport', zip: '52801', scid: 'Davenport', state: 'IA', county: 'Scott' },
-  { name: 'Des Moines', zip: '50309', scid: 'Des Moines', state: 'IA', county: 'Polk' },
-  { name: 'Sioux City', zip: '51101', scid: 'Sioux City', state: 'IA', county: 'Woodbury' },
-  { name: 'Dubuque', zip: '52001', scid: 'Dubuque', state: 'IA', county: 'Dubuque' },
-  { name: 'Mason City', zip: '50401', scid: 'Mason City', state: 'IA', county: 'Cerro Gordo' },
-  { name: 'Fort Dodge', zip: '50501', scid: 'Fort Dodge', state: 'IA', county: 'Webster' },
-  { name: 'Eau Claire', zip: '54701', scid: 'Eau Claire', state: 'WI', county: 'Eau Claire' },
-  { name: 'La Crosse', zip: '54601', scid: 'La Crosse', state: 'WI', county: 'La Crosse' },
-  { name: 'Wausau', zip: '54401', scid: 'Wausau', state: 'WI', county: 'Marathon' },
-  { name: 'Green Bay', zip: '54301', scid: 'Green Bay', state: 'WI', county: 'Brown' },
-  { name: 'Ashland', zip: '54806', scid: 'Ashland', state: 'WI', county: 'Ashland' },
-  { name: 'Superior', zip: '54880', scid: 'Superior', state: 'WI', county: 'Douglas' },
-  { name: 'Hayward', zip: '54843', scid: 'Hayward', state: 'WI', county: 'Sawyer' },
-  { name: 'Rhinelander', zip: '54501', scid: 'Rhinelander', state: 'WI', county: 'Oneida' },
-  { name: 'Stevens Point', zip: '54481', scid: 'Stevens Point', state: 'WI', county: 'Portage' },
-  { name: 'Marshfield', zip: '54449', scid: 'Marshfield', state: 'WI', county: 'Wood' },
-  { name: 'Hudson', zip: '54016', scid: 'Hudson', state: 'WI', county: 'St. Croix' },
-  { name: 'New Richmond', zip: '54017', scid: 'New Richmond', state: 'WI', county: 'St. Croix' },
-  { name: 'Menomonie', zip: '54751', scid: 'Menomonie', state: 'WI', county: 'Dunn' },
-  { name: 'Chippewa Falls', zip: '54729', scid: 'Chippewa Falls', state: 'WI', county: 'Chippewa' },
-  { name: 'Tomah', zip: '54660', scid: 'Tomah', state: 'WI', county: 'Monroe' },
-  { name: 'Mauston', zip: '53948', scid: 'Mauston', state: 'WI', county: 'Juneau' },
+  { name: 'Thief River Falls',  zip: '56701', scid: 'Thief River Falls', state: 'MN', county: 'Pennington' },
+  { name: 'Moorhead',           zip: '56560', scid: 'Moorhead', state: 'MN', county: 'Clay' },
+  { name: 'Willmar',            zip: '56201', scid: 'Willmar', state: 'MN', county: 'Kandiyohi' },
+  { name: 'Owatonna',           zip: '55060', scid: 'Owatonna', state: 'MN', county: 'Steele' },
+  { name: 'Faribault',          zip: '55021', scid: 'Faribault', state: 'MN', county: 'Rice' },
+  { name: 'Red Wing',           zip: '55066', scid: 'Red Wing', state: 'MN', county: 'Goodhue' },
+  { name: 'Winona',             zip: '55987', scid: 'Winona', state: 'MN', county: 'Winona' },
+  { name: 'Duluth',             zip: '55802', scid: 'Duluth', state: 'MN', county: 'St. Louis' },
+  { name: 'Two Harbors',        zip: '55616', scid: 'Two Harbors', state: 'MN', county: 'Lake' },
+  { name: 'Grand Marais',       zip: '55604', scid: 'Grand Marais', state: 'MN', county: 'Cook' },
+  { name: 'Ely',                zip: '55731', scid: 'Ely', state: 'MN', county: 'Lake' },
+  { name: 'Walker',             zip: '56484', scid: 'Walker', state: 'MN', county: 'Cass' },
+  { name: 'Park Rapids',        zip: '56470', scid: 'Park Rapids', state: 'MN', county: 'Hubbard' },
+  { name: 'Wadena',             zip: '56482', scid: 'Wadena', state: 'MN', county: 'Wadena' },
+  { name: 'Staples',            zip: '56479', scid: 'Staples', state: 'MN', county: 'Wadena' },
+  { name: 'Morris',             zip: '56267', scid: 'Morris', state: 'MN', county: 'Stevens' },
+  { name: 'Montevideo',         zip: '56265', scid: 'Montevideo', state: 'MN', county: 'Chippewa' },
+  { name: 'Pipestone',          zip: '56164', scid: 'Pipestone', state: 'MN', county: 'Pipestone' },
+  { name: 'Worthington',        zip: '56187', scid: 'Worthington', state: 'MN', county: 'Nobles' },
+  { name: 'Jackson',            zip: '56143', scid: 'Jackson', state: 'MN', county: 'Jackson' },
+  { name: 'Redwood Falls',      zip: '56283', scid: 'Redwood Falls', state: 'MN', county: 'Redwood' },
+  { name: 'New Ulm',            zip: '56073', scid: 'New Ulm', state: 'MN', county: 'Brown' },
+  { name: 'Waseca',             zip: '56093', scid: 'Waseca', state: 'MN', county: 'Waseca' },
+  { name: 'Wabasha',            zip: '55981', scid: 'Wabasha', state: 'MN', county: 'Wabasha' },
+  { name: 'Preston',            zip: '55965', scid: 'Preston', state: 'MN', county: 'Fillmore' },
+  { name: 'Crookston',          zip: '56716', scid: 'Crookston', state: 'MN', county: 'Polk' },
+  { name: 'Hallock',            zip: '56728', scid: 'Hallock', state: 'MN', county: 'Kittson' },
+  { name: 'Warroad',            zip: '56763', scid: 'Warroad', state: 'MN', county: 'Roseau' },
+  { name: 'Baudette',           zip: '56623', scid: 'Baudette', state: 'MN', county: 'Lake of the Woods' },
+  { name: 'Cloquet',            zip: '55720', scid: 'Cloquet', state: 'MN', county: 'Carlton' },
+  { name: 'Pine City',          zip: '55063', scid: 'Pine City', state: 'MN', county: 'Pine' },
+  { name: 'Hutchinson',         zip: '55350', scid: 'Hutchinson', state: 'MN', county: 'McLeod' },
+  { name: 'Breckenridge',       zip: '56520', scid: 'Breckenridge', state: 'MN', county: 'Wilkin' },
+  { name: 'Sauk Centre',        zip: '56378', scid: 'Sauk Center', state: 'MN', county: 'Stearns' },
+  { name: 'Alexandria',         zip: '56308', scid: '3',   state: 'MN', county: 'Douglas' },
+  { name: 'Blue Earth',         zip: '56013', scid: '8',   state: 'MN', county: 'Faribault' },
+  { name: 'Fargo',              zip: '58103', scid: 'Fargo', state: 'ND', county: 'Cass' },
+  { name: 'Grand Forks',        zip: '58201', scid: 'Grand Forks', state: 'ND', county: 'Grand Forks' },
+  { name: 'Bismarck',           zip: '58501', scid: '7',   state: 'ND', county: 'Burleigh' },
+  { name: 'Minot',              zip: '58701', scid: 'Minot', state: 'ND', county: 'Ward' },
+  { name: 'Jamestown',          zip: '58401', scid: 'Jamestown', state: 'ND', county: 'Stutsman' },
+  { name: 'Valley City',        zip: '58072', scid: 'Valley City', state: 'ND', county: 'Barnes' },
+  { name: 'Devils Lake',        zip: '58301', scid: 'Devils Lake', state: 'ND', county: 'Ramsey' },
+  { name: 'Wahpeton',           zip: '58074', scid: 'Wahpeton', state: 'ND', county: 'Richland' },
+  { name: 'Dickinson',          zip: '58601', scid: 'Dickinson', state: 'ND', county: 'Stark' },
+  { name: 'Williston',          zip: '58801', scid: 'Williston', state: 'ND', county: 'Williams' },
+  { name: 'Sioux Falls',        zip: '57103', scid: 'Sioux Falls', state: 'SD', county: 'Minnehaha' },
+  { name: 'Rapid City',         zip: '57701', scid: 'Rapid City', state: 'SD', county: 'Pennington' },
+  { name: 'Aberdeen',           zip: '57401', scid: '1',   state: 'SD', county: 'Brown' },
+  { name: 'Watertown',          zip: '57201', scid: 'Watertown', state: 'SD', county: 'Codington' },
+  { name: 'Brookings',          zip: '57006', scid: '10',  state: 'SD', county: 'Brookings' },
+  { name: 'Mitchell',           zip: '57301', scid: 'Mitchell', state: 'SD', county: 'Davison' },
+  { name: 'Huron',              zip: '57350', scid: 'Huron', state: 'SD', county: 'Beadle' },
+  { name: 'Pierre',             zip: '57501', scid: 'Pierre', state: 'SD', county: 'Hughes' },
+  { name: 'Cedar Rapids',       zip: '52401', scid: 'Cedar Rapids', state: 'IA', county: 'Linn' },
+  { name: 'Davenport',          zip: '52801', scid: 'Davenport', state: 'IA', county: 'Scott' },
+  { name: 'Des Moines',         zip: '50309', scid: 'Des Moines', state: 'IA', county: 'Polk' },
+  { name: 'Sioux City',         zip: '51101', scid: 'Sioux City', state: 'IA', county: 'Woodbury' },
+  { name: 'Dubuque',            zip: '52001', scid: 'Dubuque', state: 'IA', county: 'Dubuque' },
+  { name: 'Mason City',         zip: '50401', scid: 'Mason City', state: 'IA', county: 'Cerro Gordo' },
+  { name: 'Fort Dodge',         zip: '50501', scid: 'Fort Dodge', state: 'IA', county: 'Webster' },
+  { name: 'Eau Claire',         zip: '54701', scid: 'Eau Claire', state: 'WI', county: 'Eau Claire' },
+  { name: 'La Crosse',          zip: '54601', scid: 'La Crosse', state: 'WI', county: 'La Crosse' },
+  { name: 'Wausau',             zip: '54401', scid: 'Wausau', state: 'WI', county: 'Marathon' },
+  { name: 'Green Bay',          zip: '54301', scid: 'Green Bay', state: 'WI', county: 'Brown' },
+  { name: 'Ashland',            zip: '54806', scid: '4',   state: 'WI', county: 'Ashland' },
+  { name: 'Superior',           zip: '54880', scid: 'Superior', state: 'WI', county: 'Douglas' },
+  { name: 'Hayward',            zip: '54843', scid: 'Hayward', state: 'WI', county: 'Sawyer' },
+  { name: 'Rhinelander',        zip: '54501', scid: 'Rhinelander', state: 'WI', county: 'Oneida' },
+  { name: 'Stevens Point',      zip: '54481', scid: 'Stevens Point', state: 'WI', county: 'Portage' },
+  { name: 'Marshfield',         zip: '54449', scid: 'Marshfield', state: 'WI', county: 'Wood' },
+  { name: 'Hudson',             zip: '54016', scid: 'Hudson', state: 'WI', county: 'St. Croix' },
+  { name: 'New Richmond',       zip: '54017', scid: 'New Richmond', state: 'WI', county: 'St. Croix' },
+  { name: 'Menomonie',          zip: '54751', scid: 'Menomonie', state: 'WI', county: 'Dunn' },
+  { name: 'Chippewa Falls',     zip: '54729', scid: 'Chippewa Falls', state: 'WI', county: 'Chippewa' },
+  { name: 'Tomah',              zip: '54660', scid: 'Tomah', state: 'WI', county: 'Monroe' },
+  { name: 'Mauston',            zip: '53948', scid: 'Mauston', state: 'WI', county: 'Juneau' },
 ];
-
-
-// Override SCID for service centers we have full data for
-const SCID_OVERRIDES = {
-  '56401': '102', // Brainerd
-  '56425': '102', // Baxter
-  '56345': '102', // Little Falls
-  '56468': '102', // Nisswa
-  '55912': '101', // Austin
-  '56007': '101', // Albert Lea
-};
-COMMUNITIES.forEach(c => {
-  if (SCID_OVERRIDES[c.zip]) c.scid = SCID_OVERRIDES[c.zip];
-});
 
   const input      = document.getElementById('city-input');
   const sugBox     = document.getElementById('suggestions');
@@ -357,7 +360,7 @@ COMMUNITIES.forEach(c => {
     ).slice(0, 6);
   }
 
-  // Only these cities have real portal data right now
+  // Only these SCIDs have real portal data right now
   const LIVE_SCIDS = ['101', '102'];
 
   function select(c) {
@@ -369,7 +372,6 @@ COMMUNITIES.forEach(c => {
 
     const btn = document.getElementById('launch-btn');
     if (LIVE_SCIDS.includes(c.scid)) {
-      // Real data — launch normally
       btn.href = 'portal.html?scid=' + c.scid + '&zip=' + c.zip;
       btn.style.background = '';
       btn.style.cursor = 'pointer';
@@ -378,7 +380,6 @@ COMMUNITIES.forEach(c => {
       btn.title = '';
       document.getElementById('portal-coming-soon').hidden = true;
     } else {
-      // No data yet — block launch and show message
       btn.href = '#';
       btn.style.background = '#888';
       btn.style.cursor = 'not-allowed';
