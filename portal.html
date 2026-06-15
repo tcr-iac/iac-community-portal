@@ -10,12 +10,8 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { background: #f4f6fb; }
-    body {
-      font-family: "Inter", Arial, sans-serif; background: #f4f6fb; color: #1a1a2e;
-      min-height: 100vh;
-    }
+    body { font-family: "Inter", Arial, sans-serif; background: #f4f6fb; color: #1a1a2e; min-height: 100vh; }
 
-    /* FOOTER */
     #zone-footer {
       background: #003580; color: rgba(255,255,255,0.7);
       text-align: center; padding: 1.5rem 1rem;
@@ -25,7 +21,6 @@
     #zone-footer a { color: #8fc1ff; text-decoration: none; }
     #zone-footer a:hover { text-decoration: underline; }
 
-    /* ZONE 1 — NAVBAR */
     #zone-navbar {
       position: sticky; top: 0; z-index: 100;
       background: #004a99;
@@ -33,23 +28,11 @@
       padding: 0.7rem 1.5rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    #nav-back-link {
-      color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.85rem;
-      font-weight: 600; white-space: nowrap;
-      transition: color 0.15s;
-    }
+    #nav-back-link { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.85rem; font-weight: 600; white-space: nowrap; transition: color 0.15s; }
     #nav-back-link:hover { color: #fff; }
-    #nav-portal-label {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.5);
-      white-space: nowrap;
-    }
-    #nav-center-title {
-      flex: 1; text-align: center; font-size: 1rem;
-      font-weight: 700; color: #fff; letter-spacing: 0.02em;
-    }
+    #nav-portal-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); white-space: nowrap; }
+    #nav-center-title { flex: 1; text-align: center; font-size: 1rem; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
 
-    /* ZONE 2 — HEADER */
     #zone-header {
       background: linear-gradient(135deg, #003580 0%, #004a99 60%, #0066cc 100%);
       color: #fff;
@@ -60,14 +43,8 @@
     #header-sc-name { font-size: 2.4rem; font-weight: 800; margin-bottom: 0.5rem; color: #fff; }
     #header-tagline2 { font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 0.4rem; }
     #header-iac-line { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-bottom: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
-    #header-vision1, #header-vision2 {
-      font-size: 1rem; font-style: italic;
-      color: rgba(255,255,255,0.85); line-height: 1.8;
-      border-left: 3px solid #2e7d4f;
-      padding-left: 1rem; margin-bottom: 0.7rem;
-    }
+    #header-vision1, #header-vision2 { font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.8; border-left: 3px solid #2e7d4f; padding-left: 1rem; margin-bottom: 0.7rem; }
 
-    /* Video thumbnail */
     #video-thumb-wrapper { flex-shrink: 0; text-align: center; }
     #video-thumb {
       width: 260px; height: 156px;
@@ -79,172 +56,66 @@
       transition: border-color 0.2s;
     }
     #video-thumb:hover { border-color: rgba(255,255,255,0.6); }
-    #video-poster {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: url('https://img.youtube.com/vi/Gdl_vfZPQoQ/hqdefault.jpg') center/cover;
-    }
-    #video-play-btn {
-      position: relative; z-index: 2;
-      font-size: 2.5rem; color: white;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    }
+    #video-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://img.youtube.com/vi/Gdl_vfZPQoQ/hqdefault.jpg') center/cover; }
+    #video-play-btn { position: relative; z-index: 2; font-size: 2.5rem; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
     #video-caption { font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem; }
 
-    /* ZONE 3 — TAGLINE */
-    #zone-tagline {
-      background: #003580;
-      color: rgba(255,255,255,0.85);
-      text-align: center;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
+    #zone-tagline { background: #003580; color: rgba(255,255,255,0.85); text-align: center; padding: 0.6rem 1rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; }
 
-    /* ZONE 4 — MENUS */
     #zone-menus { padding: 2.5rem 2.5rem; display: flex; gap: 1.5rem; align-items: flex-start; }
     .menu-group { flex: 1; min-width: 0; margin-bottom: 1.5rem; }
-    @media (max-width: 900px) {
-      #zone-menus { flex-direction: column; }
-    }
-    .menu-group-title {
-      font-size: 0.95rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.14em;
-      color: #004a99;
-      padding-bottom: 0.6rem; margin-bottom: 0.8rem;
-      border-bottom: 3px solid #2e7d4f;
-    }
-    .menu-group-content {
-      background: white; border-radius: 0.6rem;
-      border: 1px solid #e0e8f5;
-      padding: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0,74,153,0.06);
-    }
+    @media (max-width: 900px) { #zone-menus { flex-direction: column; } }
+    .menu-group-title { font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: #004a99; padding-bottom: 0.6rem; margin-bottom: 0.8rem; border-bottom: 3px solid #2e7d4f; }
+    .menu-group-content { background: white; border-radius: 0.6rem; border: 1px solid #e0e8f5; padding: 0.75rem; box-shadow: 0 2px 10px rgba(0,74,153,0.06); }
 
-    /* ZONE 4.5 — APP DEMOS */
-    #zone-app-demos {
-      padding: 1.75rem 2.5rem;
-      display: flex; align-items: center; gap: 1.25rem;
-      background: #e6f4ec;
-      border-top: 1px solid #cce6d6;
-      border-bottom: 1px solid #cce6d6;
-    }
-    #app-demos-label {
-      font-size: 0.85rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.12em;
-      color: #555;
-    }
-    .app-demo-btn {
-      background: #2e7d4f; color: #fff;
-      border: none; border-radius: 0.5rem;
-      padding: 0.75rem 1.75rem; font-size: 0.95rem;
-      font-family: inherit; font-weight: 700;
-      cursor: pointer; transition: all 0.15s;
-      box-shadow: 0 2px 8px rgba(46,125,79,0.3);
-    }
-    .app-demo-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46,125,79,0.4); }
-    .app-demo-btn:hover { opacity: 0.85; }
+    #zone-app-demos { padding: 1.75rem 2.5rem; display: flex; align-items: center; gap: 1.25rem; background: #e6f4ec; border-top: 1px solid #cce6d6; border-bottom: 1px solid #cce6d6; flex-wrap: wrap; }
+    #app-demos-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #555; }
+    .app-demo-btn { background: #2e7d4f; color: #fff; border: none; border-radius: 0.5rem; padding: 0.75rem 1.75rem; font-size: 0.95rem; font-family: inherit; font-weight: 700; cursor: pointer; transition: all 0.15s; box-shadow: 0 2px 8px rgba(46,125,79,0.3); }
+    .app-demo-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46,125,79,0.4); opacity: 0.9; }
+    .app-demo-btn.disabled { background: #888; cursor: not-allowed; opacity: 0.7; }
 
-    /* VIDEO MODAL — full screen, no suggestions */
-    #video-modal {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; z-index: 9999;
-    }
+    #video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; }
     #video-modal[hidden] { display: none; }
-    #video-modal-backdrop {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.92);
-    }
-    #video-modal-box {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 95vw; height: 95vh;
-      max-width: 1600px;
-    }
-    #video-modal-close {
-      position: absolute; top: -2.2rem; right: 0;
-      background: none; border: none;
-      color: white; font-size: 1.8rem;
-      cursor: pointer; line-height: 1;
-    }
-    #video-player-frame {
-      width: 100%; height: 100%; border: 0; border-radius: 0.5rem;
-      display: block;
-    }
+    #video-modal-backdrop { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); }
+    #video-modal-box { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 95vw; height: 95vh; max-width: 1600px; }
+    #video-modal-close { position: absolute; top: -2.2rem; right: 0; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; line-height: 1; }
+    #video-player-frame { width: 100%; height: 100%; border: 0; border-radius: 0.5rem; display: block; }
 
-    /* TABLE OVERLAY */
-    #table-overlay {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-    }
+    #table-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display: flex; align-items: center; justify-content: center; }
     #table-overlay[hidden] { display: none; }
-    #table-overlay-backdrop {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-    }
-    #table-overlay-box {
-      position: relative;
-      background: white; border-radius: 8px;
-      padding: 24px; width: 95%; max-width: 1200px;
-      max-height: 92vh; overflow-y: auto;
-    }
+    #table-overlay-backdrop { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+    #table-overlay-box { position: relative; background: white; border-radius: 8px; padding: 24px; width: 95%; max-width: 1200px; max-height: 92vh; overflow-y: auto; }
     #table-overlay-box h3 { color: #004a99; margin-bottom: 16px; }
-    #table-overlay-close {
-      position: absolute; top: 16px; right: 16px;
-      background: none; border: none; font-size: 20px; cursor: pointer; color: #888;
-    }
+    #table-overlay-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: #888; }
     .restaurant-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .restaurant-table th {
-      background: #004a99; color: white; padding: 10px 12px; text-align: left;
-    }
+    .restaurant-table th { background: #004a99; color: white; padding: 10px 12px; text-align: left; }
     .restaurant-table td { padding: 10px 12px; border-bottom: 1px solid #eee; }
     .restaurant-table tr:nth-child(even) { background: #f7f9fc; }
     .restaurant-table a { color: #004a99; text-decoration: none; font-weight: 600; }
     .restaurant-table a:hover { text-decoration: underline; }
 
-    /* MENU ITEMS */
     .menu-item { margin-bottom: 2px; }
-    .menu-row {
-      display: flex; align-items: center; gap: 8px;
-      padding: 11px 14px; cursor: pointer;
-      border-radius: 6px; transition: background 0.15s;
-    }
+    .menu-row { display: flex; align-items: center; gap: 8px; padding: 11px 14px; cursor: pointer; border-radius: 6px; transition: background 0.15s; }
     .menu-row:hover { background: #e8f0fe; }
     .menu-arrow { font-size: 10px; color: #2e7d4f; transition: transform 0.2s; }
-    /* Top-level categories in caps */
-    .menu-row.depth-0 {
-      text-transform: uppercase;
-      font-weight: 800;
-      font-size: 13px;
-      background: #f0f6ff;
-      border-left: 4px solid #2e7d4f;
-    }
-    .menu-row.depth-1 {
-      font-weight: 500;
-      font-size: 13px;
-      border-left: 3px solid #0066cc;
-    }
-    .menu-row.depth-2, .menu-row.depth-3 {
-      font-weight: 400;
-      font-size: 12px;
-      border-left: 3px solid #aaa;
-    }
+    .menu-row.depth-0 { text-transform: uppercase; font-weight: 800; font-size: 13px; background: #f0f6ff; border-left: 4px solid #2e7d4f; }
+    .menu-row.depth-1 { font-weight: 500; font-size: 13px; border-left: 3px solid #0066cc; }
+    .menu-row.depth-2, .menu-row.depth-3 { font-weight: 400; font-size: 12px; border-left: 3px solid #aaa; }
+
+    .coming-soon-box { padding: 30px; text-align: center; }
+    .coming-soon-box .icon { font-size: 40px; margin-bottom: 12px; }
+    .coming-soon-box p { font-size: 13px; color: #aaa; margin-top: 6px; }
+    .coming-soon-box strong { font-size: 15px; color: #444; display: block; margin-bottom: 4px; }
   </style>
 </head>
 <body>
 
-<!-- ZONE 1 — NAVBAR -->
 <nav id="zone-navbar">
   <a href="index.html" id="nav-back-link">← All</a>
   <span id="nav-portal-label">IAC PORTAL</span>
   <span id="nav-center-title">Information Age Community</span>
 </nav>
 
-<!-- ZONE 2 — HEADER -->
 <header id="zone-header">
   <div id="header-text">
     <h1 id="header-sc-name"></h1>
@@ -262,12 +133,10 @@
   </div>
 </header>
 
-<!-- ZONE 3 — TAGLINE -->
 <section id="zone-tagline">
   <span id="tagline-text"></span>
 </section>
 
-<!-- ZONE 4 — MENUS (all groups shown simultaneously) -->
 <section id="zone-menus">
   <div class="menu-group">
     <div class="menu-group-title">TeleCenter Services</div>
@@ -283,15 +152,13 @@
   </div>
 </section>
 
-<!-- ZONE 4.5 — APP DEMOS -->
 <section id="zone-app-demos">
   <p id="app-demos-label">Application Demonstrations</p>
   <button id="btn-econsensus" class="app-demo-btn">E-Consensus</button>
   <button id="btn-viability" class="app-demo-btn">Viability Index</button>
-  <button id="btn-neighborhoods" class="app-demo-btn" style="background:#888;cursor:not-allowed;opacity:0.7;" title="Coming soon — neighborhood map in development">View our Neighborhoods ⏳</button>
+  <button id="btn-neighborhoods" class="app-demo-btn disabled" title="Coming soon — neighborhood map in development">View our Neighborhoods ⏳</button>
 </section>
 
-<!-- FOOTER -->
 <footer id="zone-footer">
   &copy; 2026 Tele-Commuter Resources, Inc. &nbsp;|&nbsp;
   4315 Virginia Avenue, St Paul, MN 55126 &nbsp;|&nbsp;
@@ -299,22 +166,15 @@
   <a href="http://www.telecommuter.org">www.telecommuter.org</a>
 </footer>
 
-<!-- TABLE OVERLAY -->
 <div id="table-overlay" hidden>
   <div id="table-overlay-backdrop"></div>
   <div id="table-overlay-box">
     <button id="table-overlay-close">&#x2715;</button>
     <h3 id="table-overlay-title"></h3>
-    <table class="restaurant-table">
-      <thead>
-        <tr><th>Name</th><th>Phone</th><th>Address</th><th>Website</th><th>Map</th></tr>
-      </thead>
-      <tbody id="table-overlay-body"></tbody>
-    </table>
+    <div id="overlay-inner-content"></div>
   </div>
 </div>
 
-<!-- VIDEO MODAL — full screen YouTube embed, no suggestions -->
 <div id="video-modal" hidden>
   <div id="video-modal-backdrop"></div>
   <div id="video-modal-box">
@@ -324,14 +184,14 @@
 </div>
 
 <script>
-// ── Data ────────────────────────────────────────────────────
+// ── SC Data ─────────────────────────────────────────────────
 const SC_DATA = {
   '9': {
     name: 'Brainerd Service Center',
     tagline2: 'Serving the Brainerd Lakes Region',
     iacLine: 'Information Age Community — Minneapolis · St Paul',
     vision1: '"Providing the Global Economy access to the Real World."',
-    vision2: '"If you love the outdoors, you're gonna love it here."',
+    vision2: '"If you love the outdoors, you\'re gonna love it here."',
     tagline: 'A Great Community in the Great Outdoors',
     videoId: 'Gdl_vfZPQoQ',
   },
@@ -340,7 +200,7 @@ const SC_DATA = {
     tagline2: 'Serving the Brainerd Lakes Region',
     iacLine: 'Information Age Community — Minneapolis · St Paul',
     vision1: '"Providing the Global Economy access to the Real World."',
-    vision2: '"If you love the outdoors, you're gonna love it here."',
+    vision2: '"If you love the outdoors, you\'re gonna love it here."',
     tagline: 'A Great Community in the Great Outdoors',
     videoId: 'Gdl_vfZPQoQ',
   },
@@ -368,7 +228,7 @@ const SC_DATA = {
     iacLine: 'Information Age Community — Minneapolis · St Paul',
     vision1: '"An Urban Center without the Urban Problems."',
     vision2: '"Three Colleges within 15 miles."',
-    tagline: 'Central Minnesota's Dynamo',
+    tagline: 'Central Minnesota\'s Dynamo',
     videoId: 'Gdl_vfZPQoQ',
   },
   '42': {
@@ -391,9 +251,9 @@ const SC_DATA = {
   },
 };
 
-// ── Menus ───────────────────────────────────────────────────
+// ── Menus ────────────────────────────────────────────────────
 const MENUS = {
-  1: [ // TeleCenter Services — from IAC Menu TeleCenter Services.xlsx
+  1: [
     { title: 'Cultural Support', children: [
       { title: 'Cooking', children: [] },
       { title: 'Genealogy', children: [] },
@@ -479,7 +339,7 @@ const MENUS = {
       { title: 'Volunteer Registration', children: [] },
     ]},
   ],
-  2: [ // Directory — waiting on Jack NAICS data
+  2: [
     { title: 'Data Collection', children: [
       { title: 'Web Scrubbing', children: [] },
       { title: 'NAICS Conversion', children: [] },
@@ -501,7 +361,7 @@ const MENUS = {
       { title: 'Hospitals', table: true, children: [] },
     ]},
   ],
-  3: [ // Community Engagement — from IAC Menu COMMUNITY ENGAGEMENNT.xlsx
+  3: [
     { title: 'Accountability', children: [
       { title: 'Communications', children: [] },
       { title: 'Community Concerns', children: [
@@ -632,71 +492,8 @@ const MENUS = {
     ]},
   ],
 };
-// ── Global accordion state (only one top-level item open at a time, across all groups) ──
-let currentOpenTopLevel = null; // { arrow, childDiv }
 
-// ── Render menu items ───────────────────────────────────────
-function renderItem(item, depth) {
-  const wrap = document.createElement('div');
-  wrap.className = 'menu-item';
-  wrap.style.paddingLeft = `${depth * 18}px`;
-
-  const row = document.createElement('div');
-  row.className = `menu-row depth-${depth}`;
-
-  if (item.children && item.children.length > 0) {
-    const arrow = document.createElement('span');
-    arrow.className = 'menu-arrow';
-    arrow.textContent = '▶';
-    const label = document.createElement('span');
-    label.textContent = item.title;
-    row.appendChild(arrow);
-    row.appendChild(label);
-
-    const childDiv = document.createElement('div');
-    childDiv.style.display = 'none';
-    item.children.forEach(c => childDiv.appendChild(renderItem(c, depth + 1)));
-
-    let open = false;
-    row.addEventListener('click', () => {
-      if (depth === 0) {
-        // Global accordion: close whatever top-level item is currently open (if different)
-        if (currentOpenTopLevel && currentOpenTopLevel.childDiv !== childDiv) {
-          currentOpenTopLevel.arrow.style.transform = '';
-          currentOpenTopLevel.childDiv.style.display = 'none';
-          currentOpenTopLevel.openFlagSetter(false);
-        }
-        open = !open;
-        if (open) {
-          currentOpenTopLevel = { arrow, childDiv, openFlagSetter: (v) => { open = v; } };
-        } else {
-          currentOpenTopLevel = null;
-        }
-      } else {
-        open = !open;
-      }
-      arrow.style.transform = open ? 'rotate(90deg)' : '';
-      childDiv.style.display = open ? 'block' : 'none';
-    });
-
-    wrap.appendChild(row);
-    wrap.appendChild(childDiv);
-  } else if (item.file) {
-    row.innerHTML = `<span>📄</span><span style="flex:1">${item.title}</span>`;
-    row.addEventListener('click', () => showFileOverlay(item.title, item.file));
-    wrap.appendChild(row);
-  } else if (item.table) {
-    row.innerHTML = `<span>📋</span><span>${item.title}</span>`;
-    row.addEventListener('click', () => showTableOverlay(item.title));
-    wrap.appendChild(row);
-  } else {
-    row.innerHTML = `<span style="color:#aaa">•</span><span>${item.title}</span>`;
-    wrap.appendChild(row);
-  }
-  return wrap;
-}
-
-// Sample restaurant data
+// ── Sample directory data ────────────────────────────────────
 const RESTAURANT_DATA = {
   '102': {
     'Full-Service Restaurants': [
@@ -720,141 +517,188 @@ const RESTAURANT_DATA = {
   }
 };
 
-function showFileOverlay(title, fileName) {
-  const overlay = document.getElementById('table-overlay');
-  document.getElementById('table-overlay-title').textContent = title;
-  document.querySelector('#table-overlay-box table').style.display = 'none';
-  let msgBox = document.getElementById('file-coming-soon');
-  if (!msgBox) {
-    msgBox = document.createElement('div');
-    msgBox.id = 'file-coming-soon';
-    msgBox.style.cssText = 'padding:10px;text-align:center;color:#888;';
-    document.getElementById('table-overlay-box').appendChild(msgBox);
-  }
+// ── Accordion state ──────────────────────────────────────────
+let currentOpenTopLevel = null;
 
-  const filePath = `files/${fileName}`;
+// ── Render menu items ────────────────────────────────────────
+function renderItem(item, depth) {
+  const wrap = document.createElement('div');
+  wrap.className = 'menu-item';
+  wrap.style.paddingLeft = (depth * 18) + 'px';
+
+  const row = document.createElement('div');
+  row.className = 'menu-row depth-' + depth;
+
+  if (item.children && item.children.length > 0) {
+    const arrow = document.createElement('span');
+    arrow.className = 'menu-arrow';
+    arrow.textContent = '▶';
+    const label = document.createElement('span');
+    label.textContent = item.title;
+    row.appendChild(arrow);
+    row.appendChild(label);
+
+    const childDiv = document.createElement('div');
+    childDiv.style.display = 'none';
+    item.children.forEach(function(c) { childDiv.appendChild(renderItem(c, depth + 1)); });
+
+    let open = false;
+    row.addEventListener('click', function() {
+      if (depth === 0) {
+        if (currentOpenTopLevel && currentOpenTopLevel.childDiv !== childDiv) {
+          currentOpenTopLevel.arrow.style.transform = '';
+          currentOpenTopLevel.childDiv.style.display = 'none';
+          currentOpenTopLevel.setOpen(false);
+        }
+        open = !open;
+        if (open) {
+          currentOpenTopLevel = { arrow: arrow, childDiv: childDiv, setOpen: function(v) { open = v; } };
+        } else {
+          currentOpenTopLevel = null;
+        }
+      } else {
+        open = !open;
+      }
+      arrow.style.transform = open ? 'rotate(90deg)' : '';
+      childDiv.style.display = open ? 'block' : 'none';
+    });
+
+    wrap.appendChild(row);
+    wrap.appendChild(childDiv);
+
+  } else if (item.file) {
+    row.innerHTML = '<span>📄</span><span style="flex:1">' + item.title + '</span>';
+    row.addEventListener('click', function() { showFileOverlay(item.title, item.file); });
+    wrap.appendChild(row);
+
+  } else if (item.table) {
+    row.innerHTML = '<span>📋</span><span>' + item.title + '</span>';
+    row.addEventListener('click', function() { showTableOverlay(item.title); });
+    wrap.appendChild(row);
+
+  } else {
+    row.innerHTML = '<span style="color:#aaa">•</span><span>' + item.title + '</span>';
+    wrap.appendChild(row);
+  }
+  return wrap;
+}
+
+// ── File overlay ─────────────────────────────────────────────
+function showFileOverlay(title, fileName) {
+  document.getElementById('table-overlay-title').textContent = title;
+  const inner = document.getElementById('overlay-inner-content');
+  inner.innerHTML = '';
+
+  const filePath = 'files/' + fileName;
   const ext = fileName.split('.').pop().toLowerCase();
 
   fetch(filePath, { method: 'HEAD' })
-    .then(res => {
+    .then(function(res) {
       if (res.ok) {
         if (ext === 'pdf') {
+          // Open PDF in new tab
           window.open(filePath, '_blank');
+          document.getElementById('table-overlay').hidden = true;
           return;
         } else if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
-          msgBox.innerHTML = `<img src="${filePath}" style="max-width:100%;max-height:65vh;border-radius:6px;">`;
+          inner.innerHTML = '<img src="' + filePath + '" style="max-width:100%;max-height:65vh;border-radius:6px;display:block;margin:0 auto;">';
         } else if (['ppt','pptx','doc','docx','xls','xlsx'].includes(ext)) {
-          msgBox.innerHTML = `
-            <div style="padding:30px;">
-              <div style="font-size:40px;margin-bottom:12px;">📄</div>
-              <p style="font-size:15px;color:#444;margin-bottom:12px;"><strong>${fileName}</strong></p>
-              <a href="${filePath}" download style="background:#004a99;color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;">Download File</a>
-            </div>`;
+          inner.innerHTML = '<div class="coming-soon-box"><div class="icon">📄</div><strong>' + fileName + '</strong><br><a href="' + filePath + '" download style="background:#004a99;color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:12px;">Download File</a></div>';
         } else {
-          msgBox.innerHTML = `<a href="${filePath}" target="_blank">Open ${fileName}</a>`;
+          inner.innerHTML = '<div class="coming-soon-box"><a href="' + filePath + '" target="_blank">Open ' + fileName + '</a></div>';
         }
-        msgBox.style.display = 'block';
-        overlay.hidden = false;
       } else {
-        showComingSoon();
+        showComingSoon(inner, fileName);
       }
+      document.getElementById('table-overlay').hidden = false;
     })
-    .catch(() => showComingSoon());
-
-  function showComingSoon() {
-    msgBox.innerHTML = `
-      <div style="padding:30px;">
-        <div style="font-size:40px;margin-bottom:12px;">📄</div>
-        <p style="font-size:15px;color:#444;margin-bottom:6px;"><strong>${fileName}</strong></p>
-        <p style="font-size:13px;color:#aaa;">This file is not loaded yet — coming soon!</p>
-      </div>`;
-    msgBox.style.display = 'block';
-    overlay.hidden = false;
-  }
+    .catch(function() {
+      showComingSoon(inner, fileName);
+      document.getElementById('table-overlay').hidden = false;
+    });
 }
 
+function showComingSoon(container, fileName) {
+  container.innerHTML = '<div class="coming-soon-box"><div class="icon">📄</div><strong>' + fileName + '</strong><p>This file has not been uploaded yet — coming soon!</p></div>';
+}
+
+// ── Table overlay ────────────────────────────────────────────
 function showTableOverlay(title) {
-  const msgBox = document.getElementById('file-coming-soon');
-  if (msgBox) msgBox.style.display = 'none';
-  const table = document.querySelector('#table-overlay-box table');
-  table.style.display = '';
-  table.querySelector('thead tr').innerHTML = '<th>Name</th><th>Phone</th><th>Address</th><th>Website</th><th>Map</th>';
   document.getElementById('table-overlay-title').textContent = title;
-  const tbody = document.getElementById('table-overlay-body');
-  tbody.innerHTML = '';
+  const inner = document.getElementById('overlay-inner-content');
   const scData = RESTAURANT_DATA[scid] || RESTAURANT_DATA['102'];
   const rows = scData[title] || [];
+
+  let html = '<table class="restaurant-table"><thead><tr><th>Name</th><th>Phone</th><th>Address</th><th>Website</th><th>Map</th></tr></thead><tbody>';
   if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px;">📋 No listings yet for this category — coming soon!</td></tr>';
+    html += '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px;">📋 No listings yet for this category — coming soon!</td></tr>';
   } else {
-    rows.forEach(r => {
-      tbody.innerHTML += `<tr>
-        <td>${r.name}</td>
-        <td>${r.phone}</td>
-        <td>${r.address}</td>
-        <td><a href="${r.website}" target="_blank">Visit</a></td>
-        <td><a href="${r.map}" target="_blank">Map</a></td>
-      </tr>`;
+    rows.forEach(function(r) {
+      html += '<tr><td>' + r.name + '</td><td>' + r.phone + '</td><td>' + r.address + '</td><td><a href="' + r.website + '" target="_blank">Visit</a></td><td><a href="' + r.map + '" target="_blank">Map</a></td></tr>';
     });
   }
+  html += '</tbody></table>';
+  inner.innerHTML = html;
   document.getElementById('table-overlay').hidden = false;
 }
 
-document.getElementById('table-overlay-close').addEventListener('click', () => {
+document.getElementById('table-overlay-close').addEventListener('click', function() {
   document.getElementById('table-overlay').hidden = true;
 });
-document.getElementById('table-overlay-backdrop').addEventListener('click', () => {
+document.getElementById('table-overlay-backdrop').addEventListener('click', function() {
   document.getElementById('table-overlay').hidden = true;
 });
 
+// ── Load menus ───────────────────────────────────────────────
 function loadAllMenus() {
-  [1, 2, 3].forEach(idx => {
-    const content = document.getElementById(`menu-content-${idx}`);
+  [1, 2, 3].forEach(function(idx) {
+    const content = document.getElementById('menu-content-' + idx);
     content.innerHTML = '';
-    const items = MENUS[idx] || [];
-    items.forEach(item => content.appendChild(renderItem(item, 0)));
+    (MENUS[idx] || []).forEach(function(item) { content.appendChild(renderItem(item, 0)); });
   });
 }
 
-// ── Init ────────────────────────────────────────────────────
+// ── Init ─────────────────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
 const scid = params.get('scid') || '102';
 const zip  = params.get('zip')  || '';
 const sc   = SC_DATA[scid] || SC_DATA['102'];
 
-document.getElementById('header-sc-name').textContent  = sc.name;
-document.getElementById('header-tagline2').textContent = sc.tagline2;
-document.getElementById('header-iac-line').textContent = sc.iacLine;
-document.getElementById('header-vision1').textContent  = sc.vision1;
-document.getElementById('header-vision2').textContent  = sc.vision2;
-document.getElementById('tagline-text').textContent    = sc.tagline;
+document.getElementById('header-sc-name').textContent   = sc.name;
+document.getElementById('header-tagline2').textContent  = sc.tagline2;
+document.getElementById('header-iac-line').textContent  = sc.iacLine;
+document.getElementById('header-vision1').textContent   = sc.vision1;
+document.getElementById('header-vision2').textContent   = sc.vision2;
+document.getElementById('tagline-text').textContent     = sc.tagline;
 document.getElementById('nav-center-title').textContent = sc.name;
 
 loadAllMenus();
 
-// App Demo buttons — open the PDFs from files/
-document.getElementById('btn-econsensus').addEventListener('click', () => {
-  window.open('files/eConsensus_Report_Format.pdf', '_blank');
+// ── App Demo buttons ─────────────────────────────────────────
+document.getElementById('btn-econsensus').addEventListener('click', function() {
+  showFileOverlay('E-Consensus Report', 'eConsensus_Report_Format.pdf');
 });
-document.getElementById('btn-viability').addEventListener('click', () => {
-  window.open('files/IAC_Viability_Index_Implementation.pdf', '_blank');
+document.getElementById('btn-viability').addEventListener('click', function() {
+  showFileOverlay('Viability Index', 'IAC_Viability_Index_Implementation.pdf');
+});
+document.getElementById('btn-neighborhoods').addEventListener('click', function(e) {
+  e.preventDefault();
 });
 
-// Video — full screen embed, no related suggestions
+// ── Video ─────────────────────────────────────────────────────
 const thumb = document.getElementById('video-thumb');
 const modal  = document.getElementById('video-modal');
 const frame  = document.getElementById('video-player-frame');
-thumb.addEventListener('click', () => {
-  frame.src = `https://www.youtube.com/embed/${sc.videoId}?autoplay=1&rel=0&modestbranding=1`;
+thumb.addEventListener('click', function() {
+  frame.src = 'https://www.youtube.com/embed/' + sc.videoId + '?autoplay=1&rel=0&modestbranding=1';
   modal.hidden = false;
 });
-document.getElementById('video-modal-close').addEventListener('click', () => {
+document.getElementById('video-modal-close').addEventListener('click', function() {
   modal.hidden = true; frame.src = '';
 });
-document.getElementById('video-modal-backdrop').addEventListener('click', () => {
+document.getElementById('video-modal-backdrop').addEventListener('click', function() {
   modal.hidden = true; frame.src = '';
 });
-
 </script>
 </body>
 </html>
