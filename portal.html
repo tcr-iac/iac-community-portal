@@ -326,13 +326,31 @@
 <script>
 // ── Data ────────────────────────────────────────────────────
 const SC_DATA = {
+  '9': {
+    name: 'Brainerd Service Center',
+    tagline2: 'Serving the Brainerd Lakes Region',
+    iacLine: 'Information Age Community — Minneapolis · St Paul',
+    vision1: '"Providing the Global Economy access to the Real World."',
+    vision2: '"If you love the outdoors, you're gonna love it here."',
+    tagline: 'A Great Community in the Great Outdoors',
+    videoId: 'Gdl_vfZPQoQ',
+  },
   '102': {
     name: 'Brainerd Service Center',
     tagline2: 'Serving the Brainerd Lakes Region',
     iacLine: 'Information Age Community — Minneapolis · St Paul',
-    vision1: '"Technology and tradition, working together for rural Minnesota."',
-    vision2: '"Building opportunity for every community in the ecosystem."',
-    tagline: 'Connecting Rural Minnesota to the Information Age',
+    vision1: '"Providing the Global Economy access to the Real World."',
+    vision2: '"If you love the outdoors, you're gonna love it here."',
+    tagline: 'A Great Community in the Great Outdoors',
+    videoId: 'Gdl_vfZPQoQ',
+  },
+  '5': {
+    name: 'Austin Service Center',
+    tagline2: 'Serving the Austin–Albert Lea Region',
+    iacLine: 'Information Age Community — Minneapolis · St Paul',
+    vision1: '"Strengthening Austin as a regional hub for the Information Age."',
+    vision2: '"Opportunity for every family in southern Minnesota."',
+    tagline: 'Connecting Southern Minnesota to the Information Age',
     videoId: 'Gdl_vfZPQoQ',
   },
   '101': {
@@ -343,12 +361,39 @@ const SC_DATA = {
     vision2: '"Opportunity for every family in southern Minnesota."',
     tagline: 'Connecting Southern Minnesota to the Information Age',
     videoId: 'Gdl_vfZPQoQ',
-  }
+  },
+  '64': {
+    name: 'St Cloud Service Center',
+    tagline2: 'Serving Central Minnesota',
+    iacLine: 'Information Age Community — Minneapolis · St Paul',
+    vision1: '"An Urban Center without the Urban Problems."',
+    vision2: '"Three Colleges within 15 miles."',
+    tagline: 'Central Minnesota's Dynamo',
+    videoId: 'Gdl_vfZPQoQ',
+  },
+  '42': {
+    name: 'Marshall Service Center',
+    tagline2: 'Serving the Marshall Region',
+    iacLine: 'Information Age Community — Minneapolis · St Paul',
+    vision1: '"Connecting Rural Minnesota to the Information Age."',
+    vision2: '"Building opportunity for every community in the ecosystem."',
+    tagline: 'Connecting Rural Minnesota to the Information Age',
+    videoId: 'Gdl_vfZPQoQ',
+  },
+  '41': {
+    name: 'Mankato Service Center',
+    tagline2: 'Serving the Mankato Region',
+    iacLine: 'Information Age Community — Minneapolis · St Paul',
+    vision1: '"Connecting Southern Minnesota to the Information Age."',
+    vision2: '"Building opportunity for every community in the ecosystem."',
+    tagline: 'Connecting Southern Minnesota to the Information Age',
+    videoId: 'Gdl_vfZPQoQ',
+  },
 };
 
 // ── Menus ───────────────────────────────────────────────────
 const MENUS = {
-  1: [ // TeleCenter Services — from Excel: IAC Menu TeleCenter Services.xlsx
+  1: [ // TeleCenter Services — from IAC Menu TeleCenter Services.xlsx
     { title: 'Cultural Support', children: [
       { title: 'Cooking', children: [] },
       { title: 'Genealogy', children: [] },
@@ -413,7 +458,7 @@ const MENUS = {
         { title: 'Technology Support', children: [] },
       ]},
     ]},
-    { title: 'Online Service Support', children: [
+    { title: 'On-Line Service Support', children: [
       { title: 'Distance Education', children: [] },
       { title: 'e-Commerce', children: [] },
       { title: 'Remote Work', children: [] },
@@ -434,7 +479,7 @@ const MENUS = {
       { title: 'Volunteer Registration', children: [] },
     ]},
   ],
-  2: [ // Directory — waiting on Jack's NAICS data
+  2: [ // Directory — waiting on Jack NAICS data
     { title: 'Data Collection', children: [
       { title: 'Web Scrubbing', children: [] },
       { title: 'NAICS Conversion', children: [] },
@@ -456,7 +501,7 @@ const MENUS = {
       { title: 'Hospitals', table: true, children: [] },
     ]},
   ],
-  3: [ // Community Engagement — from Excel: IAC Menu COMMUNITY ENGAGEMENNT.xlsx
+  3: [ // Community Engagement — from IAC Menu COMMUNITY ENGAGEMENNT.xlsx
     { title: 'Accountability', children: [
       { title: 'Communications', children: [] },
       { title: 'Community Concerns', children: [
@@ -517,14 +562,14 @@ const MENUS = {
         { title: 'Dangerous Conditions', children: [] },
         { title: 'Crime Statistics', children: [
           { title: 'Historic', children: [] },
-          { title: 'Current Profile', children: [] },
+          { title: 'Current Profile', file: 'Crime_Statistics.xlsx', children: [] },
         ]},
       ]},
     ]},
     { title: 'Events', children: [
       { title: 'Athletic', children: [] },
       { title: 'Education Schedules', children: [
-        { title: 'School Calendar', children: [] },
+        { title: 'School Calendar', file: 'School_Calendar.xlsx', children: [] },
       ]},
       { title: 'Entertainment', children: [] },
       { title: 'Performances', children: [] },
@@ -534,7 +579,7 @@ const MENUS = {
         { title: 'Results', file: 'Public_Policy.pdf', children: [] },
       ]},
       { title: 'Worship', children: [
-        { title: 'Service Schedules', children: [] },
+        { title: 'Service Schedules', file: 'Worship_Schedules.xlsx', children: [] },
       ]},
     ]},
     { title: 'Fellowship', children: [
@@ -562,7 +607,14 @@ const MENUS = {
         { title: 'Government', children: [] },
       ]},
     ]},
-    { title: 'Performance', children: [] },
+    { title: 'Performance', children: [
+      { title: 'Visioning Tracking', children: [
+        { title: 'IAC', children: [
+          { title: 'IAC Canonical Analysis Unit Map', file: 'iac_analysis_unit_map_clean.jpg', children: [] },
+          { title: 'IAC Metro 7 ZIP Verification Map', file: 'metro7_map_v3_mvp.jpg', children: [] },
+        ]},
+      ]},
+    ]},
     { title: 'The Vision', children: [
       { title: 'The Report', file: 'IAC_Viability_Index_Implementation.pdf', children: [] },
       { title: 'The Process', children: [] },
@@ -580,7 +632,6 @@ const MENUS = {
     ]},
   ],
 };
-
 // ── Global accordion state (only one top-level item open at a time, across all groups) ──
 let currentOpenTopLevel = null; // { arrow, childDiv }
 
