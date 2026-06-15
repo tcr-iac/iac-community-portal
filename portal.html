@@ -46,15 +46,7 @@
     #header-vision1, #header-vision2 { font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.8; border-left: 3px solid #2e7d4f; padding-left: 1rem; margin-bottom: 0.7rem; }
 
     #video-thumb-wrapper { flex-shrink: 0; text-align: center; }
-    #video-thumb {
-      width: 260px; height: 156px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 0.5rem;
-      border: 2px solid rgba(255,255,255,0.2);
-      cursor: pointer; position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.2s;
-    }
+    #video-thumb { width: 260px; height: 156px; background: rgba(0,0,0,0.4); border-radius: 0.5rem; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
     #video-thumb:hover { border-color: rgba(255,255,255,0.6); }
     #video-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://img.youtube.com/vi/Gdl_vfZPQoQ/hqdefault.jpg') center/cover; }
     #video-play-btn { position: relative; z-index: 2; font-size: 2.5rem; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
@@ -184,7 +176,6 @@
 </div>
 
 <script>
-// ── SC Data ─────────────────────────────────────────────────
 const SC_DATA = {
   '9': {
     name: 'Brainerd Service Center',
@@ -206,7 +197,7 @@ const SC_DATA = {
   },
   '5': {
     name: 'Austin Service Center',
-    tagline2: 'Serving the Austin–Albert Lea Region',
+    tagline2: 'Serving the Austin\u2013Albert Lea Region',
     iacLine: 'Information Age Community — Minneapolis · St Paul',
     vision1: '"Strengthening Austin as a regional hub for the Information Age."',
     vision2: '"Opportunity for every family in southern Minnesota."',
@@ -215,7 +206,7 @@ const SC_DATA = {
   },
   '101': {
     name: 'Austin Service Center',
-    tagline2: 'Serving the Austin–Albert Lea Region',
+    tagline2: 'Serving the Austin\u2013Albert Lea Region',
     iacLine: 'Information Age Community — Minneapolis · St Paul',
     vision1: '"Strengthening Austin as a regional hub for the Information Age."',
     vision2: '"Opportunity for every family in southern Minnesota."',
@@ -251,7 +242,6 @@ const SC_DATA = {
   },
 };
 
-// ── Menus ────────────────────────────────────────────────────
 const MENUS = {
   1: [
     { title: 'Cultural Support', children: [
@@ -375,7 +365,7 @@ const MENUS = {
             { title: 'Trends', children: [] },
           ]},
         ]},
-        { title: 'Infrastructure', children: [
+        { title: 'Infrastructure Type Selector', children: [
           { title: 'Construction', children: [] },
           { title: 'Complaints', children: [] },
           { title: 'Plans', children: [] },
@@ -386,26 +376,26 @@ const MENUS = {
       { title: 'Education', children: [
         { title: 'High Schools', children: [] },
       ]},
-      { title: 'IAC Community Lens', children: [
+      { title: 'IAC- Community Lens', children: [
         { title: 'Suggestions', children: [] },
         { title: 'Updates', children: [] },
         { title: 'Statistics', children: [] },
       ]},
-      { title: 'IAC Consensus Budget', children: [
+      { title: 'IAC- Consensus Budget', children: [
         { title: 'Annual Process', children: [] },
         { title: 'Budgets', file: 'IAC_Consensus_Budget.pdf', children: [] },
       ]},
-      { title: 'IAC Service Center', children: [
+      { title: 'IAC- Service Center', children: [
         { title: 'Issues', children: [] },
         { title: 'Neighborhood Integration', children: [] },
       ]},
-      { title: 'IAC TeleCenter', children: [
+      { title: 'IAC- TeleCenter', children: [
         { title: 'Hours', children: [] },
         { title: 'Services', children: [] },
         { title: 'Statistics', children: [] },
         { title: 'Suggestions', children: [] },
       ]},
-      { title: 'Regulatory Issues', children: [
+      { title: 'Regulatory Issues Type Selector', children: [
         { title: 'Compliance', children: [] },
         { title: 'Inquiries', children: [] },
         { title: 'Safety', children: [
@@ -456,7 +446,7 @@ const MENUS = {
       { title: 'Reunions', children: [] },
     ]},
     { title: 'Leadership', children: [
-      { title: 'Elections', children: [
+      { title: 'Elections- Type', children: [
         { title: 'Candidate Profiles', children: [] },
         { title: 'e-Consensus Forums', children: [] },
         { title: 'Schedules & Locations', children: [] },
@@ -493,7 +483,6 @@ const MENUS = {
   ],
 };
 
-// ── Sample directory data ────────────────────────────────────
 const RESTAURANT_DATA = {
   '102': {
     'Full-Service Restaurants': [
@@ -517,31 +506,26 @@ const RESTAURANT_DATA = {
   }
 };
 
-// ── Accordion state ──────────────────────────────────────────
 let currentOpenTopLevel = null;
 
-// ── Render menu items ────────────────────────────────────────
 function renderItem(item, depth) {
   const wrap = document.createElement('div');
   wrap.className = 'menu-item';
   wrap.style.paddingLeft = (depth * 18) + 'px';
-
   const row = document.createElement('div');
   row.className = 'menu-row depth-' + depth;
 
   if (item.children && item.children.length > 0) {
     const arrow = document.createElement('span');
     arrow.className = 'menu-arrow';
-    arrow.textContent = '▶';
+    arrow.textContent = '\u25B6';
     const label = document.createElement('span');
     label.textContent = item.title;
     row.appendChild(arrow);
     row.appendChild(label);
-
     const childDiv = document.createElement('div');
     childDiv.style.display = 'none';
     item.children.forEach(function(c) { childDiv.appendChild(renderItem(c, depth + 1)); });
-
     let open = false;
     row.addEventListener('click', function() {
       if (depth === 0) {
@@ -551,59 +535,47 @@ function renderItem(item, depth) {
           currentOpenTopLevel.setOpen(false);
         }
         open = !open;
-        if (open) {
-          currentOpenTopLevel = { arrow: arrow, childDiv: childDiv, setOpen: function(v) { open = v; } };
-        } else {
-          currentOpenTopLevel = null;
-        }
+        currentOpenTopLevel = open ? { arrow: arrow, childDiv: childDiv, setOpen: function(v) { open = v; } } : null;
       } else {
         open = !open;
       }
       arrow.style.transform = open ? 'rotate(90deg)' : '';
       childDiv.style.display = open ? 'block' : 'none';
     });
-
     wrap.appendChild(row);
     wrap.appendChild(childDiv);
-
   } else if (item.file) {
-    row.innerHTML = '<span>📄</span><span style="flex:1">' + item.title + '</span>';
+    row.innerHTML = '<span>\uD83D\uDCC4</span><span style="flex:1">' + item.title + '</span>';
     row.addEventListener('click', function() { showFileOverlay(item.title, item.file); });
     wrap.appendChild(row);
-
   } else if (item.table) {
-    row.innerHTML = '<span>📋</span><span>' + item.title + '</span>';
+    row.innerHTML = '<span>\uD83D\uDCCB</span><span>' + item.title + '</span>';
     row.addEventListener('click', function() { showTableOverlay(item.title); });
     wrap.appendChild(row);
-
   } else {
-    row.innerHTML = '<span style="color:#aaa">•</span><span>' + item.title + '</span>';
+    row.innerHTML = '<span style="color:#aaa">\u2022</span><span>' + item.title + '</span>';
     wrap.appendChild(row);
   }
   return wrap;
 }
 
-// ── File overlay ─────────────────────────────────────────────
 function showFileOverlay(title, fileName) {
   document.getElementById('table-overlay-title').textContent = title;
   const inner = document.getElementById('overlay-inner-content');
   inner.innerHTML = '';
-
   const filePath = 'files/' + fileName;
   const ext = fileName.split('.').pop().toLowerCase();
-
   fetch(filePath, { method: 'HEAD' })
     .then(function(res) {
       if (res.ok) {
         if (ext === 'pdf') {
-          // Open PDF in new tab
           window.open(filePath, '_blank');
           document.getElementById('table-overlay').hidden = true;
           return;
         } else if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
           inner.innerHTML = '<img src="' + filePath + '" style="max-width:100%;max-height:65vh;border-radius:6px;display:block;margin:0 auto;">';
         } else if (['ppt','pptx','doc','docx','xls','xlsx'].includes(ext)) {
-          inner.innerHTML = '<div class="coming-soon-box"><div class="icon">📄</div><strong>' + fileName + '</strong><br><a href="' + filePath + '" download style="background:#004a99;color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:12px;">Download File</a></div>';
+          inner.innerHTML = '<div class="coming-soon-box"><div class="icon">\uD83D\uDCC4</div><strong>' + fileName + '</strong><br><a href="' + filePath + '" download style="background:#004a99;color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:12px;">Download File</a></div>';
         } else {
           inner.innerHTML = '<div class="coming-soon-box"><a href="' + filePath + '" target="_blank">Open ' + fileName + '</a></div>';
         }
@@ -619,19 +591,17 @@ function showFileOverlay(title, fileName) {
 }
 
 function showComingSoon(container, fileName) {
-  container.innerHTML = '<div class="coming-soon-box"><div class="icon">📄</div><strong>' + fileName + '</strong><p>This file has not been uploaded yet — coming soon!</p></div>';
+  container.innerHTML = '<div class="coming-soon-box"><div class="icon">\uD83D\uDCC4</div><strong>' + fileName + '</strong><p>This file has not been uploaded yet \u2014 coming soon!</p></div>';
 }
 
-// ── Table overlay ────────────────────────────────────────────
 function showTableOverlay(title) {
   document.getElementById('table-overlay-title').textContent = title;
   const inner = document.getElementById('overlay-inner-content');
   const scData = RESTAURANT_DATA[scid] || RESTAURANT_DATA['102'];
   const rows = scData[title] || [];
-
   let html = '<table class="restaurant-table"><thead><tr><th>Name</th><th>Phone</th><th>Address</th><th>Website</th><th>Map</th></tr></thead><tbody>';
   if (!rows.length) {
-    html += '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px;">📋 No listings yet for this category — coming soon!</td></tr>';
+    html += '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px;">\uD83D\uDCCB No listings yet for this category \u2014 coming soon!</td></tr>';
   } else {
     rows.forEach(function(r) {
       html += '<tr><td>' + r.name + '</td><td>' + r.phone + '</td><td>' + r.address + '</td><td><a href="' + r.website + '" target="_blank">Visit</a></td><td><a href="' + r.map + '" target="_blank">Map</a></td></tr>';
@@ -642,14 +612,9 @@ function showTableOverlay(title) {
   document.getElementById('table-overlay').hidden = false;
 }
 
-document.getElementById('table-overlay-close').addEventListener('click', function() {
-  document.getElementById('table-overlay').hidden = true;
-});
-document.getElementById('table-overlay-backdrop').addEventListener('click', function() {
-  document.getElementById('table-overlay').hidden = true;
-});
+document.getElementById('table-overlay-close').addEventListener('click', function() { document.getElementById('table-overlay').hidden = true; });
+document.getElementById('table-overlay-backdrop').addEventListener('click', function() { document.getElementById('table-overlay').hidden = true; });
 
-// ── Load menus ───────────────────────────────────────────────
 function loadAllMenus() {
   [1, 2, 3].forEach(function(idx) {
     const content = document.getElementById('menu-content-' + idx);
@@ -658,7 +623,6 @@ function loadAllMenus() {
   });
 }
 
-// ── Init ─────────────────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
 const scid = params.get('scid') || '102';
 const zip  = params.get('zip')  || '';
@@ -674,18 +638,14 @@ document.getElementById('nav-center-title').textContent = sc.name;
 
 loadAllMenus();
 
-// ── App Demo buttons ─────────────────────────────────────────
 document.getElementById('btn-econsensus').addEventListener('click', function() {
   showFileOverlay('E-Consensus Report', 'eConsensus_Report_Format.pdf');
 });
 document.getElementById('btn-viability').addEventListener('click', function() {
   showFileOverlay('Viability Index', 'IAC_Viability_Index_Implementation.pdf');
 });
-document.getElementById('btn-neighborhoods').addEventListener('click', function(e) {
-  e.preventDefault();
-});
+document.getElementById('btn-neighborhoods').addEventListener('click', function(e) { e.preventDefault(); });
 
-// ── Video ─────────────────────────────────────────────────────
 const thumb = document.getElementById('video-thumb');
 const modal  = document.getElementById('video-modal');
 const frame  = document.getElementById('video-player-frame');
@@ -693,12 +653,8 @@ thumb.addEventListener('click', function() {
   frame.src = 'https://www.youtube.com/embed/' + sc.videoId + '?autoplay=1&rel=0&modestbranding=1';
   modal.hidden = false;
 });
-document.getElementById('video-modal-close').addEventListener('click', function() {
-  modal.hidden = true; frame.src = '';
-});
-document.getElementById('video-modal-backdrop').addEventListener('click', function() {
-  modal.hidden = true; frame.src = '';
-});
+document.getElementById('video-modal-close').addEventListener('click', function() { modal.hidden = true; frame.src = ''; });
+document.getElementById('video-modal-backdrop').addEventListener('click', function() { modal.hidden = true; frame.src = ''; });
 </script>
 </body>
 </html>
