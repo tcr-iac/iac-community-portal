@@ -253,11 +253,11 @@
   //   SCID 42 = Marshall (MN)
   //   SCID 64 = St Cloud (MN)
   const COMMUNITIES = [
-  { name: 'Brainerd',           zip: '56401', scid: '102', state: 'MN', county: 'Crow Wing' },
-  { name: 'Baxter',             zip: '56425', scid: '102', state: 'MN', county: 'Crow Wing' },
-  { name: 'Little Falls',       zip: '56345', scid: '102', state: 'MN', county: 'Morrison' },
-  { name: 'Nisswa',             zip: '56468', scid: '102', state: 'MN', county: 'Crow Wing' },
-  { name: 'Austin',             zip: '55912', scid: '101', state: 'MN', county: 'Mower' },
+  { name: 'Brainerd',           zip: '56401', scid: '9', state: 'MN', county: 'Crow Wing' },
+  { name: 'Baxter',             zip: '56425', scid: '9', state: 'MN', county: 'Crow Wing' },
+  { name: 'Little Falls',       zip: '56345', scid: '9', state: 'MN', county: 'Morrison' },
+  { name: 'Nisswa',             zip: '56468', scid: '9', state: 'MN', county: 'Crow Wing' },
+  { name: 'Austin',             zip: '55912', scid: '5', state: 'MN', county: 'Mower' },
   { name: 'Albert Lea',         zip: '56007', scid: '2',   state: 'MN', county: 'Freeborn' },
   { name: 'Mankato',            zip: '56001', scid: '41',  state: 'MN', county: 'Blue Earth' },
   { name: 'Marshall',           zip: '56258', scid: '42',  state: 'MN', county: 'Lyon' },
@@ -311,7 +311,8 @@
   { name: 'Bismarck',           zip: '58501', scid: '7',   state: 'ND', county: 'Burleigh' },
   { name: 'Minot',              zip: '58701', scid: 'Minot', state: 'ND', county: 'Ward' },
   { name: 'Jamestown',          zip: '58401', scid: 'Jamestown', state: 'ND', county: 'Stutsman' },
-  { name: 'Valley City',        zip: '58072', scid: 'Valley City', state: 'ND', county: 'Barnes' },
+  { name: 'Valley City',        zip: '58702', scid: 'Valley City', state: 'ND', county: 'Barnes' },
+  { name: 'Windom',             zip: '56101', scid: 'Windom',      state: 'MN', county: 'Cottonwood' },
   { name: 'Devils Lake',        zip: '58301', scid: 'Devils Lake', state: 'ND', county: 'Ramsey' },
   { name: 'Wahpeton',           zip: '58074', scid: 'Wahpeton', state: 'ND', county: 'Richland' },
   { name: 'Dickinson',          zip: '58601', scid: 'Dickinson', state: 'ND', county: 'Stark' },
@@ -361,7 +362,7 @@
   }
 
   // Only these SCIDs have real portal data right now
-  const LIVE_SCIDS = ['101', '102'];
+  const LIVE_SCIDS = ['5', '9'];
 
   function select(c) {
     input.value = `${c.name}, ${c.state} ${c.zip}`;
