@@ -32,11 +32,11 @@
     #video-play-btn{position:relative;z-index:2;font-size:2.5rem;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.8)}
     #video-caption{font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0.4rem}
     #zone-tagline{background:#003580;color:rgba(255,255,255,0.85);text-align:center;padding:0.6rem 1rem;font-size:0.85rem;font-weight:600;letter-spacing:0.05em}
-    #zone-menus{padding:2.5rem 2.5rem;display:flex;gap:1.5rem;align-items:flex-start}
-    .menu-group{flex:1;min-width:0;margin-bottom:1.5rem}
-    @media(max-width:900px){#zone-menus{flex-direction:column}}
-    .menu-group-title{font-size:0.95rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:#004a99;padding-bottom:0.6rem;margin-bottom:0.8rem;border-bottom:3px solid #2e7d4f}
-    .menu-group-content{background:white;border-radius:0.6rem;border:1px solid #e0e8f5;padding:0.5rem;box-shadow:0 2px 10px rgba(0,74,153,0.06);max-height:50vh;overflow-y:auto;overflow-x:hidden}
+    #zone-menus{padding:1.5rem 2rem;display:flex;gap:1.5rem;align-items:stretch;height:calc(100vh - 280px);min-height:320px}
+    .menu-group{flex:1;min-width:0;display:flex;flex-direction:column}
+    @media(max-width:900px){#zone-menus{flex-direction:column;height:auto}}
+    .menu-group-title{font-size:0.95rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:#004a99;padding-bottom:0.6rem;margin-bottom:0.8rem;border-bottom:3px solid #2e7d4f;flex-shrink:0}
+    .menu-group-content{background:white;border-radius:0.6rem;border:1px solid #e0e8f5;padding:0.5rem;box-shadow:0 2px 10px rgba(0,74,153,0.06);flex:1;overflow-y:auto;overflow-x:hidden}
     #zone-app-demos{padding:1.75rem 2.5rem;display:flex;align-items:center;gap:1.25rem;background:#e6f4ec;border-top:1px solid #cce6d6;border-bottom:1px solid #cce6d6;flex-wrap:wrap}
     #app-demos-label{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#555}
     .app-demo-btn{background:#2e7d4f;color:#fff;border:none;border-radius:0.5rem;padding:0.75rem 1.75rem;font-size:0.95rem;font-family:inherit;font-weight:700;cursor:pointer;transition:all 0.15s;box-shadow:0 2px 8px rgba(46,125,79,0.3)}
