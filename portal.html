@@ -10,36 +10,36 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{background:#f4f6fb}
-    body{font-family:"Inter",Arial,sans-serif;background:#f4f6fb;color:#1a1a2e;min-height:100vh}
-    #zone-footer{background:#003580;color:rgba(255,255,255,0.7);text-align:center;padding:1.5rem 1rem;font-size:0.85rem;font-weight:500;border-top:1px solid rgba(255,255,255,0.1)}
+    body{font-family:"Inter",Arial,sans-serif;background:#f4f6fb;color:#1a1a2e;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+    #zone-footer{background:#003580;color:rgba(255,255,255,0.7);text-align:center;padding:0.6rem 1rem;font-size:0.8rem;font-weight:500;border-top:1px solid rgba(255,255,255,0.1);flex-shrink:0}
     #zone-footer a{color:#8fc1ff;text-decoration:none}
     #zone-footer a:hover{text-decoration:underline}
-    #zone-navbar{position:sticky;top:0;z-index:100;background:#004a99;display:flex;align-items:center;gap:1rem;padding:0.7rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+    #zone-navbar{position:relative;z-index:100;background:#004a99;display:flex;align-items:center;gap:1rem;padding:0.5rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.2);flex-shrink:0}
     #nav-back-link{color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;font-weight:600;white-space:nowrap}
     #nav-back-link:hover{color:#fff}
     #nav-portal-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);white-space:nowrap}
     #nav-center-title{flex:1;text-align:center;font-size:1rem;font-weight:700;color:#fff}
-    #zone-header{background:linear-gradient(135deg,#003580 0%,#004a99 60%,#0066cc 100%);color:#fff;display:flex;align-items:flex-start;gap:2rem;padding:3rem 2.5rem}
+    #zone-header{background:linear-gradient(135deg,#003580 0%,#004a99 60%,#0066cc 100%);color:#fff;display:flex;align-items:flex-start;gap:2rem;padding:1.25rem 2rem;flex-shrink:0}
     #header-text{flex:1}
-    #header-sc-name{font-size:2.4rem;font-weight:800;margin-bottom:0.5rem;color:#fff}
-    #header-tagline2{font-size:1.1rem;color:rgba(255,255,255,0.75);margin-bottom:0.4rem}
-    #header-iac-line{font-size:0.8rem;color:rgba(255,255,255,0.55);margin-bottom:1rem;letter-spacing:0.05em;text-transform:uppercase}
-    #header-vision1,#header-vision2{font-size:1rem;font-style:italic;color:rgba(255,255,255,0.85);line-height:1.8;border-left:3px solid #2e7d4f;padding-left:1rem;margin-bottom:0.7rem}
+    #header-sc-name{font-size:1.6rem;font-weight:800;margin-bottom:0.3rem;color:#fff}
+    #header-tagline2{font-size:0.95rem;color:rgba(255,255,255,0.75);margin-bottom:0.2rem}
+    #header-iac-line{font-size:0.75rem;color:rgba(255,255,255,0.55);margin-bottom:0.5rem;letter-spacing:0.05em;text-transform:uppercase}
+    #header-vision1,#header-vision2{font-size:0.85rem;font-style:italic;color:rgba(255,255,255,0.85);line-height:1.5;border-left:3px solid #2e7d4f;padding-left:0.75rem;margin-bottom:0.4rem}
     #video-thumb-wrapper{flex-shrink:0;text-align:center}
-    #video-thumb{width:260px;height:156px;background:rgba(0,0,0,0.4);border-radius:0.5rem;border:2px solid rgba(255,255,255,0.2);cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s}
+    #video-thumb{width:180px;height:108px;background:rgba(0,0,0,0.4);border-radius:0.5rem;border:2px solid rgba(255,255,255,0.2);cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s}
     #video-thumb:hover{border-color:rgba(255,255,255,0.6)}
     #video-poster{position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://img.youtube.com/vi/Gdl_vfZPQoQ/hqdefault.jpg') center/cover}
     #video-play-btn{position:relative;z-index:2;font-size:2.5rem;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.8)}
     #video-caption{font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0.4rem}
-    #zone-tagline{background:#003580;color:rgba(255,255,255,0.85);text-align:center;padding:0.6rem 1rem;font-size:0.85rem;font-weight:600;letter-spacing:0.05em}
-    #zone-menus{padding:1.5rem 2rem;display:flex;gap:1.5rem;align-items:stretch;height:calc(100vh - 280px);min-height:320px}
+    #zone-tagline{background:#003580;color:rgba(255,255,255,0.85);text-align:center;padding:0.4rem 1rem;font-size:0.82rem;font-weight:600;letter-spacing:0.05em;flex-shrink:0}
+    #zone-menus{padding:0.75rem 2rem;display:flex;gap:1.5rem;align-items:stretch;flex:1;min-height:0}
     .menu-group{flex:1;min-width:0;display:flex;flex-direction:column}
     @media(max-width:900px){#zone-menus{flex-direction:column;height:auto}}
     .menu-group-title{font-size:0.95rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:#004a99;padding-bottom:0.6rem;margin-bottom:0.8rem;border-bottom:3px solid #2e7d4f;flex-shrink:0}
     .menu-group-content{background:white;border-radius:0.6rem;border:1px solid #e0e8f5;padding:0.5rem;box-shadow:0 2px 10px rgba(0,74,153,0.06);flex:1;overflow-y:auto;overflow-x:hidden}
-    #zone-app-demos{padding:1.75rem 2.5rem;display:flex;align-items:center;gap:1.25rem;background:#e6f4ec;border-top:1px solid #cce6d6;border-bottom:1px solid #cce6d6;flex-wrap:wrap}
+    #zone-app-demos{padding:0.75rem 2rem;display:flex;align-items:center;gap:1rem;background:#e6f4ec;border-top:1px solid #cce6d6;border-bottom:1px solid #cce6d6;flex-wrap:wrap;flex-shrink:0}
     #app-demos-label{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#555}
-    .app-demo-btn{background:#2e7d4f;color:#fff;border:none;border-radius:0.5rem;padding:0.75rem 1.75rem;font-size:0.95rem;font-family:inherit;font-weight:700;cursor:pointer;transition:all 0.15s;box-shadow:0 2px 8px rgba(46,125,79,0.3)}
+    .app-demo-btn{background:#2e7d4f;color:#fff;border:none;border-radius:0.5rem;padding:0.5rem 1.25rem;font-size:0.85rem;font-family:inherit;font-weight:700;cursor:pointer;transition:all 0.15s;box-shadow:0 2px 8px rgba(46,125,79,0.3)}
     .app-demo-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(46,125,79,0.4);opacity:0.9}
     .app-demo-btn.disabled{background:#888;cursor:not-allowed;opacity:0.7}
     #video-modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999}
