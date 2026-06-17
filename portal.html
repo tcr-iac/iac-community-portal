@@ -67,9 +67,9 @@
     .menu-row{display:flex;align-items:center;gap:6px;padding:7px 10px;cursor:pointer;border-radius:4px;transition:background 0.15s}
     .menu-row:hover{background:#e8f0fe}
     .menu-arrow{font-size:9px;color:#2e7d4f;transition:transform 0.2s}
-    .menu-row.depth-0{text-transform:uppercase;font-weight:800;font-size:11px;background:#f0f6ff;border-left:4px solid #2e7d4f;padding:5px 8px}
-    .menu-row.depth-1{font-weight:500;font-size:10px;border-left:3px solid #0066cc;padding:3px 7px}
-    .menu-row.depth-2,.menu-row.depth-3{font-weight:400;font-size:9.5px;border-left:2px solid #ccc;padding:2px 5px}
+    .menu-row.depth-0{text-transform:uppercase;font-weight:800;font-size:13px;background:#f0f6ff;border-left:4px solid #2e7d4f;padding:5px 8px}
+    .menu-row.depth-1{font-weight:600;font-size:12px;border-left:3px solid #0066cc;padding:3px 7px}
+    .menu-row.depth-2,.menu-row.depth-3{font-weight:400;font-size:11px;border-left:2px solid #ccc;padding:2px 5px}
     .coming-soon-box{padding:30px;text-align:center}
     .coming-soon-box .icon{font-size:40px;margin-bottom:12px}
     .coming-soon-box p{font-size:13px;color:#aaa;margin-top:6px}
@@ -262,7 +262,8 @@ document.getElementById('btn-econsensus').addEventListener('click',function(){sh
 document.getElementById('btn-viability').addEventListener('click',function(){showFileOverlay('Viability Index','IAC_Viability_Index_Implementation.pdf');});
 document.getElementById('btn-neighborhoods').addEventListener('click',function(e){e.preventDefault();});
 var thumb=document.getElementById('video-thumb');var modal=document.getElementById('video-modal');var frame=document.getElementById('video-player-frame');
-thumb.addEventListener('click',function(){frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&end=1';modal.hidden=false;});
+thumb.addEventListener('click',function(){frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1';modal.hidden=false;});
+window.addEventListener('message',function(e){try{var data=JSON.parse(e.data);if(data.event==='onStateChange'&&data.info===0){modal.hidden=true;frame.src='';}}catch(err){}});
 document.getElementById('video-modal-close').addEventListener('click',function(){modal.hidden=true;frame.src='';});
 document.getElementById('video-modal-backdrop').addEventListener('click',function(){modal.hidden=true;frame.src='';});
 </script>
