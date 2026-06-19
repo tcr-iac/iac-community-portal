@@ -108,7 +108,7 @@
   <p id="app-demos-label">Application Demonstrations</p>
   <button id="btn-econsensus" class="app-demo-btn">E-Consensus</button>
   <button id="btn-viability" class="app-demo-btn">Viability Index</button>
-  <button id="btn-neighborhoods" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);window.open('neighborhood-map.html?scid='+(s.get('scid')||'9'),'_blank')">View our Neighborhoods 🗺</button>
+  <button id="btn-neighborhoods" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">View our Neighborhoods 🗺</button>
 </section>
 <footer id="zone-footer">
   &copy; 2026 Tele-Commuter Resources, Inc. &nbsp;|&nbsp; 4315 Virginia Avenue, St Paul, MN 55126 &nbsp;|&nbsp;
