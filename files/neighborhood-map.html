@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IAC Neighbourhood Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6fb; }
+
+    /* NAVBAR */
+    #navbar {
+      position: sticky; top: 0; z-index: 1000;
+      background: #004a99;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.7rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    #nav-back {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      font-size: 0.85rem; font-weight: 600;
+    }
+    #nav-back:hover { color: #fff; }
+    #nav-title {
+      flex: 1; text-align: center;
+      font-size: 1rem; font-weight: 700; color: #fff;
+    }
+
+    /* INFO BAR */
+    #info-bar {
+      background: #003580; color: rgba(255,255,255,0.85);
+      padding: 0.6rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.85rem;
+    }
+    #sc-label { font-weight: 700; color: #fff; }
+    #zip-count { color: rgba(255,255,255,0.6); }
+    #info-hint {
+      margin-left: auto;
+      font-style: italic;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+    }
+
+    /* MAP */
+    #map {
+      width: 100%;
+      height: calc(100vh - 98px);
+    }
+
+    /* COMING SOON STATE */
+    #coming-soon {
+      display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      height: calc(100vh - 98px);
+      text-align: center; padding: 2rem;
+    }
+    #coming-soon h2 { color: #004a99; font-size: 1.8rem; margin-bottom: 1rem; }
+    #coming-soon p  { color: #666; font-size: 1rem; max-width: 400px; line-height: 1.6; }
+    #coming-soon .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* LEGEND */
+    #legend {
+      background: white; border-radius: 8px;
+      padding: 10px 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      font-size: 12px; line-height: 1.8;
+      min-width: 160px;
+    }
+    #legend b { display: block; margin-bottom: 4px; color: #004a99; }
+    .legend-row { display: flex; align-items: center; gap: 8px; }
+    .legend-box {
+      width: 16px; height: 16px; border-radius: 3px;
+      border: 2px solid #004a99; flex-shrink: 0;
+    }
+
+    /* POPUP STYLES */
+    .map-popup h3 { color: #004a99; margin-bottom: 6px; font-size: 14px; }
+    .map-popup p  { color: #666; font-size: 12px; margin-bottom: 8px; }
+    .map-popup a  {
+      display: inline-block;
+      background: #2e7d4f; color: white;
+      padding: 6px 12px; border-radius: 5px;
+      text-decoration: none; font-size: 12px; font-weight: 600;
+    }
+    .map-popup a:hover { background: #1e5c38; }
+    .map-popup .zip-tag {
+      display: inline-block;
+      background: #e8f0fe; color: #004a99;
+      padding: 2px 8px; border-radius: 10px;
+      font-size: 11px; font-weight: 600; margin-bottom: 6px;
+    }
+
+    /* TOWN LABELS — no background box, halo-style text like
+       Google Maps / Esri. Font-size is set dynamically by JS. */
+    .leaflet-tooltip.town-label {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      font-weight: 700;
+      color: #00264d;
+      white-space: nowrap;
+      pointer-events: none; /* clicks pass through to the polygon below */
+      text-shadow:
+        -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
+        -1.5px  1.5px 0 #fff, 1.5px  1.5px 0 #fff,
+        -1.5px  0     0 #fff, 1.5px  0     0 #fff,
+         0     -1.5px 0 #fff, 0      1.5px 0 #fff;
+      transition: font-size 0.15s ease-out;
+    }
+    .town-label::before { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a id="nav-back" href="javascript:history.back()">← Back to Portal</a>
+  <span id="nav-title">Information Age Community — Neighbourhood Map</span>
+</nav>
+
+<!-- INFO BAR -->
+<div id="info-bar">
+  <span id="sc-label">Loading...</span>
+  <span id="zip-count"></span>
+  <span id="info-hint">Click any community to view its profile</span>
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- COMING SOON STATE -->
+<div id="coming-soon">
+  <div class="icon">🗺️</div>
+  <h2>Map Coming Soon</h2>
+  <p>The neighbourhood map for this Service Center is currently being prepared. Please check back soon.</p>
+</div>
+
+<script>
+// ── Read URL parameters ──────────────────────────────────────
+const params      = new URLSearchParams(window.location.search);
+const scid        = params.get('scid') || '';
+const selectedZip = params.get('zip')  || '';
+
+// ── Service Center data is loaded from an external JSON file ──
+// (service_centers.json) so the dataset can be updated without
+// touching this file at all — just replace the JSON when John's
+// team finalises more complete cluster data.
+fetch('service_centers.json')
+  .then(res => res.json())
+  .then(SC_DATA => initMap(SC_DATA))
+  .catch(err => {
+    console.error('Could not load service_centers.json:', err);
+    document.getElementById('nav-title').textContent = 'Data Unavailable';
+    document.getElementById('map').style.display = 'none';
+    document.getElementById('coming-soon').style.display = 'flex';
+    document.querySelector('#coming-soon h2').textContent = 'Map Data Unavailable';
+    document.querySelector('#coming-soon p').textContent =
+      'Could not load the Service Center dataset. Please try again shortly.';
+  });
+
+function initMap(SC_DATA) {
+  const sc = SC_DATA[scid];
+
+  // ── Update navbar and info bar ───────────────────────────────
+  document.getElementById('nav-title').textContent =
+    sc ? sc.name : 'IAC Neighbourhood Map';
+
+  if (sc) {
+    document.getElementById('sc-label').textContent = sc.name;
+    document.getElementById('zip-count').textContent =
+      `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
+  }
+
+  // ── No Service Center specified at all — this map should
+  //    only ever be opened via the portal's button with scid
+  //    and zip already attached ──────────────────────────────
+  if (!scid) {
+    document.getElementById('map').style.display = 'none';
+    document.getElementById('coming-soon').style.display = 'flex';
+    document.querySelector('#coming-soon .icon').textContent = '📍';
+    document.querySelector('#coming-soon h2').textContent = 'No Community Selected';
+    document.querySelector('#coming-soon p').textContent =
+      'This map opens automatically from a Service Center\u2019s portal page. Please return to the portal and select a community.';
+    return;
+  }
+
+  // ── Coming soon state — fewer than 2 ZIPs means cluster data
+  //    for this Service Center is not yet complete ─────────────
+  if (!sc || sc.zips.length < 2) {
+    document.getElementById('map').style.display = 'none';
+    document.getElementById('coming-soon').style.display = 'flex';
+    document.querySelector('#coming-soon .icon').textContent = '🗺️';
+    if (sc) {
+      document.querySelector('#coming-soon h2').textContent =
+        sc.name + ' — Coming Soon';
+      document.querySelector('#coming-soon p').textContent =
+        'The neighbourhood map for this Service Center is currently being prepared. Please check back soon.';
+    } else {
+      document.querySelector('#coming-soon h2').textContent = 'Service Center Not Found';
+      document.querySelector('#coming-soon p').textContent =
+        `No data found for Service Center ID "${scid}".`;
+    }
+    return;
+  }
+
+  // ── Initialise Leaflet map ─────────────────────────────────
+  const map = L.map('map', { zoomControl: true });
+
+  // Base layers — Esri free tiles, no API key or billing required
+  const streetsLayer = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri — Esri, HERE, Garmin, USGS', maxZoom: 19 }
+  );
+
+  const satelliteLayer = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri — Esri, Maxar, Earthstar Geographics', maxZoom: 19 }
+  );
+
+  streetsLayer.addTo(map); // default base layer
+
+  L.control.layers(
+    { 'Streets': streetsLayer, 'Satellite': satelliteLayer },
+    null,
+    { position: 'topright' }
+  ).addTo(map);
+
+  // ── Legend ────────────────────────────────────────────────
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = () => {
+    const div = L.DomUtil.create('div', '');
+    div.id = 'legend';
+    div.innerHTML = `
+      <b>Legend</b>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#4a90d9;"></div>
+        <span>Community Area</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#2e7d4f;"></div>
+        <span>Selected Community</span>
+      </div>
+    `;
+    return div;
+  };
+  legend.addTo(map);
+
+  // ── Fetch ZCTA boundaries from Census TIGERweb API ────────
+  const zipList   = sc.zips.map(z => `'${z.zip}'`).join(',');
+  const apiUrl    =
+    `https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/` +
+    `tigerWMS_Current/MapServer/2/query?` +
+    `where=ZCTA5%20IN%20(${encodeURIComponent(zipList)})` +
+    `&outFields=ZCTA5&f=geojson&outSR=4326`;
+
+  fetch(apiUrl)
+    .then(res => {
+      if (!res.ok) throw new Error('Census API error');
+      return res.json();
+    })
+    .then(data => {
+      if (!data.features || data.features.length === 0) {
+        throw new Error('No boundaries returned');
+      }
+
+      // Track each layer with its town name and selected status,
+      // so we can resize labels and toggle fill mode later.
+      const trackedLayers = [];
+      let hollowMode = false;
+
+      function styleFor(isSelected, hollow) {
+        return {
+          color:       '#004a99',
+          weight:      2.5,
+          fillColor:   isSelected ? '#2e7d4f' : '#4a90d9',
+          fillOpacity: hollow ? 0 : (isSelected ? 0.45 : 0.25)
+        };
+      }
+
+      const geoLayer = L.geoJSON(data, {
+        style: feature => {
+          const zip = feature.properties.ZCTA5;
+          return styleFor(zip === selectedZip, hollowMode);
+        },
+        onEachFeature: (feature, layer) => {
+          const zip     = feature.properties.ZCTA5;
+          const zipInfo = sc.zips.find(z => z.zip === zip);
+          const town    = zipInfo ? zipInfo.town : zip;
+          const isSelected = zip === selectedZip;
+          const profileUrl = `profile.html?zip=${zip}`;
+
+          trackedLayers.push({ layer, town, isSelected });
+
+          // Permanent label
+          layer.bindTooltip(town, {
+            permanent:  true,
+            direction:  'center',
+            className:  'town-label',
+            opacity:    0.9
+          });
+
+          // Click popup
+          layer.bindPopup(`
+            <div class="map-popup">
+              <h3>${town}</h3>
+              <span class="zip-tag">ZIP ${zip}</span>
+              <p>${sc.name}</p>
+              <a href="${profileUrl}" target="_blank">
+                View Community Profile →
+              </a>
+            </div>
+          `, { maxWidth: 220 });
+
+          // Highlight on hover (respects current fill mode)
+          layer.on('mouseover', () => {
+            const base = styleFor(isSelected, hollowMode);
+            layer.setStyle({ ...base, weight: 3.5, fillOpacity: hollowMode ? 0.15 : Math.min(base.fillOpacity + 0.2, 0.7) });
+          });
+          layer.on('mouseout', () => {
+            layer.setStyle(styleFor(isSelected, hollowMode));
+          });
+        }
+      }).addTo(map);
+
+      // Fit map to boundaries
+      map.fitBounds(geoLayer.getBounds(), { padding: [40, 40] });
+
+      // ── Size each label to fit inside its own polygon ──────────
+      // Calculated from the polygon's actual on-screen pixel size
+      // at the current zoom level, not from zoom level alone — so
+      // labels scale naturally AND never exceed their boundary.
+      function updateLabelSizes() {
+        trackedLayers.forEach(({ layer, town }) => {
+          const bounds = layer.getBounds();
+          const nw = map.latLngToContainerPoint(bounds.getNorthWest());
+          const se = map.latLngToContainerPoint(bounds.getSouthEast());
+          const widthPx  = Math.abs(se.x - nw.x);
+          const heightPx = Math.abs(se.y - nw.y);
+
+          // Estimate font size so the label text width fits within
+          // ~75% of the polygon's pixel width (avg char ≈ 0.58×fontSize)
+          const maxTextWidth = widthPx * 0.75;
+          let rawFontSize = maxTextWidth / Math.max(town.length * 0.58, 1);
+
+          // Never let the label be taller than ~45% of the polygon's height
+          rawFontSize = Math.min(rawFontSize, heightPx * 0.45);
+
+          // Decide visibility BEFORE clamping to a minimum, so the
+          // label actually disappears once it no longer fits well —
+          // rather than persisting at a floored minimum size.
+          const shouldHide = rawFontSize < 9;
+          const fontSize = Math.max(6, Math.min(16, rawFontSize));
+
+          const tooltip = layer.getTooltip();
+          const el = tooltip && tooltip.getElement();
+          if (el) {
+            el.style.display = shouldHide ? 'none' : 'block';
+            if (!shouldHide) {
+              el.style.fontSize  = fontSize.toFixed(1) + 'px';
+              el.style.maxWidth  = Math.max(widthPx * 0.9, 20) + 'px';
+              el.style.whiteSpace = 'nowrap';
+              el.style.overflow  = 'hidden';
+              el.style.textOverflow = 'ellipsis';
+            }
+          }
+        });
+      }
+      map.on('zoomend moveend', updateLabelSizes);
+      setTimeout(updateLabelSizes, 50);
+
+      // ── Fill / Outline toggle control ───────────────────────────
+      const fillToggle = L.control({ position: 'topright' });
+      fillToggle.onAdd = () => {
+        const btn = L.DomUtil.create('button', '');
+        btn.id = 'fill-toggle-btn';
+        btn.textContent = 'Outline View';
+        btn.style.cssText = `
+          background:#fff; border:2px solid rgba(0,0,0,0.2); border-radius:6px;
+          padding:6px 12px; font-size:12px; font-weight:600; color:#003580;
+          cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); margin-top:8px;
+        `;
+        L.DomEvent.on(btn, 'click', L.DomEvent.stop)
+          .on(btn, 'click', () => {
+            hollowMode = !hollowMode;
+            btn.textContent = hollowMode ? 'Filled View' : 'Outline View';
+            trackedLayers.forEach(({ layer, isSelected }) => {
+              layer.setStyle(styleFor(isSelected, hollowMode));
+            });
+          });
+        return btn;
+      };
+      fillToggle.addTo(map);
+    })
+    .catch(err => {
+      console.error('Map load error:', err);
+      document.getElementById('map').innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;
+          justify-content:center;height:100%;text-align:center;padding:2rem;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
+          <h3 style="color:#004a99;margin-bottom:0.5rem;">Map Temporarily Unavailable</h3>
+          <p style="color:#666;max-width:360px;">
+            Unable to load community boundaries. Please check your internet
+            connection and try again.
+          </p>
+        </div>`;
+    });
+}
+</script>
+</body>
+</html>
