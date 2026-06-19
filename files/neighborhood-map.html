@@ -41,7 +41,7 @@
     .community-chip {
       background: rgba(255,255,255,0.16); color:#fff; border:1px solid rgba(255,255,255,0.35);
       border-radius: 999px; padding: 3px 9px; font-size: 0.75rem; font-weight:700;
-      text-decoration:none; cursor:pointer;
+      text-decoration:none; cursor:pointer; font-family:inherit;
     }
     .community-chip:hover { background: rgba(255,255,255,0.28); }
     #info-hint {
@@ -189,7 +189,7 @@ function initMap(SC_DATA) {
 
     // Direct links make community profiles easy to open even when the map is zoomed out.
     document.getElementById('community-links').innerHTML = sc.zips.map(z =>
-      `<a class="community-chip" href="../profile.html?zip=${encodeURIComponent(z.zip)}&scid=${encodeURIComponent(scid)}&from=map" title="View ${z.town} profile">${z.town}</a>`
+      `<button type="button" class="community-chip" data-zip="${encodeURIComponent(z.zip)}" title="View ${z.town} details">${z.town}</button>`
     ).join('');
   }
 
@@ -288,6 +288,7 @@ function initMap(SC_DATA) {
       // Track each layer with its town name and selected status,
       // so we can resize labels and toggle fill mode later.
       const trackedLayers = [];
+      const layerByZip = {};
       let hollowMode = false;
 
       function styleFor(isSelected, hollow) {
@@ -312,6 +313,7 @@ function initMap(SC_DATA) {
           const profileUrl = `../profile.html?zip=${encodeURIComponent(zip)}&scid=${encodeURIComponent(scid)}&from=map`;
 
           trackedLayers.push({ layer, town, isSelected });
+          layerByZip[zip] = layer;
 
           // Permanent label
           layer.bindTooltip(town, {
@@ -321,16 +323,14 @@ function initMap(SC_DATA) {
             opacity:    0.9
           });
 
-          // Click shaded area to show popup first. Profile opens only from the popup button.
+          // Click shaded area to show popup first. Profile opens only from popup button.
           layer.on('click', () => { layer.openPopup(); });
-
-          // Popup contains the View Community Profile button.
           layer.bindPopup(`
             <div class="map-popup">
               <h3>${town}</h3>
               <span class="zip-tag">ZIP ${zip}</span>
               <p>${sc.name}</p>
-              <a href="${profileUrl}" >
+              <a href="${profileUrl}">
                 View Community Profile →
               </a>
             </div>
@@ -347,6 +347,18 @@ function initMap(SC_DATA) {
           });
         }
       }).addTo(map);
+
+      // Top community name chips should open the same popup, not jump straight to profile.
+      document.querySelectorAll('.community-chip[data-zip]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const z = btn.getAttribute('data-zip');
+          const targetLayer = layerByZip[z];
+          if (targetLayer) {
+            map.fitBounds(targetLayer.getBounds(), { padding: [60, 60], maxZoom: 11 });
+            targetLayer.openPopup();
+          }
+        });
+      });
 
       // Fit map to boundaries
       map.fitBounds(geoLayer.getBounds(), { padding: [40, 40] });
