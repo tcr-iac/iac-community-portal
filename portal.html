@@ -304,7 +304,7 @@ document.getElementById('nav-center-title').textContent=sc.name;
 loadAllMenus();
 document.getElementById('btn-econsensus').addEventListener('click',function(){showFileOverlay('E-Consensus Report','eConsensus_Report_Format.pdf');});
 document.getElementById('btn-viability').addEventListener('click',function(){showFileOverlay('Viability Index','IAC_Viability_Index_Implementation.pdf');});
-document.getElementById('btn-neighborhoods').addEventListener('click',function(){window.open('neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank');});
+document.getElementById('btn-neighborhoods').addEventListener('click',function(){window.open('files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank');});
 var thumb=document.getElementById('video-thumb');var modal=document.getElementById('video-modal');var frame=document.getElementById('video-player-frame');
 thumb.addEventListener('click',function(){frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1';modal.hidden=false;});
 window.addEventListener('message',function(e){try{var data=JSON.parse(e.data);if(data.event==='onStateChange'&&data.info===0){modal.hidden=true;frame.src='';}}catch(err){}});
