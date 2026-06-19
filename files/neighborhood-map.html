@@ -134,7 +134,7 @@
   <span id="sc-label">Loading...</span>
   <span id="zip-count"></span>
   <span id="community-links"></span>
-  <span id="info-hint">Click a community name or shaded area to view its profile</span>
+  <span id="info-hint">Click a community name or shaded area to view details</span>
 </div>
 
 <!-- MAP -->
@@ -189,7 +189,7 @@ function initMap(SC_DATA) {
 
     // Direct links make community profiles easy to open even when the map is zoomed out.
     document.getElementById('community-links').innerHTML = sc.zips.map(z =>
-      `<a class="community-chip" href="../profile.html?zip=${encodeURIComponent(z.zip)}" title="View ${z.town} profile">${z.town}</a>`
+      `<a class="community-chip" href="../profile.html?zip=${encodeURIComponent(z.zip)}&scid=${encodeURIComponent(scid)}&from=map" title="View ${z.town} profile">${z.town}</a>`
     ).join('');
   }
 
@@ -309,7 +309,7 @@ function initMap(SC_DATA) {
           const zipInfo = sc.zips.find(z => z.zip === zip);
           const town    = zipInfo ? zipInfo.town : zip;
           const isSelected = zip === selectedZip;
-          const profileUrl = `../profile.html?zip=${encodeURIComponent(zip)}`;
+          const profileUrl = `../profile.html?zip=${encodeURIComponent(zip)}&scid=${encodeURIComponent(scid)}&from=map`;
 
           trackedLayers.push({ layer, town, isSelected });
 
@@ -321,10 +321,10 @@ function initMap(SC_DATA) {
             opacity:    0.9
           });
 
-          // Click shaded area to open the community profile.
-          layer.on('click', () => { window.location.href = profileUrl; });
+          // Click shaded area to show popup first. Profile opens only from the popup button.
+          layer.on('click', () => { layer.openPopup(); });
 
-          // Popup is still available if future changes call openPopup().
+          // Popup contains the View Community Profile button.
           layer.bindPopup(`
             <div class="map-popup">
               <h3>${town}</h3>
