@@ -73,7 +73,7 @@
 </div>
 <div class="bottom-nav">
     <button class="green" onclick="window.location.href='index.html'">IAC</button>
-    <button onclick="window.location.href='index.html'">← Back to Map</button>
+    <button id="map-btn" onclick="">← Back to Map</button>
     <button id="sc-btn" onclick="">SC Home</button>
     <button onclick="alert('Feature coming soon!')">?</button>
 </div>
@@ -87,10 +87,31 @@ const TOWNS = {
     "56468": { name:"Nisswa", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56468", county:"Crow Wing", state:"MN", population:"2,283", scid:"102", serviceCenter:"Brainerd", vision:"Nisswa — a charming lakeside community blending small-town character with the opportunities of the Information Age.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} }
 };
 let currentTown = null;
+
+function getServiceCenterIdForZip(zip, incomingScid) {
+    // Prefer the Service Center ID passed from the portal/map.
+    // This prevents neighborhood profile IDs like 101/102 from replacing the real Service Center ID.
+    if (incomingScid) return incomingScid;
+
+    // Fallback mapping only used if profile.html is opened directly without scid in the URL.
+    const zipToScid = {
+        "56401": "9",   // Brainerd
+        "56425": "9",   // Baxter
+        "56345": "9",   // Little Falls
+        "56468": "9",   // Nisswa
+        "55912": "5",   // Austin
+        "56007": "5"    // Albert Lea
+    };
+    return zipToScid[zip] || "9";
+}
+
 function loadProfile() {
     const params = new URLSearchParams(window.location.search);
     const zip = params.get('zip') || '56401';
+    const scid = getServiceCenterIdForZip(zip, params.get('scid'));
+
     currentTown = TOWNS[zip] || TOWNS['56401'];
+
     document.getElementById('town-name').innerText = 'Welcome to The Town of ' + currentTown.name;
     document.getElementById('town-name-2').innerText = currentTown.name;
     document.getElementById('town-subtitle').innerText = currentTown.subtitle;
@@ -99,7 +120,17 @@ function loadProfile() {
     document.getElementById('county').innerText = currentTown.county + ' County';
     document.getElementById('state').innerText = currentTown.state;
     document.getElementById('service-center').innerText = currentTown.serviceCenter;
-    document.getElementById('sc-btn').onclick = function(){ window.location.href='portal.html?scid='+currentTown.scid; };
+
+    // SC Home must return to the parent Service Center, not the community/profile ID.
+    document.getElementById('sc-btn').onclick = function(){
+        window.location.href = 'portal.html?scid=' + encodeURIComponent(scid) + '&zip=' + encodeURIComponent(zip);
+    };
+
+    // Back to Map must return to the neighborhood map with the same parent Service Center ID.
+    document.getElementById('map-btn').onclick = function(){
+        window.location.href = 'files/neighborhood-map.html?scid=' + encodeURIComponent(scid) + '&zip=' + encodeURIComponent(zip);
+    };
+
     const container = document.getElementById('indices-container');
     container.innerHTML = '';
     Object.entries(currentTown.indices).forEach(([label, val]) => {
