@@ -37,8 +37,15 @@
     }
     #sc-label { font-weight: 700; color: #fff; }
     #zip-count { color: rgba(255,255,255,0.6); }
+    #community-links { margin-left: auto; display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+    .community-chip {
+      background: rgba(255,255,255,0.16); color:#fff; border:1px solid rgba(255,255,255,0.35);
+      border-radius: 999px; padding: 3px 9px; font-size: 0.75rem; font-weight:700;
+      text-decoration:none; cursor:pointer;
+    }
+    .community-chip:hover { background: rgba(255,255,255,0.28); }
     #info-hint {
-      margin-left: auto;
+      margin-left: 0;
       font-style: italic;
       color: rgba(255,255,255,0.5);
       font-size: 0.78rem;
@@ -118,7 +125,7 @@
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <a id="nav-back" href="javascript:history.back()">← Back to Portal</a>
+  <a id="nav-back" href="../portal.html">← Back to Portal</a>
   <span id="nav-title">Information Age Community — Neighbourhood Map</span>
 </nav>
 
@@ -126,7 +133,8 @@
 <div id="info-bar">
   <span id="sc-label">Loading...</span>
   <span id="zip-count"></span>
-  <span id="info-hint">Click any community to view its profile</span>
+  <span id="community-links"></span>
+  <span id="info-hint">Click a shaded area or use the links</span>
 </div>
 
 <!-- MAP -->
@@ -144,6 +152,11 @@
 const params      = new URLSearchParams(window.location.search);
 const scid        = params.get('scid') || '';
 const selectedZip = params.get('zip')  || '';
+
+// Always go back to the portal file in the repo root.
+// This works even if the map was opened in a new tab or directly from a URL.
+document.getElementById('nav-back').href =
+  `../portal.html${scid ? `?scid=${encodeURIComponent(scid)}&zip=${encodeURIComponent(selectedZip)}` : ''}`;
 
 // ── Service Center data is loaded from an external JSON file ──
 // (service_centers.json) so the dataset can be updated without
@@ -173,6 +186,11 @@ function initMap(SC_DATA) {
     document.getElementById('sc-label').textContent = sc.name;
     document.getElementById('zip-count').textContent =
       `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
+
+    // Direct links make community profiles easy to open even when the map is zoomed out.
+    document.getElementById('community-links').innerHTML = sc.zips.map(z =>
+      `<a class="community-chip" href="../profile.html?zip=${z.zip}" target="_blank">${z.town}</a>`
+    ).join('');
   }
 
   // ── No Service Center specified at all — this map should
@@ -291,7 +309,7 @@ function initMap(SC_DATA) {
           const zipInfo = sc.zips.find(z => z.zip === zip);
           const town    = zipInfo ? zipInfo.town : zip;
           const isSelected = zip === selectedZip;
-          const profileUrl = `profile.html?zip=${zip}`;
+          const profileUrl = `../profile.html?zip=${zip}`;
 
           trackedLayers.push({ layer, town, isSelected });
 
@@ -304,6 +322,7 @@ function initMap(SC_DATA) {
           });
 
           // Click popup
+          layer.on('click', () => layer.openPopup());
           layer.bindPopup(`
             <div class="map-popup">
               <h3>${town}</h3>
@@ -317,6 +336,7 @@ function initMap(SC_DATA) {
 
           // Highlight on hover (respects current fill mode)
           layer.on('mouseover', () => {
+            layer.getElement()?.style && (layer.getElement().style.cursor = 'pointer');
             const base = styleFor(isSelected, hollowMode);
             layer.setStyle({ ...base, weight: 3.5, fillOpacity: hollowMode ? 0.15 : Math.min(base.fillOpacity + 0.2, 0.7) });
           });
