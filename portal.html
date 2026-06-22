@@ -104,7 +104,7 @@
 
     #video-modal-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:95vw;height:95vh;max-width:1600px}
 
-    #video-modal-close{position:absolute;top:-2.2rem;right:0;background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;line-height:1}
+    #video-modal-close{position:absolute;top:10px;right:10px;background:#ff4444;color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;z-index:10001;font-weight:bold;line-height:36px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.5)}
 
     #video-player-frame{width:100%;height:100%;border:0;border-radius:0.5rem;display:block}
 
@@ -710,50 +710,41 @@ document.getElementById('btn-viability').addEventListener('click',function(){sho
 
 // Neighborhoods button handled via onclick attribute
 
-var thumb=document.getElementById('video-thumb');var modal=document.getElementById('video-modal');var frame=document.getElementById('video-player-frame');
+var thumb=document.getElementById('video-thumb');
+var modal=document.getElementById('video-modal');
+var frame=document.getElementById('video-player-frame');
+var videoTimer=null;
+
+function closeVideo(){
+  modal.hidden=true;
+  frame.src='';
+  if(videoTimer){clearTimeout(videoTimer);videoTimer=null;}
+}
 
 thumb.addEventListener('click',function(){
-  frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin='+encodeURIComponent(window.location.origin);
+  // Use YouTube nocookie embed with autoplay
+  frame.src='https://www.youtube-nocookie.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1';
   modal.hidden=false;
-  // Auto-close fallback: check video duration and close when near end
-  if(typeof startVideoCheck==='function') startVideoCheck();
-  // Hard fallback: get video duration from YouTube oEmbed and close after that time
-  fetch('https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v='+sc.videoId+'&format=json')
-    .then(function(r){return r.json();})
-    .catch(function(){return null;});
+
+  // Timer-based auto-close: video is 3min 27sec = 207 seconds
+  // Add 3 seconds buffer so it doesn't cut off
+  if(videoTimer) clearTimeout(videoTimer);
+  videoTimer=setTimeout(function(){closeVideo();},210000);
 });
 
+// Also try postMessage (works in some browsers)
 window.addEventListener('message',function(e){
   try{
     var data=JSON.parse(e.data);
-    if(data.event==='onStateChange'&&(data.info===0||data.info==='0')){
-      setTimeout(function(){modal.hidden=true;frame.src='';},1500);
-    }
-    // Some YouTube versions send differently
-    if(data.info===0){
-      setTimeout(function(){modal.hidden=true;frame.src='';},1500);
+    if(data.event==='onStateChange'&&data.info===0){
+      clearTimeout(videoTimer);
+      setTimeout(closeVideo,1000);
     }
   }catch(err){}
 });
 
-// Fallback: poll YouTube iframe for ended state via postMessage ping
-var videoCheckInterval=null;
-function startVideoCheck(){
-  if(videoCheckInterval) clearInterval(videoCheckInterval);
-  videoCheckInterval=setInterval(function(){
-    if(!modal.hidden&&frame.contentWindow){
-      try{
-        frame.contentWindow.postMessage('{"event":"command","func":"getPlayerState","args":""}','*');
-      }catch(e){}
-    } else {
-      clearInterval(videoCheckInterval);
-    }
-  },2000);
-}
-
-document.getElementById('video-modal-close').addEventListener('click',function(){modal.hidden=true;frame.src='';});
-
-document.getElementById('video-modal-backdrop').addEventListener('click',function(){modal.hidden=true;frame.src='';});
+document.getElementById('video-modal-close').addEventListener('click',closeVideo);
+document.getElementById('video-modal-backdrop').addEventListener('click',closeVideo);
 
 </script>
 
