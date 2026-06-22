@@ -541,6 +541,9 @@ function buildMenuHTML(items,depth,scid,zip){
 
     var hasChildren=item.children&&item.children.length>0;
 
+    // Mark empty top-level items as placeholders (greyed out, not clickable)
+    var isPlaceholder=(depth===0&&!hasChildren);
+
     var isLeaf=!hasChildren;
 
     var isTableLeaf=isLeaf&&item.table;
@@ -573,7 +576,7 @@ function buildMenuHTML(items,depth,scid,zip){
 
     html+='<div class="menu-item">';
 
-    html+='<div class="menu-row depth-'+depth+'"'+clickAttr+'>'+arrow+'<span>'+escapeHtml(item.title)+'</span></div>';
+    var extraClass=(depth===0&&!hasChildren)?' style="color:#aaa;cursor:default;font-style:italic"':'';html+='<div class="menu-row depth-'+depth+'"'+clickAttr+extraClass+'>'+arrow+'<span>'+escapeHtml(item.title)+'</span></div>';
 
     if(hasChildren){
 
@@ -709,18 +712,44 @@ document.getElementById('btn-viability').addEventListener('click',function(){sho
 
 var thumb=document.getElementById('video-thumb');var modal=document.getElementById('video-modal');var frame=document.getElementById('video-player-frame');
 
-thumb.addEventListener('click',function(){frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin='+encodeURIComponent(window.location.origin);modal.hidden=false;});
+thumb.addEventListener('click',function(){
+  frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin='+encodeURIComponent(window.location.origin);
+  modal.hidden=false;
+  // Auto-close fallback: check video duration and close when near end
+  if(typeof startVideoCheck==='function') startVideoCheck();
+  // Hard fallback: get video duration from YouTube oEmbed and close after that time
+  fetch('https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v='+sc.videoId+'&format=json')
+    .then(function(r){return r.json();})
+    .catch(function(){return null;});
+});
 
 window.addEventListener('message',function(e){
   try{
     var data=JSON.parse(e.data);
-    // data.info: 0=ended, 1=playing, 2=paused, -1=unstarted
-    if(data.event==='onStateChange'&&data.info===0){
-      // Video ended — wait 1 second then close
-      setTimeout(function(){modal.hidden=true;frame.src='';},1000);
+    if(data.event==='onStateChange'&&(data.info===0||data.info==='0')){
+      setTimeout(function(){modal.hidden=true;frame.src='';},1500);
+    }
+    // Some YouTube versions send differently
+    if(data.info===0){
+      setTimeout(function(){modal.hidden=true;frame.src='';},1500);
     }
   }catch(err){}
 });
+
+// Fallback: poll YouTube iframe for ended state via postMessage ping
+var videoCheckInterval=null;
+function startVideoCheck(){
+  if(videoCheckInterval) clearInterval(videoCheckInterval);
+  videoCheckInterval=setInterval(function(){
+    if(!modal.hidden&&frame.contentWindow){
+      try{
+        frame.contentWindow.postMessage('{"event":"command","func":"getPlayerState","args":""}','*');
+      }catch(e){}
+    } else {
+      clearInterval(videoCheckInterval);
+    }
+  },2000);
+}
 
 document.getElementById('video-modal-close').addEventListener('click',function(){modal.hidden=true;frame.src='';});
 
