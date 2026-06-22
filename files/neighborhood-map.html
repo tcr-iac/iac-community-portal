@@ -20,7 +20,7 @@
     }
     #nav-back {
       color: rgba(255,255,255,0.85); text-decoration: none;
-      font-size: 0.85rem; font-weight: 600;
+      font-size: 0.85rem; font-weight: 600; white-space: nowrap;
     }
     #nav-back:hover { color: #fff; }
     #nav-title {
@@ -37,24 +37,38 @@
     }
     #sc-label { font-weight: 700; color: #fff; }
     #zip-count { color: rgba(255,255,255,0.6); }
-    #community-links { margin-left: auto; display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-    .community-chip {
-      background: rgba(255,255,255,0.16); color:#fff; border:1px solid rgba(255,255,255,0.35);
-      border-radius: 999px; padding: 3px 9px; font-size: 0.75rem; font-weight:700;
-      text-decoration:none; cursor:pointer; font-family:inherit;
-    }
-    .community-chip:hover { background: rgba(255,255,255,0.28); }
     #info-hint {
-      margin-left: 0;
-      font-style: italic;
-      color: rgba(255,255,255,0.5);
-      font-size: 0.78rem;
+      margin-left: auto; font-style: italic;
+      color: rgba(255,255,255,0.5); font-size: 0.78rem;
     }
 
-    /* MAP */
-    #map {
+    /* MAP WRAPPER — position relative so inset can be absolute */
+    #map-wrapper {
+      position: relative;
       width: 100%;
       height: calc(100vh - 98px);
+    }
+
+    /* MAIN MAP */
+    #map { width: 100%; height: 100%; }
+
+    /* INSET MAP — Map 1: IAC 5-state overview */
+    #inset-map {
+      position: absolute;
+      bottom: 24px; left: 16px;
+      width: 240px; height: 160px;
+      border: 2px solid #004a99;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 800;
+      overflow: hidden;
+      background: #e8f0fe;
+    }
+    #inset-label {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: #004a99; color: #fff;
+      font-size: 10px; font-weight: 700; padding: 3px 8px;
+      z-index: 801; letter-spacing: 0.4px; text-transform: uppercase;
     }
 
     /* COMING SOON STATE */
@@ -73,35 +87,37 @@
       background: white; border-radius: 8px;
       padding: 10px 14px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      font-size: 12px; line-height: 1.8;
-      min-width: 160px;
+      font-size: 12px; line-height: 1.9;
+      min-width: 175px;
     }
     #legend b { display: block; margin-bottom: 4px; color: #004a99; }
     .legend-row { display: flex; align-items: center; gap: 8px; }
     .legend-box {
       width: 16px; height: 16px; border-radius: 3px;
-      border: 2px solid #004a99; flex-shrink: 0;
+      border: 2px solid rgba(0,0,0,0.25); flex-shrink: 0;
     }
 
-    /* POPUP STYLES */
-    .map-popup h3 { color: #004a99; margin-bottom: 6px; font-size: 14px; }
-    .map-popup p  { color: #666; font-size: 12px; margin-bottom: 8px; }
+    /* POPUP */
+    .map-popup h3 { color: #004a99; margin-bottom: 4px; font-size: 14px; }
+    .map-popup p  { color: #666; font-size: 12px; margin-bottom: 4px; }
     .map-popup a  {
-      display: inline-block;
+      display: inline-block; margin-top: 6px;
       background: #2e7d4f; color: white;
       padding: 6px 12px; border-radius: 5px;
       text-decoration: none; font-size: 12px; font-weight: 600;
     }
-    .map-popup a:hover { background: #1e5c38; }
+    .map-popup a.adj-link {
+      background: #004a99;
+    }
+    .map-popup a:hover { opacity: 0.88; }
     .map-popup .zip-tag {
       display: inline-block;
       background: #e8f0fe; color: #004a99;
       padding: 2px 8px; border-radius: 10px;
-      font-size: 11px; font-weight: 600; margin-bottom: 6px;
+      font-size: 11px; font-weight: 600; margin-bottom: 4px;
     }
 
-    /* TOWN LABELS — no background box, halo-style text like
-       Google Maps / Esri. Font-size is set dynamically by JS. */
+    /* TOWN LABELS */
     .leaflet-tooltip.town-label {
       background: transparent !important;
       border: none !important;
@@ -110,22 +126,36 @@
       font-weight: 700;
       color: #00264d;
       white-space: nowrap;
-      pointer-events: none; /* clicks pass through to the polygon below */
+      pointer-events: none;
       text-shadow:
         -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
         -1.5px  1.5px 0 #fff, 1.5px  1.5px 0 #fff,
         -1.5px  0     0 #fff, 1.5px  0     0 #fff,
          0     -1.5px 0 #fff, 0      1.5px 0 #fff;
-      transition: font-size 0.15s ease-out;
+      transition: font-size 0.15s;
     }
     .town-label::before { display: none; }
+
+    /* ADJOINING SC LABELS */
+    .leaflet-tooltip.adj-label {
+      background: rgba(0,36,80,0.82) !important;
+      border: 1px solid rgba(255,255,255,0.2) !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+      border-radius: 5px;
+      font-size: 11px; font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      pointer-events: none;
+      padding: 3px 9px !important;
+    }
+    .adj-label::before { display: none; }
   </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <a id="nav-back" href="../portal.html">← Back to Portal</a>
+  <a id="nav-back" href="#">← Back to Portal</a>
   <span id="nav-title">Information Age Community — Neighbourhood Map</span>
 </nav>
 
@@ -133,18 +163,23 @@
 <div id="info-bar">
   <span id="sc-label">Loading...</span>
   <span id="zip-count"></span>
-  <span id="community-links"></span>
-  <span id="info-hint">Click a community name or shaded area to view details</span>
+  <span id="info-hint">Click any community to view its profile · Adjoining centers shown in blue</span>
 </div>
 
-<!-- MAP -->
-<div id="map"></div>
+<!-- MAP WRAPPER -->
+<div id="map-wrapper">
+  <div id="map"></div>
+  <!-- INSET: Map 1 — IAC 5-state overview -->
+  <div id="inset-map">
+    <div id="inset-label">IAC Region Overview</div>
+  </div>
+</div>
 
 <!-- COMING SOON STATE -->
 <div id="coming-soon">
   <div class="icon">🗺️</div>
-  <h2>Map Coming Soon</h2>
-  <p>The neighbourhood map for this Service Center is currently being prepared. Please check back soon.</p>
+  <h2>Coming Soon</h2>
+  <p>The neighbourhood map for this Service Center is being prepared.</p>
 </div>
 
 <script>
@@ -153,101 +188,74 @@ const params      = new URLSearchParams(window.location.search);
 const scid        = params.get('scid') || '';
 const selectedZip = params.get('zip')  || '';
 
-// Always go back to the portal file in the repo root.
-// This works even if the map was opened in a new tab or directly from a URL.
-document.getElementById('nav-back').href =
-  `../portal.html${scid ? `?scid=${encodeURIComponent(scid)}&zip=${encodeURIComponent(selectedZip)}` : ''}`;
+// ── Load both data files in parallel ────────────────────────
+Promise.all([
+  fetch('service_centers.json').then(r => r.json()),
+  fetch('sc_locations.json').then(r => r.json())
+])
+.then(([SC_DATA, SC_LOCS]) => initMap(SC_DATA, SC_LOCS))
+.catch(err => {
+  console.error('Data load error:', err);
+  document.getElementById('map-wrapper').style.display = 'none';
+  const cs = document.getElementById('coming-soon');
+  cs.style.display = 'flex';
+  cs.querySelector('h2').textContent  = 'Data Unavailable';
+  cs.querySelector('p').textContent   = 'Could not load map data. Please try again.';
+});
 
-// ── Service Center data is loaded from an external JSON file ──
-// (service_centers.json) so the dataset can be updated without
-// touching this file at all — just replace the JSON when John's
-// team finalises more complete cluster data.
-fetch('service_centers.json')
-  .then(res => res.json())
-  .then(SC_DATA => initMap(SC_DATA))
-  .catch(err => {
-    console.error('Could not load service_centers.json:', err);
-    document.getElementById('nav-title').textContent = 'Data Unavailable';
-    document.getElementById('map').style.display = 'none';
-    document.getElementById('coming-soon').style.display = 'flex';
-    document.querySelector('#coming-soon h2').textContent = 'Map Data Unavailable';
-    document.querySelector('#coming-soon p').textContent =
-      'Could not load the Service Center dataset. Please try again shortly.';
-  });
-
-function initMap(SC_DATA) {
+function initMap(SC_DATA, SC_LOCS) {
   const sc = SC_DATA[scid];
 
-  // ── Update navbar and info bar ───────────────────────────────
-  document.getElementById('nav-title').textContent =
-    sc ? sc.name : 'IAC Neighbourhood Map';
-
-  if (sc) {
-    document.getElementById('sc-label').textContent = sc.name;
-    document.getElementById('zip-count').textContent =
-      `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
-
-    // Direct links make community profiles easy to open even when the map is zoomed out.
-    document.getElementById('community-links').innerHTML = sc.zips.map(z =>
-      `<button type="button" class="community-chip" data-zip="${encodeURIComponent(z.zip)}" title="View ${z.town} details">${z.town}</button>`
-    ).join('');
-  }
-
-  // ── No Service Center specified at all — this map should
-  //    only ever be opened via the portal's button with scid
-  //    and zip already attached ──────────────────────────────
+  // ── No SCID provided ────────────────────────────────────────
   if (!scid) {
-    document.getElementById('map').style.display = 'none';
-    document.getElementById('coming-soon').style.display = 'flex';
-    document.querySelector('#coming-soon .icon').textContent = '📍';
-    document.querySelector('#coming-soon h2').textContent = 'No Community Selected';
-    document.querySelector('#coming-soon p').textContent =
-      'This map opens automatically from a Service Center\u2019s portal page. Please return to the portal and select a community.';
+    document.getElementById('map-wrapper').style.display = 'none';
+    const cs = document.getElementById('coming-soon');
+    cs.style.display = 'flex';
+    cs.querySelector('.icon').textContent = '📍';
+    cs.querySelector('h2').textContent    = 'No Community Selected';
+    cs.querySelector('p').textContent     = 'This map opens from a Service Center portal page.';
     return;
   }
 
-  // ── Coming soon state — fewer than 2 ZIPs means cluster data
-  //    for this Service Center is not yet complete ─────────────
+  // ── Coming soon — fewer than 2 ZIPs ────────────────────────
   if (!sc || sc.zips.length < 2) {
-    document.getElementById('map').style.display = 'none';
-    document.getElementById('coming-soon').style.display = 'flex';
-    document.querySelector('#coming-soon .icon').textContent = '🗺️';
-    if (sc) {
-      document.querySelector('#coming-soon h2').textContent =
-        sc.name + ' — Coming Soon';
-      document.querySelector('#coming-soon p').textContent =
-        'The neighbourhood map for this Service Center is currently being prepared. Please check back soon.';
-    } else {
-      document.querySelector('#coming-soon h2').textContent = 'Service Center Not Found';
-      document.querySelector('#coming-soon p').textContent =
-        `No data found for Service Center ID "${scid}".`;
-    }
+    document.getElementById('map-wrapper').style.display = 'none';
+    const cs = document.getElementById('coming-soon');
+    cs.style.display = 'flex';
+    if (sc) cs.querySelector('h2').textContent = sc.name + ' — Coming Soon';
     return;
   }
 
-  // ── Initialise Leaflet map ─────────────────────────────────
-  const map = L.map('map', { zoomControl: true });
+  // ── Update nav & info bar ───────────────────────────────────
+  document.getElementById('nav-title').textContent = sc.name;
+  document.getElementById('sc-label').textContent  = sc.name;
+  document.getElementById('zip-count').textContent =
+    `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
 
-  // Base layers — Esri free tiles, no API key or billing required
-  const streetsLayer = L.tileLayer(
+  const portalUrl = `../portal.html?scid=${scid}&zip=${selectedZip}`;
+  const navBack   = document.getElementById('nav-back');
+  navBack.href    = portalUrl;
+  navBack.removeAttribute('target');
+
+  // ── Basemap layers ──────────────────────────────────────────
+  const streets = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-    { attribution: 'Tiles &copy; Esri — Esri, HERE, Garmin, USGS', maxZoom: 19 }
+    { attribution: 'Tiles © Esri', maxZoom: 19 }
   );
-
-  const satelliteLayer = L.tileLayer(
+  const satellite = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { attribution: 'Tiles &copy; Esri — Esri, Maxar, Earthstar Geographics', maxZoom: 19 }
+    { attribution: 'Tiles © Esri · Maxar', maxZoom: 19 }
   );
 
-  streetsLayer.addTo(map); // default base layer
-
+  // ── Main map (Map 2) ────────────────────────────────────────
+  const map = L.map('map', { zoomControl: true });
+  streets.addTo(map);
   L.control.layers(
-    { 'Streets': streetsLayer, 'Satellite': satelliteLayer },
-    null,
-    { position: 'topright' }
+    { 'Streets': streets, 'Satellite': satellite },
+    null, { position: 'topright' }
   ).addTo(map);
 
-  // ── Legend ────────────────────────────────────────────────
+  // ── Legend ──────────────────────────────────────────────────
   const legend = L.control({ position: 'bottomright' });
   legend.onAdd = () => {
     const div = L.DomUtil.create('div', '');
@@ -255,194 +263,257 @@ function initMap(SC_DATA) {
     div.innerHTML = `
       <b>Legend</b>
       <div class="legend-row">
+        <div class="legend-box" style="background:#2e7d4f;"></div>
+        <span>Selected Community</span>
+      </div>
+      <div class="legend-row">
         <div class="legend-box" style="background:#4a90d9;"></div>
         <span>Community Area</span>
       </div>
       <div class="legend-row">
-        <div class="legend-box" style="background:#2e7d4f;"></div>
-        <span>Selected Community</span>
-      </div>
-    `;
+        <div class="legend-box" style="background:rgba(0,74,153,0.12);border-color:#004a99;"></div>
+        <span>Adjoining SC</span>
+      </div>`;
     return div;
   };
   legend.addTo(map);
 
-  // ── Fetch ZCTA boundaries from Census TIGERweb API ────────
-  const zipList   = sc.zips.map(z => `'${z.zip}'`).join(',');
-  const apiUrl    =
-    `https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/` +
-    `tigerWMS_Current/MapServer/2/query?` +
-    `where=ZCTA5%20IN%20(${encodeURIComponent(zipList)})` +
-    `&outFields=ZCTA5&f=geojson&outSR=4326`;
+  // ── Fill/Outline toggle ─────────────────────────────────────
+  let hollowMode = false;
+  const fillToggle = L.control({ position: 'topright' });
+  fillToggle.onAdd = () => {
+    const btn = L.DomUtil.create('button', '');
+    btn.id = 'fill-toggle-btn';
+    btn.textContent = 'Outline View';
+    btn.style.cssText = `
+      background:#fff; border:2px solid rgba(0,0,0,0.2); border-radius:6px;
+      padding:6px 12px; font-size:12px; font-weight:600; color:#003580;
+      cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); margin-top:8px;
+      display:block;`;
+    L.DomEvent.on(btn,'click',L.DomEvent.stop).on(btn,'click',() => {
+      hollowMode = !hollowMode;
+      btn.textContent = hollowMode ? 'Filled View' : 'Outline View';
+      trackedLayers.forEach(({ layer, isSelected }) => {
+        layer.setStyle(styleFor(isSelected, hollowMode));
+      });
+    });
+    return btn;
+  };
+  fillToggle.addTo(map);
+
+  // ── Style helpers ───────────────────────────────────────────
+  function styleFor(isSelected, hollow) {
+    return {
+      color:       '#004a99',
+      weight:      2.5,
+      fillColor:   isSelected ? '#2e7d4f' : '#4a90d9',
+      fillOpacity: hollow ? 0 : (isSelected ? 0.45 : 0.25)
+    };
+  }
+
+  const trackedLayers = [];
+  let mainGeoLayer;
+
+  // ── Fetch primary SC ZIP boundaries ─────────────────────────
+  const zipList = sc.zips.map(z => `'${z.zip}'`).join(',');
+  const apiBase = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Current/MapServer/2/query';
+  const apiUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(zipList)})&outFields=ZCTA5&f=geojson&outSR=4326`;
+
+  // ── Identify adjoining Service Centers ──────────────────────
+  const adjScids = [...new Set(
+    sc.zips
+      .filter(z => z.secondary_scid)
+      .map(z => String(z.secondary_scid))
+      .filter(s => s !== scid)
+  )];
 
   fetch(apiUrl)
-    .then(res => {
-      if (!res.ok) throw new Error('Census API error');
-      return res.json();
-    })
+    .then(r => r.json())
     .then(data => {
-      if (!data.features || data.features.length === 0) {
-        throw new Error('No boundaries returned');
-      }
+      if (!data.features?.length) throw new Error('No boundaries');
 
-      // Track each layer with its town name and selected status,
-      // so we can resize labels and toggle fill mode later.
-      const trackedLayers = [];
-      const layerByZip = {};
-      let hollowMode = false;
-
-      function styleFor(isSelected, hollow) {
-        return {
-          color:       '#004a99',
-          weight:      2.5,
-          fillColor:   isSelected ? '#2e7d4f' : '#4a90d9',
-          fillOpacity: hollow ? 0 : (isSelected ? 0.45 : 0.25)
-        };
-      }
-
-      const geoLayer = L.geoJSON(data, {
+      mainGeoLayer = L.geoJSON(data, {
         style: feature => {
           const zip = feature.properties.ZCTA5;
           return styleFor(zip === selectedZip, hollowMode);
         },
         onEachFeature: (feature, layer) => {
-          const zip     = feature.properties.ZCTA5;
-          const zipInfo = sc.zips.find(z => z.zip === zip);
-          const town    = zipInfo ? zipInfo.town : zip;
+          const zip      = feature.properties.ZCTA5;
+          const zipInfo  = sc.zips.find(z => z.zip === zip);
+          const town     = zipInfo?.town     || zip;
+          const state    = zipInfo?.state    || '';
+          const pop      = zipInfo?.population || 0;
+          const landform = zipInfo?.landform || '';
           const isSelected = zip === selectedZip;
-          const profileUrl = `../profile.html?zip=${encodeURIComponent(zip)}&scid=${encodeURIComponent(scid)}&from=map`;
+          const profileUrl = `profile.html?zip=${zip}`;
 
           trackedLayers.push({ layer, town, isSelected });
-          layerByZip[zip] = layer;
 
-          // Permanent label
           layer.bindTooltip(town, {
-            permanent:  true,
-            direction:  'center',
-            className:  'town-label',
-            opacity:    0.9
+            permanent: true, direction: 'center',
+            className: 'town-label', opacity: 0.9
           });
 
-          // Click shaded area to show popup first. Profile opens only from popup button.
-          layer.on('click', () => { layer.openPopup(); });
+          const popFmt = pop > 0 ? pop.toLocaleString() : 'N/A';
           layer.bindPopup(`
             <div class="map-popup">
-              <h3>${town}</h3>
+              <h3>${town}${state ? ', ' + state : ''}</h3>
               <span class="zip-tag">ZIP ${zip}</span>
-              <p>${sc.name}</p>
-              <a href="${profileUrl}">
-                View Community Profile →
-              </a>
-            </div>
-          `, { maxWidth: 220 });
+              <p><b>Population:</b> ${popFmt}</p>
+              ${landform ? `<p><b>Land Cover:</b> ${landform}</p>` : ''}
+              <a href="${profileUrl}" onclick="window.location.href=this.href;return false;">View Community Profile →</a>
+            </div>`, { maxWidth: 240 });
 
-          // Highlight on hover (respects current fill mode)
           layer.on('mouseover', () => {
-            layer.getElement()?.style && (layer.getElement().style.cursor = 'pointer');
             const base = styleFor(isSelected, hollowMode);
-            layer.setStyle({ ...base, weight: 3.5, fillOpacity: hollowMode ? 0.15 : Math.min(base.fillOpacity + 0.2, 0.7) });
+            layer.setStyle({ ...base, weight: 3.5,
+              fillOpacity: hollowMode ? 0.12 : Math.min(base.fillOpacity + 0.2, 0.7) });
           });
-          layer.on('mouseout', () => {
-            layer.setStyle(styleFor(isSelected, hollowMode));
-          });
+          layer.on('mouseout', () => layer.setStyle(styleFor(isSelected, hollowMode)));
         }
       }).addTo(map);
 
-      // Top community name chips should open the same popup, not jump straight to profile.
-      document.querySelectorAll('.community-chip[data-zip]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const z = btn.getAttribute('data-zip');
-          const targetLayer = layerByZip[z];
-          if (targetLayer) {
-            map.fitBounds(targetLayer.getBounds(), { padding: [60, 60], maxZoom: 11 });
-            targetLayer.openPopup();
-          }
-        });
-      });
+      map.fitBounds(mainGeoLayer.getBounds(), { padding: [40, 40] });
+      updateLabelSizes();
 
-      // Fit map to boundaries
-      map.fitBounds(geoLayer.getBounds(), { padding: [40, 40] });
+      // ── Load adjoining SCs ──────────────────────────────────
+      loadAdjoiningServiceCenters(adjScids, SC_DATA, map);
 
-      // ── Size each label to fit inside its own polygon ──────────
-      // Calculated from the polygon's actual on-screen pixel size
-      // at the current zoom level, not from zoom level alone — so
-      // labels scale naturally AND never exceed their boundary.
-      function updateLabelSizes() {
-        trackedLayers.forEach(({ layer, town }) => {
-          const bounds = layer.getBounds();
-          const nw = map.latLngToContainerPoint(bounds.getNorthWest());
-          const se = map.latLngToContainerPoint(bounds.getSouthEast());
-          const widthPx  = Math.abs(se.x - nw.x);
-          const heightPx = Math.abs(se.y - nw.y);
-
-          // Estimate font size so the label text width fits within
-          // ~75% of the polygon's pixel width (avg char ≈ 0.58×fontSize)
-          const maxTextWidth = widthPx * 0.75;
-          let rawFontSize = maxTextWidth / Math.max(town.length * 0.58, 1);
-
-          // Never let the label be taller than ~45% of the polygon's height
-          rawFontSize = Math.min(rawFontSize, heightPx * 0.45);
-
-          // Decide visibility BEFORE clamping to a minimum, so the
-          // label actually disappears once it no longer fits well —
-          // rather than persisting at a floored minimum size.
-          const shouldHide = rawFontSize < 9;
-          const fontSize = Math.max(6, Math.min(16, rawFontSize));
-
-          const tooltip = layer.getTooltip();
-          const el = tooltip && tooltip.getElement();
-          if (el) {
-            el.style.display = shouldHide ? 'none' : 'block';
-            if (!shouldHide) {
-              el.style.fontSize  = fontSize.toFixed(1) + 'px';
-              el.style.maxWidth  = Math.max(widthPx * 0.9, 20) + 'px';
-              el.style.whiteSpace = 'nowrap';
-              el.style.overflow  = 'hidden';
-              el.style.textOverflow = 'ellipsis';
-            }
-          }
-        });
-      }
-      map.on('zoomend moveend', updateLabelSizes);
-      setTimeout(updateLabelSizes, 50);
-
-      // ── Fill / Outline toggle control ───────────────────────────
-      const fillToggle = L.control({ position: 'topright' });
-      fillToggle.onAdd = () => {
-        const btn = L.DomUtil.create('button', '');
-        btn.id = 'fill-toggle-btn';
-        btn.textContent = 'Outline View';
-        btn.style.cssText = `
-          background:#fff; border:2px solid rgba(0,0,0,0.2); border-radius:6px;
-          padding:6px 12px; font-size:12px; font-weight:600; color:#003580;
-          cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); margin-top:8px;
-        `;
-        L.DomEvent.on(btn, 'click', L.DomEvent.stop)
-          .on(btn, 'click', () => {
-            hollowMode = !hollowMode;
-            btn.textContent = hollowMode ? 'Filled View' : 'Outline View';
-            trackedLayers.forEach(({ layer, isSelected }) => {
-              layer.setStyle(styleFor(isSelected, hollowMode));
-            });
-          });
-        return btn;
-      };
-      fillToggle.addTo(map);
+      // ── Inset map (Map 1) ───────────────────────────────────
+      buildInsetMap(SC_DATA, SC_LOCS, scid);
     })
     .catch(err => {
-      console.error('Map load error:', err);
+      console.error('Map error:', err);
       document.getElementById('map').innerHTML = `
         <div style="display:flex;flex-direction:column;align-items:center;
           justify-content:center;height:100%;text-align:center;padding:2rem;">
           <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
-          <h3 style="color:#004a99;margin-bottom:0.5rem;">Map Temporarily Unavailable</h3>
-          <p style="color:#666;max-width:360px;">
-            Unable to load community boundaries. Please check your internet
-            connection and try again.
+          <h3 style="color:#004a99;">Map Temporarily Unavailable</h3>
+          <p style="color:#666;max-width:360px;margin-top:8px;">
+            Unable to load community boundaries. Please check your connection.
           </p>
         </div>`;
     });
-}
+
+  // ── Label sizing — polygon-relative ────────────────────────
+  function updateLabelSizes() {
+    trackedLayers.forEach(({ layer, town }) => {
+      const b  = layer.getBounds();
+      const nw = map.latLngToContainerPoint(b.getNorthWest());
+      const se = map.latLngToContainerPoint(b.getSouthEast());
+      const wPx = Math.abs(se.x - nw.x);
+      const hPx = Math.abs(se.y - nw.y);
+      let raw = (wPx * 0.75) / Math.max(town.length * 0.58, 1);
+      raw = Math.min(raw, hPx * 0.45);
+      const hide = raw < 9;
+      const fs   = Math.max(6, Math.min(16, raw));
+      const el   = layer.getTooltip()?.getElement();
+      if (el) {
+        el.style.display   = hide ? 'none' : 'block';
+        if (!hide) {
+          el.style.fontSize    = fs.toFixed(1) + 'px';
+          el.style.maxWidth    = Math.max(wPx * 0.9, 20) + 'px';
+          el.style.overflow    = 'hidden';
+          el.style.textOverflow = 'ellipsis';
+        }
+      }
+    });
+  }
+  map.on('zoomend moveend', updateLabelSizes);
+  setTimeout(updateLabelSizes, 100);
+
+  // ── Load adjoining Service Center boundaries ────────────────
+  function loadAdjoiningServiceCenters(adjScids, SC_DATA, map) {
+    adjScids.forEach(adjScid => {
+      const adjSc = SC_DATA[adjScid];
+      if (!adjSc || adjSc.zips.length < 1) return;
+
+      const adjZips = adjSc.zips.map(z => `'${z.zip}'`).join(',');
+      const adjUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(adjZips)})&outFields=ZCTA5&f=geojson&outSR=4326`;
+      const anchorZip = adjSc.zips[0].zip;
+
+      fetch(adjUrl)
+        .then(r => r.json())
+        .then(adjData => {
+          if (!adjData.features?.length) return;
+          L.geoJSON(adjData, {
+            style: {
+              color:       '#004a99',
+              weight:      1.5,
+              fillColor:   '#4a90d9',
+              fillOpacity: 0.08,
+              dashArray:   '5 4'
+            },
+            onEachFeature: (feature, layer) => {
+              const scName = adjSc.name;
+              layer.bindTooltip(scName, {
+                permanent: false, direction: 'center',
+                className: 'adj-label', opacity: 0.9
+              });
+              layer.bindPopup(`
+                <div class="map-popup">
+                  <h3>${scName}</h3>
+                  <p>Adjoining Service Center</p>
+                  <a class="adj-link"
+                     href="../portal.html?scid=${adjScid}&zip=${anchorZip}">
+                    View ${scName} →
+                  </a>
+                </div>`, { maxWidth: 220 });
+            }
+          }).addTo(map);
+        })
+        .catch(() => {}); // silently skip if API fails for one adjoiner
+    });
+  }
+
+  // ── Build inset map (Map 1 — IAC 5-state overview) ─────────
+  function buildInsetMap(SC_DATA, SC_LOCS, currentScid) {
+    const inset = L.map('inset-map', {
+      zoomControl:       false,
+      attributionControl: false,
+      dragging:          false,
+      scrollWheelZoom:   false,
+      doubleClickZoom:   false,
+      touchZoom:         false,
+      keyboard:          false,
+      boxZoom:           false
+    });
+
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 10 }
+    ).addTo(inset);
+
+    // Plot all SC locations as dots
+    Object.entries(SC_LOCS).forEach(([sid, loc]) => {
+      const isCurrent = sid === currentScid;
+      L.circleMarker([loc.lat, loc.lng], {
+        radius:      isCurrent ? 7 : 4,
+        fillColor:   isCurrent ? '#e67e22' : '#004a99',
+        color:       '#fff',
+        weight:      isCurrent ? 2 : 1,
+        fillOpacity: isCurrent ? 1   : 0.7,
+        opacity:     1
+      })
+      .bindTooltip(loc.anchor_town, { permanent: false, direction: 'top' })
+      .addTo(inset);
+    });
+
+    // Fit inset to the 5-state IAC region
+    inset.fitBounds([[41.2, -104.1], [49.4, -86.3]]);
+
+    // Highlight current SC with a pulsing ring
+    const curLoc = SC_LOCS[currentScid];
+    if (curLoc) {
+      L.circleMarker([curLoc.lat, curLoc.lng], {
+        radius: 13, fillColor: 'transparent',
+        color: '#e67e22', weight: 2,
+        fillOpacity: 0, opacity: 0.6
+      }).addTo(inset);
+    }
+  }
+
+} // end initMap
 </script>
 </body>
 </html>
