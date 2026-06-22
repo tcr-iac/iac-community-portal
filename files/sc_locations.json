@@ -1,0 +1,513 @@
+{
+  "1": {
+    "name": "Aberdeen Service Center",
+    "lat": 45.4753,
+    "lng": -98.53042,
+    "anchor_zip": "57401",
+    "anchor_town": "Aberdeen"
+  },
+  "2": {
+    "name": "Albert Lea Service Center",
+    "lat": 43.66085,
+    "lng": -93.3238,
+    "anchor_zip": "56007",
+    "anchor_town": "Albert Lea"
+  },
+  "3": {
+    "name": "Alexandria Service Center",
+    "lat": 45.87047,
+    "lng": -95.38985,
+    "anchor_zip": "56308",
+    "anchor_town": "Alexandria"
+  },
+  "4": {
+    "name": "Ashland Service Center",
+    "lat": 46.54784,
+    "lng": -90.85061,
+    "anchor_zip": "54806",
+    "anchor_town": "Ashland"
+  },
+  "5": {
+    "name": "Austin Service Center",
+    "lat": 43.6827,
+    "lng": -92.99148,
+    "anchor_zip": "55912",
+    "anchor_town": "Austin"
+  },
+  "6": {
+    "name": "Bemidji Service Center",
+    "lat": 47.50985,
+    "lng": -94.84921,
+    "anchor_zip": "56601",
+    "anchor_town": "Bemidji"
+  },
+  "8": {
+    "name": "Blue Earth Service Center",
+    "lat": 43.62142,
+    "lng": -94.10734,
+    "anchor_zip": "56013",
+    "anchor_town": "Blue Earth"
+  },
+  "9": {
+    "name": "Brainerd Service Center",
+    "lat": 46.32259,
+    "lng": -94.11974,
+    "anchor_zip": "56401",
+    "anchor_town": "Brainerd"
+  },
+  "10": {
+    "name": "Brookings Service Center",
+    "lat": 44.31588,
+    "lng": -96.79518,
+    "anchor_zip": "57006",
+    "anchor_town": "Brookings"
+  },
+  "11": {
+    "name": "Breckenridge-Wahpeton Service Center",
+    "lat": 46.28645,
+    "lng": -96.50361,
+    "anchor_zip": "56520",
+    "anchor_town": "Breckenridge"
+  },
+  "13": {
+    "name": "Chippewa Falls Service Center",
+    "lat": 44.94533,
+    "lng": -91.39342,
+    "anchor_zip": "54729",
+    "anchor_town": "Chippewa Falls"
+  },
+  "14": {
+    "name": "Crookston Service Center",
+    "lat": 47.74189,
+    "lng": -96.55522,
+    "anchor_zip": "56716",
+    "anchor_town": "Crookston"
+  },
+  "16": {
+    "name": "Devils Lake Service Center",
+    "lat": 48.13015,
+    "lng": -98.88798,
+    "anchor_zip": "58301",
+    "anchor_town": "Devils Lake"
+  },
+  "17": {
+    "name": "Detroit Lakes Service Center",
+    "lat": 46.83665,
+    "lng": -95.82233,
+    "anchor_zip": "56501",
+    "anchor_town": "Detroit Lakes"
+  },
+  "18": {
+    "name": "Des Moines Service Center",
+    "lat": 41.58448,
+    "lng": -93.62152,
+    "anchor_zip": "50309",
+    "anchor_town": "Des Moines"
+  },
+  "19": {
+    "name": "Dickinson Service Center",
+    "lat": 45.38425,
+    "lng": -102.53897,
+    "anchor_zip": "57620",
+    "anchor_town": "Bison"
+  },
+  "21": {
+    "name": "Cloquet Service Center",
+    "lat": 46.75138,
+    "lng": -92.5399,
+    "anchor_zip": "55720",
+    "anchor_town": "Cloquet"
+  },
+  "22": {
+    "name": "Eau Claire Service Center",
+    "lat": 44.7432,
+    "lng": -91.50899,
+    "anchor_zip": "54701",
+    "anchor_town": "Eau Claire"
+  },
+  "23": {
+    "name": "Ely Service Center",
+    "lat": 47.98832,
+    "lng": -91.7489,
+    "anchor_zip": "55731",
+    "anchor_town": "Ely"
+  },
+  "24": {
+    "name": "Fort Dodge Service Center",
+    "lat": 42.49244,
+    "lng": -94.18967,
+    "anchor_zip": "50501",
+    "anchor_town": "Fort Dodge"
+  },
+  "26": {
+    "name": "Faribault Service Center",
+    "lat": 44.2973,
+    "lng": -93.27414,
+    "anchor_zip": "55021",
+    "anchor_town": "Faribault"
+  },
+  "27": {
+    "name": "Fergus Falls Service Center",
+    "lat": 46.27697,
+    "lng": -96.08977,
+    "anchor_zip": "56537",
+    "anchor_town": "Fergus Falls"
+  },
+  "28": {
+    "name": "Grand Forks Service Center",
+    "lat": 47.86938,
+    "lng": -97.14013,
+    "anchor_zip": "58201",
+    "anchor_town": "Grand Forks"
+  },
+  "29": {
+    "name": "Grand Marais Service Center",
+    "lat": 47.96201,
+    "lng": -90.55792,
+    "anchor_zip": "55604",
+    "anchor_town": "Grand Marais"
+  },
+  "31": {
+    "name": "Hallock Service Center",
+    "lat": 48.78736,
+    "lng": -96.99149,
+    "anchor_zip": "56728",
+    "anchor_town": "Hallock"
+  },
+  "32": {
+    "name": "Hayward Service Center",
+    "lat": 46.0251,
+    "lng": -91.29494,
+    "anchor_zip": "54843",
+    "anchor_town": "Hayward"
+  },
+  "33": {
+    "name": "Hibbing Service Center",
+    "lat": 47.35766,
+    "lng": -92.95698,
+    "anchor_zip": "55746",
+    "anchor_town": "Hibbing"
+  },
+  "34": {
+    "name": "Hudson Service Center",
+    "lat": 44.97949,
+    "lng": -92.69305,
+    "anchor_zip": "54016",
+    "anchor_town": "Hudson"
+  },
+  "35": {
+    "name": "Huron Service Center",
+    "lat": 44.3948,
+    "lng": -98.20037,
+    "anchor_zip": "57350",
+    "anchor_town": "Huron"
+  },
+  "36": {
+    "name": "Hutchinson Service Center",
+    "lat": 44.89743,
+    "lng": -94.39195,
+    "anchor_zip": "55350",
+    "anchor_town": "Hutchinson"
+  },
+  "37": {
+    "name": "International Falls Service Center",
+    "lat": 48.53122,
+    "lng": -93.13224,
+    "anchor_zip": "56649",
+    "anchor_town": "International Falls"
+  },
+  "38": {
+    "name": "Little Falls Service Center",
+    "lat": 46.00748,
+    "lng": -94.38032,
+    "anchor_zip": "56345",
+    "anchor_town": "Little Falls"
+  },
+  "39": {
+    "name": "La Crosse Service Center",
+    "lat": 43.80199,
+    "lng": -91.14559,
+    "anchor_zip": "54601",
+    "anchor_town": "La Crosse"
+  },
+  "40": {
+    "name": "Jamestown Service Center",
+    "lat": 46.88145,
+    "lng": -98.76883,
+    "anchor_zip": "58401",
+    "anchor_town": "Jamestown"
+  },
+  "41": {
+    "name": "Mankato Service Center",
+    "lat": 44.13193,
+    "lng": -93.97789,
+    "anchor_zip": "56001",
+    "anchor_town": "Mankato"
+  },
+  "42": {
+    "name": "Marshall Service Center",
+    "lat": 44.44121,
+    "lng": -95.75906,
+    "anchor_zip": "56258",
+    "anchor_town": "Marshall"
+  },
+  "43": {
+    "name": "Marshfield Service Center",
+    "lat": 44.63914,
+    "lng": -90.19755,
+    "anchor_zip": "54449",
+    "anchor_town": "Marshfield"
+  },
+  "44": {
+    "name": "Mason City Service Center",
+    "lat": 43.15389,
+    "lng": -93.20006,
+    "anchor_zip": "50401",
+    "anchor_town": "Mason City"
+  },
+  "45": {
+    "name": "Menomonie Service Center",
+    "lat": 44.84971,
+    "lng": -91.92994,
+    "anchor_zip": "54751",
+    "anchor_town": "Menomonie"
+  },
+  "46": {
+    "name": "Minneapolis-St Paul Service Center",
+    "lat": 44.97608,
+    "lng": -93.27119,
+    "anchor_zip": "55402",
+    "anchor_town": "Minneapolis"
+  },
+  "47": {
+    "name": "Minot Service Center",
+    "lat": 48.85121,
+    "lng": -100.40303,
+    "anchor_zip": "58318",
+    "anchor_town": "Bottineau"
+  },
+  "48": {
+    "name": "Mitchell Service Center",
+    "lat": 43.71136,
+    "lng": -98.04155,
+    "anchor_zip": "57301",
+    "anchor_town": "Mitchell"
+  },
+  "49": {
+    "name": "Montevideo Service Center",
+    "lat": 45.0064,
+    "lng": -95.70098,
+    "anchor_zip": "56265",
+    "anchor_town": "Montevideo"
+  },
+  "50": {
+    "name": "Morris Service Center",
+    "lat": 45.58512,
+    "lng": -95.9322,
+    "anchor_zip": "56267",
+    "anchor_town": "Morris"
+  },
+  "51": {
+    "name": "New Richmond Service Center",
+    "lat": 45.11907,
+    "lng": -92.52091,
+    "anchor_zip": "54017",
+    "anchor_town": "New Richmond"
+  },
+  "52": {
+    "name": "Owatonna Service Center",
+    "lat": 44.05966,
+    "lng": -93.22639,
+    "anchor_zip": "55060",
+    "anchor_town": "Owatonna"
+  },
+  "53": {
+    "name": "Park Rapids Service Center",
+    "lat": 47.02368,
+    "lng": -95.09433,
+    "anchor_zip": "56470",
+    "anchor_town": "Park Rapids"
+  },
+  "54": {
+    "name": "Pierre Service Center",
+    "lat": 44.53525,
+    "lng": -100.31906,
+    "anchor_zip": "57501",
+    "anchor_town": "Pierre"
+  },
+  "55": {
+    "name": "Pine City Service Center",
+    "lat": 45.83263,
+    "lng": -92.90584,
+    "anchor_zip": "55063",
+    "anchor_town": "Pine City"
+  },
+  "56": {
+    "name": "Pipestone Service Center",
+    "lat": 44.04936,
+    "lng": -96.33361,
+    "anchor_zip": "56164",
+    "anchor_town": "Pipestone"
+  },
+  "57": {
+    "name": "Preston Service Center",
+    "lat": 43.62913,
+    "lng": -92.13282,
+    "anchor_zip": "55965",
+    "anchor_town": "Preston"
+  },
+  "58": {
+    "name": "Red Wing Service Center",
+    "lat": 44.51581,
+    "lng": -92.5441,
+    "anchor_zip": "55066",
+    "anchor_town": "Red Wing"
+  },
+  "59": {
+    "name": "Redwood Falls Service Center",
+    "lat": 44.75599,
+    "lng": -94.87624,
+    "anchor_zip": "55310",
+    "anchor_town": "Bird Island"
+  },
+  "60": {
+    "name": "Rochester Service Center",
+    "lat": 44.07679,
+    "lng": -92.5018,
+    "anchor_zip": "55901",
+    "anchor_town": "Rochester"
+  },
+  "61": {
+    "name": "Sauk Center Service Center",
+    "lat": 45.72308,
+    "lng": -94.97982,
+    "anchor_zip": "56378",
+    "anchor_town": "Sauk Centre"
+  },
+  "62": {
+    "name": "Sioux City Service Center",
+    "lat": 42.49413,
+    "lng": -96.39361,
+    "anchor_zip": "51101",
+    "anchor_town": "Sioux City"
+  },
+  "63": {
+    "name": "Sioux Falls Service Center",
+    "lat": 43.538,
+    "lng": -96.69241,
+    "anchor_zip": "57103",
+    "anchor_town": "Sioux Falls"
+  },
+  "64": {
+    "name": "St Cloud Service Center",
+    "lat": 45.48718,
+    "lng": -94.24307,
+    "anchor_zip": "56301",
+    "anchor_town": "St Cloud"
+  },
+  "66": {
+    "name": "Thief River Falls Service Center",
+    "lat": 48.12021,
+    "lng": -96.1994,
+    "anchor_zip": "56701",
+    "anchor_town": "Thief River Falls"
+  },
+  "67": {
+    "name": "Tomah Service Center",
+    "lat": 43.98525,
+    "lng": -90.50496,
+    "anchor_zip": "54660",
+    "anchor_town": "Tomah"
+  },
+  "68": {
+    "name": "Two Harbors Service Center",
+    "lat": 47.25095,
+    "lng": -91.66982,
+    "anchor_zip": "55616",
+    "anchor_town": "Two Harbors"
+  },
+  "70": {
+    "name": "Virginia Service Center",
+    "lat": 47.60027,
+    "lng": -92.48261,
+    "anchor_zip": "55792",
+    "anchor_town": "Virginia"
+  },
+  "71": {
+    "name": "Wabasha Service Center",
+    "lat": 44.35375,
+    "lng": -92.06518,
+    "anchor_zip": "55981",
+    "anchor_town": "Wabasha"
+  },
+  "72": {
+    "name": "Wadena Service Center",
+    "lat": 46.46555,
+    "lng": -95.14307,
+    "anchor_zip": "56482",
+    "anchor_town": "Wadena"
+  },
+  "73": {
+    "name": "Warroad Service Center",
+    "lat": 48.80879,
+    "lng": -95.34167,
+    "anchor_zip": "56763",
+    "anchor_town": "Warroad"
+  },
+  "74": {
+    "name": "Waseca Service Center",
+    "lat": 44.06342,
+    "lng": -93.51683,
+    "anchor_zip": "56093",
+    "anchor_town": "Waseca"
+  },
+  "75": {
+    "name": "Watertown Service Center",
+    "lat": 44.93412,
+    "lng": -97.09424,
+    "anchor_zip": "57201",
+    "anchor_town": "Watertown"
+  },
+  "76": {
+    "name": "Willmar Service Center",
+    "lat": 45.10181,
+    "lng": -95.04226,
+    "anchor_zip": "56201",
+    "anchor_town": "Willmar"
+  },
+  "78": {
+    "name": "Williston Service Center",
+    "lat": 48.23522,
+    "lng": -103.76747,
+    "anchor_zip": "58801",
+    "anchor_town": "Williston"
+  },
+  "79": {
+    "name": "Windom Service Center",
+    "lat": 43.88404,
+    "lng": -95.13991,
+    "anchor_zip": "56101",
+    "anchor_town": "Windom"
+  },
+  "80": {
+    "name": "Winona Service Center",
+    "lat": 43.98469,
+    "lng": -91.63143,
+    "anchor_zip": "55987",
+    "anchor_town": "Winona"
+  },
+  "81": {
+    "name": "Worthington Service Center",
+    "lat": 43.62357,
+    "lng": -95.58507,
+    "anchor_zip": "56187",
+    "anchor_town": "Worthington"
+  },
+  "92": {
+    "name": "Fargo-Moorhead Service Center",
+    "lat": 46.9207,
+    "lng": -96.83175,
+    "anchor_zip": "58102",
+    "anchor_town": "Fargo"
+  }
+}
