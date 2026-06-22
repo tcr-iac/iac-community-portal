@@ -70,7 +70,17 @@
 
     .menu-group{flex:1;min-width:0;display:flex;flex-direction:column}
 
-    @media(max-width:900px){#zone-menus{flex-direction:column;height:auto}}
+    @media(max-width:900px){
+  #zone-menus{flex-direction:column;height:auto;overflow-y:auto}
+  .menu-group{min-height:200px;max-height:40vh}
+  body{overflow:auto;height:auto}
+  #zone-app-demos{flex-wrap:wrap}
+}
+@media(max-width:600px){
+  #zone-header{flex-direction:column;gap:0.5rem}
+  #video-thumb-wrapper{align-self:flex-start}
+  .app-demo-btn{font-size:0.75rem;padding:0.4rem 0.8rem}
+}
 
     .menu-group-title{font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:#004a99;padding-bottom:0.4rem;margin-bottom:0.5rem;border-bottom:3px solid #2e7d4f;flex-shrink:0;text-align:center}
 
@@ -589,19 +599,26 @@ function toggleMenu(childId,arrId){
 
   var opening=el.style.display==='none'||el.style.display==='';
 
-  // If opening, close all sibling sections at the same level
+  // Accordion: only close siblings within the SAME direct parent (same menu column level)
   if(opening){
-    var parent=el.parentElement;
-    if(parent){
-      var siblings=parent.parentElement?parent.parentElement.children:[];
+    var menuItem=el.parentElement;
+    var menuList=menuItem?menuItem.parentElement:null;
+    if(menuList){
+      var siblings=menuList.children;
       for(var i=0;i<siblings.length;i++){
         var sib=siblings[i];
-        if(sib===parent) continue;
-        var sibChild=sib.querySelector('[id^="menu-children-"]');
-        var sibArr=sib.querySelector('[id^="arr-"]');
-        if(sibChild&&sibChild.style.display!=='none'){
-          sibChild.style.display='none';
-          if(sibArr) sibArr.style.transform='';
+        if(sib===menuItem) continue;
+        // Only close direct children containers, not deeply nested ones
+        var sibChildren=sib.children;
+        for(var j=0;j<sibChildren.length;j++){
+          var sibEl=sibChildren[j];
+          if(sibEl.id&&sibEl.id.indexOf('menu-children-')===0&&sibEl.style.display!=='none'){
+            sibEl.style.display='none';
+            var sibArrId=sibEl.id.replace('menu-children-','arr-');
+            var sibArr=sib.querySelector('#'+sibArrId);
+            if(!sibArr) sibArr=sib.querySelector('[id^="arr-"]');
+            if(sibArr) sibArr.style.transform='';
+          }
         }
       }
     }
@@ -692,9 +709,18 @@ document.getElementById('btn-viability').addEventListener('click',function(){sho
 
 var thumb=document.getElementById('video-thumb');var modal=document.getElementById('video-modal');var frame=document.getElementById('video-player-frame');
 
-thumb.addEventListener('click',function(){frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1';modal.hidden=false;});
+thumb.addEventListener('click',function(){frame.src='https://www.youtube.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin='+encodeURIComponent(window.location.origin);modal.hidden=false;});
 
-window.addEventListener('message',function(e){try{var data=JSON.parse(e.data);if(data.event==='onStateChange'&&data.info===0){modal.hidden=true;frame.src='';}}catch(err){}});
+window.addEventListener('message',function(e){
+  try{
+    var data=JSON.parse(e.data);
+    // data.info: 0=ended, 1=playing, 2=paused, -1=unstarted
+    if(data.event==='onStateChange'&&data.info===0){
+      // Video ended — wait 1 second then close
+      setTimeout(function(){modal.hidden=true;frame.src='';},1000);
+    }
+  }catch(err){}
+});
 
 document.getElementById('video-modal-close').addEventListener('click',function(){modal.hidden=true;frame.src='';});
 
