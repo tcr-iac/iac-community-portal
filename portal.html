@@ -244,7 +244,7 @@
 
 <div id="table-overlay" hidden><div id="table-overlay-backdrop"></div><div id="table-overlay-box"><button id="table-overlay-close">&#x2715;</button><h3 id="table-overlay-title"></h3><div id="overlay-inner-content"></div></div></div>
 
-<div id="video-modal" hidden><div id="video-modal-backdrop"></div><div id="video-modal-box"><button id="video-modal-close">&#x2715;</button><iframe id="video-player-frame" allow="autoplay; fullscreen" allowfullscreen></iframe></div></div>
+<div id="video-modal" hidden><div id="video-modal-backdrop"></div><div id="video-modal-box"><button id="video-modal-close">&#x2715;</button><div id="video-player-frame"></div></div></div>
 
 <script>
 
@@ -712,35 +712,74 @@ document.getElementById('btn-viability').addEventListener('click',function(){sho
 
 var thumb=document.getElementById('video-thumb');
 var modal=document.getElementById('video-modal');
-var frame=document.getElementById('video-player-frame');
+var ytPlayer=null;
 var videoTimer=null;
 
 function closeVideo(){
   modal.hidden=true;
-  frame.src='';
+  if(ytPlayer){try{ytPlayer.stopVideo();}catch(e){}}
   if(videoTimer){clearTimeout(videoTimer);videoTimer=null;}
 }
 
-thumb.addEventListener('click',function(){
-  // Use YouTube nocookie embed with autoplay
-  frame.src='https://www.youtube-nocookie.com/embed/'+sc.videoId+'?autoplay=1&rel=0&modestbranding=1&enablejsapi=1';
-  modal.hidden=false;
+// YouTube IFrame API — loads player properly with onStateChange callback
+function onYouTubeIframeAPIReady(){
+  // API ready — player will be created on thumb click
+}
 
-  // Timer-based auto-close: video is 3min 27sec = 207 seconds
-  // Add 3 seconds buffer so it doesn't cut off
-  if(videoTimer) clearTimeout(videoTimer);
-  videoTimer=setTimeout(function(){closeVideo();},210000);
-});
-
-// Also try postMessage (works in some browsers)
-window.addEventListener('message',function(e){
-  try{
-    var data=JSON.parse(e.data);
-    if(data.event==='onStateChange'&&data.info===0){
-      clearTimeout(videoTimer);
-      setTimeout(closeVideo,1000);
+function createYTPlayer(videoId){
+  if(ytPlayer){
+    try{ytPlayer.destroy();}catch(e){}
+    ytPlayer=null;
+  }
+  document.getElementById('video-player-frame').innerHTML='';
+  ytPlayer=new YT.Player('video-player-frame',{
+    height:'100%',
+    width:'100%',
+    videoId:videoId,
+    playerVars:{autoplay:1,rel:0,modestbranding:1},
+    events:{
+      onStateChange:function(e){
+        // YT.PlayerState.ENDED = 0
+        if(e.data===YT.PlayerState.ENDED){
+          setTimeout(closeVideo,1500);
+        }
+      },
+      onError:function(){
+        // If player errors, fall back to timer close
+        if(videoTimer) clearTimeout(videoTimer);
+        videoTimer=setTimeout(closeVideo,210000);
+      }
     }
-  }catch(err){}
+  });
+}
+
+// Load YouTube IFrame API script once
+var ytApiLoaded=false;
+function loadYTApi(){
+  if(ytApiLoaded) return;
+  ytApiLoaded=true;
+  var tag=document.createElement('script');
+  tag.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+
+thumb.addEventListener('click',function(){
+  modal.hidden=false;
+  loadYTApi();
+  // Small delay to ensure API is ready
+  var tryCreate=function(attempts){
+    if(typeof YT!=='undefined'&&YT.Player){
+      createYTPlayer(sc.videoId);
+    } else if(attempts>0){
+      setTimeout(function(){tryCreate(attempts-1);},300);
+    } else {
+      // Ultimate fallback: plain iframe
+      var el=document.getElementById('video-player-frame');
+      el.innerHTML='<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/'+sc.videoId+'?autoplay=1&rel=0" allow="autoplay;fullscreen" allowfullscreen></iframe>';
+      videoTimer=setTimeout(closeVideo,210000);
+    }
+  };
+  tryCreate(15);
 });
 
 document.getElementById('video-modal-close').addEventListener('click',closeVideo);
