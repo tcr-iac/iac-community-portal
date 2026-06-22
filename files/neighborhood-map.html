@@ -345,7 +345,7 @@ function initMap(SC_DATA, SC_LOCS) {
           const pop      = zipInfo?.population || 0;
           const landform = zipInfo?.landform || '';
           const isSelected = zip === selectedZip;
-          const profileUrl = `profile.html?zip=${zip}`;
+          const profileUrl = `../profile.html?zip=${zip}&scid=${scid}`;
 
           trackedLayers.push({ layer, town, isSelected });
 
