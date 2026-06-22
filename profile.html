@@ -1,145 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Profile</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: #f0f0f0; color: #333; }
-        .header { background: #2d6a2d; color: white; text-align: center; padding: 20px 30px; }
-        .header h1 { font-size: 26px; font-weight: bold; margin-bottom: 4px; }
-        .header h2 { font-size: 16px; font-style: italic; font-weight: normal; margin-bottom: 4px; }
-        .header p { font-size: 13px; color: #cce5cc; }
-        .content { max-width: 900px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .what-makes { background: #e8e8e8; padding: 20px; border-radius: 4px; }
-        .what-makes h3 { font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 12px; color: #1a1a1a; }
-        .what-makes p { font-size: 13px; line-height: 1.7; color: #444; }
-        .photo-gallery { background: #2d6a2d; border-radius: 4px; overflow: hidden; position: relative; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-        .photo-gallery-label { position: relative; z-index: 2; background: rgba(0,0,0,0.5); color: white; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold; text-align: center; }
-        .community-profile { background: white; padding: 20px; border-radius: 4px; border: 1px solid #ddd; }
-        .community-profile h3 { font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px; color: #1a1a1a; letter-spacing: 1px; }
-        .profile-item { margin-bottom: 12px; }
-        .profile-item label { font-size: 13px; font-weight: bold; color: #333; display: block; margin-bottom: 3px; }
-        .profile-item p, .profile-item ul { font-size: 13px; color: #555; padding-left: 10px; }
-        .profile-item ul { list-style: disc; padding-left: 25px; }
-        .profile-item ul li { margin-bottom: 3px; }
-        .profile-item a { color: #c0392b; text-decoration: underline; font-size: 13px; }
-        .viability-section { background: white; padding: 20px; border-radius: 4px; border: 1px solid #ddd; }
-        .viability-section h3 { font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; color: #1a1a1a; letter-spacing: 1px; text-decoration: underline; }
-        .viability-score-big { text-align: center; font-size: 48px; font-weight: bold; color: #2d6a2d; margin: 10px 0; }
-        .viability-score-label { text-align: center; font-size: 11px; color: #888; margin-bottom: 15px; }
-        .index-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
-        .index-label { font-size: 11px; color: #555; width: 120px; flex-shrink: 0; }
-        .index-bar-wrap { flex: 1; background: #eee; border-radius: 3px; height: 10px; overflow: hidden; }
-        .index-bar { height: 100%; background: #2d6a2d; border-radius: 3px; }
-        .index-val { font-size: 11px; font-weight: bold; color: #333; width: 30px; text-align: right; flex-shrink: 0; }
-        .bottom-nav { max-width: 900px; margin: 0 auto 30px; padding: 0 15px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .bottom-nav button { background: #d0d0d0; border: 2px solid #aaa; border-radius: 6px; padding: 12px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .bottom-nav button:hover { background: #bbb; transform: translateY(-1px); }
-        .bottom-nav button.green { background: #2d6a2d; color: white; border-color: #1a4a1a; }
-        .bottom-nav button.green:hover { background: #1a4a1a; }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Profile of the Brainerd Community</title>
+  <style>
+    :root {
+      --blue:      #004a99;
+      --blue-dark: #00316b;
+      --blue-mid:  #1a6bc4;
+      --blue-light:#e8f0fe;
+      --accent:    #e67e22;
+      --white:     #ffffff;
+      --text:      #1a2b3c;
+      --muted:     #5a6e85;
+      --border:    #c8d8eb;
+      --bg:        #f0f5fb;
+      --green:     #27ae60;
+      --amber:     #f39c12;
+      --red:       #e74c3c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg);
+           color: var(--text); font-size: 14px; line-height: 1.6; }
+
+    /* ── NAV ── */
+    .nav {
+      background: var(--blue-dark); padding: 12px 28px;
+      display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 500;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .btn-nav {
+      padding: 7px 15px; border-radius: 6px; font-size: 12px;
+      font-weight: 600; text-decoration: none; border: none;
+      cursor: pointer; transition: 0.2s; white-space: nowrap;
+    }
+    .btn-back { background: rgba(255,255,255,0.15); color: #fff; }
+    .btn-back:hover { background: rgba(255,255,255,0.25); }
+    .btn-sc   { background: var(--accent); color: #fff; }
+    .btn-sc:hover { opacity: 0.88; }
+    .nav-center { flex: 1; text-align: center; color: rgba(255,255,255,0.7);
+                  font-size: 12px; }
+
+    /* ── HERO / TITLE BLOCK ── */
+    .hero {
+      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-mid) 55%, #2980b9 100%);
+      padding: 44px 40px 36px; text-align: center; position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-iac   { color: rgba(255,255,255,0.55); font-size: 11px;
+                  letter-spacing: 2px; text-transform: uppercase;
+                  margin-bottom: 10px; font-weight: 600; }
+    .hero h1    { font-size: clamp(22px, 4vw, 34px); font-weight: 800;
+                  color: #fff; line-height: 1.2; margin-bottom: 8px;
+                  text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .hero h1 span { color: #ffd166; }
+    .hero-sub   { font-size: 15px; color: rgba(255,255,255,0.8);
+                  margin-bottom: 28px; font-weight: 400; font-style: italic; }
+    /* Graphic element — network/collaboration icon */
+    .hero-graphic {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin: 0 auto 28px; max-width: 320px;
+    }
+    .hero-node {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .hero-line {
+      flex: 1; height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+    }
+    /* Quote block */
+    .quote-block {
+      background: rgba(255,255,255,0.1);
+      border-left: 3px solid rgba(255,255,255,0.5);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin: 0 auto;
+      max-width: 560px;
+      text-align: left;
+    }
+    .quote-text   { color: #fff; font-size: 15px; font-style: italic;
+                    font-weight: 300; line-height: 1.6; }
+    .quote-author { color: rgba(255,255,255,0.6); font-size: 12px;
+                    margin-top: 6px; font-weight: 600; text-transform: uppercase;
+                    letter-spacing: 0.5px; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px 28px; }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white); border-radius: 12px;
+      padding: 22px 24px;
+      box-shadow: 0 2px 10px rgba(0,74,153,0.08);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px;
+      color: var(--muted); font-weight: 700;
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--blue-light);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-title span { color: var(--blue); }
+
+    /* ── GALLERY ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .gallery-item {
+      border-radius: 10px; overflow: hidden;
+      cursor: pointer; position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.25s, box-shadow 0.25s;
+      background: var(--border);
+    }
+    .gallery-item:hover { transform: translateY(-3px);
+                          box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+    .gallery-item img {
+      width: 100%; height: 170px; object-fit: cover; display: block;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-badge {
+      position: absolute; top: 8px; left: 8px;
+      background: rgba(0,0,0,0.55); color: #fff;
+      font-size: 10px; padding: 3px 9px;
+      border-radius: 10px; font-weight: 600;
+    }
+    .gallery-caption {
+      padding: 9px 12px; font-size: 12px; color: var(--muted);
+      background: var(--white); border-top: 1px solid var(--border);
+      font-style: italic; line-height: 1.4;
+    }
+    .gallery-hint {
+      text-align: center; font-size: 11px; color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92);
+      align-items: center; justify-content: center;
+      gap: 16px;
+    }
+    #lightbox.active { display: flex; }
+    #lb-content { display: flex; flex-direction: column; align-items: center; }
+    #lightbox img { max-width: 80vw; max-height: 75vh;
+                    border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+                    cursor: default; }
+    #lightbox-caption { color: rgba(255,255,255,0.75); font-size: 13px;
+                        margin-top: 14px; font-style: italic; max-width: 600px;
+                        text-align: center; line-height: 1.5; }
+    #lb-counter { color: rgba(255,255,255,0.4); font-size: 12px;
+                  margin-top: 8px; }
+    #lightbox-close {
+      position: absolute; top: 20px; right: 28px;
+      color: #fff; font-size: 22px; cursor: pointer;
+      background: rgba(255,255,255,0.15); border: none;
+      border-radius: 50%; width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 300; transition: 0.2s;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,0.28); }
+    .lb-nav {
+      background: rgba(255,255,255,0.12); border: none;
+      color: #fff; font-size: 48px; font-weight: 200;
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: 0.2s; flex-shrink: 0;
+      line-height: 1;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── VIABILITY INDEX TABLE ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: var(--blue); color: #fff;
+      padding: 11px 14px; text-align: center;
+      font-size: 11px; letter-spacing: 0.4px; font-weight: 700;
+    }
+    thead th:first-child { text-align: left; width: 38%; }
+    .section-row td {
+      background: var(--blue-light); color: var(--blue);
+      font-weight: 700; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 8px 14px;
+      border-top: 2px solid var(--border);
+    }
+    tbody tr:hover td { background: #f5f8fd; }
+    tbody td {
+      padding: 11px 14px; border-bottom: 1px solid var(--border);
+      text-align: center; vertical-align: middle;
+    }
+    tbody td:first-child { text-align: left; font-weight: 500; }
+    .tbd { color: var(--muted); font-size: 12px; font-style: italic; }
+    .trend { font-size: 17px; }
+
+    /* ── LANDFORM TABLE ── */
+    .lf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px; margin-top: 4px;
+    }
+    .lf-item {
+      background: var(--blue-light); border-radius: 8px;
+      padding: 12px 14px; border: 1px solid var(--border);
+      text-align: center;
+    }
+    .lf-icon  { font-size: 22px; margin-bottom: 4px; }
+    .lf-name  { font-size: 11px; color: var(--muted); font-weight: 600;
+                text-transform: uppercase; letter-spacing: 0.3px; }
+    .lf-pct   { font-size: 22px; font-weight: 800; color: var(--blue);
+                margin: 2px 0; line-height: 1; }
+    .lf-acres { font-size: 11px; color: var(--muted); }
+    .lf-bar-wrap { background: var(--border); border-radius: 4px;
+                   height: 5px; margin-top: 6px; overflow: hidden; }
+    .lf-bar      { height: 100%; border-radius: 4px;
+                   background: linear-gradient(90deg, var(--blue), #4a9fe8); }
+    .lf-total {
+      background: var(--blue); color: #fff; border-radius: 8px;
+      padding: 12px 20px; text-align: center;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .lf-total .t-label { font-size: 11px; opacity: 0.75;
+                         text-transform: uppercase; letter-spacing: 0.4px; }
+    .lf-total .t-val   { font-size: 20px; font-weight: 800; margin: 2px 0; }
+    .lf-total .t-sub   { font-size: 11px; opacity: 0.7; }
+
+    /* ── FOOTNOTE ── */
+    .footnote {
+      font-size: 11px; color: var(--muted); text-align: center;
+      padding: 16px 28px; border-top: 1px solid var(--border);
+      background: var(--white); margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
-<div class="header">
-    <h1 id="town-name">Loading...</h1>
-    <h2 id="town-subtitle"></h2>
-    <p>Of the Minneapolis · St Paul Information Age Community</p>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav" id="lb-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+  <div id="lb-content" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()"/>
+    <div id="lightbox-caption"></div>
+    <div id="lb-counter"></div>
+  </div>
+  <button class="lb-nav" id="lb-next" onclick="navigateLightbox(1)">&#8250;</button>
 </div>
-<div class="content">
-    <div class="what-makes">
-        <h3>What Makes <span id="town-name-2">This Town</span><br>A Great Place to Live</h3>
-        <p id="vision-text">Information coming soon.</p>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="neighborhood-map.html?scid=9&zip=56401" class="btn-nav btn-back">← Back to Map</a>
+  <div class="nav-center">Information Age Community · Brainerd Service Center</div>
+  <a href="portal.html?scid=9&zip=56401" class="btn-nav btn-sc">SC Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-iac">Information Age Community · IAC Profile</div>
+
+  <!-- Graphic — collaboration nodes -->
+  <div class="hero-graphic">
+    <div class="hero-node">🏘</div>
+    <div class="hero-line"></div>
+    <div class="hero-node">🤝</div>
+    <div class="hero-line"></div>
+    <div class="hero-node">🌱</div>
+    <div class="hero-line"></div>
+    <div class="hero-node">🏘</div>
+  </div>
+
+  <h1>A PROFILE OF THE<br><span>BRAINERD COMMUNITY</span></h1>
+  <div class="hero-sub">
+    Applying Collaboration and Critical Mass to Achieve Mutual Viability
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">
+      "Alone we can do so little; together we can do so much."
     </div>
-    <div class="photo-gallery">
-        <div class="photo-gallery-label">📷 Photo Gallery<br><small style="font-size:11px;font-weight:normal;">Coming Soon</small></div>
-    </div>
-    <div class="community-profile">
-        <h3>COMMUNITY PROFILE</h3>
-        <div class="profile-item"><label>Population</label><p id="population">—</p></div>
-        <div class="profile-item"><label>County</label><p id="county">—</p></div>
-        <div class="profile-item"><label>State</label><p id="state">—</p></div>
-        <div class="profile-item"><label>Service Center</label><p id="service-center">—</p></div>
-        <div class="profile-item"><label>Major Employers</label><ul><li><a href="#">Coming Soon</a></li></ul></div>
-        <div class="profile-item"><label>Meetings Schedule</label><p style="color:#aaa;font-style:italic;">To be added</p></div>
-    </div>
-    <div class="viability-section">
-        <h3>COMMUNITY VIABILITY CALCULATOR</h3>
-        <div class="viability-score-big" id="viability-score">TBD</div>
-        <div class="viability-score-label">COMMUNITY VIABILITY INDEX SCORE</div>
-        <div id="indices-container"></div>
-    </div>
+    <div class="quote-author">— Helen Keller</div>
+  </div>
 </div>
-<div class="bottom-nav">
-    <button class="green" onclick="window.location.href='index.html'">IAC</button>
-    <button id="map-btn" onclick="">← Back to Map</button>
-    <button id="sc-btn" onclick="">SC Home</button>
-    <button onclick="alert('Feature coming soon!')">?</button>
+
+<div class="container">
+
+  <!-- GALLERY -->
+  <div class="card">
+    <div class="card-title">📸 <span>Community Gallery & Stories</span></div>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <span class="gallery-badge">Community</span>
+        <img src="https://picsum.photos/seed/brainerd1/800/540" alt="Brainerd community"/>
+        <div class="gallery-caption">The heart of Brainerd — a thriving Service Center for the lakes region.</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <span class="gallery-badge">Lakes</span>
+        <img src="https://picsum.photos/seed/brdlake2/800/540" alt="Brainerd lakes"/>
+        <div class="gallery-caption">The Brainerd Lakes Area draws visitors and residents who value the natural landscape.</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <span class="gallery-badge">Local Life</span>
+        <img src="https://picsum.photos/seed/mntown3/800/540" alt="Local life"/>
+        <div class="gallery-caption">Local businesses and events create the social fabric that defines this community.</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <span class="gallery-badge">Forest</span>
+        <img src="https://picsum.photos/seed/forest44/800/540" alt="Forest trails"/>
+        <div class="gallery-caption">Over 54% of the Brainerd Service Ecosystem is forested — a significant quality-of-life asset.</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <span class="gallery-badge">Heritage</span>
+        <img src="https://picsum.photos/seed/heritage99/800/540" alt="Community heritage"/>
+        <div class="gallery-caption">Nisswa, Baxter, Crosby and surrounding towns share a rich heritage and common identity.</div>
+      </div>
+    </div>
+    <div class="gallery-hint">Click any photo to enlarge</div>
+  </div>
+
+  <!-- VIABILITY INDEX TABLE -->
+  <div class="card">
+    <div class="card-title">📊 <span>IAC Viability Index Results</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Brainerd</th>
+            <th>Your Trend</th>
+            <th>Avg of 35 Peers</th>
+            <th>IAC Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="5">I. The Fundamentals</td></tr>
+          <tr>
+            <td>Human Continuity Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Economic Function Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Infrastructure &amp; Connectivity Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Civic &amp; Institutional Stability Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr class="section-row"><td colspan="5">II. The Relationships</td></tr>
+          <tr>
+            <td>Essential Service Ecosystem Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Ecosystem Connectivity &amp; Flow Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Ecosystem Role &amp; Embeddedness Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr class="section-row"><td colspan="5">III. The Viability Potential</td></tr>
+          <tr>
+            <td>Transition Pressure Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Adaptive Capacity Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+          <tr>
+            <td>Strategic Opportunity Index</td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="trend">—</span></td>
+            <td><span class="tbd">TBD</span></td>
+            <td><span class="tbd">TBD</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- LANDFORM TABLE -->
+  <div class="card">
+    <div class="card-title">🗺 <span>Land Form Table — Brainerd Service Ecosystem</span></div>
+    <div class="lf-grid">
+
+      <!-- Total -->
+      <div class="lf-total">
+        <div class="t-label">Total Area</div>
+        <div class="t-val">1,825,448</div>
+        <div class="t-sub">acres &nbsp;·&nbsp; 2,852 sq mi</div>
+      </div>
+
+      <!-- Forested -->
+      <div class="lf-item">
+        <div class="lf-icon">🌲</div>
+        <div class="lf-name">Forested</div>
+        <div class="lf-pct">54.8%</div>
+        <div class="lf-acres">1,000,098 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:54.8%"></div></div>
+      </div>
+
+      <!-- Grassland -->
+      <div class="lf-item">
+        <div class="lf-icon">🌾</div>
+        <div class="lf-name">Grassland / Open</div>
+        <div class="lf-pct">20.8%</div>
+        <div class="lf-acres">378,958 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:20.8%"></div></div>
+      </div>
+
+      <!-- Water -->
+      <div class="lf-item">
+        <div class="lf-icon">💧</div>
+        <div class="lf-name">Water-Dominated</div>
+        <div class="lf-pct">15.0%</div>
+        <div class="lf-acres">273,650 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:15.0%"></div></div>
+      </div>
+
+      <!-- Agricultural -->
+      <div class="lf-item">
+        <div class="lf-icon">🌽</div>
+        <div class="lf-name">Agricultural Plain</div>
+        <div class="lf-pct">5.6%</div>
+        <div class="lf-acres">101,750 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:5.6%"></div></div>
+      </div>
+
+      <!-- Urbanised -->
+      <div class="lf-item">
+        <div class="lf-icon">🏙</div>
+        <div class="lf-name">Urbanised</div>
+        <div class="lf-pct">3.7%</div>
+        <div class="lf-acres">67,959 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:3.7%"></div></div>
+      </div>
+
+      <!-- Wetland -->
+      <div class="lf-item">
+        <div class="lf-icon">🌿</div>
+        <div class="lf-name">Wetland</div>
+        <div class="lf-pct">0.2%</div>
+        <div class="lf-acres">2,901 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:0.2%"></div></div>
+      </div>
+
+      <!-- Barren -->
+      <div class="lf-item">
+        <div class="lf-icon">🪨</div>
+        <div class="lf-name">Barren</div>
+        <div class="lf-pct">&lt;0.1%</div>
+        <div class="lf-acres">132 acres</div>
+        <div class="lf-bar-wrap"><div class="lf-bar" style="width:0.5%"></div></div>
+      </div>
+
+    </div>
+    <div style="margin-top:12px; font-size:11px; color:var(--muted);">
+      Source: Esri Sentinel-2 Land Use Land Cover (10m), 2025 · Aggregated across 21 ZIP codes of the Brainerd Service Ecosystem
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footnote">
+  Information Age Community · Tele-Commuter Resources · Data: IAC ZIP Code Database, Esri Sentinel-2 LULC 2025, US Census Bureau
+  &nbsp;·&nbsp; Produced by Precious Afram, 2026
 </div>
+
 <script>
-const TOWNS = {
-    "56401": { name:"Brainerd", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56401", county:"Crow Wing", state:"MN", population:"13,336", scid:"102", serviceCenter:"Brainerd", vision:"A thriving rural community where technology and tradition come together to create lasting opportunity for all residents of the Brainerd region.", indices:{"Environment":2,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
-    "56425": { name:"Baxter", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56425", county:"Crow Wing", state:"MN", population:"8,350", scid:"102", serviceCenter:"Brainerd", vision:"Building bridges between rural heritage and the digital future for every family in the Baxter community.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
-    "56345": { name:"Little Falls", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56345", county:"Morrison", state:"MN", population:"9,000", scid:"102", serviceCenter:"Brainerd / Little Falls", vision:"Connecting Little Falls to the Information Age while preserving the rich heritage and community spirit of Morrison County.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
-    "55912": { name:"Austin", subtitle:"A Neighborhood in the Austin Service Center", zip:"55912", county:"Mower", state:"MN", population:"29,438", scid:"101", serviceCenter:"Austin", vision:"Strengthening Austin's role as a regional hub while embracing the opportunities of the Information Age for all residents.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
-    "56007": { name:"Albert Lea", subtitle:"A Neighborhood in the Austin Service Center", zip:"56007", county:"Freeborn", state:"MN", population:"21,467", scid:"101", serviceCenter:"Austin / Albert Lea", vision:"Albert Lea — a community of resilience, opportunity, and connection in the heart of southern Minnesota.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} },
-    "56468": { name:"Nisswa", subtitle:"A Neighborhood in the Brainerd Service Center", zip:"56468", county:"Crow Wing", state:"MN", population:"2,283", scid:"102", serviceCenter:"Brainerd", vision:"Nisswa — a charming lakeside community blending small-town character with the opportunities of the Information Age.", indices:{"Environment":null,"Infrastructure":null,"Physical Svcs":null,"Virtual Svcs":null,"Demographics":null,"Economics":null,"Management":null} }
-};
-let currentTown = null;
+// ── Lightbox with navigation ──────────────────────────────────
+let galleryItems = [];
+let currentIndex = 0;
 
-function getServiceCenterIdForZip(zip, incomingScid) {
-    // Prefer the Service Center ID passed from the portal/map.
-    // This prevents neighborhood profile IDs like 101/102 from replacing the real Service Center ID.
-    if (incomingScid) return incomingScid;
+document.addEventListener('DOMContentLoaded', () => {
+  galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+});
 
-    // Fallback mapping only used if profile.html is opened directly without scid in the URL.
-    const zipToScid = {
-        "56401": "9",   // Brainerd
-        "56425": "9",   // Baxter
-        "56345": "9",   // Little Falls
-        "56468": "9",   // Nisswa
-        "55912": "5",   // Austin
-        "56007": "5"    // Albert Lea
-    };
-    return zipToScid[zip] || "9";
+function openLightbox(item) {
+  currentIndex = galleryItems.indexOf(item);
+  showImage(currentIndex);
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
-function loadProfile() {
-    const params = new URLSearchParams(window.location.search);
-    const zip = params.get('zip') || '56401';
-    const scid = getServiceCenterIdForZip(zip, params.get('scid'));
-
-    currentTown = TOWNS[zip] || TOWNS['56401'];
-
-    document.getElementById('town-name').innerText = 'Welcome to The Town of ' + currentTown.name;
-    document.getElementById('town-name-2').innerText = currentTown.name;
-    document.getElementById('town-subtitle').innerText = currentTown.subtitle;
-    document.getElementById('vision-text').innerText = currentTown.vision;
-    document.getElementById('population').innerText = currentTown.population;
-    document.getElementById('county').innerText = currentTown.county + ' County';
-    document.getElementById('state').innerText = currentTown.state;
-    document.getElementById('service-center').innerText = currentTown.serviceCenter;
-
-    // SC Home must return to the parent Service Center, not the community/profile ID.
-    document.getElementById('sc-btn').onclick = function(){
-        window.location.href = 'portal.html?scid=' + encodeURIComponent(scid) + '&zip=' + encodeURIComponent(zip);
-    };
-
-    // Back to Map must return to the neighborhood map with the same parent Service Center ID.
-    document.getElementById('map-btn').onclick = function(){
-        window.location.href = 'files/neighborhood-map.html?scid=' + encodeURIComponent(scid) + '&zip=' + encodeURIComponent(zip);
-    };
-
-    const container = document.getElementById('indices-container');
-    container.innerHTML = '';
-    Object.entries(currentTown.indices).forEach(([label, val]) => {
-        const displayVal = val !== null ? val : '—';
-        const barWidth = val !== null ? (val/10*100) : 0;
-        container.innerHTML += `<div class="index-row"><div class="index-label">${label}</div><div class="index-bar-wrap"><div class="index-bar" style="width:${barWidth}%"></div></div><div class="index-val">${displayVal}</div></div>`;
-    });
+function showImage(index) {
+  const item    = galleryItems[index];
+  const img     = item.querySelector('img');
+  const caption = item.querySelector('.gallery-caption').textContent;
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-caption').textContent = caption;
+  document.getElementById('lb-counter').textContent =
+    `${index + 1} of ${galleryItems.length}`;
 }
-window.onload = loadProfile;
+
+function navigateLightbox(dir) {
+  currentIndex = (currentIndex + dir + galleryItems.length) % galleryItems.length;
+  showImage(currentIndex);
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+});
 </script>
 </body>
 </html>
