@@ -220,7 +220,7 @@
 
   <button id="btn-neighborhoods" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)">View our Neighborhoods 🗺</button>
 
-  <button id="btn-community-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)">Community Profile 👤</button>
+  <button id="btn-community-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Community Profile 👤</button>
 
 </section>
 
@@ -587,17 +587,34 @@ function toggleMenu(childId,arrId){
 
   if(!el) return;
 
-  var open=el.style.display!=='none';
+  var opening=el.style.display==='none'||el.style.display==='';
 
-  el.style.display=open?'none':'block';
+  // If opening, close all sibling sections at the same level
+  if(opening){
+    var parent=el.parentElement;
+    if(parent){
+      var siblings=parent.parentElement?parent.parentElement.children:[];
+      for(var i=0;i<siblings.length;i++){
+        var sib=siblings[i];
+        if(sib===parent) continue;
+        var sibChild=sib.querySelector('[id^="menu-children-"]');
+        var sibArr=sib.querySelector('[id^="arr-"]');
+        if(sibChild&&sibChild.style.display!=='none'){
+          sibChild.style.display='none';
+          if(sibArr) sibArr.style.transform='';
+        }
+      }
+    }
+  }
 
-  if(arr) arr.style.transform=open?'':'rotate(90deg)';
+  el.style.display=opening?'block':'none';
+
+  if(arr) arr.style.transform=opening?'rotate(90deg)':'';
 
   // Scroll opened item into view
-  if(!open){
+  if(opening){
     setTimeout(function(){
-      var parent=el.previousElementSibling;
-      if(parent) parent.scrollIntoView({block:'nearest',behavior:'smooth'});
+      el.previousElementSibling&&el.previousElementSibling.scrollIntoView({block:'nearest',behavior:'smooth'});
     },50);
   }
 
