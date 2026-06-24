@@ -124,6 +124,7 @@
     }
     #suggestions[hidden] { display: none; }
 
+    .pill-inactive{opacity:0.55;color:#aaa;font-style:italic;}
     .pill {
       background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.2);
@@ -354,6 +355,8 @@
   const sugBox     = document.getElementById('suggestions');
   const resultCard = document.getElementById('result-card');
   const notFound   = document.getElementById('not-found');
+
+  function isNumeric(s){return /^\d+$/.test(String(s));}
 
   function filter(q) {
     return COMMUNITIES.filter(c =>
