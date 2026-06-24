@@ -22,7 +22,7 @@
 
     html{background:#f4f6fb}
 
-    body{font-family:"Inter",Arial,sans-serif;background:#f4f6fb;color:#1a1a2e;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+    body{font-family:"Inter",Arial,sans-serif;background:#f4f6fb;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column;overflow:auto}
 
     #zone-footer{background:#003580;color:rgba(255,255,255,0.7);text-align:center;padding:0.3rem 1rem;font-size:0.8rem;font-weight:500;border-top:1px solid rgba(255,255,255,0.1);flex-shrink:0}
 
@@ -66,15 +66,19 @@
 
     #zone-tagline{background:#003580;color:rgba(255,255,255,0.85);text-align:center;padding:0.2rem 1rem;font-size:0.82rem;font-weight:600;letter-spacing:0.05em;flex-shrink:0}
 
-    #zone-menus{padding:0.4rem 1.5rem;display:flex;gap:1rem;align-items:stretch;flex:1;min-height:0}
+    #zone-menus{padding:0.4rem 1.5rem;display:flex;gap:1rem;align-items:stretch;flex:1;min-height:300px}
 
     .menu-group{flex:1;min-width:0;display:flex;flex-direction:column}
 
-    @media(max-width:900px){
-  #zone-menus{flex-direction:column;height:auto;overflow-y:auto}
-  .menu-group{min-height:200px;max-height:40vh}
-  body{overflow:auto;height:auto}
-  #zone-app-demos{flex-wrap:wrap}
+    @media(max-width:1100px){
+  #zone-menus{padding:0.4rem 0.5rem;gap:0.5rem}
+}
+@media(max-width:900px){
+  #zone-menus{flex-direction:column;height:auto;overflow-y:auto;min-height:unset}
+  .menu-group{min-height:150px;max-height:none;flex:none}
+  body{overflow:auto;min-height:100vh}
+  #zone-app-demos{flex-wrap:wrap;gap:0.4rem}
+  .app-demo-btn{font-size:0.8rem;padding:0.4rem 0.8rem}
 }
 @media(max-width:600px){
   #zone-header{flex-direction:column;gap:0.5rem}
