@@ -401,8 +401,8 @@
     if (matches.length) {
       matches.forEach(c => {
         const pill = document.createElement('button');
-        pill.className = 'pill';
-        pill.textContent = `${c.name}, ${c.state} ${c.zip}`;
+        pill.className = 'pill' + (isNumeric(c.scid) ? '' : ' pill-inactive');
+        pill.textContent = `${c.name}, ${c.state} ${c.zip}` + (isNumeric(c.scid) ? '' : ' ⏳');
         pill.addEventListener('click', () => select(c));
         sugBox.appendChild(pill);
       });
