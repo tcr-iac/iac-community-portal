@@ -226,7 +226,7 @@
     </div>
 
     <div id="portal-coming-soon" hidden style="margin-top:0.75rem;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:0.5rem;padding:0.75rem 1rem;text-align:center;color:rgba(255,255,255,0.85);font-size:0.85rem;">
-      ⏳ <strong>Portal coming soon</strong> for this community — we are working on it!
+      ⏳ <strong>IAC portal not yet active</strong> for this community — we are working on it!
     </div>
 
     <div id="not-found" hidden>
@@ -236,6 +236,13 @@
   </div>
 
   <script>
+  // ── City lookup from USZip dataset ──────────────────────────
+  let CITY_LOOKUP = null;
+  fetch('city_lookup.json')
+    .then(r => r.json())
+    .then(data => { CITY_LOOKUP = data; })
+    .catch(() => { CITY_LOOKUP = {}; });
+
   // ── Community data ──────────────────────────────────────────
   // SCIDs from IAC_Service Center Data.xlsx (John's master Excel):
   //   SCID 9  = Brainerd (portal alias 102 for live portal)
@@ -359,8 +366,33 @@
   function isNumeric(s){return /^\d+$/.test(String(s));}
 
   function filter(q) {
+    const ql = q.toLowerCase().trim();
+    if (!ql) return [];
+
+    // Use full USZip lookup if available
+    if (CITY_LOOKUP && Object.keys(CITY_LOOKUP).length > 0) {
+      const results = [];
+      for (const [key, entries] of Object.entries(CITY_LOOKUP)) {
+        if (key.startsWith(ql)) {
+          for (const e of entries) {
+            results.push({
+              name: e.city,
+              state: e.state,
+              zip: e.zip,
+              scid: e.scid || 'inactive',
+              sc_name: e.sc || null,
+              county: e.state
+            });
+          }
+        }
+        if (results.length >= 10) break;
+      }
+      return results;
+    }
+
+    // Fallback to COMMUNITIES
     return COMMUNITIES.filter(c =>
-      c.name.toLowerCase().includes(q.toLowerCase()) || c.zip.includes(q)
+      c.name.toLowerCase().includes(ql) || c.zip.includes(ql)
     ).slice(0, 6);
   }
 
@@ -404,8 +436,9 @@
     if (matches.length) {
       matches.forEach(c => {
         const pill = document.createElement('button');
-        pill.className = 'pill' + (isNumeric(c.scid) ? '' : ' pill-inactive');
-        pill.textContent = `${c.name}, ${c.state} ${c.zip}` + (isNumeric(c.scid) ? '' : ' ⏳');
+        const isIAC = c.scid && c.scid !== 'inactive' && isNumeric(c.scid);
+        pill.className = 'pill' + (isIAC ? '' : ' pill-inactive');
+        pill.textContent = `${c.name}, ${c.state} ${c.zip}` + (isIAC ? '' : ' ⏳');
         pill.addEventListener('click', () => select(c));
         sugBox.appendChild(pill);
       });
