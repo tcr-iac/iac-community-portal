@@ -355,14 +355,10 @@ function initMap(SC_DATA, SC_LOCS) {
           });
 
           const popFmt = pop > 0 ? pop.toLocaleString() : 'N/A';
-          layer.bindPopup(`
-            <div class="map-popup">
-              <h3>${town}${state ? ', ' + state : ''}</h3>
-              <span class="zip-tag">ZIP ${zip}</span>
-              <p><b>Population:</b> ${popFmt}</p>
-              ${landform ? `<p><b>Land Cover:</b> ${landform}</p>` : ''}
-              <a href="${profileUrl}" onclick="window.location.href=this.href;return false;">View Community Profile →</a>
-            </div>`, { maxWidth: 240 });
+          // Direct click loads profile page immediately
+          layer.on('click', () => {
+            window.location.href = profileUrl;
+          });
 
           layer.on('mouseover', () => {
             const base = styleFor(isSelected, hollowMode);
