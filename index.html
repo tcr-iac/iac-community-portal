@@ -404,7 +404,7 @@
     sugBox.innerHTML = ''; sugBox.hidden = true; notFound.hidden = true;
     document.getElementById('result-scid').textContent = `SCID — ${c.scid}`;
     document.getElementById('result-name').textContent = c.name;
-    document.getElementById('result-meta').textContent = `${c.county} County, ${c.state} · ZIP ${c.zip}`;
+    document.getElementById('result-meta').textContent = `${c.state} · ZIP ${c.zip}`;
 
     const btn = document.getElementById('launch-btn');
     if (LIVE_SCIDS.includes(c.scid)) {
