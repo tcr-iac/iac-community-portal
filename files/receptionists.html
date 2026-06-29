@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Receptionists</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',Arial,sans-serif;background:#f4f6fb;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+    #topbar{background:#004a99;display:flex;align-items:center;gap:1rem;padding:0.5rem 1.5rem;flex-shrink:0}
+    #topbar a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.85rem;font-weight:600}
+    #topbar a:hover{color:#fff}
+    #topbar-title{flex:1;text-align:center;font-size:1rem;font-weight:700;color:#fff}
+    .hero{position:relative;height:340px;overflow:hidden;flex-shrink:0}
+    .hero img{width:100%;height:100%;object-fit:cover;object-position:center top}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,53,128,0.75),rgba(0,102,204,0.5));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+    .hero-overlay h1{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;text-shadow:0 2px 12px rgba(0,0,0,0.4)}
+    .hero-overlay p{font-size:1rem;color:rgba(255,255,255,0.9);max-width:560px;line-height:1.6}
+    .content{max-width:800px;margin:2rem auto;padding:0 1.5rem;flex:1}
+    .coming-soon{background:#fff;border-radius:12px;border:1px solid #e0e8f5;padding:2.5rem 2rem;text-align:center;box-shadow:0 2px 12px rgba(0,74,153,0.07)}
+    .coming-soon .icon{font-size:3rem;margin-bottom:1rem}
+    .coming-soon h2{font-size:1.3rem;font-weight:800;color:#004a99;margin-bottom:0.5rem}
+    .coming-soon p{color:#555;font-size:0.95rem;line-height:1.7}
+    footer{background:#003580;color:rgba(255,255,255,0.7);text-align:center;padding:0.4rem 1rem;font-size:0.8rem;margin-top:auto}
+    footer a{color:#8fc1ff;text-decoration:none}
+  </style>
+</head>
+<body>
+
+<nav id="topbar">
+  <a href="javascript:history.back()">← Back</a>
+  <span id="topbar-title">Community Receptionists</span>
+</nav>
+
+<div class="hero">
+  <img src="receptionist.jpg" alt="Community Receptionist" />
+  <div class="hero-overlay">
+    <h1>Community Receptionists</h1>
+    <p>Your first point of contact for everything happening in your Information Age Community.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="coming-soon">
+    <div class="icon">🎧</div>
+    <h2>Coming Soon</h2>
+    <p>The Community Receptionists directory is being set up. Receptionists serve as the welcoming face of each Service Center — connecting residents, businesses and visitors to the right resources across the IAC network.</p>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 Tele-Commuter Resources, Inc. &nbsp;|&nbsp; 4315 Virginia Avenue, St Paul, MN 55126 &nbsp;|&nbsp;
+  <a href="tel:6514868408">651-486-8408</a> &nbsp;|&nbsp; <a href="http://www.telecommuter.org">www.telecommuter.org</a>
+</footer>
+
+</body>
+</html>
