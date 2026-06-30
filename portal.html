@@ -236,7 +236,8 @@
 
   <button id="btn-community-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Community Profile 👤</button>
 
-  <button id="btn-receptionists" class="app-demo-btn" onclick="window.open('files/receptionists.html','_blank')">Community Receptionists 🎧</button>
+  <button id="btn-receptionists" class="app-demo-btn" onclick="showReceptionistsPopup()">Community Receptionists 🎧</button>
+  <button class="app-demo-btn" onclick="showContactsTable()">Contacts 📋</button>
 
 </section>
 
@@ -524,6 +525,20 @@ function filterTable(val){
 
 }
 
+function showReceptionistsPopup(){
+  var overlay=document.getElementById('table-overlay');
+  document.getElementById('table-overlay-title').textContent='Community Receptionists';
+  document.getElementById('overlay-inner-content').innerHTML='<div style="text-align:center;padding:40px 20px;"><img src="files/receptionist.jpg" style="max-width:280px;width:100%;border-radius:10px;margin-bottom:20px;" /><br><span style="display:inline-block;background:#f0a500;color:#fff;font-weight:800;font-size:14px;padding:8px 24px;border-radius:20px;letter-spacing:1px;">🚧 Under Development</span></div>';
+  overlay.hidden=false;
+}
+
+function showContactsTable(){
+  var overlay=document.getElementById('table-overlay');
+  document.getElementById('table-overlay-title').textContent='Community Contacts';
+  document.getElementById('overlay-inner-content').innerHTML='<table class="biz-table"><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Role</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>';
+  overlay.hidden=false;
+}
+
 function escapeHtml(s){
 
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -597,54 +612,41 @@ function buildMenuHTML(items,depth,scid,zip){
   return html;
 
 }
-
 function toggleMenu(childId,arrId){
-
   var el=document.getElementById(childId);
-
   var arr=document.getElementById(arrId);
-
   if(!el) return;
-
   var opening=el.style.display==='none'||el.style.display==='';
 
-  // Accordion: only close siblings within the SAME direct parent (same menu column level)
   if(opening){
-    var menuItem=el.parentElement;
-    var menuList=menuItem?menuItem.parentElement:null;
-    if(menuList){
-      var siblings=menuList.children;
-      for(var i=0;i<siblings.length;i++){
-        var sib=siblings[i];
-        if(sib===menuItem) continue;
-        // Only close direct children containers, not deeply nested ones
-        var sibChildren=sib.children;
-        for(var j=0;j<sibChildren.length;j++){
-          var sibEl=sibChildren[j];
-          if(sibEl.id&&sibEl.id.indexOf('menu-children-')===0&&sibEl.style.display!=='none'){
-            sibEl.style.display='none';
-            var sibArrId=sibEl.id.replace('menu-children-','arr-');
-            var sibArr=sib.querySelector('#'+sibArrId);
-            if(!sibArr) sibArr=sib.querySelector('[id^="arr-"]');
-            if(sibArr) sibArr.style.transform='';
-          }
-        }
+    // Only close top-level items in the 3 menu columns, not nested parents
+    var topLevel=document.querySelectorAll('#menu-content-1>[id^="menu-"], #menu-content-2>[id^="menu-"], #menu-content-3>[id^="menu-"]');
+    // Simpler approach: find all depth-0 children containers only
+    var allOpen=document.querySelectorAll('[id^="menu-children-"]');
+    for(var i=0;i<allOpen.length;i++){
+      var candidate=allOpen[i];
+      if(candidate.id===childId) continue;
+      // Only close it if the one being opened is NOT nested inside it
+      if(candidate.contains(el)) continue;
+      if(candidate.style.display!=='none'){
+        candidate.style.display='none';
+        var sibArrId=candidate.id.replace('menu-children-','arr-');
+        var sibArr=document.getElementById(sibArrId);
+        if(sibArr) sibArr.style.transform='';
       }
     }
   }
 
   el.style.display=opening?'block':'none';
-
   if(arr) arr.style.transform=opening?'rotate(90deg)':'';
 
-  // Scroll opened item into view
   if(opening){
     setTimeout(function(){
       el.previousElementSibling&&el.previousElementSibling.scrollIntoView({block:'nearest',behavior:'smooth'});
     },50);
   }
-
 }
+
 
 function renderMenu(containerId,items,scid,zip){
 
