@@ -268,6 +268,74 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 18
 }).addTo(map);
 
+// ── IAC BOUNDARY POLYGONS ──
+const IAC_GEOJSON_FILES = [
+  "Atlanta.geojson",
+  "Baltimore.geojson",
+  "Boston.geojson",
+  "Buffalo.geojson",
+  "Charlotte.geojson",
+  "Chicago.geojson",
+  "Cincinnati.geojson",
+  "Cleveland.geojson",
+  "Dallas.geojson",
+  "Denver.geojson",
+  "Detroit.geojson",
+  "Green Bay.geojson",
+  "Houston.geojson",
+  "Indianapolis.geojson",
+  "Jacksonville.geojson",
+  "Kansas City.geojson",
+  "Las Vegas.geojson",
+  "Los Angeles.geojson",
+  "Miami.geojson",
+  "Minneapolis-St Paul.geojson",
+  "Nashville.geojson",
+  "New Orleans.geojson",
+  "New York.geojson",
+  "Philadelphia.geojson",
+  "Phoenix.geojson",
+  "Pittsburgh.geojson",
+  "San Francisco.geojson",
+  "Seattle.geojson",
+  "Tampa.geojson",
+  "Washington DC.geojson"
+];
+
+function loadIACPolygons() {
+  IAC_GEOJSON_FILES.forEach(function(fileName) {
+    fetch("files/geojson/" + fileName)
+      .then(function(response) {
+        if (!response.ok) throw new Error("Could not load " + fileName);
+        return response.json();
+      })
+      .then(function(data) {
+        const iacName = fileName.replace(".geojson", "");
+        const isActive = iacName === "Minneapolis-St Paul";
+
+        L.geoJSON(data, {
+          style: {
+            color: isActive ? "#16a34a" : "#dc2626",
+            weight: 2,
+            fillColor: isActive ? "#16a34a" : "#dc2626",
+            fillOpacity: 0.12
+          },
+          onEachFeature: function(feature, layer) {
+            layer.bindTooltip(iacName + " IAC", {
+              permanent: false,
+              direction: "center"
+            });
+          }
+        }).addTo(map);
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  });
+}
+
+loadIACPolygons();
+
 // ── SC CENTER DOTS ──
 const scMarkers = {};
 Object.entries(SC_LOCATIONS).forEach(([scid, sc]) => {
