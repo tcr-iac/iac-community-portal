@@ -228,7 +228,7 @@
 
   <p id="app-demos-label">Application Demonstrations</p>
 
-  <button id="btn-econsensus" class="app-demo-btn">E-Consensus</button>
+  <button id="btn-econsensus" class="app-demo-btn" onclick="window.open('https://econsensusforum.org/', '_blank')">E-Consensus</button>
 
   <button id="btn-viability" class="app-demo-btn">Viability Index</button>
 
@@ -526,10 +526,14 @@ function filterTable(val){
 }
 
 function showReceptionistsPopup(){
-  var overlay=document.getElementById('table-overlay');
-  document.getElementById('table-overlay-title').textContent='Community Receptionists';
-  document.getElementById('overlay-inner-content').innerHTML='<div style="text-align:center;padding:40px 20px;"><img src="files/receptionist.jpg" style="max-width:280px;width:100%;border-radius:10px;margin-bottom:20px;" /><br><span style="display:inline-block;background:#f0a500;color:#fff;font-weight:800;font-size:14px;padding:8px 24px;border-radius:20px;letter-spacing:1px;">🚧 Under Development</span></div>';
-  overlay.hidden=false;
+  var existing=document.getElementById('recept-popup-overlay');
+  if(existing){existing.style.display='flex';return;}
+  var div=document.createElement('div');
+  div.id='recept-popup-overlay';
+  div.onclick=function(e){if(e.target===div)div.style.display='none';};
+  div.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.78);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  div.innerHTML='<div style="position:relative;display:inline-block;"><img src="files/receptionist.jpg" style="display:block;border:10px solid #fff;max-width:420px;width:90vw;max-height:80vh;object-fit:cover;" /><div style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:#cc0000;color:#fff;font-weight:800;font-size:13px;padding:5px 16px;border-radius:3px;white-space:nowrap;letter-spacing:0.05em;">UNDER DEVELOPMENT</div><button onclick="document.getElementById(\'recept-popup-overlay\').style.display=\'none\'" style="position:absolute;top:-14px;right:-14px;background:#ff4444;color:#fff;border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;font-weight:bold;line-height:30px;text-align:center;">✕</button></div>';
+  document.body.appendChild(div);
 }
 
 function showContactsTable(){
