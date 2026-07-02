@@ -210,6 +210,7 @@ function openVideo() {
         ytPlayer = null;
     }
     document.getElementById('iac-player').innerHTML = '';
+    document.getElementById('iac-player').style.visibility = '';
     ytPlayer = new YT.Player('iac-player', {
         height: '100%',
         width: '100%',
@@ -222,7 +223,9 @@ function openVideo() {
             },
             onStateChange: function(e) {
                 if (e.data === YT.PlayerState.ENDED) {
-                    setTimeout(closeVideo, 1500);
+                    var frame = document.getElementById('iac-player');
+                    if (frame) frame.style.visibility = 'hidden';
+                    closeVideo();
                 }
             }
         }

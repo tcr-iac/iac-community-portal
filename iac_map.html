@@ -15,7 +15,7 @@
     /* ── SCREEN 1: Welcome ── */
     #screen-welcome {
       position: fixed; inset: 0; z-index: 10;
-      background: #1c5f7a;
+      background: #0066cc;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       padding: 2rem;
@@ -69,14 +69,14 @@
     #city-input:focus { border-color: #85d4f5; background: #4a8fa8; }
     #search-btn {
       padding: 0.9rem 1.6rem;
-      background: #0066cc;
+      background: #1c5f7a;
       color: #fff;
       border: none; border-radius: 10px;
       font-size: 1rem; font-weight: 700;
       cursor: pointer; font-family: inherit;
       transition: background 0.2s;
     }
-    #search-btn:hover { background: #0055aa; }
+    #search-btn:hover { background: #164a5f; }
     .welcome-hint {
       margin-top: 1.4rem;
       font-size: 0.95rem;
@@ -212,7 +212,6 @@
     <input id="city-input" type="text" placeholder="Enter city name or ZIP code..." autocomplete="off" />
     <button id="search-btn" onclick="doSearch()">Search</button>
   </div>
-  <div class="welcome-hint">Enter the name, search the database and dissolve to the next page</div>
 </div>
 
 <!-- SCREEN 2: Map -->
@@ -299,7 +298,7 @@ const IAC_GEOJSON_FILES = [
   "San Francisco.geojson",
   "Seattle.geojson",
   "Tampa.geojson",
-  "Washington DC.geojson"
+  "Washington.geojson"
 ];
 
 function loadIACPolygons() {
