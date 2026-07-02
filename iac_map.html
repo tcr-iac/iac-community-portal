@@ -449,6 +449,15 @@ function normalize(s) {
   return String(s || '').trim().toUpperCase().replace(/,/g, '').replace(/\s+/g, ' ');
 }
 
+// Among ambiguous matches (same city name in many states), the largest/
+// most prominent town should win — e.g. "Washington" -> DC, not Washington, AR.
+function mostProminent(matches) {
+  if (!matches.length) return null;
+  return matches.reduce((best, r) =>
+    (r.total_town_population || 0) > (best.total_town_population || 0) ? r : best
+  );
+}
+
 function findTown(query) {
   if (!townIndex) return null;
   const q = normalize(query);
@@ -459,12 +468,12 @@ function findTown(query) {
   if (!match) match = townIndex.find(r => normalize(r.city + ' ' + r.state) === q);
   // Then ZIP
   if (!match) match = townIndex.find(r => String(r.representative_zip) === q.replace(/\s/g, ''));
-  // Then city name only — prefer Active cities first
-  if (!match) match = townIndex.find(r => normalize(r.city) === q && r.service_status === 'Active');
-  if (!match) match = townIndex.find(r => normalize(r.city) === q);
-  // Partial — prefer Active first
-  if (!match) match = townIndex.find(r => normalize(r.search_key).startsWith(q) && r.service_status === 'Active');
-  if (!match) match = townIndex.find(r => normalize(r.search_key).startsWith(q));
+  // Then city name only — rank by population, prefer Active cities first
+  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.city) === q && r.service_status === 'Active'));
+  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.city) === q));
+  // Partial — rank by population, prefer Active first
+  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.search_key).startsWith(q) && r.service_status === 'Active'));
+  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.search_key).startsWith(q)));
   return match;
 }
 
