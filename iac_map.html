@@ -199,6 +199,58 @@
       box-shadow: none !important;
     }
     .sc-tooltip::before { display: none !important; }
+
+    /* ── Same-name disambiguation picker ── */
+    #picker-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    #picker-overlay[hidden] { display: none; }
+    #picker-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 100%; max-width: 420px;
+      max-height: 80vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    #picker-title {
+      font-size: 1rem; font-weight: 800; color: #1c5f7a;
+      margin-bottom: 1rem;
+    }
+    #picker-list {
+      overflow-y: auto;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .picker-item {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem;
+      background: #f2f8fb;
+      border: 1.5px solid #d5e8f0;
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .picker-item:hover { background: #e2f1f8; border-color: #4ba3d4; }
+    .picker-item-city { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; }
+    .picker-item-pop { font-size: 0.8rem; color: #666; white-space: nowrap; }
+    #picker-cancel {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      padding: 0.4rem 0.8rem;
+    }
+    #picker-cancel:hover { color: #333; }
   </style>
 </head>
 <body>
@@ -238,6 +290,15 @@
       <div class="legend-row"><div class="legend-dot" style="background:#dc2626;"></div> IAC not yet active</div>
       <div class="legend-row"><div class="legend-dot" style="background:#4ba3d4;"></div> Service Center location</div>
     </div>
+  </div>
+</div>
+
+<!-- Same-name disambiguation picker -->
+<div id="picker-overlay" hidden>
+  <div id="picker-box">
+    <div id="picker-title">Multiple towns match — which one did you mean?</div>
+    <div id="picker-list"></div>
+    <button id="picker-cancel" onclick="hidePicker()">Cancel</button>
   </div>
 </div>
 
@@ -458,23 +519,38 @@ function mostProminent(matches) {
   );
 }
 
-function findTown(query) {
-  if (!townIndex) return null;
+// Resolves a search query to one of:
+//   { type: 'single', record }     — unambiguous, proceed straight to the map
+//   { type: 'ambiguous', matches } — same city name in multiple states, let the user pick
+//   { type: 'none' }               — no match found
+function resolveQuery(query) {
+  if (!townIndex) return { type: 'none' };
   const q = normalize(query);
-  if (!q) return null;
-  // Exact search_key match first
+  if (!q) return { type: 'none' };
+
+  // Exact "city, state" search_key match — unambiguous, skips the picker
   let match = townIndex.find(r => normalize(r.search_key) === q);
-  // Then city+state
-  if (!match) match = townIndex.find(r => normalize(r.city + ' ' + r.state) === q);
-  // Then ZIP
-  if (!match) match = townIndex.find(r => String(r.representative_zip) === q.replace(/\s/g, ''));
-  // Then city name only — rank by population, prefer Active cities first
-  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.city) === q && r.service_status === 'Active'));
-  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.city) === q));
-  // Partial — rank by population, prefer Active first
-  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.search_key).startsWith(q) && r.service_status === 'Active'));
-  if (!match) match = mostProminent(townIndex.filter(r => normalize(r.search_key).startsWith(q)));
-  return match;
+  if (match) return { type: 'single', record: match };
+
+  // City + state typed without a comma — unambiguous, skips the picker
+  match = townIndex.find(r => normalize(r.city + ' ' + r.state) === q);
+  if (match) return { type: 'single', record: match };
+
+  // ZIP code — unambiguous, skips the picker
+  match = townIndex.find(r => String(r.representative_zip) === q.replace(/\s/g, ''));
+  if (match) return { type: 'single', record: match };
+
+  // City name only — may match the same name in several states
+  const cityMatches = townIndex.filter(r => normalize(r.city) === q);
+  if (cityMatches.length === 1) return { type: 'single', record: cityMatches[0] };
+  if (cityMatches.length > 1) return { type: 'ambiguous', matches: cityMatches };
+
+  // Partial match fallback — most prominent wins, same as before
+  let partial = mostProminent(townIndex.filter(r => normalize(r.search_key).startsWith(q) && r.service_status === 'Active'));
+  if (!partial) partial = mostProminent(townIndex.filter(r => normalize(r.search_key).startsWith(q)));
+  if (partial) return { type: 'single', record: partial };
+
+  return { type: 'none' };
 }
 
 // ── SCREEN TRANSITIONS ──
@@ -504,6 +580,26 @@ function goBack() {
   clearHighlight();
 }
 
+// ── SAME-NAME PICKER ──
+function showPicker(matches, onSelect) {
+  const sorted = matches.slice().sort((a, b) => (b.total_town_population || 0) - (a.total_town_population || 0));
+  const list = document.getElementById('picker-list');
+  list.innerHTML = '';
+  sorted.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'picker-item';
+    const pop = r.total_town_population ? r.total_town_population.toLocaleString() + ' people' : 'population unknown';
+    btn.innerHTML = '<span class="picker-item-city">' + r.city + ', ' + r.state + '</span><span class="picker-item-pop">' + pop + '</span>';
+    btn.onclick = () => { hidePicker(); onSelect(r); };
+    list.appendChild(btn);
+  });
+  document.getElementById('picker-overlay').hidden = false;
+}
+
+function hidePicker() {
+  document.getElementById('picker-overlay').hidden = true;
+}
+
 // ── SEARCH ACTIONS ──
 async function doSearch() {
   const query = document.getElementById('city-input').value.trim();
@@ -511,12 +607,16 @@ async function doSearch() {
   if (!townIndex) {
     await loadTownIndex().catch(() => null);
   }
-  const record = findTown(query);
-  if (!record) {
+  const result = resolveQuery(query);
+  if (result.type === 'none') {
     alert('City not found. Try "City, ST" format e.g. "Brainerd, MN"');
     return;
   }
-  showMapScreen(record);
+  if (result.type === 'ambiguous') {
+    showPicker(result.matches, showMapScreen);
+    return;
+  }
+  showMapScreen(result.record);
 }
 
 async function doMapSearch() {
@@ -525,13 +625,18 @@ async function doMapSearch() {
   if (!townIndex) {
     await loadTownIndex().catch(() => null);
   }
-  const record = findTown(query);
-  if (!record) {
+  const result = resolveQuery(query);
+  if (result.type === 'none') {
     alert('City not found. Try "City, ST" format.');
     return;
   }
-  showResult(record);
-  document.getElementById('map-city-input').value = '';
+  const input = document.getElementById('map-city-input');
+  if (result.type === 'ambiguous') {
+    showPicker(result.matches, r => { showResult(r); input.value = ''; });
+    return;
+  }
+  showResult(result.record);
+  input.value = '';
 }
 
 // Enter key support

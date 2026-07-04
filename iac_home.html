@@ -19,11 +19,11 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 .top-bar-right strong { font-size: 16px; font-weight: 800; }
 .top-bar-right span { display: block; font-size: 12px; color: #91bdd6; margin-top: 3px; }
 
-.main { flex: 1; display: grid; grid-template-columns: 1fr 0.95fr; align-items: center; gap: 80px; padding: 0 45px; }
+.main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); align-items: center; gap: 80px; padding: 0 45px; }
 
-.left { margin-top: 85px; }
-.left h1 { font-size: 3rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 24px; font-weight: 900; }
-.left p { max-width: 820px; font-size: 17px; line-height: 2; font-style: italic; font-weight: 600; color: #d6edf8; margin-bottom: 30px; }
+.left { margin-top: 85px; min-width: 0; }
+.left h1 { font-size: clamp(1.8rem, 3.1vw, 2.7rem); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 24px; font-weight: 900; }
+.left p { max-width: 820px; font-size: 20px; line-height: 1.9; font-style: italic; font-weight: 600; color: #d6edf8; margin-bottom: 30px; }
 
 .video-btn {
     display: inline-flex;
@@ -43,22 +43,21 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 }
 .video-btn:hover { background: #0066cc; border-color: #0066cc; }
 
-.right { margin-top: 20px; padding-left: 55px; }
+.right { margin-top: 20px; padding-left: 30%; }
 .section { margin-bottom: 18px; }
 .group-label {
-    font-size: 1.1rem !important;
+    font-size: 1.4rem !important;
     font-weight: 900 !important;
     color: #aacbe0;
     text-transform: uppercase !important;
     letter-spacing: 0.1em !important;
     margin-bottom: 10px !important;
-    padding-left: 13px;
-    border-left: 4px solid #318ec5;
 }
-.btn-group { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.btn-group { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; padding-left: 48px; }
 .nav-btn {
-    height: 38px;
-    border-radius: 20px;
+    width: 280px;
+    height: 42px;
+    border-radius: 21px;
     text-decoration: none;
     color: white;
     font-size: 13px;
@@ -66,11 +65,10 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 28px;
+    background: #004a99;
+    border: 2px solid #5aaee0;
     white-space: nowrap;
 }
-.nav-btn.concept { background: #004a99; border: 2px solid #5aaee0; }
-.nav-btn.tool { background: #003580; border: 2px solid #2f8ec5; }
 .nav-btn:hover { background: #0066cc; }
 .divider { border: none; border-top: 1.5px solid #2f7da8; margin: 19px 0 20px; }
 
@@ -130,6 +128,9 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
     .main { grid-template-columns: 1fr; gap: 35px; padding: 40px 30px; }
     .left { margin-top: 20px; }
     .left p { max-width: 100%; }
+    .left h1 { white-space: normal; font-size: clamp(1.8rem, 7vw, 2.7rem); }
+    .right { padding-left: 0; }
+    .btn-group { padding-left: 12px; }
 }
 </style>
 </head>
@@ -153,7 +154,7 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
             A community-driven framework that embraces communities with a strong orientation to a Major Metropolitan Area —
             strengthening global competitiveness and enhancing the long-term viability of six lifestyles within a dynamic ecosystem.
         </p>
-        <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:16px;align-items:center;">
         <button onclick="openVideo()" class="video-btn">▶ Watch our IAC Video</button>
         <a href="index.html" class="video-btn" style="text-decoration:none;">🔍 Look up your community</a>
         </div>
@@ -163,21 +164,21 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
         <div class="section">
             <div class="group-label">Community Concepts</div>
             <div class="btn-group">
-                <a href="index.html" class="nav-btn concept">The TeleCenter</a>
-                <a href="#" class="nav-btn concept">Community Alliance</a>
-                <a href="#" class="nav-btn concept">Governance</a>
-                <a href="#" class="nav-btn concept">Regional Transit</a>
+                <a href="index.html" class="nav-btn">The TeleCenter</a>
+                <a href="#" class="nav-btn">Community Alliance</a>
+                <a href="#" class="nav-btn">Governance</a>
+                <a href="#" class="nav-btn">Regional Transit</a>
             </div>
         </div>
         <hr class="divider">
         <div class="section">
             <div class="group-label">Strategic Tools</div>
             <div class="btn-group">
-                <a href="files/eConsensus_Report_Format.pdf" target="_blank" class="nav-btn tool">E-Consensus Forum</a>
-                <a href="#" class="nav-btn tool">Community Information System</a>
-                <a href="index.html" class="nav-btn tool">The Lens</a>
-                <a href="files/IAC_Viability_Index_Implementation.pdf" target="_blank" class="nav-btn tool">Viability Index</a>
-                <a href="#" class="nav-btn tool">Visioning</a>
+                <a href="files/eConsensus_Report_Format.pdf" target="_blank" class="nav-btn">E-Consensus Forum</a>
+                <a href="#" class="nav-btn">Community Information System</a>
+                <a href="index.html" class="nav-btn">The Lens</a>
+                <a href="files/IAC_Viability_Index_Implementation.pdf" target="_blank" class="nav-btn">Viability Index</a>
+                <a href="#" class="nav-btn">Visioning</a>
             </div>
         </div>
     </section>
