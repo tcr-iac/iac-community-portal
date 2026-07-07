@@ -151,7 +151,7 @@
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <a id="nav-back" href="#">← Back to Portal</a>
+  <a id="nav-back" href="#">← Back to the Lens</a>
   <span id="nav-title">Information Age Community — Neighbourhood Map</span>
 </nav>
 
@@ -180,6 +180,10 @@ const params      = new URLSearchParams(window.location.search);
 const scid        = params.get('scid') || '';
 const selectedZip = params.get('zip')  || '';
 const viewMode    = params.get('view') === 'neighborhood' ? 'neighborhood' : 'community';
+
+// Lat/lng for every Service Center — mirrors SC_LOCATIONS in iac_map.html,
+// used to find nearby SCs for adjacency even when secondary_scid data is sparse.
+const SC_COORDS = {"1": {lat: 45.4753, lng: -98.53042}, "2": {lat: 43.66085, lng: -93.3238}, "3": {lat: 45.87047, lng: -95.38985}, "4": {lat: 46.54784, lng: -90.85061}, "5": {lat: 43.6827, lng: -92.99148}, "6": {lat: 47.50985, lng: -94.84921}, "8": {lat: 43.62142, lng: -94.10734}, "9": {lat: 46.32259, lng: -94.11974}, "10": {lat: 44.31588, lng: -96.79518}, "11": {lat: 46.28645, lng: -96.50361}, "13": {lat: 44.94533, lng: -91.39342}, "14": {lat: 47.74189, lng: -96.55522}, "16": {lat: 48.13015, lng: -98.88798}, "17": {lat: 46.83665, lng: -95.82233}, "18": {lat: 41.58448, lng: -93.62152}, "19": {lat: 45.38425, lng: -102.53897}, "21": {lat: 46.75138, lng: -92.5399}, "22": {lat: 44.7432, lng: -91.50899}, "23": {lat: 47.98832, lng: -91.7489}, "24": {lat: 42.49244, lng: -94.18967}, "26": {lat: 44.2973, lng: -93.27414}, "27": {lat: 46.27697, lng: -96.08977}, "28": {lat: 47.86938, lng: -97.14013}, "29": {lat: 47.96201, lng: -90.55792}, "31": {lat: 48.78736, lng: -96.99149}, "32": {lat: 46.0251, lng: -91.29494}, "33": {lat: 47.35766, lng: -92.95698}, "34": {lat: 44.97949, lng: -92.69305}, "35": {lat: 44.3948, lng: -98.20037}, "36": {lat: 44.89743, lng: -94.39195}, "37": {lat: 48.53122, lng: -93.13224}, "38": {lat: 46.00748, lng: -94.38032}, "39": {lat: 43.80199, lng: -91.14559}, "40": {lat: 46.88145, lng: -98.76883}, "41": {lat: 44.13193, lng: -93.97789}, "42": {lat: 44.44121, lng: -95.75906}, "43": {lat: 44.63914, lng: -90.19755}, "44": {lat: 43.15389, lng: -93.20006}, "45": {lat: 44.84971, lng: -91.92994}, "46": {lat: 44.97608, lng: -93.27119}, "47": {lat: 48.85121, lng: -100.40303}, "48": {lat: 43.71136, lng: -98.04155}, "49": {lat: 45.0064, lng: -95.70098}, "50": {lat: 45.58512, lng: -95.9322}, "51": {lat: 45.11907, lng: -92.52091}, "52": {lat: 44.05966, lng: -93.22639}, "53": {lat: 47.02368, lng: -95.09433}, "54": {lat: 44.53525, lng: -100.31906}, "55": {lat: 45.83263, lng: -92.90584}, "56": {lat: 44.04936, lng: -96.33361}, "57": {lat: 43.62913, lng: -92.13282}, "58": {lat: 44.51581, lng: -92.5441}, "59": {lat: 44.75599, lng: -94.87624}, "60": {lat: 44.07679, lng: -92.5018}, "61": {lat: 45.72308, lng: -94.97982}, "62": {lat: 42.49413, lng: -96.39361}, "63": {lat: 43.538, lng: -96.69241}, "64": {lat: 45.48718, lng: -94.24307}, "66": {lat: 48.12021, lng: -96.1994}, "67": {lat: 43.98525, lng: -90.50496}, "68": {lat: 47.25095, lng: -91.66982}, "70": {lat: 47.60027, lng: -92.48261}, "71": {lat: 44.35375, lng: -92.06518}, "72": {lat: 46.46555, lng: -95.14307}, "73": {lat: 48.80879, lng: -95.34167}, "74": {lat: 44.06342, lng: -93.51683}, "75": {lat: 44.93412, lng: -97.09424}, "76": {lat: 45.10181, lng: -95.04226}, "78": {lat: 48.23522, lng: -103.76747}, "79": {lat: 43.88404, lng: -95.13991}, "80": {lat: 43.98469, lng: -91.63143}, "81": {lat: 43.62357, lng: -95.58507}, "92": {lat: 46.9207, lng: -96.83175}};
 
 // ── Load Service Center data ─────────────────────────────────
 fetch('service_centers.json').then(r => r.json())
@@ -239,12 +243,23 @@ function initMap(SC_DATA) {
   );
 
   // ── Main map (Map 2) ────────────────────────────────────────
-  const map = L.map('map', { zoomControl: viewMode !== 'neighborhood' });
+  const map = L.map('map', { zoomControl: false });
   streets.addTo(map);
-  L.control.layers(
-    { 'Streets': streets, 'Satellite': satellite },
-    null, { position: 'topright' }
-  ).addTo(map);
+
+  // ── Basemap toggle ──────────────────────────────────────────
+  let satelliteMode = false;
+  function toggleBasemap(btn) {
+    satelliteMode = !satelliteMode;
+    if (satelliteMode) {
+      map.removeLayer(streets);
+      satellite.addTo(map);
+      btn.textContent = 'Streets View';
+    } else {
+      map.removeLayer(satellite);
+      streets.addTo(map);
+      btn.textContent = 'Satellite View';
+    }
+  }
 
   // ── Fill/Outline state ───────────────────────────────────────
   let hollowMode = false;
@@ -256,7 +271,7 @@ function initMap(SC_DATA) {
     });
   }
 
-  // ── Legend (+ zoom & outline controls in Neighborhood mode) ──
+  // ── Legend (zoom, outline & basemap controls — identical in both modes) ──
   const legend = L.control({ position: 'bottomright' });
   legend.onAdd = () => {
     const div = L.DomUtil.create('div', '');
@@ -274,42 +289,23 @@ function initMap(SC_DATA) {
       <div class="legend-row">
         <div class="legend-box" style="background:rgba(0,74,153,0.12);border-color:#004a99;"></div>
         <span>Adjoining SC</span>
-      </div>` +
-      (viewMode === 'neighborhood' ? `
+      </div>
       <div class="legend-controls">
         <div class="legend-zoom-row">
           <button id="legend-zoom-in" class="legend-ctrl-btn" title="Zoom in">+</button>
           <button id="legend-zoom-out" class="legend-ctrl-btn" title="Zoom out">−</button>
         </div>
         <button id="legend-fill-toggle" class="legend-toggle-btn">Outline View</button>
-      </div>` : '');
+        <button id="legend-basemap-toggle" class="legend-toggle-btn" style="margin-top:6px;">Satellite View</button>
+      </div>`;
     L.DomEvent.disableClickPropagation(div);
-    if (viewMode === 'neighborhood') {
-      div.querySelector('#legend-zoom-in').addEventListener('click', () => map.zoomIn());
-      div.querySelector('#legend-zoom-out').addEventListener('click', () => map.zoomOut());
-      div.querySelector('#legend-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
-    }
+    div.querySelector('#legend-zoom-in').addEventListener('click', () => map.zoomIn());
+    div.querySelector('#legend-zoom-out').addEventListener('click', () => map.zoomOut());
+    div.querySelector('#legend-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
+    div.querySelector('#legend-basemap-toggle').addEventListener('click', (e) => toggleBasemap(e.currentTarget));
     return div;
   };
   legend.addTo(map);
-
-  // ── Fill/Outline toggle — standalone control (Community mode only) ──
-  if (viewMode !== 'neighborhood') {
-    const fillToggle = L.control({ position: 'topright' });
-    fillToggle.onAdd = () => {
-      const btn = L.DomUtil.create('button', '');
-      btn.id = 'fill-toggle-btn';
-      btn.textContent = 'Outline View';
-      btn.style.cssText = `
-        background:#fff; border:2px solid rgba(0,0,0,0.2); border-radius:6px;
-        padding:6px 12px; font-size:12px; font-weight:600; color:#003580;
-        cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); margin-top:8px;
-        display:block;`;
-      L.DomEvent.on(btn,'click',L.DomEvent.stop).on(btn,'click',() => toggleOutline(btn));
-      return btn;
-    };
-    fillToggle.addTo(map);
-  }
 
   // ── Style helpers ───────────────────────────────────────────
   function styleFor(isSelected, hollow) {
@@ -330,12 +326,33 @@ function initMap(SC_DATA) {
   const apiUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(zipList)})&outFields=ZCTA5&f=geojson&outSR=4326`;
 
   // ── Identify adjoining Service Centers ──────────────────────
-  const adjScids = [...new Set(
+  // Data-derived: SCs explicitly listed as a secondary SC for one of our ZIPs.
+  const dataAdj = [...new Set(
     sc.zips
       .filter(z => z.secondary_scid)
       .map(z => String(z.secondary_scid))
       .filter(s => s !== scid)
   )];
+
+  // Distance-derived: nearby SCs not already covered by the data above,
+  // so towns without secondary_scid coverage still get their real neighbors.
+  const here = SC_COORDS[scid];
+  let nearAdj = [];
+  if (here) {
+    nearAdj = Object.entries(SC_COORDS)
+      .filter(([id]) => id !== scid && !dataAdj.includes(id))
+      .map(([id, c]) => {
+        const dLat = c.lat - here.lat;
+        const dLng = (c.lng - here.lng) * Math.cos(here.lat * Math.PI / 180);
+        return { id, distDeg: Math.sqrt(dLat * dLat + dLng * dLng) };
+      })
+      .filter(d => d.distDeg <= 1.1)
+      .sort((a, b) => a.distDeg - b.distDeg)
+      .slice(0, 4)
+      .map(d => d.id);
+  }
+
+  const adjScids = [...new Set([...dataAdj, ...nearAdj])];
 
   fetch(apiUrl)
     .then(r => r.json())
@@ -389,11 +406,6 @@ function initMap(SC_DATA) {
 
       // ── Load adjoining SCs ──────────────────────────────────
       loadAdjoiningServiceCenters(adjScids, SC_DATA, map);
-
-      // ── Community Map reference boundaries (St Cloud & Alexandria) ──
-      if (viewMode !== 'neighborhood') {
-        addCommunityReferenceBoundaries(SC_DATA, map);
-      }
     })
     .catch(err => {
       console.error('Map error:', err);
@@ -436,6 +448,9 @@ function initMap(SC_DATA) {
   setTimeout(updateLabelSizes, 100);
 
   // ── Load adjoining Service Center boundaries ────────────────
+  // Each adjoining SC is dissolved into a single outer boundary (no internal
+  // ZIP lines) with a permanent centered label — same treatment everywhere,
+  // rather than rendering every individual ZIP polygon.
   function loadAdjoiningServiceCenters(adjScids, SC_DATA, map) {
     adjScids.forEach(adjScid => {
       const adjSc = SC_DATA[adjScid];
@@ -444,12 +459,16 @@ function initMap(SC_DATA) {
       const adjZips = adjSc.zips.map(z => `'${z.zip}'`).join(',');
       const adjUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(adjZips)})&outFields=ZCTA5&f=geojson&outSR=4326`;
       const anchorZip = adjSc.zips[0].zip;
+      const scName = adjSc.name;
+      const shortName = scName.replace(' Service Center', ' SC');
 
       fetch(adjUrl)
         .then(r => r.json())
         .then(adjData => {
           if (!adjData.features?.length) return;
-          L.geoJSON(adjData, {
+          const outline = (typeof turf !== 'undefined') ? turf.convex(adjData) : null;
+          const geo = outline || adjData;
+          const layer = L.geoJSON(geo, {
             style: {
               color:       '#004a99',
               weight:      1.5,
@@ -458,67 +477,23 @@ function initMap(SC_DATA) {
               dashArray:   '5 4'
             },
             onEachFeature: (feature, layer) => {
-              const scName = adjSc.name;
-              layer.bindTooltip(scName, {
-                permanent: false, direction: 'center',
-                className: 'adj-label', opacity: 0.9
-              });
               layer.bindPopup(`
                 <div class="map-popup">
                   <h3>${scName}</h3>
                   <p>Adjoining Service Center</p>
                   <a class="adj-link"
-                     href="../portal.html?scid=${adjScid}&zip=${anchorZip}">
-                    View ${scName} →
+                     href="neighborhood-map.html?scid=${adjScid}&zip=${anchorZip}">
+                    View ${shortName} Map →
                   </a>
                 </div>`, { maxWidth: 220 });
             }
           }).addTo(map);
-        })
-        .catch(() => {}); // silently skip if API fails for one adjoiner
-    });
-  }
-
-  // ── Community Map reference boundaries ───────────────────────
-  // Always draws the St Cloud and Alexandria SC boundaries on the main
-  // map, each dissolved into one outline (no individual ZIP lines),
-  // styled to match the "Adjoining SC" legend entry, with a text label.
-  function addCommunityReferenceBoundaries(SC_DATA, map) {
-    const REF_SCS = [
-      { scid: '64', label: 'St Cloud SC' },
-      { scid: '3',  label: 'Alexandria SC' }
-    ];
-
-    REF_SCS.forEach(ref => {
-      if (ref.scid === scid) return; // already shown as the primary SC layer
-      const refSc = SC_DATA[ref.scid];
-      if (!refSc || !refSc.zips || !refSc.zips.length) return;
-
-      const zipList = refSc.zips.map(z => `'${z.zip}'`).join(',');
-      const url = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(zipList)})&outFields=ZCTA5&f=geojson&outSR=4326`;
-
-      fetch(url)
-        .then(r => r.json())
-        .then(data => {
-          if (!data.features?.length) return;
-          // Dissolve all ZIP polygons into one outer boundary — no internal ZIP lines.
-          const outline = (typeof turf !== 'undefined') ? turf.convex(data) : null;
-          const geo = outline || data;
-          const layer = L.geoJSON(geo, {
-            style: {
-              color:       '#004a99',
-              weight:      1.5,
-              fillColor:   '#4a90d9',
-              fillOpacity: 0.08,
-              dashArray:   '5 4'
-            }
-          }).addTo(map);
-          layer.bindTooltip(ref.label, {
+          layer.bindTooltip(shortName, {
             permanent: true, direction: 'center',
             className: 'adj-label', opacity: 0.9
           });
         })
-        .catch(() => {}); // silently skip if the API fails for one reference SC
+        .catch(() => {}); // silently skip if API fails for one adjoiner
     });
   }
 

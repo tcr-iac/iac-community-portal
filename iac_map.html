@@ -15,7 +15,7 @@
     /* ── SCREEN 1: Welcome ── */
     #screen-welcome {
       position: fixed; inset: 0; z-index: 10;
-      background: #0066cc;
+      background: #003580;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       padding: 2rem;
@@ -59,14 +59,14 @@
       padding: 0.9rem 1.2rem;
       font-size: 1.1rem;
       border-radius: 10px;
-      border: 2px solid #4ba3d4;
-      background: #5b9ab5;
+      border: 2px solid #0066cc;
+      background: #004a99;
       color: #fff;
       outline: none;
       font-family: inherit;
     }
     #city-input::placeholder { color: rgba(255,255,255,0.6); }
-    #city-input:focus { border-color: #85d4f5; background: #4a8fa8; }
+    #city-input:focus { border-color: #85d4f5; background: #005bb8; }
     #search-btn {
       padding: 0.9rem 1.6rem;
       background: #1c5f7a;
@@ -140,11 +140,18 @@
     /* Map container */
     #map { flex: 1; width: 100%; }
 
+    /* Map controls stack (result panel + legend, lower right) */
+    #map-controls-stack {
+      position: absolute;
+      bottom: 16px; right: 16px;
+      z-index: 999;
+      display: flex; flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
     /* Result panel */
     #result-panel {
-      position: absolute;
-      bottom: 24px; right: 16px;
-      z-index: 999;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.18);
@@ -173,9 +180,6 @@
 
     /* Legend */
     #legend {
-      position: absolute;
-      bottom: 24px; left: 16px;
-      z-index: 999;
       background: rgba(28,95,122,0.92);
       border-radius: 10px;
       padding: 0.7rem 1rem;
@@ -187,6 +191,22 @@
     .legend-dot {
       width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
     }
+    .legend-controls {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-top: 0.5rem; padding-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.25);
+    }
+    .legend-zoom-btn {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; border-radius: 6px;
+      font-size: 1rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.2s;
+    }
+    .legend-zoom-btn:hover { background: rgba(255,255,255,0.25); }
     .sc-tooltip {
       background: rgba(28,95,122,0.85) !important;
       border: none !important;
@@ -278,17 +298,24 @@
   </div>
   <div style="position:relative; flex:1; display:flex; flex-direction:column;">
     <div id="map"></div>
-    <div id="result-panel">
-      <div class="result-iac-name" id="rp-iac-name"></div>
-      <div class="result-city" id="rp-city"></div>
-      <div id="rp-status"></div>
-      <div class="result-msg" id="rp-msg"></div>
-      <a id="launch-portal-btn" href="#" style="display:none;">Launch Community Portal →</a>
-    </div>
-    <div id="legend">
-      <div class="legend-row"><div class="legend-dot" style="background:#16a34a;"></div> Active IAC (Minneapolis-St Paul)</div>
-      <div class="legend-row"><div class="legend-dot" style="background:#dc2626;"></div> IAC not yet active</div>
-      <div class="legend-row"><div class="legend-dot" style="background:#4ba3d4;"></div> Service Center location</div>
+    <div id="map-controls-stack">
+      <div id="result-panel">
+        <div class="result-iac-name" id="rp-iac-name"></div>
+        <div class="result-city" id="rp-city"></div>
+        <div id="rp-status"></div>
+        <div class="result-msg" id="rp-msg"></div>
+        <a id="launch-portal-btn" href="#" style="display:none;">Launch Community Portal →</a>
+      </div>
+      <div id="legend">
+        <div class="legend-row"><div class="legend-dot" style="background:#16a34a;"></div> Active IAC (Minneapolis-St Paul)</div>
+        <div class="legend-row"><div class="legend-dot" style="background:#dc2626;"></div> IAC not yet active</div>
+        <div class="legend-row"><div class="legend-dot" style="background:#4ba3d4;"></div> Service Center location</div>
+        <div class="legend-row"><div class="legend-dot" style="background:rgba(22,163,74,0.18); border:1px solid #16a34a; border-radius:2px;"></div> IAC full service area</div>
+        <div class="legend-controls">
+          <button class="legend-zoom-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
+          <button class="legend-zoom-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -316,11 +343,27 @@ const PORTAL_SCID = {
   'Austin': { scid: '5', zip: '55912' }
 };
 
+// Finds the closest Service Center to a lat/lon, within ~170 miles (2.5°).
+// Longitude degrees are scaled by cos(lat) so distance is roughly isotropic.
+function nearestServiceCenter(lat, lon) {
+  let best = null;
+  Object.entries(SC_LOCATIONS).forEach(([scid, sc]) => {
+    const dLat = sc.lat - lat;
+    const dLon = (sc.lng - lon) * Math.cos(lat * Math.PI / 180);
+    const distDeg = Math.sqrt(dLat * dLat + dLon * dLon);
+    if (!best || distDeg < best.distDeg) {
+      best = { scid, sc, distDeg };
+    }
+  });
+  if (best && best.distDeg <= 2.5) return best;
+  return null;
+}
+
 // ── MAP INIT ──
 const map = L.map('map', {
   center: [44.5, -96.0],
   zoom: 5,
-  zoomControl: true
+  zoomControl: false
 });
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -396,12 +439,47 @@ function loadIACPolygons() {
 
 loadIACPolygons();
 
+// ── IAC FULL SERVICE AREA (convex hull of all SC locations) ──
+function drawServiceAreaBubble() {
+  const points = Object.values(SC_LOCATIONS).map(sc => [sc.lat, sc.lng]);
+
+  // Andrew's monotone chain convex hull
+  function cross(o, a, b) {
+    return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  }
+  const sorted = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const lower = [];
+  for (const p of sorted) {
+    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+    lower.push(p);
+  }
+  const upper = [];
+  for (let i = sorted.length - 1; i >= 0; i--) {
+    const p = sorted[i];
+    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+    upper.push(p);
+  }
+  lower.pop();
+  upper.pop();
+  const hull = lower.concat(upper);
+
+  L.polygon(hull, {
+    color: '#16a34a',
+    weight: 1.5,
+    fillColor: '#16a34a',
+    fillOpacity: 0.07,
+    interactive: false
+  }).addTo(map);
+}
+
+drawServiceAreaBubble();
+
 // ── SC CENTER DOTS ──
 const scMarkers = {};
 Object.entries(SC_LOCATIONS).forEach(([scid, sc]) => {
   const isActive = sc.name.includes('Minneapolis-St Paul');
   const color = isActive ? '#16a34a' : '#4ba3d4';
-  const radius = isActive ? 16 : 10;
+  const radius = isActive ? 9 : 5;
   const marker = L.circleMarker([sc.lat, sc.lng], {
     radius: radius,
     fillColor: color,
@@ -427,7 +505,7 @@ function clearHighlight() {
       const isActive = sc.name.includes('Minneapolis-St Paul');
       scMarkers[highlightedScid].setStyle({
         fillColor: isActive ? '#16a34a' : '#4ba3d4',
-        radius: isActive ? 7 : 4
+        radius: isActive ? 9 : 5
       });
     }
     highlightedScid = null;
@@ -440,23 +518,18 @@ function showResult(record) {
   const active = record.service_status === 'Active';
   const lat = Number(record.lat);
   const lon = Number(record.lon);
+  const nearest = nearestServiceCenter(lat, lon);
 
-  // Star marker at searched city
-  const starIcon = L.divIcon({
-    html: '<div style="font-size:28px;line-height:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.5));">⭐</div>',
-    iconSize: [32, 32], iconAnchor: [16, 28], className: ''
+  // Flag marker at searched city
+  const flagIcon = L.divIcon({
+    html: '<div style="font-size:28px;line-height:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.5));">🚩</div>',
+    iconSize: [32, 32], iconAnchor: [5, 32], className: ''
   });
-  searchMarker = L.marker([lat, lon], { icon: starIcon }).addTo(map);
+  searchMarker = L.marker([lat, lon], { icon: flagIcon }).addTo(map);
 
-  // Highlight the SC dot for this IAC
-  const scEntry = Object.entries(SC_LOCATIONS).find(([id, sc]) => {
-    const scName = sc.name.replace(' Service Center', '');
-    return scName === record.iac_name ||
-           sc.anchor_town.toLowerCase() === record.iac_name.split('-')[0].toLowerCase().trim();
-  });
-
-  if (scEntry) {
-    const [scid, sc] = scEntry;
+  // Highlight the SC dot for this town's nearest Service Center
+  if (nearest) {
+    const scid = nearest.scid;
     highlightedScid = scid;
     scMarkers[scid].setStyle({
       fillColor: active ? '#16a34a' : '#dc2626',
@@ -467,7 +540,7 @@ function showResult(record) {
     scMarkers[scid].openTooltip();
   }
 
-  map.setView([lat, lon], 8, { animate: true, duration: 1 });
+  map.fitBounds([[24.4, -125.0], [49.6, -66.9]], { animate: true, duration: 1 });
 
   // Result panel
   document.getElementById('rp-iac-name').textContent = record.iac_name + ' IAC';
@@ -480,10 +553,9 @@ function showResult(record) {
   if (active) {
     statusEl.innerHTML = '<span class="result-status-active">● Active IAC</span>';
     msgEl.textContent = 'This IAC is active and operational.';
-    // Find portal SCID
-    const portalInfo = PORTAL_SCID[record.iac_name] || PORTAL_SCID[record.city];
-    if (portalInfo) {
-      launchBtn.href = 'portal.html?scid=' + portalInfo.scid + '&zip=' + portalInfo.zip;
+    if (nearest) {
+      launchBtn.href = 'portal.html?scid=' + nearest.scid + '&zip=' + (record.representative_zip || nearest.sc.anchor_zip);
+      launchBtn.textContent = 'Launch ' + nearest.sc.name.replace(' Service Center', '') + ' Portal →';
       launchBtn.style.display = 'block';
     } else {
       launchBtn.style.display = 'none';

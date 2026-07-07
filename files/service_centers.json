@@ -725,6 +725,15 @@
         "landform": "Agricultural Plain",
         "secondary_scid": 72,
         "secondary_name": "Wadena"
+      },
+      {
+        "zip": "56360",
+        "town": "Osakis",
+        "state": "MN",
+        "population": 3738,
+        "landform": "Agricultural Plain",
+        "secondary_scid": 61,
+        "secondary_name": "Sauk Center"
       }
     ]
   },
@@ -1867,13 +1876,6 @@
         "landform": "Forested",
         "secondary_scid": 53,
         "secondary_name": "Park Rapids"
-      },
-      {
-        "zip": "56449",
-        "town": "Fort Ripley",
-        "state": "MN",
-        "population": 1824,
-        "landform": "Forested"
       },
       {
         "zip": "56450",
@@ -10035,15 +10037,6 @@
         "secondary_name": "Brainerd"
       },
       {
-        "zip": "56314",
-        "town": "Bowlus",
-        "state": "MN",
-        "population": 1355,
-        "landform": "Agricultural Plain",
-        "secondary_scid": 64,
-        "secondary_name": "St Cloud"
-      },
-      {
         "zip": "56328",
         "town": "Flensburg",
         "state": "MN",
@@ -10107,15 +10100,6 @@
         "secondary_name": "Sauk Center"
       },
       {
-        "zip": "56438",
-        "town": "Browerville",
-        "state": "MN",
-        "population": 2830,
-        "landform": "Agricultural Plain",
-        "secondary_scid": 72,
-        "secondary_name": "Wadena"
-      },
-      {
         "zip": "56443",
         "town": "Cushing",
         "state": "MN",
@@ -10132,6 +10116,33 @@
         "landform": "Agricultural Plain",
         "secondary_scid": 9,
         "secondary_name": "Brainerd"
+      },
+      {
+        "zip": "56449",
+        "town": "Fort Ripley",
+        "state": "MN",
+        "population": 1824,
+        "landform": "Forested",
+        "secondary_scid": 9,
+        "secondary_name": "Brainerd"
+      },
+      {
+        "zip": "56329",
+        "town": "Foley",
+        "state": "MN",
+        "population": 7700,
+        "landform": "Agricultural Plain",
+        "secondary_scid": 64,
+        "secondary_name": "St Cloud"
+      },
+      {
+        "zip": "56375",
+        "town": "Saint Stephen",
+        "state": "MN",
+        "population": 672,
+        "landform": "Agricultural Plain",
+        "secondary_scid": 64,
+        "secondary_name": "St Cloud"
       }
     ]
   },
@@ -17535,15 +17546,6 @@
         "secondary_name": "St Cloud"
       },
       {
-        "zip": "56360",
-        "town": "Osakis",
-        "state": "MN",
-        "population": 3738,
-        "landform": "Agricultural Plain",
-        "secondary_scid": 3,
-        "secondary_name": "Alexandria"
-      },
-      {
         "zip": "56385",
         "town": "Villard",
         "state": "MN",
@@ -19407,15 +19409,6 @@
         "secondary_name": "Little Falls"
       },
       {
-        "zip": "56329",
-        "town": "Foley",
-        "state": "MN",
-        "population": 7700,
-        "landform": "Agricultural Plain",
-        "secondary_scid": 38,
-        "secondary_name": "Little Falls"
-      },
-      {
         "zip": "56330",
         "town": "Foreston",
         "state": "MN",
@@ -19497,15 +19490,6 @@
         "secondary_name": "Little Falls"
       },
       {
-        "zip": "56375",
-        "town": "Saint Stephen",
-        "state": "MN",
-        "population": 672,
-        "landform": "Agricultural Plain",
-        "secondary_scid": 38,
-        "secondary_name": "Little Falls"
-      },
-      {
         "zip": "56376",
         "town": "Saint Martin",
         "state": "MN",
@@ -19538,6 +19522,15 @@
         "state": "MN",
         "population": 7705,
         "landform": "Urbanised",
+        "secondary_scid": 38,
+        "secondary_name": "Little Falls"
+      },
+      {
+        "zip": "56314",
+        "town": "Bowlus",
+        "state": "MN",
+        "population": 1355,
+        "landform": "Agricultural Plain",
         "secondary_scid": 38,
         "secondary_name": "Little Falls"
       }
@@ -21353,6 +21346,15 @@
         "landform": "Agricultural Plain",
         "secondary_scid": 3,
         "secondary_name": "Alexandria"
+      },
+      {
+        "zip": "56438",
+        "town": "Browerville",
+        "state": "MN",
+        "population": 2830,
+        "landform": "Agricultural Plain",
+        "secondary_scid": 38,
+        "secondary_name": "Little Falls"
       }
     ]
   },
