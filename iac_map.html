@@ -95,48 +95,6 @@
     }
     #screen-map.visible { opacity: 1; pointer-events: all; }
 
-    /* Top bar */
-    #map-topbar {
-      background: #1c5f7a;
-      padding: 0.6rem 1.2rem;
-      display: flex; align-items: center; gap: 1rem;
-      flex-shrink: 0;
-    }
-    #back-btn {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff; border-radius: 6px;
-      padding: 0.35rem 0.8rem;
-      font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; font-family: inherit;
-      transition: background 0.2s;
-    }
-    #back-btn:hover { background: rgba(255,255,255,0.25); }
-    #map-topbar-title {
-      font-size: 1rem; font-weight: 700; color: #fff; flex: 1; text-align: center;
-    }
-    .map-search-wrap {
-      display: flex; gap: 0.5rem;
-    }
-    #map-city-input {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.9rem;
-      border-radius: 6px;
-      border: 1.5px solid #4ba3d4;
-      background: #2a7a99;
-      color: #fff;
-      font-family: inherit;
-      width: 200px;
-    }
-    #map-city-input::placeholder { color: rgba(255,255,255,0.55); }
-    #map-search-btn {
-      padding: 0.4rem 0.9rem;
-      background: #0066cc;
-      color: #fff; border: none; border-radius: 6px;
-      font-size: 0.85rem; font-weight: 700;
-      cursor: pointer; font-family: inherit;
-    }
-
     /* Map container */
     #map { flex: 1; width: 100%; }
 
@@ -150,33 +108,31 @@
       gap: 10px;
     }
 
-    /* Result panel */
-    #result-panel {
-      background: #fff;
-      border-radius: 12px;
+    /* Flag popup (searched city) */
+    .flag-popup-wrap .leaflet-popup-content-wrapper {
+      border-radius: 10px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-      padding: 1rem 1.2rem;
-      max-width: 280px;
-      min-width: 220px;
-      display: none;
+      padding: 2px;
     }
-    #result-panel.show { display: block; }
-    .result-iac-name { font-size: 1rem; font-weight: 800; margin-bottom: 0.3rem; }
-    .result-city { font-size: 0.85rem; color: #555; margin-bottom: 0.5rem; }
-    .result-status-active { color: #16a34a; font-weight: 700; font-size: 0.9rem; }
-    .result-status-inactive { color: #dc2626; font-weight: 700; font-size: 0.9rem; }
-    .result-msg { font-size: 0.82rem; color: #444; margin-top: 0.3rem; }
-    #launch-portal-btn {
+    .flag-popup-wrap .leaflet-popup-content {
+      margin: 0.7rem 0.9rem;
+      min-width: 150px;
+    }
+    .fp-city { font-size: 0.95rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .fp-status-active { color: #16a34a; font-weight: 700; font-size: 0.82rem; }
+    .fp-status-inactive { color: #dc2626; font-weight: 700; font-size: 0.82rem; }
+    .fp-go-btn {
       display: block; width: 100%;
-      margin-top: 0.8rem;
-      padding: 0.6rem;
+      margin-top: 0.6rem;
+      padding: 0.45rem;
       background: #16a34a;
       color: #fff; border: none; border-radius: 8px;
-      font-size: 0.9rem; font-weight: 700;
+      font-size: 0.85rem; font-weight: 700;
       cursor: pointer; font-family: inherit;
       text-align: center; text-decoration: none;
+      box-sizing: border-box;
     }
-    #launch-portal-btn:hover { background: #15803d; }
+    .fp-go-btn:hover { background: #15803d; }
 
     /* Legend */
     #legend {
@@ -192,10 +148,11 @@
       width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
     }
     .legend-controls {
-      display: flex; align-items: center; gap: 0.5rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
       margin-top: 0.5rem; padding-top: 0.5rem;
       border-top: 1px solid rgba(255,255,255,0.25);
     }
+    .legend-zoom-row { display: flex; align-items: center; gap: 0.5rem; }
     .legend-zoom-btn {
       width: 28px; height: 28px;
       display: flex; align-items: center; justify-content: center;
@@ -207,6 +164,17 @@
       transition: background 0.2s;
     }
     .legend-zoom-btn:hover { background: rgba(255,255,255,0.25); }
+    .legend-new-search-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; border-radius: 6px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.2s;
+    }
+    .legend-new-search-btn:hover { background: rgba(255,255,255,0.25); }
     .sc-tooltip {
       background: rgba(28,95,122,0.85) !important;
       border: none !important;
@@ -288,32 +256,20 @@
 
 <!-- SCREEN 2: Map -->
 <div id="screen-map">
-  <div id="map-topbar">
-    <button id="back-btn" onclick="goBack()">← Back</button>
-    <div id="map-topbar-title">VERIFY THE STATUS OF YOUR COMMUNITY</div>
-    <div class="map-search-wrap">
-      <input id="map-city-input" type="text" placeholder="Search another city..." autocomplete="off" />
-      <button id="map-search-btn" onclick="doMapSearch()">Go</button>
-    </div>
-  </div>
   <div style="position:relative; flex:1; display:flex; flex-direction:column;">
     <div id="map"></div>
     <div id="map-controls-stack">
-      <div id="result-panel">
-        <div class="result-iac-name" id="rp-iac-name"></div>
-        <div class="result-city" id="rp-city"></div>
-        <div id="rp-status"></div>
-        <div class="result-msg" id="rp-msg"></div>
-        <a id="launch-portal-btn" href="#" style="display:none;">Launch Community Portal →</a>
-      </div>
       <div id="legend">
         <div class="legend-row"><div class="legend-dot" style="background:#16a34a;"></div> Active IAC (Minneapolis-St Paul)</div>
         <div class="legend-row"><div class="legend-dot" style="background:#dc2626;"></div> IAC not yet active</div>
         <div class="legend-row"><div class="legend-dot" style="background:#4ba3d4;"></div> Service Center location</div>
         <div class="legend-row"><div class="legend-dot" style="background:rgba(22,163,74,0.18); border:1px solid #16a34a; border-radius:2px;"></div> IAC full service area</div>
         <div class="legend-controls">
-          <button class="legend-zoom-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
-          <button class="legend-zoom-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
+          <div class="legend-zoom-row">
+            <button class="legend-zoom-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
+            <button class="legend-zoom-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
+          </div>
+          <button class="legend-new-search-btn" onclick="goBack()">← New Search</button>
         </div>
       </div>
     </div>
@@ -357,6 +313,33 @@ function nearestServiceCenter(lat, lon) {
   });
   if (best && best.distDeg <= 2.5) return best;
   return null;
+}
+
+// ── JURISDICTION (ZIP → SCID) LOOKUP ──
+let zipToScid = {};
+
+async function loadZipToScid() {
+  const resp = await fetch('files/service_centers.json');
+  if (!resp.ok) throw new Error('Could not load service center data');
+  const SC_DATA = await resp.json();
+  Object.entries(SC_DATA).forEach(([scid, sc]) => {
+    (sc.zips || []).forEach(z => { zipToScid[z.zip] = scid; });
+  });
+}
+
+loadZipToScid().catch(() => null);
+
+// Resolves the portal target for a record: prefer the actual trade-area
+// jurisdiction (by ZIP) over pure geographic proximity, since Service Center
+// boundaries don't always follow a strict nearest-neighbor split.
+function resolvePortalTarget(record, lat, lon) {
+  const zip = record.representative_zip;
+  if (zip && zipToScid[zip]) {
+    const scid = zipToScid[zip];
+    const sc = SC_LOCATIONS[scid];
+    if (sc) return { scid, sc };
+  }
+  return nearestServiceCenter(lat, lon);
 }
 
 // ── MAP INIT ──
@@ -488,7 +471,7 @@ Object.entries(SC_LOCATIONS).forEach(([scid, sc]) => {
     fillOpacity: 0.9
   }).addTo(map);
   marker.bindTooltip(sc.name.replace(' Service Center', ''), {
-    permanent: true, direction: 'top', className: 'sc-tooltip',
+    permanent: false, direction: 'top', className: 'sc-tooltip',
     offset: [0, -radius]
   });
   scMarkers[scid] = marker;
@@ -518,18 +501,18 @@ function showResult(record) {
   const active = record.service_status === 'Active';
   const lat = Number(record.lat);
   const lon = Number(record.lon);
-  const nearest = nearestServiceCenter(lat, lon);
+  const target = resolvePortalTarget(record, lat, lon);
 
   // Flag marker at searched city
   const flagIcon = L.divIcon({
     html: '<div style="font-size:28px;line-height:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.5));">🚩</div>',
-    iconSize: [32, 32], iconAnchor: [5, 32], className: ''
+    iconSize: [32, 32], iconAnchor: [5, 32], popupAnchor: [10, -28], className: ''
   });
   searchMarker = L.marker([lat, lon], { icon: flagIcon }).addTo(map);
 
-  // Highlight the SC dot for this town's nearest Service Center
-  if (nearest) {
-    const scid = nearest.scid;
+  // Highlight the SC dot for this town's resolved Service Center
+  if (target) {
+    const scid = target.scid;
     highlightedScid = scid;
     scMarkers[scid].setStyle({
       fillColor: active ? '#16a34a' : '#dc2626',
@@ -542,31 +525,19 @@ function showResult(record) {
 
   map.fitBounds([[24.4, -125.0], [49.6, -66.9]], { animate: true, duration: 1 });
 
-  // Result panel
-  document.getElementById('rp-iac-name').textContent = record.iac_name + ' IAC';
-  document.getElementById('rp-city').textContent = record.city + ', ' + record.state;
-
-  const statusEl = document.getElementById('rp-status');
-  const msgEl = document.getElementById('rp-msg');
-  const launchBtn = document.getElementById('launch-portal-btn');
-
+  // Popup on the flag itself — replaces the old white result panel
+  let popupHtml = '<div class="fp-city">' + record.city + ', ' + record.state + '</div>';
   if (active) {
-    statusEl.innerHTML = '<span class="result-status-active">● Active IAC</span>';
-    msgEl.textContent = 'This IAC is active and operational.';
-    if (nearest) {
-      launchBtn.href = 'portal.html?scid=' + nearest.scid + '&zip=' + (record.representative_zip || nearest.sc.anchor_zip);
-      launchBtn.textContent = 'Launch ' + nearest.sc.name.replace(' Service Center', '') + ' Portal →';
-      launchBtn.style.display = 'block';
-    } else {
-      launchBtn.style.display = 'none';
+    popupHtml += '<div class="fp-status-active">● Active IAC</div>';
+    if (target) {
+      const zip = record.representative_zip || target.sc.anchor_zip;
+      popupHtml += '<a class="fp-go-btn" href="portal.html?scid=' + target.scid + '&zip=' + zip + '">Go →</a>';
     }
   } else {
-    statusEl.innerHTML = '<span class="result-status-inactive">● This IAC is not yet active</span>';
-    msgEl.textContent = 'The ' + record.iac_name + ' IAC is planned for future activation.';
-    launchBtn.style.display = 'none';
+    popupHtml += '<div class="fp-status-inactive">● IAC not yet active</div>';
   }
 
-  document.getElementById('result-panel').classList.add('show');
+  searchMarker.bindPopup(popupHtml, { className: 'flag-popup-wrap', closeButton: true }).openPopup();
 }
 
 // ── TOWN INDEX ──
@@ -648,7 +619,6 @@ function goBack() {
     welcome.classList.remove('fade-out');
     welcome.style.opacity = '';
   }, 50);
-  document.getElementById('result-panel').classList.remove('show');
   clearHighlight();
 }
 
@@ -691,31 +661,8 @@ async function doSearch() {
   showMapScreen(result.record);
 }
 
-async function doMapSearch() {
-  const query = document.getElementById('map-city-input').value.trim();
-  if (!query) return;
-  if (!townIndex) {
-    await loadTownIndex().catch(() => null);
-  }
-  const result = resolveQuery(query);
-  if (result.type === 'none') {
-    alert('City not found. Try "City, ST" format.');
-    return;
-  }
-  const input = document.getElementById('map-city-input');
-  if (result.type === 'ambiguous') {
-    showPicker(result.matches, r => { showResult(r); input.value = ''; });
-    return;
-  }
-  showResult(result.record);
-  input.value = '';
-}
-
 // Enter key support
 document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('map-city-input').addEventListener('keydown', e => { if (e.key === 'Enter') doMapSearch(); });
-});
 
 // Preload town index in background
 loadTownIndex().catch(() => null);

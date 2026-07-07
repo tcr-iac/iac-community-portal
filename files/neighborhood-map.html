@@ -93,25 +93,8 @@
     }
     .legend-toggle-btn:hover { background: #eef3fb; }
 
-    /* POPUP */
-    .map-popup h3 { color: #004a99; margin-bottom: 4px; font-size: 14px; }
-    .map-popup p  { color: #666; font-size: 12px; margin-bottom: 4px; }
-    .map-popup a  {
-      display: inline-block; margin-top: 6px;
-      background: #2e7d4f; color: white;
-      padding: 6px 12px; border-radius: 5px;
-      text-decoration: none; font-size: 12px; font-weight: 600;
-    }
-    .map-popup a.adj-link {
-      background: #004a99;
-    }
-    .map-popup a:hover { opacity: 0.88; }
-    .map-popup .zip-tag {
-      display: inline-block;
-      background: #e8f0fe; color: #004a99;
-      padding: 2px 8px; border-radius: 10px;
-      font-size: 11px; font-weight: 600; margin-bottom: 4px;
-    }
+    /* ADJOINING SC OUTLINE — click navigates straight to that SC's map */
+    .adj-outline { cursor: pointer; }
 
     /* TOWN LABELS */
     .leaflet-tooltip.town-label {
@@ -346,9 +329,9 @@ function initMap(SC_DATA) {
         const dLng = (c.lng - here.lng) * Math.cos(here.lat * Math.PI / 180);
         return { id, distDeg: Math.sqrt(dLat * dLat + dLng * dLng) };
       })
-      .filter(d => d.distDeg <= 1.1)
+      .filter(d => d.distDeg <= 1.4)
       .sort((a, b) => a.distDeg - b.distDeg)
-      .slice(0, 4)
+      .slice(0, 6)
       .map(d => d.id);
   }
 
@@ -398,7 +381,6 @@ function initMap(SC_DATA) {
 
       if (viewMode === 'neighborhood') {
         map.fitBounds(mainGeoLayer.getBounds(), { padding: [10, 10] });
-        map.setZoom(Math.min(map.getZoom() + 2, 17));
       } else {
         map.fitBounds(mainGeoLayer.getBounds(), { padding: [40, 40] });
       }
@@ -459,8 +441,8 @@ function initMap(SC_DATA) {
       const adjZips = adjSc.zips.map(z => `'${z.zip}'`).join(',');
       const adjUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(adjZips)})&outFields=ZCTA5&f=geojson&outSR=4326`;
       const anchorZip = adjSc.zips[0].zip;
-      const scName = adjSc.name;
-      const shortName = scName.replace(' Service Center', ' SC');
+      const shortName = adjSc.name.replace(' Service Center', ' SC');
+      const mapUrl = `neighborhood-map.html?scid=${adjScid}&zip=${anchorZip}`;
 
       fetch(adjUrl)
         .then(r => r.json())
@@ -474,18 +456,11 @@ function initMap(SC_DATA) {
               weight:      1.5,
               fillColor:   '#4a90d9',
               fillOpacity: 0.08,
-              dashArray:   '5 4'
+              dashArray:   '5 4',
+              className:   'adj-outline'
             },
             onEachFeature: (feature, layer) => {
-              layer.bindPopup(`
-                <div class="map-popup">
-                  <h3>${scName}</h3>
-                  <p>Adjoining Service Center</p>
-                  <a class="adj-link"
-                     href="neighborhood-map.html?scid=${adjScid}&zip=${anchorZip}">
-                    View ${shortName} Map →
-                  </a>
-                </div>`, { maxWidth: 220 });
+              layer.on('click', () => { window.location.href = mapUrl; });
             }
           }).addTo(map);
           layer.bindTooltip(shortName, {
