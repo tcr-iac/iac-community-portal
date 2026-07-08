@@ -9,25 +9,9 @@
   <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6fb; }
-
-    /* NAVBAR */
-    #navbar {
-      position: sticky; top: 0; z-index: 1000;
-      background: #004a99;
-      display: flex; align-items: center; gap: 1rem;
-      padding: 0.7rem 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    #nav-back {
-      color: rgba(255,255,255,0.85); text-decoration: none;
-      font-size: 0.85rem; font-weight: 600; white-space: nowrap;
-    }
-    #nav-back:hover { color: #fff; }
-    #nav-title {
-      flex: 1; text-align: center;
-      font-size: 1rem; font-weight: 700; color: #fff;
-    }
+    html, body { height: 100%; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6fb;
+           display: flex; flex-direction: column; overflow: hidden; }
 
     /* INFO BAR */
     #info-bar {
@@ -35,6 +19,7 @@
       padding: 0.6rem 1.5rem;
       display: flex; align-items: center; gap: 1rem;
       font-size: 0.85rem;
+      flex-shrink: 0;
     }
     #sc-label { font-weight: 700; color: #fff; }
     #zip-count { color: rgba(255,255,255,0.6); }
@@ -47,7 +32,8 @@
     #map-wrapper {
       position: relative;
       width: 100%;
-      height: calc(100vh - 98px);
+      flex: 1;
+      min-height: 0;
     }
 
     /* MAIN MAP */
@@ -57,7 +43,7 @@
     #coming-soon {
       display: none;
       flex-direction: column; align-items: center; justify-content: center;
-      height: calc(100vh - 98px);
+      flex: 1;
       text-align: center; padding: 2rem;
     }
     #coming-soon h2 { color: #004a99; font-size: 1.8rem; margin-bottom: 1rem; }
@@ -87,9 +73,10 @@
     }
     .legend-ctrl-btn:hover { background: #eef3fb; }
     .legend-toggle-btn {
-      display: block; width: 100%;
+      display: block; width: 100%; box-sizing: border-box;
       background: #fff; border: 2px solid rgba(0,0,0,0.2); border-radius: 6px;
       padding: 6px 10px; font-size: 12px; font-weight: 600; color: #003580; cursor: pointer;
+      text-align: center; text-decoration: none;
     }
     .legend-toggle-btn:hover { background: #eef3fb; }
 
@@ -131,12 +118,6 @@
   </style>
 </head>
 <body>
-
-<!-- NAVBAR -->
-<nav id="navbar">
-  <a id="nav-back" href="#">← Back to the Lens</a>
-  <span id="nav-title">Information Age Community — Neighbourhood Map</span>
-</nav>
 
 <!-- INFO BAR -->
 <div id="info-bar">
@@ -203,17 +184,15 @@ function initMap(SC_DATA) {
     return;
   }
 
-  // ── Update nav & info bar ───────────────────────────────────
+  // ── Update info bar ─────────────────────────────────────────
   const modeLabel = viewMode === 'neighborhood' ? 'Neighborhood Map' : 'Community Map';
-  document.getElementById('nav-title').textContent = sc.name + ' — ' + modeLabel;
   document.getElementById('sc-label').textContent  = sc.name + ' · ' + modeLabel;
   document.getElementById('zip-count').textContent =
     `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
 
+  // Same href logic the deleted navbar's "← Back to the Lens" link used —
+  // now lives as a button inside the legend box.
   const portalUrl = `../portal.html?scid=${scid}&zip=${selectedZip}`;
-  const navBack   = document.getElementById('nav-back');
-  navBack.href    = portalUrl;
-  navBack.removeAttribute('target');
 
   // ── Basemap layers ──────────────────────────────────────────
   const streets = L.tileLayer(
@@ -259,8 +238,9 @@ function initMap(SC_DATA) {
   legend.onAdd = () => {
     const div = L.DomUtil.create('div', '');
     div.id = 'legend';
+    const scShortName = sc.name.replace(' Service Center', '');
     div.innerHTML = `
-      <b>Legend</b>
+      <b>${scShortName} — ${modeLabel}</b>
       <div class="legend-row">
         <div class="legend-box" style="background:#2e7d4f;"></div>
         <span>Selected Community</span>
@@ -280,6 +260,7 @@ function initMap(SC_DATA) {
         </div>
         <button id="legend-fill-toggle" class="legend-toggle-btn">Outline View</button>
         <button id="legend-basemap-toggle" class="legend-toggle-btn" style="margin-top:6px;">Satellite View</button>
+        <a class="legend-toggle-btn" style="margin-top:6px;" href="${portalUrl}">← Back to the Lens</a>
       </div>`;
     L.DomEvent.disableClickPropagation(div);
     div.querySelector('#legend-zoom-in').addEventListener('click', () => map.zoomIn());
@@ -429,6 +410,26 @@ function initMap(SC_DATA) {
   map.on('zoomend moveend', updateLabelSizes);
   setTimeout(updateLabelSizes, 100);
 
+  // True union of a zip-polygon FeatureCollection into one merged boundary
+  // that traces actual zip edges — a convex hull (the old approach) covers
+  // territory outside the real zips and overlaps neighboring communities.
+  // Falls back to a convex hull if any pairwise union throws (e.g. topology
+  // errors in the raw TIGERweb geometry).
+  function dissolveFeatures(fc) {
+    if (typeof turf === 'undefined') return fc;
+    const features = fc.features;
+    if (!features.length) return fc;
+    let merged = features[0];
+    for (let i = 1; i < features.length; i++) {
+      try {
+        merged = turf.union(merged, features[i]);
+      } catch (e) {
+        try { return turf.convex(fc); } catch (e2) { return fc; }
+      }
+    }
+    return merged || fc;
+  }
+
   // ── Load adjoining Service Center boundaries ────────────────
   // Each adjoining SC is dissolved into a single outer boundary (no internal
   // ZIP lines) with a permanent centered label — same treatment everywhere,
@@ -448,8 +449,7 @@ function initMap(SC_DATA) {
         .then(r => r.json())
         .then(adjData => {
           if (!adjData.features?.length) return;
-          const outline = (typeof turf !== 'undefined') ? turf.convex(adjData) : null;
-          const geo = outline || adjData;
+          const geo = dissolveFeatures(adjData);
           const layer = L.geoJSON(geo, {
             style: {
               color:       '#004a99',

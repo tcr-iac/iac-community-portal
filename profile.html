@@ -3,592 +3,526 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>A Profile of the Brainerd Community</title>
+  <title>Community Profile</title>
   <style>
     :root {
-      --blue:      #004a99;
-      --blue-dark: #00316b;
-      --blue-mid:  #1a6bc4;
-      --blue-light:#e8f0fe;
-      --accent:    #e67e22;
-      --white:     #ffffff;
-      --text:      #1a2b3c;
-      --muted:     #5a6e85;
-      --border:    #c8d8eb;
-      --bg:        #f0f5fb;
-      --green:     #27ae60;
-      --amber:     #f39c12;
-      --red:       #e74c3c;
+      --green:       #2d6a2d;
+      --green-dark:  #1a4a1a;
+      --green-mid:   #3d8b3d;
+      --green-light: #e8f5e8;
+      --white:       #ffffff;
+      --text:        #1a2b1a;
+      --muted:       #5a6e5a;
+      --border:      #c0d8c0;
+      --bg:          #f0f7f0;
+      --accent:      #c8860a;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg);
-           color: var(--text); font-size: 14px; line-height: 1.6; }
+    body { font-family: 'Segoe UI', Arial, sans-serif;
+           background: var(--bg); color: var(--text); font-size: 14px; }
 
-    /* ── NAV ── */
-    .nav {
-      background: var(--blue-dark); padding: 12px 28px;
-      display: flex; align-items: center; gap: 12px;
-      justify-content: space-between;
-      position: sticky; top: 0; z-index: 500;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(160deg, var(--green-dark) 0%,
+                  var(--green-mid) 60%, #4a9e4a 100%);
+      padding: 24px 32px 20px; text-align: center;
+      border-bottom: 4px solid var(--accent);
     }
-    .btn-nav {
-      padding: 7px 15px; border-radius: 6px; font-size: 12px;
-      font-weight: 600; text-decoration: none; border: none;
-      cursor: pointer; transition: 0.2s; white-space: nowrap;
-    }
-    .btn-back { background: rgba(255,255,255,0.15); color: #fff; }
-    .btn-back:hover { background: rgba(255,255,255,0.25); }
-    .btn-sc   { background: var(--accent); color: #fff; }
-    .btn-sc:hover { opacity: 0.88; }
-    .nav-center { flex: 1; text-align: left; color: rgba(255,255,255,0.7);
-                  font-size: 12px; }
+    .header h1 { font-size: clamp(20px,3.5vw,30px); font-weight: 800;
+                 color: #fff; line-height: 1.2; margin-bottom: 4px; }
+    .header .sc-label { font-size: 15px; font-style: italic; font-weight: 600;
+                        color: rgba(255,255,255,0.88); margin-bottom: 4px; }
+    .header .iac-label { font-size: 12px; color: rgba(255,255,255,0.65); }
 
-    /* ── HERO / TITLE BLOCK ── */
-    .hero {
-      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-mid) 55%, #2980b9 100%);
-      padding: 44px 40px 36px; text-align: center; position: relative;
-      overflow: hidden;
+    /* ── NAV BAR (bottom of header) ── */
+    .nav-bar {
+      display: flex; justify-content: center; gap: 8px;
+      margin-top: 16px; flex-wrap: wrap;
     }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    .nav-btn {
+      padding: 7px 22px; border-radius: 5px; font-size: 12px;
+      font-weight: 700; text-decoration: none; border: none;
+      cursor: pointer; transition: 0.2s; letter-spacing: 0.5px;
     }
-    .hero-iac   { color: rgba(255,255,255,0.55); font-size: 11px;
-                  letter-spacing: 2px; text-transform: uppercase;
-                  margin-bottom: 10px; font-weight: 600; }
-    .hero h1    { font-size: clamp(22px, 4vw, 34px); font-weight: 800;
-                  color: #fff; line-height: 1.2; margin-bottom: 8px;
-                  text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-    .hero h1 span { color: #ffd166; }
-    .hero-sub   { font-size: 15px; color: rgba(255,255,255,0.8);
-                  margin-bottom: 28px; font-weight: 400; font-style: italic; }
-    /* Graphic element — network/collaboration icon */
-    .hero-graphic {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0; margin: 0 auto 28px; max-width: 320px;
-    }
-    .hero-node {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid rgba(255,255,255,0.4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .hero-line {
-      flex: 1; height: 2px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.6), rgba(255,255,255,0.3));
-    }
-    /* Quote block */
-    .quote-block {
-      background: rgba(255,255,255,0.1);
-      border-left: 3px solid rgba(255,255,255,0.5);
-      border-radius: 0 8px 8px 0;
-      padding: 14px 20px;
-      margin: 0 auto;
-      max-width: 560px;
-      text-align: left;
-    }
-    .quote-text   { color: #fff; font-size: 15px; font-style: italic;
-                    font-weight: 300; line-height: 1.6; }
-    .quote-author { color: rgba(255,255,255,0.6); font-size: 12px;
-                    margin-top: 6px; font-weight: 600; text-transform: uppercase;
-                    letter-spacing: 0.5px; }
+    .btn-iac  { background: #1a3a6e; color: #fff; }
+    .btn-sc   { background: #2d5a2d; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+    .btn-map  { background: rgba(255,255,255,0.2); color: #fff;
+                border: 2px solid rgba(255,255,255,0.4); }
+    .btn-comm { background: var(--accent); color: #fff; }
+    .nav-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 
-    /* ── CONTAINER ── */
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px 28px; }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--white); border-radius: 12px;
-      padding: 22px 24px;
-      box-shadow: 0 2px 10px rgba(0,74,153,0.08);
-      border: 1px solid var(--border);
-      margin-bottom: 20px;
-    }
-    .card-title {
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px;
-      color: var(--muted); font-weight: 700;
-      margin-bottom: 16px; padding-bottom: 10px;
-      border-bottom: 2px solid var(--blue-light);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .card-title span { color: var(--blue); }
-
-    /* ── GALLERY ── */
-    .gallery-grid {
+    /* ── MAIN GRID ── */
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-width: 1100px; margin: 0 auto;
     }
-    .gallery-item {
-      border-radius: 10px; overflow: hidden;
-      cursor: pointer; position: relative;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.25s, box-shadow 0.25s;
-      background: var(--border);
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+    .cell {
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      background: var(--white);
     }
-    .gallery-item:hover { transform: translateY(-3px);
-                          box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
-    .gallery-item img {
-      width: 100%; height: 170px; object-fit: cover; display: block;
-      transition: transform 0.3s;
-    }
-    .gallery-item:hover img { transform: scale(1.04); }
-    .gallery-badge {
-      position: absolute; top: 8px; left: 8px;
-      background: rgba(0,0,0,0.55); color: #fff;
-      font-size: 10px; padding: 3px 9px;
-      border-radius: 10px; font-weight: 600;
-    }
-    .gallery-caption {
-      padding: 9px 12px; font-size: 12px; color: var(--muted);
-      background: var(--white); border-top: 1px solid var(--border);
-      font-style: italic; line-height: 1.4;
-    }
-    .gallery-hint {
-      text-align: center; font-size: 11px; color: var(--muted);
-      margin-top: 10px;
+    .cell.tl { border-right: 2px solid var(--border);
+                border-bottom: 2px solid var(--border); }
+    .cell.tr { border-bottom: 2px solid var(--border); }
+    .cell.bl { border-right: 2px solid var(--border); }
+
+    .cell-title {
+      font-size: 13px; font-weight: 800; color: var(--green-dark);
+      text-transform: uppercase; letter-spacing: 0.7px;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--green-light);
     }
 
-    /* ── LIGHTBOX ── */
-    #lightbox {
-      display: none; position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.92);
-      align-items: center; justify-content: center;
-      gap: 16px;
+    /* ── TOP-LEFT: VISION ── */
+    .vision-tagline {
+      font-size: 16px; font-weight: 700; color: var(--green-dark);
+      margin-bottom: 10px; line-height: 1.3;
     }
-    #lightbox.active { display: flex; }
-    #lb-content { display: flex; flex-direction: column; align-items: center; }
-    #lightbox img { max-width: 80vw; max-height: 75vh;
-                    border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-                    cursor: default; }
-    #lightbox-caption { color: rgba(255,255,255,0.75); font-size: 13px;
-                        margin-top: 14px; font-style: italic; max-width: 600px;
-                        text-align: center; line-height: 1.5; }
-    #lb-counter { color: rgba(255,255,255,0.4); font-size: 12px;
-                  margin-top: 8px; }
-    #lightbox-close {
-      position: absolute; top: 20px; right: 28px;
-      color: #fff; font-size: 22px; cursor: pointer;
-      background: rgba(255,255,255,0.15); border: none;
-      border-radius: 50%; width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 300; transition: 0.2s;
+    .vision-body {
+      font-size: 13px; color: var(--muted); line-height: 1.7;
     }
-    #lightbox-close:hover { background: rgba(255,255,255,0.28); }
-    .lb-nav {
-      background: rgba(255,255,255,0.12); border: none;
-      color: #fff; font-size: 48px; font-weight: 200;
-      width: 56px; height: 56px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.2s; flex-shrink: 0;
-      line-height: 1;
+    .stats-row {
+      display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap;
     }
-    .lb-nav:hover { background: rgba(255,255,255,0.25); }
+    .stat-chip {
+      background: var(--green-light); border-radius: 6px;
+      padding: 6px 12px; font-size: 12px;
+      border: 1px solid var(--border);
+    }
+    .stat-chip b { color: var(--green-dark); display: block;
+                   font-size: 16px; font-weight: 800; }
 
-    /* ── VIABILITY INDEX TABLE ── */
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    thead th {
-      background: var(--blue); color: #fff;
-      padding: 11px 14px; text-align: center;
-      font-size: 11px; letter-spacing: 0.4px; font-weight: 700;
+    /* ── TOP-RIGHT: GALLERY ── */
+    .gallery-wrap {
+      position: relative; background: #111; border-radius: 6px;
+      overflow: hidden; user-select: none; margin-bottom: 8px;
     }
-    thead th:first-child { text-align: left; width: 38%; }
-    .section-row td {
-      background: var(--blue-light); color: var(--blue);
-      font-weight: 700; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      padding: 8px 14px;
-      border-top: 2px solid var(--border);
+    .gallery-wrap img {
+      width: 100%; height: 240px; object-fit: cover;
+      display: block; transition: opacity 0.3s;
     }
-    tbody tr:hover td { background: #f5f8fd; }
-    tbody td {
-      padding: 11px 14px; border-bottom: 1px solid var(--border);
-      text-align: center; vertical-align: middle;
+    .gallery-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.65));
+      color: #fff; padding: 24px 12px 10px;
+      font-size: 12px; font-style: italic; line-height: 1.4;
     }
-    tbody td:first-child { text-align: left; font-weight: 500; }
-    .tbd { color: var(--muted); font-size: 12px; font-style: italic; }
-    .trend { font-size: 17px; }
+    .gallery-counter {
+      position: absolute; top: 8px; right: 10px;
+      background: rgba(0,0,0,0.5); color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+    }
+    .gal-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.2); border: none;
+      color: #fff; font-size: 28px; font-weight: 200;
+      width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gal-btn:hover { background: rgba(255,255,255,0.38); }
+    #gal-prev { left: 8px; }
+    #gal-next { right: 8px; }
+    .gallery-dots {
+      display: flex; justify-content: center; gap: 5px; margin-top: 6px;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%;
+           background: var(--border); border: none; cursor: pointer; }
+    .dot.active { background: var(--green-dark); }
+
+    /* ── BOTTOM-LEFT: COMMUNITY PROFILE ── */
+    .profile-section { margin-bottom: 14px; }
+    .profile-section h4 {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--muted); font-weight: 700; margin-bottom: 6px;
+    }
+    .profile-val { font-size: 13px; color: var(--text); font-weight: 500; }
+    .profile-list { list-style: none; margin: 0; padding: 0; }
+    .profile-list li {
+      font-size: 13px; padding: 3px 0;
+      border-bottom: 1px solid var(--green-light);
+    }
+    .profile-list li a { color: var(--accent); text-decoration: underline; }
+    .profile-list li:last-child { border-bottom: none; }
+    .tbd { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    /* ── BOTTOM-RIGHT: VIABILITY CALCULATOR ── */
+    .calc-title {
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.6px; color: var(--green-dark);
+      text-align: center; margin-bottom: 10px;
+    }
+    .calc-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .calc-table thead th {
+      background: var(--green-dark); color: #fff;
+      padding: 6px 8px; text-align: center; font-weight: 700;
+      font-size: 10px; letter-spacing: 0.3px;
+    }
+    .calc-table thead th:first-child { text-align: left; width: 36%; }
+    .calc-table .group-row td {
+      background: var(--green-light); color: var(--green-dark);
+      font-weight: 700; font-size: 10px; text-transform: uppercase;
+      padding: 5px 8px; letter-spacing: 0.4px;
+      border-top: 1px solid var(--border);
+    }
+    .calc-table tbody td {
+      padding: 6px 8px; border-bottom: 1px solid var(--green-light);
+      text-align: center; color: var(--muted);
+      font-style: italic; font-size: 11px;
+    }
+    .calc-table tbody td:first-child { text-align: left;
+      color: var(--text); font-style: normal; font-weight: 500; }
+    .score-final {
+      background: var(--green-dark); color: #fff; border-radius: 6px;
+      padding: 10px; text-align: center; margin-top: 10px;
+    }
+    .score-final .label { font-size: 10px; text-transform: uppercase;
+                           letter-spacing: 0.5px; opacity: 0.75; }
+    .score-final .value { font-size: 24px; font-weight: 800; margin: 2px 0; }
 
     /* ── LANDFORM TABLE ── */
-    .lf-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px; margin-top: 4px;
+    .lf-wrap { margin-top: 12px; }
+    .lf-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 4px 0; border-bottom: 1px solid var(--green-light);
+      font-size: 12px;
     }
-    .lf-item {
-      background: var(--blue-light); border-radius: 8px;
-      padding: 12px 14px; border: 1px solid var(--border);
-      text-align: center;
-    }
-    .lf-icon  { font-size: 22px; margin-bottom: 4px; }
-    .lf-name  { font-size: 11px; color: var(--muted); font-weight: 600;
-                text-transform: uppercase; letter-spacing: 0.3px; }
-    .lf-pct   { font-size: 22px; font-weight: 800; color: var(--blue);
-                margin: 2px 0; line-height: 1; }
-    .lf-acres { font-size: 11px; color: var(--muted); }
-    .lf-bar-wrap { background: var(--border); border-radius: 4px;
-                   height: 5px; margin-top: 6px; overflow: hidden; }
-    .lf-bar      { height: 100%; border-radius: 4px;
-                   background: linear-gradient(90deg, var(--blue), #4a9fe8); }
-    .lf-total {
-      background: var(--blue); color: #fff; border-radius: 8px;
-      padding: 12px 20px; text-align: center;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .lf-total .t-label { font-size: 11px; opacity: 0.75;
-                         text-transform: uppercase; letter-spacing: 0.4px; }
-    .lf-total .t-val   { font-size: 20px; font-weight: 800; margin: 2px 0; }
-    .lf-total .t-sub   { font-size: 11px; opacity: 0.7; }
+    .lf-row:last-child { border-bottom: none; }
+    .lf-name { width: 130px; flex-shrink: 0; color: var(--text); }
+    .lf-bar-bg { flex: 1; background: var(--border); border-radius: 3px;
+                 height: 8px; overflow: hidden; }
+    .lf-bar-fill { height: 100%; background: var(--green-mid);
+                   border-radius: 3px; }
+    .lf-pct { width: 40px; text-align: right; color: var(--green-dark);
+              font-weight: 700; }
 
-    /* ── FOOTNOTE ── */
-    .footnote {
-      font-size: 11px; color: var(--muted); text-align: center;
-      padding: 16px 28px; border-top: 1px solid var(--border);
-      background: var(--white); margin-top: 8px;
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center; font-size: 11px; color: var(--muted);
+      padding: 12px; background: var(--white);
+      border-top: 1px solid var(--border);
     }
   </style>
 </head>
 <body>
 
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
-  <button class="lb-nav" id="lb-prev" onclick="navigateLightbox(-1)">&#8249;</button>
-  <div id="lb-content" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()"/>
-    <div id="lightbox-caption"></div>
-    <div id="lb-counter"></div>
-  </div>
-  <button class="lb-nav" id="lb-next" onclick="navigateLightbox(1)">&#8250;</button>
+<!-- HEADER — populated by JS -->
+<div class="header">
+  <h1 id="hdr-town">Loading...</h1>
+  <div class="sc-label" id="hdr-sc"></div>
+  <div class="iac-label">Of the Minneapolis-St Paul Information Age Community</div>
 </div>
 
-<!-- NAV -->
-<nav class="nav">
-  <div id="nav-center-label" class="nav-center">Information Age Community · Brainerd Service Center</div>
-  <div style="display:flex; gap:8px;">
-    <a id="nav-map-link" href="files/neighborhood-map.html?scid=9&zip=56401" class="btn-nav btn-back">← Back to Map</a>
-    <a id="nav-sc-link" href="portal.html?scid=9&zip=56401" class="btn-nav btn-sc">SC Home</a>
-  </div>
-</nav>
+<!-- 2×2 GRID -->
+<div class="grid">
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-iac">Information Age Community · IAC Profile</div>
-
-  <!-- Graphic — collaboration nodes -->
-  <div class="hero-graphic">
-    <div class="hero-node">🏘</div>
-    <div class="hero-line"></div>
-    <div class="hero-node">🤝</div>
-    <div class="hero-line"></div>
-    <div class="hero-node">🌱</div>
-    <div class="hero-line"></div>
-    <div class="hero-node">🏘</div>
+  <!-- TOP-LEFT: Vision & Description -->
+  <div class="cell tl">
+    <div class="cell-title" id="vision-heading">What Makes This A Great Place to Live</div>
+    <div class="vision-tagline" id="vision-tagline"></div>
+    <div class="vision-body"   id="vision-body"></div>
   </div>
 
-  <h1>A PROFILE OF THE<br><span id="profile-community-name">BRAINERD COMMUNITY</span></h1>
-  <div class="hero-sub">
-    Applying Collaboration and Critical Mass to Achieve Mutual Viability
-  </div>
-
-  <div class="quote-block">
-    <div class="quote-text">
-      "Alone we can do so little; together we can do so much."
+  <!-- TOP-RIGHT: Gallery -->
+  <div class="cell tr">
+    <div class="cell-title">Photo Gallery</div>
+    <div class="gallery-wrap">
+      <img id="gal-img" src="" alt=""/>
+      <div class="gallery-counter" id="gal-counter">1 of 5</div>
+      <div class="gallery-label" id="gal-caption"></div>
+      <button class="gal-btn" id="gal-prev" onclick="galNav(-1)">&#8249;</button>
+      <button class="gal-btn" id="gal-next" onclick="galNav(1)">&#8250;</button>
     </div>
-    <div class="quote-author">— Helen Keller</div>
+    <div class="gallery-dots" id="gal-dots"></div>
   </div>
+
+  <!-- BOTTOM-LEFT: Community Profile -->
+  <div class="cell bl">
+    <div class="cell-title">Community Profile</div>
+
+    <div class="profile-section" id="pop-section">
+      <h4>Population</h4>
+      <div class="profile-val" id="prof-pop">—</div>
+    </div>
+
+    <div class="profile-section" id="county-section">
+      <h4>County</h4>
+      <div class="profile-val" id="prof-county">—</div>
+    </div>
+
+    <div class="profile-section" id="density-section">
+      <h4>Population Density</h4>
+      <div class="profile-val" id="prof-density">—</div>
+    </div>
+
+    <div class="profile-section" id="landform-section">
+      <h4>Land Cover</h4>
+      <div class="lf-wrap" id="lf-wrap"></div>
+    </div>
+
+    <div class="profile-section">
+      <h4>Major Employers</h4>
+      <ul class="profile-list" id="employers">
+        <li><span class="tbd">Data coming soon</span></li>
+      </ul>
+    </div>
+
+    <div class="profile-section">
+      <h4>Meetings &amp; Schedule</h4>
+      <ul class="profile-list" id="meetings">
+        <li><span class="tbd">Data coming soon</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BOTTOM-RIGHT: Viability Calculator -->
+  <div class="cell br">
+    <div class="calc-title">Community Viability Calculator</div>
+    <table class="calc-table">
+      <thead>
+        <tr>
+          <th>Criteria</th>
+          <th>% Values</th>
+          <th>Score</th>
+          <th>Sub Index</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group-row"><td colspan="4">Ecology</td></tr>
+        <tr><td>Environment</td><td>—</td><td>—</td><td rowspan="5" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>Vegetation</td><td>—</td><td>—</td></tr>
+        <tr><td>Soils</td><td>—</td><td>—</td></tr>
+        <tr><td>Eco Mgmt</td><td>—</td><td>—</td></tr>
+        <tr><td>Energy</td><td>—</td><td>—</td></tr>
+        <tr class="group-row"><td colspan="4">Infrastructure</td></tr>
+        <tr><td>San &amp; Storm Sewer</td><td>—</td><td>—</td><td rowspan="5" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>Water</td><td>—</td><td>—</td></tr>
+        <tr><td>Roads &amp; Bridges</td><td>—</td><td>—</td></tr>
+        <tr><td>Transportation</td><td>—</td><td>—</td></tr>
+        <tr><td>Broadband</td><td>—</td><td>—</td></tr>
+        <tr class="group-row"><td colspan="4">Services — Physical</td></tr>
+        <tr><td>Education K-12</td><td>—</td><td>—</td><td rowspan="5" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>Hospitals / LTC</td><td>—</td><td>—</td></tr>
+        <tr><td>Police / Fire</td><td>—</td><td>—</td></tr>
+        <tr><td>Media</td><td>—</td><td>—</td></tr>
+        <tr><td>Physicians</td><td>—</td><td>—</td></tr>
+        <tr class="group-row"><td colspan="4">Services — Virtual</td></tr>
+        <tr><td>Dist Learning</td><td>—</td><td>—</td><td rowspan="3" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>e-Commerce</td><td>—</td><td>—</td></tr>
+        <tr><td>State of Art</td><td>—</td><td>—</td></tr>
+        <tr class="group-row"><td colspan="4">Demographics</td></tr>
+        <tr><td>Pop Trends</td><td>—</td><td>—</td><td rowspan="5" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>Age Curve</td><td>—</td><td>—</td></tr>
+        <tr><td>Housing</td><td>—</td><td>—</td></tr>
+        <tr><td>Business Mix</td><td>—</td><td>—</td></tr>
+        <tr><td>Wages</td><td>—</td><td>—</td></tr>
+        <tr class="group-row"><td colspan="4">Economy</td></tr>
+        <tr><td>Main Street</td><td>—</td><td>—</td><td rowspan="4" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>Retail</td><td>—</td><td>—</td></tr>
+        <tr><td>Industry</td><td>—</td><td>—</td></tr>
+        <tr><td>Occupations</td><td>—</td><td>—</td></tr>
+        <tr class="group-row"><td colspan="4">Management</td></tr>
+        <tr><td>Leadership</td><td>—</td><td>—</td><td rowspan="4" style="vertical-align:middle;font-weight:700;color:var(--green-dark);font-style:normal;">TBD</td></tr>
+        <tr><td>Vision &amp; Metrics</td><td>—</td><td>—</td></tr>
+        <tr><td>Voting</td><td>—</td><td>—</td></tr>
+        <tr><td>Identity</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="score-final">
+      <div class="label">Community Viability Index Score</div>
+      <div class="value">TBD</div>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+<!-- BOTTOM NAV BAR — matching John's mock-up -->
+<div class="nav-bar" style="background:var(--green-dark); padding:10px 16px;
+     justify-content:center; gap:8px; display:flex; flex-wrap:wrap;">
+  <a id="btn-iac"  href="iac_map.html"          class="nav-btn btn-iac">IAC</a>
+  <a id="btn-sc"   href="#"                      class="nav-btn btn-sc">SC</a>
+  <a id="btn-map"  href="#"                      class="nav-btn btn-map">← Map</a>
+  <a id="btn-comm" href="community-profile.html" class="nav-btn btn-comm">Community</a>
 </div>
 
-<div class="container">
-
-  <!-- GALLERY -->
-  <div class="card">
-    <div class="card-title">📸 <span>Community Gallery & Stories</span></div>
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <span class="gallery-badge">Community</span>
-        <img src="https://picsum.photos/seed/brainerd1/800/540" alt="Brainerd community"/>
-        <div class="gallery-caption">The heart of Brainerd — a thriving Service Center for the lakes region.</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <span class="gallery-badge">Lakes</span>
-        <img src="https://picsum.photos/seed/brdlake2/800/540" alt="Brainerd lakes"/>
-        <div class="gallery-caption">The Brainerd Lakes Area draws visitors and residents who value the natural landscape.</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <span class="gallery-badge">Local Life</span>
-        <img src="https://picsum.photos/seed/mntown3/800/540" alt="Local life"/>
-        <div class="gallery-caption">Local businesses and events create the social fabric that defines this community.</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <span class="gallery-badge">Forest</span>
-        <img src="https://picsum.photos/seed/forest44/800/540" alt="Forest trails"/>
-        <div class="gallery-caption">Over 54% of the Brainerd Service Ecosystem is forested — a significant quality-of-life asset.</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <span class="gallery-badge">Heritage</span>
-        <img src="https://picsum.photos/seed/heritage99/800/540" alt="Community heritage"/>
-        <div class="gallery-caption">Nisswa, Baxter, Crosby and surrounding towns share a rich heritage and common identity.</div>
-      </div>
-    </div>
-    <div class="gallery-hint">Click any photo to enlarge</div>
-  </div>
-
-  <!-- VIABILITY INDEX TABLE -->
-  <div class="card">
-    <div class="card-title">📊 <span>IAC Viability Index Results</span></div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Brainerd</th>
-            <th>Your Trend</th>
-            <th>Avg of 35 Peers</th>
-            <th>IAC Average</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="section-row"><td colspan="5">I. The Fundamentals</td></tr>
-          <tr>
-            <td>Human Continuity Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Economic Function Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Infrastructure &amp; Connectivity Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Civic &amp; Institutional Stability Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr class="section-row"><td colspan="5">II. The Relationships</td></tr>
-          <tr>
-            <td>Essential Service Ecosystem Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Ecosystem Connectivity &amp; Flow Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Ecosystem Role &amp; Embeddedness Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr class="section-row"><td colspan="5">III. The Viability Potential</td></tr>
-          <tr>
-            <td>Transition Pressure Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Adaptive Capacity Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-          <tr>
-            <td>Strategic Opportunity Index</td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="trend">—</span></td>
-            <td><span class="tbd">TBD</span></td>
-            <td><span class="tbd">TBD</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- LANDFORM TABLE -->
-  <div class="card">
-    <div class="card-title">🗺 <span>Land Form Table — Brainerd Service Ecosystem</span></div>
-    <div class="lf-grid">
-
-      <!-- Total -->
-      <div class="lf-total">
-        <div class="t-label">Total Area</div>
-        <div class="t-val">1,825,448</div>
-        <div class="t-sub">acres &nbsp;·&nbsp; 2,852 sq mi</div>
-      </div>
-
-      <!-- Forested -->
-      <div class="lf-item">
-        <div class="lf-icon">🌲</div>
-        <div class="lf-name">Forested</div>
-        <div class="lf-pct">54.8%</div>
-        <div class="lf-acres">1,000,098 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:54.8%"></div></div>
-      </div>
-
-      <!-- Grassland -->
-      <div class="lf-item">
-        <div class="lf-icon">🌾</div>
-        <div class="lf-name">Grassland / Open</div>
-        <div class="lf-pct">20.8%</div>
-        <div class="lf-acres">378,958 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:20.8%"></div></div>
-      </div>
-
-      <!-- Water -->
-      <div class="lf-item">
-        <div class="lf-icon">💧</div>
-        <div class="lf-name">Water-Dominated</div>
-        <div class="lf-pct">15.0%</div>
-        <div class="lf-acres">273,650 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:15.0%"></div></div>
-      </div>
-
-      <!-- Agricultural -->
-      <div class="lf-item">
-        <div class="lf-icon">🌽</div>
-        <div class="lf-name">Agricultural Plain</div>
-        <div class="lf-pct">5.6%</div>
-        <div class="lf-acres">101,750 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:5.6%"></div></div>
-      </div>
-
-      <!-- Urbanised -->
-      <div class="lf-item">
-        <div class="lf-icon">🏙</div>
-        <div class="lf-name">Urbanised</div>
-        <div class="lf-pct">3.7%</div>
-        <div class="lf-acres">67,959 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:3.7%"></div></div>
-      </div>
-
-      <!-- Wetland -->
-      <div class="lf-item">
-        <div class="lf-icon">🌿</div>
-        <div class="lf-name">Wetland</div>
-        <div class="lf-pct">0.2%</div>
-        <div class="lf-acres">2,901 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:0.2%"></div></div>
-      </div>
-
-      <!-- Barren -->
-      <div class="lf-item">
-        <div class="lf-icon">🪨</div>
-        <div class="lf-name">Barren</div>
-        <div class="lf-pct">&lt;0.1%</div>
-        <div class="lf-acres">132 acres</div>
-        <div class="lf-bar-wrap"><div class="lf-bar" style="width:0.5%"></div></div>
-      </div>
-
-    </div>
-    <div style="margin-top:12px; font-size:11px; color:var(--muted);">
-      Source: Esri Sentinel-2 Land Use Land Cover (10m), 2025 · Aggregated across 21 ZIP codes of the Brainerd Service Ecosystem
-    </div>
-  </div>
-
-</div><!-- /container -->
-
-<div class="footnote">
-  Information Age Community · Tele-Commuter Resources · Data: IAC ZIP Code Database, Esri Sentinel-2 LULC 2025, US Census Bureau
-  &nbsp;·&nbsp; Produced by Precious Afram, 2026
+<div class="footer">
+  Information Age Community · Tele-Commuter Resources ·
 </div>
 
 <script>
-// ── Lightbox with navigation ──────────────────────────────────
-let galleryItems = [];
-let currentIndex = 0;
+// ── Read URL params ───────────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const zip    = params.get('zip') || '56468';
+const scid   = params.get('scid') || '';
 
-document.addEventListener('DOMContentLoaded', () => {
-  galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-});
+// ── Load community data ───────────────────────────────────────
+fetch('community_data.json')
+  .then(r => r.json())
+  .then(data => init(data))
+  .catch(() => {
+    document.getElementById('hdr-town').textContent = 'Data Unavailable';
+  });
 
-function openLightbox(item) {
-  currentIndex = galleryItems.indexOf(item);
-  showImage(currentIndex);
-  document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow = 'hidden';
+function init(DATA) {
+  const c = DATA[zip];
+  if (c) {
+    initFound(c);
+  } else {
+    initMissing();
+  }
 }
 
-function showImage(index) {
-  const item    = galleryItems[index];
-  const img     = item.querySelector('img');
-  const caption = item.querySelector('.gallery-caption').textContent;
-  document.getElementById('lightbox-img').src = img.src;
-  document.getElementById('lightbox-caption').textContent = caption;
-  document.getElementById('lb-counter').textContent =
-    `${index + 1} of ${galleryItems.length}`;
+function wireNav(navScid) {
+  document.getElementById('btn-sc').href  = `portal.html?scid=${navScid}&zip=${zip}`;
+  document.getElementById('btn-map').href = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}`;
+  document.getElementById('btn-comm').href= `community-profile.html?scid=${navScid}&zip=${zip}`;
 }
 
-function navigateLightbox(dir) {
-  currentIndex = (currentIndex + dir + galleryItems.length) % galleryItems.length;
-  showImage(currentIndex);
-}
-
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('active')) return;
-  if (e.key === 'Escape')     closeLightbox();
-  if (e.key === 'ArrowLeft')  navigateLightbox(-1);
-  if (e.key === 'ArrowRight') navigateLightbox(1);
-});
-</script>
-<script>
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const zip = params.get('zip');
-  const scid = params.get('scid');
-  if (!zip && !scid) return;
-
-  const mapLink = document.getElementById('nav-map-link');
-  const scLink = document.getElementById('nav-sc-link');
-  if (mapLink) mapLink.href = 'files/neighborhood-map.html?scid=' + scid + '&zip=' + zip;
-  if (scLink) scLink.href = 'portal.html?scid=' + scid + '&zip=' + zip;
+// Zip isn't in community_data.json at all — resolve the town from the
+// authoritative service_centers.json instead of ever falling back to
+// another town's full record.
+function initMissing() {
+  document.getElementById('vision-tagline').textContent = '';
+  document.getElementById('vision-body').textContent = 'Profile data coming soon.';
+  ['pop-section', 'county-section', 'density-section', 'landform-section']
+    .forEach(id => { document.getElementById(id).style.display = 'none'; });
+  wireNav(scid);
 
   fetch('files/service_centers.json')
     .then(r => r.json())
     .then(SC_DATA => {
       const sc = SC_DATA[scid];
-      if (!sc) return;
-      const zipInfo = sc.zips.find(z => z.zip === zip);
-      const town = zipInfo ? zipInfo.town : sc.name.replace(' Service Center', '');
-      const nameEl = document.getElementById('profile-community-name');
-      if (nameEl) nameEl.textContent = town.toUpperCase() + ' COMMUNITY';
-      document.title = 'A Profile of the ' + town + ' Community';
-      const centerLabel = document.getElementById('nav-center-label');
-      if (centerLabel) centerLabel.textContent = 'Information Age Community · ' + sc.name;
+      const zipInfo = sc && sc.zips.find(z => z.zip === zip);
+      const town = zipInfo ? zipInfo.town : 'This Community';
+      const scName = sc ? sc.name.replace(' Service Center', '') : '';
+
+      document.title = `Profile — ${town}`;
+      document.getElementById('hdr-town').textContent = `Welcome to The Town of ${town}`;
+      document.getElementById('hdr-sc').textContent = scName ? `A Neighborhood in the ${scName} Service Center` : '';
+      document.getElementById('vision-heading').textContent = `What Makes ${town} A Great Place to Live`;
     })
-    .catch(() => {});
-})();
+    .catch(() => {
+      document.getElementById('hdr-town').textContent = 'Profile Data Coming Soon';
+    });
+}
+
+function initFound(c) {
+  // Header
+  document.title = `Profile — ${c.town}, ${c.state}`;
+  document.getElementById('hdr-town').textContent = `Welcome to The Town of ${c.town}`;
+  document.getElementById('hdr-sc').textContent   = `A Neighborhood in the ${c.sc_name} Service Center`;
+
+  // Nav links
+  wireNav(c.scid);
+
+  // Vision section
+  document.getElementById('vision-heading').textContent =
+    `What Makes ${c.town} A Great Place to Live`;
+
+  const tagline = c.tagline || '';
+  const vision  = [c.vision1, c.vision2].filter(v => v && v !== 'nan').join(' ');
+  document.getElementById('vision-tagline').textContent = tagline;
+  document.getElementById('vision-body').textContent =
+    vision || 'Vision statement coming soon.';
+
+  // Profile pop — sparse records (added from service_centers.json, no
+  // community survey data yet) may have null county/density/landform
+  document.getElementById('pop-section').style.display = '';
+  document.getElementById('county-section').style.display = '';
+  document.getElementById('density-section').style.display = '';
+  document.getElementById('prof-pop').textContent =
+    (c.population != null) ? c.population.toLocaleString() + ' residents' : '—';
+  document.getElementById('prof-county').textContent =
+    c.county ? c.county + ' County' : '—';
+  document.getElementById('prof-density').textContent =
+    (c.density != null) ? c.density.toFixed(1) + ' per sq mi' : '—';
+
+  // Land cover — hide the whole card when this record has no landform data
+  const landformSection = document.getElementById('landform-section');
+  const lfWrap = document.getElementById('lf-wrap');
+  lfWrap.innerHTML = '';
+  if (c.landform) {
+    landformSection.style.display = '';
+    const total  = c.total_acres || 1;
+    const sorted = Object.entries(c.landform).sort((a,b) => b[1]-a[1]);
+    sorted.forEach(([name, acres]) => {
+      const pct = Math.round(acres / total * 100);
+      if (pct < 1 && acres < 100) return;
+      lfWrap.innerHTML += `
+        <div class="lf-row">
+          <span class="lf-name">${name}</span>
+          <div class="lf-bar-bg">
+            <div class="lf-bar-fill" style="width:${Math.min(pct,100)}%"></div>
+          </div>
+          <span class="lf-pct">${pct}%</span>
+        </div>`;
+    });
+  } else {
+    landformSection.style.display = 'none';
+  }
+
+  // Gallery — use town-seeded placeholder images
+  const seed  = c.town.replace(/\s+/g,'-').toLowerCase();
+  const acresPhrase = c.total_acres
+    ? `${c.total_acres.toLocaleString()} acres of ${c.state} landscape.`
+    : `a landscape in ${c.state}.`;
+  const photos = [
+    { src: `https://picsum.photos/seed/${seed}1/900/540`,
+      cap: `Welcome to ${c.town}, ${c.state} — a community in the ${c.sc_name} Service Center.` },
+    { src: `https://picsum.photos/seed/${seed}2/900/540`,
+      cap: `${c.town} covers ${acresPhrase}` },
+    { src: `https://picsum.photos/seed/${seed}lake/900/540`,
+      cap: `Natural surroundings contribute to quality of life in ${c.town}.` },
+    { src: `https://picsum.photos/seed/${seed}main/900/540`,
+      cap: `Community life and local identity define ${c.town}.` },
+    { src: `https://picsum.photos/seed/${seed}heritage/900/540`,
+      cap: `${c.town} is part of the Minneapolis–St Paul Information Age Community.` },
+  ];
+
+  let cur = 0;
+  const imgEl  = document.getElementById('gal-img');
+  const capEl  = document.getElementById('gal-caption');
+  const cntEl  = document.getElementById('gal-counter');
+  const dotsEl = document.getElementById('gal-dots');
+
+  photos.forEach((_,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i===0?' active':'');
+    btn.onclick = () => { cur = i; show(i); };
+    dotsEl.appendChild(btn);
+  });
+
+  function show(i) {
+    imgEl.src    = photos[i].src;
+    capEl.textContent = photos[i].cap;
+    cntEl.textContent = `${i+1} of ${photos.length}`;
+    document.querySelectorAll('.dot').forEach((d,j) =>
+      d.classList.toggle('active', j===i));
+  }
+
+  window.galNav = dir => {
+    cur = (cur + dir + photos.length) % photos.length;
+    show(cur);
+  };
+
+  document.addEventListener('keydown', e => {
+    if (e.key==='ArrowLeft')  galNav(-1);
+    if (e.key==='ArrowRight') galNav(1);
+  });
+
+  show(0);
+
+  // Auto-advance
+  let timer = setInterval(()=>galNav(1), 5000);
+  document.querySelector('.gallery-wrap').addEventListener('mouseenter',
+    ()=>clearInterval(timer));
+  document.querySelector('.gallery-wrap').addEventListener('mouseleave',
+    ()=>{ timer = setInterval(()=>galNav(1),5000); });
+}
 </script>
 </body>
 </html>

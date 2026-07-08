@@ -286,6 +286,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script>
 
 // ── DATA ──
@@ -399,12 +400,24 @@ function loadIACPolygons() {
         const iacName = fileName.replace(".geojson", "");
         const isActive = iacName === "Minneapolis-St Paul";
 
-        L.geoJSON(data, {
+        // Zip-code-derived boundaries are fragmented and hole-riddled
+        // (especially out west, where zips are huge) — a convex hull gives
+        // one clean outline per IAC instead of the raw scribbles.
+        let geo = data;
+        try {
+          const outline = (typeof turf !== 'undefined') ? turf.convex(data) : null;
+          if (outline) geo = outline;
+        } catch (e) {
+          // keep the raw geometry if convex fails on this IAC's shape
+        }
+
+        L.geoJSON(geo, {
           style: {
             color: isActive ? "#16a34a" : "#dc2626",
-            weight: 2,
+            weight: isActive ? 2 : 1.5,
             fillColor: isActive ? "#16a34a" : "#dc2626",
-            fillOpacity: 0.12
+            fillOpacity: isActive ? 0.12 : 0.06,
+            opacity: isActive ? 1 : 0.6
           },
           onEachFeature: function(feature, layer) {
             layer.bindTooltip(iacName + " IAC", {
