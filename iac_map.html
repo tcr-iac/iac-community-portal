@@ -584,6 +584,13 @@ function goBack() {
     welcome.style.opacity = '';
   }, 50);
   clearHighlight();
+
+  // Reset search state so the next search starts clean
+  hidePicker();
+  document.getElementById('picker-list').innerHTML = '';
+  const cityInput = document.getElementById('city-input');
+  cityInput.value = '';
+  cityInput.focus();
 }
 
 // ── SAME-NAME PICKER ──
