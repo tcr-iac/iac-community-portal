@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Service Center Profile</title>
+  <style>
+    :root {
+      --blue:      #004a99;
+      --blue-dark: #00316b;
+      --blue-mid:  #1a6bc4;
+      --blue-light:#e8f0fe;
+      --accent:    #e67e22;
+      --white:     #ffffff;
+      --text:      #1a2b3c;
+      --muted:     #5a6e85;
+      --border:    #c8d8eb;
+      --bg:        #f0f5fb;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Segoe UI',Arial,sans-serif;
+           background:var(--bg); color:var(--text); font-size:14px; }
+
+    .page-wrap { display:flex; min-height:100vh; }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar {
+      width:250px; flex-shrink:0;
+      background:var(--blue-dark);
+      display:flex; flex-direction:column;
+      position:sticky; top:0; height:100vh; overflow-y:auto;
+    }
+    .sidebar-header {
+      padding:24px 20px 16px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar-iac  { font-size:10px; text-transform:uppercase;
+                    letter-spacing:1.5px; color:rgba(255,255,255,0.45);
+                    margin-bottom:8px; font-weight:600; }
+    .sidebar-name { font-size:20px; font-weight:800; color:#fff;
+                    line-height:1.2; margin-bottom:4px; }
+    .sidebar-sub  { font-size:11px; color:rgba(255,255,255,0.6); font-style:italic; }
+
+    .sidebar-stats { padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .s-stat { margin-bottom:12px; }
+    .s-stat-lbl { font-size:10px; text-transform:uppercase;
+                  letter-spacing:0.6px; color:rgba(255,255,255,0.45);
+                  margin-bottom:2px; font-weight:600; }
+    .s-stat-val { font-size:18px; font-weight:800; color:#fff; line-height:1; }
+    .s-stat-sub { font-size:11px; color:rgba(255,255,255,0.5); margin-top:1px; }
+
+    .sidebar-nav { padding:16px 20px; margin-top:auto; }
+    .s-btn {
+      display:block; width:100%; padding:9px 14px;
+      border-radius:6px; font-size:12px; font-weight:700;
+      text-decoration:none; text-align:center;
+      margin-bottom:8px; border:none; cursor:pointer; transition:0.2s;
+    }
+    .s-btn-iac { background:rgba(255,255,255,0.12); color:#fff; }
+    .s-btn-map { background:rgba(255,255,255,0.12); color:#fff;
+                 border:1px solid rgba(255,255,255,0.25); }
+    .s-btn-nb  { background:var(--accent); color:#fff; }
+    .s-btn:hover { opacity:0.85; transform:translateX(2px); }
+
+    /* ── MAIN ── */
+    .main { flex:1; padding:0; overflow-y:auto; display:flex; flex-direction:column; }
+
+    /* WELCOME HEADER */
+    .welcome-block {
+      background:linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+      padding:32px 32px 24px; color:#fff; text-align:center;
+    }
+    .welcome-eyebrow { font-size:11px; text-transform:uppercase;
+                       letter-spacing:2px; color:rgba(255,255,255,0.5);
+                       margin-bottom:10px; font-weight:600; }
+    .welcome-title { font-size:clamp(18px,2.5vw,26px); font-weight:800;
+                     line-height:1.25; margin-bottom:6px; }
+    .welcome-title span { color:#ffd166; }
+    .welcome-sub { font-size:13px; color:rgba(255,255,255,0.7);
+                   font-style:italic; margin-bottom:20px; }
+    .vision-block {
+      background:rgba(255,255,255,0.1);
+      border-left:3px solid rgba(255,255,255,0.45);
+      border-radius:0 8px 8px 0;
+      padding:12px 18px; margin:0 auto;
+      max-width:560px; text-align:left;
+    }
+    .vision-text   { color:#fff; font-size:14px; font-style:italic;
+                     line-height:1.7; }
+    .vision-author { color:rgba(255,255,255,0.55); font-size:11px;
+                     margin-top:6px; font-weight:600;
+                     text-transform:uppercase; letter-spacing:0.5px; }
+
+    /* CONTENT AREA */
+    .content { padding:20px 28px; flex:1; }
+
+    /* STAT CARDS */
+    .stat-row { display:grid;
+                grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+                gap:10px; margin-bottom:18px; }
+    .stat-card { background:var(--white); border-radius:8px;
+                 padding:12px 14px; text-align:center;
+                 border:1px solid var(--border);
+                 box-shadow:0 2px 6px rgba(0,74,153,0.06); }
+    .stat-val { font-size:22px; font-weight:800; color:var(--blue);
+                line-height:1; margin-bottom:3px; }
+    .stat-lbl { font-size:10px; color:var(--muted);
+                text-transform:uppercase; letter-spacing:0.4px; }
+
+    /* SECTION CARD */
+    .card { background:var(--white); border-radius:10px;
+            padding:18px 20px; margin-bottom:16px;
+            border:1px solid var(--border);
+            box-shadow:0 2px 8px rgba(0,74,153,0.06); }
+    .sec-title { font-size:11px; font-weight:700; text-transform:uppercase;
+                 letter-spacing:0.7px; color:var(--blue);
+                 margin-bottom:12px; padding-bottom:6px;
+                 border-bottom:2px solid var(--blue-light); }
+
+    /* GALLERY — single image slideshow */
+    .gallery-wrap { position:relative; background:#111;
+                    border-radius:8px; overflow:hidden; user-select:none; }
+    .gallery-wrap img { width:100%; height:300px;
+                        object-fit:cover; display:block; transition:opacity 0.3s; }
+    .gal-cap { position:absolute; bottom:0; left:0; right:0;
+               background:linear-gradient(transparent,rgba(0,0,0,0.65));
+               color:#fff; padding:28px 14px 12px;
+               font-size:12px; font-style:italic; line-height:1.4; }
+    .gal-cnt { position:absolute; top:10px; right:12px;
+               background:rgba(0,0,0,0.5); color:#fff;
+               font-size:10px; font-weight:700;
+               padding:2px 9px; border-radius:10px; }
+    .gal-btn { position:absolute; top:50%; transform:translateY(-50%);
+               background:rgba(255,255,255,0.2); border:none;
+               color:#fff; font-size:32px; font-weight:200;
+               width:44px; height:44px; border-radius:50%;
+               cursor:pointer; transition:0.2s;
+               display:flex; align-items:center; justify-content:center; }
+    .gal-btn:hover { background:rgba(255,255,255,0.38); }
+    #gal-prev { left:10px; } #gal-next { right:10px; }
+    .gal-dots { display:flex; justify-content:center; gap:5px; margin-top:8px; }
+    .dot { width:7px; height:7px; border-radius:50%;
+           background:var(--border); border:none; cursor:pointer; }
+    .dot.active { background:var(--blue); }
+
+    /* LAND COVER — no symbols */
+    .lf-grid { display:grid;
+               grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+               gap:8px; }
+    .lf-item { background:var(--blue-light); border-radius:7px;
+               padding:10px 12px; text-align:center;
+               border:1px solid var(--border); }
+    .lf-name  { font-size:11px; color:var(--muted); font-weight:600;
+                text-transform:uppercase; letter-spacing:0.3px;
+                margin-bottom:4px; }
+    .lf-pct   { font-size:22px; font-weight:800; color:var(--blue);
+                margin:2px 0; line-height:1; }
+    .lf-acres { font-size:10px; color:var(--muted); }
+    .lf-bar   { background:var(--border); border-radius:3px;
+                height:5px; margin-top:6px; overflow:hidden; }
+    .lf-fill  { height:100%; border-radius:3px;
+                background:linear-gradient(90deg,var(--blue),#4a9fe8); }
+    .lf-total { background:var(--blue); color:#fff; border-radius:7px;
+                padding:10px 12px; text-align:center;
+                display:flex; flex-direction:column; justify-content:center; }
+    .lf-total .t-l { font-size:10px; opacity:0.7; text-transform:uppercase;
+                      letter-spacing:0.3px; }
+    .lf-total .t-v { font-size:18px; font-weight:800; margin:2px 0; }
+    .lf-total .t-s { font-size:10px; opacity:0.65; }
+
+    /* TABLES */
+    .plain-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .plain-table thead th { background:var(--blue); color:#fff;
+      padding:9px 12px; text-align:center; font-size:11px; font-weight:700; }
+    .plain-table thead th:first-child { text-align:left; }
+    .section-row td { background:var(--blue-light); color:var(--blue);
+      font-weight:700; font-size:11px; text-transform:uppercase;
+      letter-spacing:0.4px; padding:6px 12px;
+      border-top:1px solid var(--border); }
+    .plain-table tbody tr:nth-child(even) td { background:var(--bg); }
+    .plain-table tbody td { padding:9px 12px;
+      border-bottom:1px solid var(--border); text-align:center;
+      color:var(--muted); font-style:italic; }
+    .plain-table tbody td:first-child { text-align:left;
+      color:var(--text); font-style:normal; }
+
+    /* FOOTER */
+    .footer { font-size:11px; color:var(--muted); text-align:center;
+              padding:12px; background:var(--white);
+              border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-iac">IAC Service Center</div>
+      <div class="sidebar-name" id="sb-name">Loading...</div>
+      <div class="sidebar-sub"  id="sb-sub"></div>
+    </div>
+    <div class="sidebar-stats">
+      <div class="s-stat">
+        <div class="s-stat-lbl">Total Population</div>
+        <div class="s-stat-val" id="sb-pop">—</div>
+        <div class="s-stat-sub">residents served</div>
+      </div>
+      <div class="s-stat">
+        <div class="s-stat-lbl">Communities</div>
+        <div class="s-stat-val" id="sb-zips">—</div>
+        <div class="s-stat-sub">ZIP code areas</div>
+      </div>
+      <div class="s-stat">
+        <div class="s-stat-lbl">Counties</div>
+        <div class="s-stat-val" id="sb-counties">—</div>
+      </div>
+      <div class="s-stat">
+        <div class="s-stat-lbl">Total Land Area</div>
+        <div class="s-stat-val" id="sb-acres">—</div>
+        <div class="s-stat-sub">acres</div>
+      </div>
+    </div>
+    <div class="sidebar-nav">
+      <a href="iac_map.html"   class="s-btn s-btn-iac">IAC Overview</a>
+      <a id="btn-map" href="#" class="s-btn s-btn-map">← Community Map</a>
+      <a id="btn-nb"  href="#" class="s-btn s-btn-nb">Open the Lens</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- WELCOME HEADER -->
+    <div class="welcome-block">
+      <div class="welcome-eyebrow">Information Age Community · Service Center Profile</div>
+      <div class="welcome-title">
+        Welcome to the <span id="hdr-name">—</span> Service Center<br>
+        <span style="font-size:0.75em;color:rgba(255,255,255,0.8);font-weight:400;">
+          of the Minneapolis-St Paul Information Age Community
+        </span>
+      </div>
+      <div class="welcome-sub" id="hdr-sub"></div>
+      <div class="vision-block" id="vision-block" style="display:none;">
+        <div class="vision-text"  id="vision-text"></div>
+        <div class="vision-author">Service Center Vision</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- STAT CARDS -->
+      <div class="stat-row" id="stat-row"></div>
+
+      <!-- GALLERY -->
+      <div class="card">
+        <div class="sec-title">Community Gallery</div>
+        <div class="gallery-wrap">
+          <img id="gal-img" src="" alt=""/>
+          <div class="gal-cnt" id="gal-cnt">1 of 5</div>
+          <div class="gal-cap" id="gal-cap"></div>
+          <button class="gal-btn" id="gal-prev" onclick="galNav(-1)">&#8249;</button>
+          <button class="gal-btn" id="gal-next" onclick="galNav(1)">&#8250;</button>
+        </div>
+        <div class="gal-dots" id="gal-dots"></div>
+      </div>
+
+      <!-- LAND COVER -->
+      <div class="card">
+        <div class="sec-title">Land Cover — Aggregated Across All Communities</div>
+        <div class="lf-grid" id="lf-grid"></div>
+      </div>
+
+      <!-- VIABILITY INDEX -->
+      <div class="card">
+        <div class="sec-title">IAC Viability Index</div>
+        <div style="overflow-x:auto;">
+          <table class="plain-table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th id="col-sc">Service Center</th>
+                <th>Trend</th>
+                <th>Peer Avg</th>
+                <th>IAC Avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="section-row"><td colspan="5">I. The Fundamentals</td></tr>
+              <tr><td>Human Continuity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Economic Function</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Infrastructure &amp; Connectivity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Civic &amp; Institutional Stability</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr class="section-row"><td colspan="5">II. The Relationships</td></tr>
+              <tr><td>Essential Service Ecosystem</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Ecosystem Connectivity &amp; Flow</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Ecosystem Role &amp; Embeddedness</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr class="section-row"><td colspan="5">III. The Viability Potential</td></tr>
+              <tr><td>Transition Pressure</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Adaptive Capacity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Strategic Opportunity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- JURISDICTION -->
+      <div class="card">
+        <div class="sec-title">Jurisdiction Table</div>
+        <table class="plain-table">
+          <thead>
+            <tr><th>System Group</th><th>Federal</th><th>State</th><th>Local</th><th>Total</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Management &amp; Governance</td><td>TBD</td><td>TBD</td><td>1</td><td>1</td></tr>
+            <tr><td>Development Systems</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+            <tr><td>Citizen Services</td><td>TBD</td><td>TBD</td><td>1</td><td>1</td></tr>
+            <tr><td>Infrastructure Systems</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+            <tr><td>Natural Systems</td><td>TBD</td><td>TBD</td><td>2</td><td>2</td></tr>
+            <tr><td>Public Safety Systems</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<div class="footer">Information Age Community · Tele-Commuter Resources · 2026</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const scid   = params.get('scid') || '9';
+const zip    = params.get('zip')  || '';
+
+fetch('community_data.json')
+  .then(r => r.json())
+  .then(DATA => init(DATA))
+  .catch(() => {
+    document.getElementById('hdr-name').textContent = 'Data Unavailable';
+  });
+
+function init(DATA) {
+  const communities = Object.values(DATA).filter(c => c.scid === scid);
+  if (!communities.length) return;
+
+  const first  = communities[0];
+  const scName = first.sc_name;
+
+  // Sidebar & header
+  document.title = `${scName} — Service Center`;
+  document.getElementById('sb-name').textContent  = scName;
+  document.getElementById('hdr-name').textContent = scName;
+  document.getElementById('col-sc').textContent   = scName;
+
+  // States/counties for sidebar sub
+  const counties = [...new Set(communities.map(c=>c.county).filter(Boolean))];
+  document.getElementById('sb-sub').textContent   = first.state || '';
+
+  // Nav links
+  document.getElementById('btn-map').href =
+    `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}`;
+  document.getElementById('btn-nb').href  =
+    `portal.html?scid=${scid}&zip=${zip||first.zip}`;
+
+  // Vision — use first non-empty vision from any community in this SC
+  const vision = [first.vision1, first.vision2, first.tagline]
+    .find(v => v && v !== 'nan') || '';
+  if (vision) {
+    document.getElementById('hdr-sub').textContent = first.tagline !== 'nan' ? first.tagline : '';
+    document.getElementById('vision-block').style.display = '';
+    document.getElementById('vision-text').textContent    = `"${vision}"`;
+  }
+
+  // Aggregate
+  const totalPop  = communities.reduce((s,c) => s+(c.population||0), 0);
+  const totalZIPs = communities.length;
+  const lfTotals  = {};
+  let grandTotal  = 0;
+  communities.forEach(c => {
+    Object.entries(c.landform||{}).forEach(([n,a]) => {
+      lfTotals[n] = (lfTotals[n]||0)+a;
+      grandTotal += a;
+    });
+  });
+  const sqMi = (grandTotal/640).toFixed(0);
+
+  // Sidebar stats
+  document.getElementById('sb-pop').textContent     = totalPop.toLocaleString();
+  document.getElementById('sb-zips').textContent    = totalZIPs;
+  document.getElementById('sb-counties').textContent= counties.length + ' counties';
+  document.getElementById('sb-acres').textContent   = Math.round(grandTotal).toLocaleString();
+
+  // Stat cards
+  const statRow = document.getElementById('stat-row');
+  [
+    { val: totalPop.toLocaleString(), lbl: 'Population' },
+    { val: totalZIPs,                 lbl: 'Communities' },
+    { val: counties.length,           lbl: 'Counties' },
+    { val: parseInt(sqMi).toLocaleString(), lbl: 'Sq Miles' },
+  ].forEach(s => {
+    statRow.innerHTML += `
+      <div class="stat-card">
+        <div class="stat-val">${s.val}</div>
+        <div class="stat-lbl">${s.lbl}</div>
+      </div>`;
+  });
+
+  // Gallery — single image slideshow, auto-advance, arrow navigation
+  const seed   = scName.replace(/\s+/g,'-').toLowerCase();
+  const photos = [
+    { src:`https://picsum.photos/seed/${seed}1/1000/560`,
+      cap:`Welcome to the ${scName} Service Center — serving ${totalZIPs} communities.` },
+    { src:`https://picsum.photos/seed/${seed}2/1000/560`,
+      cap:`${scName} serves a total population of ${totalPop.toLocaleString()}.` },
+    { src:`https://picsum.photos/seed/${seed}lake/1000/560`,
+      cap:`The natural landscape of the ${scName} region.` },
+    { src:`https://picsum.photos/seed/${seed}main/1000/560`,
+      cap:`Community and economic life across ${totalZIPs} communities.` },
+    { src:`https://picsum.photos/seed/${seed}iac/1000/560`,
+      cap:`Part of the Minneapolis–St Paul Information Age Community.` },
+  ];
+
+  let cur = 0;
+  const imgEl  = document.getElementById('gal-img');
+  const capEl  = document.getElementById('gal-cap');
+  const cntEl  = document.getElementById('gal-cnt');
+  const dotsEl = document.getElementById('gal-dots');
+
+  photos.forEach((_,i) => {
+    const b = document.createElement('button');
+    b.className = 'dot'+(i===0?' active':'');
+    b.onclick = () => { cur=i; show(i); };
+    dotsEl.appendChild(b);
+  });
+
+  function show(i) {
+    imgEl.src = photos[i].src;
+    capEl.textContent = photos[i].cap;
+    cntEl.textContent = `${i+1} of ${photos.length}`;
+    document.querySelectorAll('.dot').forEach((d,j) =>
+      d.classList.toggle('active', j===i));
+  }
+
+  window.galNav = dir => {
+    cur = (cur+dir+photos.length)%photos.length;
+    show(cur);
+  };
+
+  document.addEventListener('keydown', e => {
+    if (e.key==='ArrowLeft')  galNav(-1);
+    if (e.key==='ArrowRight') galNav(1);
+  });
+
+  let timer = setInterval(()=>galNav(1), 5000);
+  document.querySelector('.gallery-wrap')
+    .addEventListener('mouseenter', ()=>clearInterval(timer));
+  document.querySelector('.gallery-wrap')
+    .addEventListener('mouseleave', ()=>{ timer=setInterval(()=>galNav(1),5000); });
+
+  show(0);
+
+  // Land cover — no icons/symbols
+  const lfGrid = document.getElementById('lf-grid');
+  lfGrid.innerHTML = `
+    <div class="lf-total">
+      <div class="t-l">Total Area</div>
+      <div class="t-v">${Math.round(grandTotal).toLocaleString()}</div>
+      <div class="t-s">acres · ${parseInt(sqMi).toLocaleString()} sq mi</div>
+    </div>`;
+  Object.entries(lfTotals).sort((a,b)=>b[1]-a[1]).forEach(([name,acres])=>{
+    const pct = grandTotal>0 ? (acres/grandTotal*100).toFixed(1) : 0;
+    if (parseFloat(pct) < 0.1) return;
+    lfGrid.innerHTML += `
+      <div class="lf-item">
+        <div class="lf-name">${name}</div>
+        <div class="lf-pct">${pct}%</div>
+        <div class="lf-acres">${Math.round(acres).toLocaleString()} ac</div>
+        <div class="lf-bar">
+          <div class="lf-fill" style="width:${Math.min(parseFloat(pct),100)}%"></div>
+        </div>
+      </div>`;
+  });
+}
+</script>
+</body>
+</html>

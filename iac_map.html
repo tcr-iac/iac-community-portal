@@ -514,7 +514,12 @@ async function loadTownIndex() {
 }
 
 function normalize(s) {
-  return String(s || '').trim().toUpperCase().replace(/,/g, '').replace(/\s+/g, ' ');
+  let n = String(s || '').trim().toLowerCase().replace(/\./g, '').replace(/,/g, '').replace(/\s+/g, ' ');
+  n = n.replace(/^st /, 'saint ');
+  n = n.replace(/^ste /, 'sainte ');
+  n = n.replace(/^mt /, 'mount ');
+  n = n.replace(/^ft /, 'fort ');
+  return n;
 }
 
 // Among ambiguous matches (same city name in many states), the largest/

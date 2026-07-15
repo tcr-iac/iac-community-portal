@@ -226,7 +226,9 @@
 
   <button id="btn-neighborhoods" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)+'&view=neighborhood'">View our Neighborhoods 🏘</button>
 
-  <button id="btn-community-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Community Profile 👤</button>
+  <button id="btn-community-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Neighborhood Profile 👤</button>
+
+  <button id="btn-sc-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('community-profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Community Profile</button>
 
   <button id="btn-receptionists" class="app-demo-btn" onclick="showReceptionistsPopup()">Community Receptionists 🎧</button>
   <button class="app-demo-btn" onclick="showContactsTable()">Contacts 📋</button>
@@ -721,7 +723,7 @@ document.getElementById('tagline-text').textContent=sc.tagline;
 loadAllMenus();
 
 
-document.getElementById('btn-viability').addEventListener('click',function(){showFileOverlay('Viability Index','IAC_Viability_Index_Implementation.pdf');});
+document.getElementById('btn-viability').addEventListener('click',function(){showFileOverlay('Viability Index','IAC_Viability_Index_Outline.pdf');});
 
 // Neighborhoods button handled via onclick attribute
 
