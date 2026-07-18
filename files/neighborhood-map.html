@@ -234,7 +234,7 @@ function initMap(SC_DATA) {
   }
 
   // ── Legend (zoom, outline & basemap controls — identical in both modes) ──
-  const legend = L.control({ position: 'bottomright' });
+  const legend = L.control({ position: 'topright' });
   legend.onAdd = () => {
     const div = L.DomUtil.create('div', '');
     div.id = 'legend';

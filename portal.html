@@ -210,28 +210,15 @@
 
 <section id="zone-app-demos">
 
-  <p id="app-demos-label">Application Demonstrations</p>
-
-  <p style="width:100%; margin:0 0 8px 0; font-size:12px; color:#555;">
-  Demo applications may take up to 60 seconds to load on the first visit.
-  </p>
-
-  <button id="btn-econsensus" class="app-demo-btn" onclick="window.open('https://econsensusforum.org/', '_blank')">E-Consensus</button>
-  <button id="btn-community-system" class="app-demo-btn" onclick="window.open('https://community-system-zves.onrender.com', '_blank')">Community System 🏘</button>
-  <button id="btn-sports" class="app-demo-btn" onclick="window.open('https://sports-inquiry-app.onrender.com', '_blank')">Sports Inquiry 🏆</button>
-
   <button id="btn-viability" class="app-demo-btn">Viability Index</button>
 
-  <button id="btn-community-map" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)">Community Map 🗺</button>
+  <button class="app-demo-btn" onclick="showContactsTable()">Contacts 📋</button>
 
-  <button id="btn-neighborhoods" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)+'&view=neighborhood'">View our Neighborhoods 🏘</button>
+  <button id="btn-neighborhoods" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='files/neighborhood-map.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)+'&view=neighborhood'">View Our Neighborhood 🏘</button>
 
-  <button id="btn-community-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Neighborhood Profile 👤</button>
-
-  <button id="btn-sc-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('community-profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Community Profile</button>
+  <button id="btn-sc-profile" class="app-demo-btn" onclick="var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.open('community-profile.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip),'_blank')">Review our Profile</button>
 
   <button id="btn-receptionists" class="app-demo-btn" onclick="showReceptionistsPopup()">Community Receptionists 🎧</button>
-  <button class="app-demo-btn" onclick="showContactsTable()">Contacts 📋</button>
 
 </section>
 
@@ -397,7 +384,7 @@ const MENUS = {
 
   ],
 
-  3: [{title:"ACCOUNTABILITY",children:[{title:"Contribution Trends",children:[]},{title:"Community Concerns",children:[{title:"Fiscal Issues",children:[{title:"Budget",children:[{title:"Trends",children:[]}]}]},{title:"Infrastructure Type Selector",children:[{title:"Complaints",children:[]},{title:"Plans",children:[]}]},{title:"Technology",children:[]},{title:"e-Consensus Forums",children:[],file:"eConsensus_Report_Format.pdf"},{title:"e-Consensus - The App",children:[],onclick:"window.open('https://econsensusforum.org/','_blank')"},{title:"Community System",children:[],onclick:"window.open('https://community-system-zves.onrender.com','_blank')"}]},{title:"Education",children:[]},{title:"Community Lens",children:[{title:"Updates",children:[]},{title:"Statistics",children:[]}]},{title:"Consensus Budget",children:[{title:"Budgets",children:[]}]},{title:"Service Center",children:[{title:"Neighborhood Integration",children:[]}]},{title:"TeleCenter",children:[{title:"Services",children:[]},{title:"Statistics",children:[]},{title:"Suggestions",children:[]}]},{title:"Regulatory Issues Type Selector",children:[{title:"Inquiries",children:[]},{title:"Safety",children:[{title:"Infrastructure",children:[]},{title:"Crime Statistics",children:[{title:"Historic",children:[]}]}]}]},{title:"Safety Issues",children:[{title:"Dangerous Conditions",children:[]},{title:"Crime Statistics",children:[{title:"Current Profile",children:[]}]}]}]},{title:"EVENTS",children:[{title:"Education Schedules",children:[{title:"School Calendar",children:[]}]},{title:"Entertainment",children:[]},{title:"Performances",children:[]},{title:"Public Hearings",children:[]},{title:"Public Policy Forums",children:[{title:"Results",children:[]}]},{title:"Worship",children:[{title:"Service Schedules",children:[]}]},{title:"Athletic",children:[{title:"Sports Inquiry",children:[],onclick:"window.open('https://sports-inquiry-app.onrender.com','_blank')"}]}]},{title:"FELLOWSHIP",children:[{title:"Dinners",children:[]},{title:"Gatherings",children:[]},{title:"Festivals",children:[]},{title:"Lectures",children:[]},{title:"Raffles",children:[]},{title:"Recognition",children:[{title:"Organizations",children:[]}]},{title:"Reunions",children:[]},{title:"Announcements",children:[{title:"Under Development",children:[]}]}]},{title:"LEADERSHIP",children:[{title:"Schedules & Locations",children:[]},{title:"Results",children:[]},{title:"Service Center",children:[{title:"Government",children:[]}]},{title:"Elections Type",children:[{title:"Under Development",children:[]}]}]},{title:"PERFORMANCE",children:[{title:"Visioning Tracking",children:[{title:"IAC",children:[{title:"IAC Analysis Unit Map",children:[],file:"iac_analysis_unit_map_clean.jpg"},{title:"IAC Metro 7 ZIP Verification Map",children:[],file:"metro7_map_v3_mvp.jpg"}]}]}]},{title:"THE VISION",children:[{title:"The Process",children:[]},{title:"Tracking",children:[{title:"Institutions",children:[]},{title:"Citizens",children:[]},{title:"The Foruns",children:[{title:"Results",children:[]}]}]}]}]
+  3: [{title:"ACCOUNTABILITY",children:[{title:"Contribution Trends",children:[],onclick:"window.open('https://community-system-zves.onrender.com','_blank')"},{title:"Community Concerns",children:[{title:"Fiscal Issues",children:[{title:"Budget",children:[{title:"Trends",children:[]}]}]},{title:"Infrastructure Type Selector",children:[{title:"Complaints",children:[]},{title:"Plans",children:[]}]},{title:"Technology",children:[]},{title:"e-Consensus Forums",children:[],file:"eConsensus_Report_Format.pdf"}]},{title:"Education",children:[]},{title:"Community Lens",children:[{title:"Updates",children:[]},{title:"Statistics",children:[]}]},{title:"Consensus Budget",children:[{title:"Budgets",children:[]}]},{title:"Service Center",children:[{title:"Neighborhood Integration",children:[]}]},{title:"TeleCenter",children:[{title:"Services",children:[]},{title:"Statistics",children:[]},{title:"Suggestions",children:[]}]},{title:"Regulatory Issues Type Selector",children:[{title:"Inquiries",children:[]},{title:"Safety",children:[{title:"Infrastructure",children:[]},{title:"Crime Statistics",children:[{title:"Historic",children:[]}]}]}]},{title:"Safety Issues",children:[{title:"Dangerous Conditions",children:[]},{title:"Crime Statistics",children:[{title:"Current Profile",children:[]}]}]},{title:"Events",children:[{title:"Public Policy",children:[{title:"An e-Consensus Example",children:[],onclick:"window.open('https://econsensusforum.org/','_blank')"}]}]}]},{title:"EVENTS",children:[{title:"Education Schedules",children:[{title:"School Calendar",children:[]}]},{title:"Entertainment",children:[]},{title:"Performances",children:[]},{title:"Public Hearings",children:[]},{title:"Public Policy Forums",children:[{title:"Results",children:[]}]},{title:"Worship",children:[{title:"Service Schedules",children:[]}]},{title:"Athletic",children:[{title:"Sports Inquiry",children:[],onclick:"window.open('https://sports-inquiry-app.onrender.com','_blank')"},{title:"Enter Scores",children:[{title:"Under Development",children:[]}]},{title:"View Historical Scores",children:[{title:"Under Development",children:[]}]}]}]},{title:"FELLOWSHIP",children:[{title:"Dinners",children:[]},{title:"Gatherings",children:[]},{title:"Festivals",children:[]},{title:"Lectures",children:[]},{title:"Raffles",children:[]},{title:"Recognition",children:[{title:"Organizations",children:[]}]},{title:"Reunions",children:[]},{title:"Announcements",children:[{title:"Under Development",children:[]}]}]},{title:"LEADERSHIP",children:[{title:"Schedules & Locations",children:[]},{title:"Results",children:[]},{title:"Service Center",children:[{title:"Government",children:[]}]},{title:"Elections Type",children:[{title:"Under Development",children:[]}]}]},{title:"PERFORMANCE",children:[{title:"Visioning Tracking",children:[{title:"IAC",children:[{title:"IAC Analysis Unit Map",children:[],file:"iac_analysis_unit_map_clean.jpg"},{title:"IAC Metro 7 ZIP Verification Map",children:[],file:"metro7_map_v3_mvp.jpg"}]}]}]},{title:"THE VISION",children:[{title:"The Process",children:[]},{title:"Tracking",children:[{title:"Institutions",children:[]},{title:"Citizens",children:[]},{title:"The Foruns",children:[{title:"Results",children:[]}]}]}]}]
 
 };
 
@@ -543,7 +530,20 @@ function showReceptionistsPopup(){
 function showContactsTable(){
   var overlay=document.getElementById('table-overlay');
   document.getElementById('table-overlay-title').textContent='Community Contacts';
-  document.getElementById('overlay-inner-content').innerHTML='<table class="biz-table"><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Role</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>';
+  var contacts=[
+    {name:'Sarah Mitchell',role:'Community Coordinator',phone:'(218) 555-0142',email:'s.mitchell@tcresources.org'},
+    {name:'Marcus Chen',role:'Web Designer',phone:'(218) 555-0187',email:'m.chen@tcresources.org'},
+    {name:'Angela Torres',role:'Volunteer Coordinator',phone:'(218) 555-0163',email:'a.torres@tcresources.org'},
+    {name:'David Whitfield',role:'TeleCenter Manager',phone:'(218) 555-0129',email:'d.whitfield@tcresources.org'},
+    {name:'Priya Nair',role:'GIS Analyst',phone:'(218) 555-0198',email:'p.nair@tcresources.org'},
+    {name:'James O\'Connell',role:'Community Outreach Specialist',phone:'(218) 555-0175',email:'j.oconnell@tcresources.org'}
+  ];
+  var rows='';
+  for(var i=0;i<contacts.length;i++){
+    var c=contacts[i];
+    rows+='<tr><td>'+escapeHtml(c.name)+'</td><td>'+escapeHtml(c.phone)+'</td><td><a href="mailto:'+escapeHtml(c.email)+'">'+escapeHtml(c.email)+'</a></td><td>'+escapeHtml(c.role)+'</td></tr>';
+  }
+  document.getElementById('overlay-inner-content').innerHTML='<table class="biz-table"><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Role</th></tr></thead><tbody>'+rows+'</tbody></table>';
   overlay.hidden=false;
 }
 

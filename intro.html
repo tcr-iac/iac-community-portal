@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Information Age Community — Introduction</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #003580;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+  }
+  header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 28px;
+  }
+  .brand { font-weight: bold; letter-spacing: 1px; }
+  .brand small { display: block; font-weight: normal; font-size: 11px; letter-spacing: 2px; color: #bcd2f0; }
+  .org { text-align: right; font-size: 13px; color: #bcd2f0; }
+
+  .stage {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 4px 70px; position: relative;
+  }
+  .slide-frame {
+    max-width: 1300px; width: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+    border-radius: 8px; overflow: hidden;
+    background: #1665c0;
+  }
+  .slide-frame img { display: block; width: 100%; height: auto; }
+
+  .nav-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35);
+    color: #fff; font-size: 26px; line-height: 1;
+    width: 46px; height: 46px; border-radius: 50%;
+    cursor: pointer;
+  }
+  .nav-arrow:hover { background: rgba(255,255,255,0.3); }
+  #prev-btn { left: 16px; }
+  #next-btn { right: 16px; }
+  .nav-arrow[disabled] { opacity: 0.25; cursor: default; }
+
+  .dots { text-align: center; padding: 10px 0 4px; }
+  .dot {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.35); margin: 0 5px; cursor: pointer;
+  }
+  .dot.active { background: #fff; }
+
+  footer {
+    display: flex; gap: 14px; justify-content: center; align-items: center;
+    flex-wrap: wrap; padding: 16px 20px 26px;
+  }
+  .entry-btn {
+    text-decoration: none; color: #fff;
+    border: 2px solid rgba(255,255,255,0.55); border-radius: 999px;
+    padding: 11px 26px; font-size: 15px; font-weight: bold;
+    background: rgba(255,255,255,0.08);
+  }
+  .entry-btn:hover { background: rgba(255,255,255,0.22); }
+  .entry-btn.primary { background: #1e88e5; border-color: #1e88e5; }
+  .entry-btn.primary:hover { background: #2b96f2; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">IAC<small>INFORMATION AGE COMMUNITY</small></div>
+    <div class="org">Tele-Commuter Resources, Inc.<br>A 501(c)3 Non-Profit Organization</div>
+  </header>
+
+  <div class="stage">
+    <button id="prev-btn" class="nav-arrow" onclick="go(-1)" aria-label="Previous slide">&#8249;</button>
+    <div class="slide-frame">
+      <img id="slide-img" src="files/IAC_Intro_1.jpg" alt="The Information Age Community introduction slide">
+    </div>
+    <button id="next-btn" class="nav-arrow" onclick="go(1)" aria-label="Next slide">&#8250;</button>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <footer>
+    <a class="entry-btn primary" href="iac_map.html">&#128269; Look up your community</a>
+    <a class="entry-btn" href="portal.html?scid=9&amp;zip=56401">Go to the Community Lens &#8594;</a>
+    <a class="entry-btn" href="iac_home.html">IAC Home</a>
+  </footer>
+
+<script>
+  var slides = ["files/IAC_Intro_1.jpg", "files/IAC_Intro_2.jpg"];
+  var idx = 0;
+  var img = document.getElementById('slide-img');
+  var dotsEl = document.getElementById('dots');
+
+  slides.forEach(function (_, i) {
+    var d = document.createElement('span');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = function () { idx = i; render(); };
+    dotsEl.appendChild(d);
+  });
+
+  function render() {
+    img.src = slides[idx];
+    document.getElementById('prev-btn').disabled = idx === 0;
+    document.getElementById('next-btn').disabled = idx === slides.length - 1;
+    var dots = dotsEl.children;
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].className = 'dot' + (i === idx ? ' active' : '');
+    }
+  }
+  function go(step) {
+    var n = idx + step;
+    if (n < 0 || n >= slides.length) return;
+    idx = n; render();
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') go(1);
+    if (e.key === 'ArrowLeft') go(-1);
+  });
+  render();
+</script>
+</body>
+</html>
