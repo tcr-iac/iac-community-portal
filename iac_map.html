@@ -628,6 +628,9 @@ async function doSearch() {
   const result = resolveQuery(query);
   if (result.type === 'none') {
     alert('City not found. Try "City, ST" format e.g. "Brainerd, MN"');
+    const input = document.getElementById('city-input');
+    input.focus();
+    input.select();
     return;
   }
   if (result.type === 'ambiguous') {
@@ -639,6 +642,11 @@ async function doSearch() {
 
 // Enter key support
 document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+// Select any existing text on focus so typing immediately overtypes it
+document.getElementById('city-input').addEventListener('focus', function() {
+  if (this.value) this.select();
+});
 
 // Preload town index in background
 loadTownIndex().catch(() => null);

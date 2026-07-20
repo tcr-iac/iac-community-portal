@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Community Viability Calculator</title>
+<style>
+  :root {
+    --navy: #003580;
+    --navy-mid: #004a99;
+    --green: #16a34a;
+    --border: #c8d8eb;
+    --bg: #f0f5fb;
+    --text: #1a2b3c;
+    --muted: #5a6e85;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); }
+
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    color: #fff; padding: 28px 32px 22px; text-align: center;
+  }
+  .page-header h1 { font-size: 26px; font-weight: 800; }
+  .page-header .subtitle { margin-top: 6px; font-size: 14px; font-style: italic; color: rgba(255,255,255,0.8); }
+
+  #nav-box {
+    position: fixed; top: 16px; right: 16px; z-index: 999;
+    background: rgba(0,53,128,0.94); border-radius: 10px; padding: 10px 14px;
+    display: flex; flex-direction: column; gap: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  #nav-box a {
+    color: #fff; text-decoration: none; font-size: 12px; font-weight: 700;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px; padding: 6px 14px; text-align: center; white-space: nowrap;
+  }
+  #nav-box a:hover { background: rgba(255,255,255,0.25); }
+
+  .layout {
+    display: flex; gap: 20px; max-width: 1400px; margin: 0 auto;
+    padding: 24px 28px 60px; align-items: flex-start;
+  }
+  .cards-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+
+  .cat-card {
+    background: #fff; border-radius: 10px; border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,53,128,0.06); overflow: hidden;
+  }
+  .cat-card-header {
+    background: var(--navy); color: #fff; padding: 12px 16px;
+  }
+  .cat-card-header .roman {
+    font-size: 11px; opacity: 0.7; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .cat-card-header h2 { font-size: 15px; font-weight: 800; }
+  .cat-card-body { padding: 6px 16px; }
+  .element-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px solid #eef2f8; gap: 10px;
+  }
+  .element-row:last-child { border-bottom: none; }
+  .element-row label { font-size: 12.5px; color: var(--text); flex: 1; }
+  .element-row input {
+    width: 56px; padding: 5px; border: 1.5px solid var(--border); border-radius: 6px;
+    text-align: center; font-size: 13px; font-family: inherit;
+  }
+  .element-row input:focus { outline: none; border-color: var(--navy-mid); }
+  .cat-card-footer {
+    background: #f4f8fd; padding: 10px 16px; display: flex; justify-content: space-between;
+    align-items: center; border-top: 2px solid var(--border);
+  }
+  .cat-card-footer .label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700;
+  }
+  .cat-card-footer .value { font-size: 20px; font-weight: 800; color: var(--navy); }
+
+  .summary-panel {
+    width: 280px; flex-shrink: 0; position: sticky; top: 90px;
+    background: #fff; border-radius: 10px; border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,53,128,0.1); overflow: hidden;
+  }
+  .summary-header {
+    background: var(--green); color: #fff; padding: 14px 16px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.05em; text-align: center;
+  }
+  .summary-body { padding: 18px 16px; }
+  .summary-total {
+    text-align: center; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid var(--border);
+  }
+  .summary-total .score { font-size: 44px; font-weight: 900; color: var(--navy); line-height: 1; }
+  .summary-total .out-of { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .summary-list .row { display: flex; justify-content: space-between; font-size: 12px; padding: 5px 0; color: var(--text); }
+  .summary-list .row span:last-child { font-weight: 700; color: var(--navy); }
+
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    .summary-panel { width: 100%; position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div id="nav-box">
+  <a id="nav-back-lens" href="#">← Back to the Lens</a>
+  <a href="iac_home.html">IAC Home</a>
+</div>
+
+<div class="page-header">
+  <h1>Community Viability Calculator</h1>
+  <div class="subtitle" id="community-subtitle">for the Brainerd Community</div>
+</div>
+
+<div class="layout">
+  <div class="cards-grid" id="cards-grid"></div>
+
+  <div class="summary-panel">
+    <div class="summary-header">Community Viability Index Score</div>
+    <div class="summary-body">
+      <div class="summary-total">
+        <div class="score" id="total-score">0</div>
+        <div class="out-of" id="total-out-of">out of 0</div>
+      </div>
+      <div class="summary-list" id="summary-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Categories & elements, per the current IAC Viability Index outline ──
+const CATEGORIES = [
+  { roman: 'II',   title: 'Infrastructure', elements: [
+    'Utilities', 'Roads & Transportation Infrastructure', 'Public & Civic Facilities',
+    'Virtual Infrastructure', 'Community Interface', 'Housing'
+  ]},
+  { roman: 'III',  title: 'Services', elements: [
+    'Health & Care Services', 'Education Performance', 'Public Safety',
+    'Human Support & Service Navigation', 'Communications'
+  ]},
+  { roman: 'IV',   title: 'Environment', elements: [
+    'Ecological Health', 'Climate & Hazard Conditions', 'Land Use'
+  ]},
+  { roman: 'V',    title: 'Economy', elements: [
+    'Employment & Labor Force', 'Income, Earnings & Compensation', 'Household Costs',
+    'Local Enterprise', 'Industry Mix & Economic Diversity', 'IAC Relationships & Distribution',
+    'Workforce Virtualization'
+  ]},
+  { roman: 'VI',   title: 'Demographics', elements: [
+    'Population', 'Household & Family Structure', 'Vulnerable Population Profile'
+  ]},
+  { roman: 'VII',  title: 'Governance', elements: [
+    'Community Engagement', 'Trust, Transparency & Representation', 'Decision Capacity'
+  ]}
+];
+
+// Plausible varied starting values (5-8), cycled across every element in order
+const DEFAULT_CYCLE = [7, 6, 8, 5, 7, 8, 6, 5];
+let cycleIdx = 0;
+function nextDefault() {
+  const v = DEFAULT_CYCLE[cycleIdx % DEFAULT_CYCLE.length];
+  cycleIdx++;
+  return v;
+}
+
+// Sub-Index = average of a category's element scores (0-10), scaled to 0-100.
+// Total score = sum of all Sub-Indexes.
+function computeSubIndex(cat) {
+  const vals = cat.inputs.map(inp => {
+    let v = parseFloat(inp.value);
+    if (isNaN(v)) v = 0;
+    return Math.max(0, Math.min(10, v));
+  });
+  const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+  return Math.round(avg * 10);
+}
+
+function recompute() {
+  let total = 0;
+  CATEGORIES.forEach(cat => {
+    const sub = computeSubIndex(cat);
+    cat.footerValueEl.textContent = sub;
+    cat.summaryValueEl.textContent = sub;
+    total += sub;
+  });
+  document.getElementById('total-score').textContent = total;
+}
+
+function buildCards() {
+  const grid = document.getElementById('cards-grid');
+  const summaryList = document.getElementById('summary-list');
+
+  CATEGORIES.forEach((cat, catIndex) => {
+    const card = document.createElement('div');
+    card.className = 'cat-card';
+
+    const header = document.createElement('div');
+    header.className = 'cat-card-header';
+    header.innerHTML = '<div class="roman">' + cat.roman + '</div><h2>' + cat.title + '</h2>';
+    card.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'cat-card-body';
+
+    cat.inputs = [];
+    cat.elements.forEach(elName => {
+      const row = document.createElement('div');
+      row.className = 'element-row';
+
+      const label = document.createElement('label');
+      label.textContent = elName;
+
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.min = '0';
+      input.max = '10';
+      input.step = '1';
+      input.value = nextDefault();
+      input.addEventListener('input', recompute);
+
+      row.appendChild(label);
+      row.appendChild(input);
+      body.appendChild(row);
+      cat.inputs.push(input);
+    });
+    card.appendChild(body);
+
+    const footer = document.createElement('div');
+    footer.className = 'cat-card-footer';
+    const footerLabel = document.createElement('div');
+    footerLabel.className = 'label';
+    footerLabel.textContent = 'Sub-Index';
+    const footerValue = document.createElement('div');
+    footerValue.className = 'value';
+    footer.appendChild(footerLabel);
+    footer.appendChild(footerValue);
+    card.appendChild(footer);
+    cat.footerValueEl = footerValue;
+
+    grid.appendChild(card);
+
+    const sumRow = document.createElement('div');
+    sumRow.className = 'row';
+    const sumLabel = document.createElement('span');
+    sumLabel.textContent = cat.roman + '. ' + cat.title;
+    const sumValue = document.createElement('span');
+    sumRow.appendChild(sumLabel);
+    sumRow.appendChild(sumValue);
+    summaryList.appendChild(sumRow);
+    cat.summaryValueEl = sumValue;
+  });
+
+  document.getElementById('total-out-of').textContent = 'out of ' + (CATEGORIES.length * 100);
+}
+
+buildCards();
+recompute();
+
+// ── Nav links + community name from ?scid=&zip= ──
+const params = new URLSearchParams(window.location.search);
+const scid = params.get('scid') || '9';
+const zip  = params.get('zip')  || '56401';
+
+document.getElementById('nav-back-lens').href =
+  'portal.html?scid=' + encodeURIComponent(scid) + '&zip=' + encodeURIComponent(zip);
+
+function setCommunityName(name) {
+  document.getElementById('community-subtitle').textContent = 'for the ' + name + ' Community';
+  document.title = name + ' — Community Viability Calculator';
+}
+
+if (params.get('zip')) {
+  fetch('community_data.json')
+    .then(r => r.json())
+    .then(data => {
+      const rec = data[params.get('zip')];
+      setCommunityName(rec ? rec.town : 'Brainerd');
+    })
+    .catch(() => setCommunityName('Brainerd'));
+} else {
+  setCommunityName('Brainerd');
+}
+</script>
+</body>
+</html>

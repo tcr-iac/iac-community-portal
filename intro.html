@@ -65,6 +65,16 @@
   .entry-btn:hover { background: rgba(255,255,255,0.22); }
   .entry-btn.primary { background: #1e88e5; border-color: #1e88e5; }
   .entry-btn.primary:hover { background: #2b96f2; }
+
+  #find-community-cta {
+    display: none;
+    position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+    z-index: 5;
+  }
+  #find-community-cta .entry-btn {
+    font-size: 22px; padding: 18px 42px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+  }
 </style>
 </head>
 <body>
@@ -79,6 +89,10 @@
       <img id="slide-img" src="files/IAC_Intro_1.jpg" alt="The Information Age Community introduction slide">
     </div>
     <button id="next-btn" class="nav-arrow" onclick="go(1)" aria-label="Next slide">&#8250;</button>
+
+    <div id="find-community-cta">
+      <a class="entry-btn primary" href="iac_map.html">Find your Community &#8594;</a>
+    </div>
   </div>
 
   <div class="dots" id="dots"></div>
@@ -110,6 +124,8 @@
     for (var i = 0; i < dots.length; i++) {
       dots[i].className = 'dot' + (i === idx ? ' active' : '');
     }
+    document.getElementById('find-community-cta').style.display =
+      (idx === slides.length - 1) ? 'block' : 'none';
   }
   function go(step) {
     var n = idx + step;
