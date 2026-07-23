@@ -21,9 +21,9 @@
     body { font-family:'Segoe UI',Arial,sans-serif;
            background:var(--bg); color:var(--text); font-size:14px; }
 
-    .page-wrap { display:flex; min-height:100vh; }
+    .page-wrap { display:flex; flex-direction:row-reverse; min-height:100vh; }
 
-    /* ── LEFT SIDEBAR ── */
+    /* ── SIDEBAR (right side) ── */
     .sidebar {
       width:250px; flex-shrink:0;
       background:var(--blue-dark);
@@ -37,8 +37,8 @@
     .sidebar-iac  { font-size:10px; text-transform:uppercase;
                     letter-spacing:1.5px; color:rgba(255,255,255,0.45);
                     margin-bottom:8px; font-weight:600; }
-    .sidebar-name { font-size:20px; font-weight:800; color:#fff;
-                    line-height:1.2; margin-bottom:4px; }
+    .sidebar-name { font-size:18px; font-weight:800; color:#fff;
+                    line-height:1.2; margin-bottom:4px; display:none; }
     .sidebar-sub  { font-size:11px; color:rgba(255,255,255,0.6); font-style:italic; }
 
     .sidebar-stats { padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.1); }
@@ -93,19 +93,6 @@
 
     /* CONTENT AREA */
     .content { padding:20px 28px; flex:1; }
-
-    /* STAT CARDS */
-    .stat-row { display:grid;
-                grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-                gap:10px; margin-bottom:18px; }
-    .stat-card { background:var(--white); border-radius:8px;
-                 padding:12px 14px; text-align:center;
-                 border:1px solid var(--border);
-                 box-shadow:0 2px 6px rgba(0,74,153,0.06); }
-    .stat-val { font-size:22px; font-weight:800; color:var(--blue);
-                line-height:1; margin-bottom:3px; }
-    .stat-lbl { font-size:10px; color:var(--muted);
-                text-transform:uppercase; letter-spacing:0.4px; }
 
     /* SECTION CARD */
     .card { background:var(--white); border-radius:10px;
@@ -220,11 +207,21 @@
         <div class="s-stat-val" id="sb-acres">—</div>
         <div class="s-stat-sub">acres</div>
       </div>
+      <div class="s-stat">
+        <div class="s-stat-lbl">Square Miles</div>
+        <div class="s-stat-val" id="sb-sqmi">—</div>
+        <div class="s-stat-sub">sq mi</div>
+      </div>
+      <div class="s-stat">
+        <div class="s-stat-lbl">Viability Score</div>
+        <div class="s-stat-val" id="sb-viability">TBD</div>
+        <div class="s-stat-sub">pending index data</div>
+      </div>
     </div>
     <div class="sidebar-nav">
-      <a href="iac_map.html"   class="s-btn s-btn-iac">IAC Overview</a>
+      <a href="iac_home.html"  class="s-btn s-btn-iac">IAC Home</a>
       <a id="btn-map" href="#" class="s-btn s-btn-map">← Community Map</a>
-      <a id="btn-nb"  href="#" class="s-btn s-btn-nb">Open the Lens</a>
+      <a id="btn-nb"  href="#" class="s-btn s-btn-nb">View Communities</a>
     </div>
   </aside>
 
@@ -233,14 +230,13 @@
 
     <!-- WELCOME HEADER -->
     <div class="welcome-block">
-      <div class="welcome-eyebrow">Information Age Community · Service Center Profile</div>
+      <div class="welcome-eyebrow">Service Center Community Profile</div>
       <div class="welcome-title">
-        Welcome to the <span id="hdr-name">—</span> Service Center<br>
-        <span style="font-size:0.75em;color:rgba(255,255,255,0.8);font-weight:400;">
-          of the Minneapolis-St Paul Information Age Community
-        </span>
+        Welcome to the <span id="hdr-name">—</span> Community Profile
       </div>
-      <div class="welcome-sub" id="hdr-sub"></div>
+      <div class="welcome-sub" id="hdr-sub">
+        A Minneapolis-St. Paul Information Age Community
+      </div>
       <div class="vision-block" id="vision-block" style="display:none;">
         <div class="vision-text"  id="vision-text"></div>
         <div class="vision-author">Service Center Vision</div>
@@ -248,9 +244,6 @@
     </div>
 
     <div class="content">
-
-      <!-- STAT CARDS -->
-      <div class="stat-row" id="stat-row"></div>
 
       <!-- GALLERY -->
       <div class="card">
@@ -390,21 +383,7 @@ function init(DATA) {
   document.getElementById('sb-zips').textContent    = totalZIPs;
   document.getElementById('sb-counties').textContent= counties.length + ' counties';
   document.getElementById('sb-acres').textContent   = Math.round(grandTotal).toLocaleString();
-
-  // Stat cards
-  const statRow = document.getElementById('stat-row');
-  [
-    { val: totalPop.toLocaleString(), lbl: 'Population' },
-    { val: totalZIPs,                 lbl: 'Communities' },
-    { val: counties.length,           lbl: 'Counties' },
-    { val: parseInt(sqMi).toLocaleString(), lbl: 'Sq Miles' },
-  ].forEach(s => {
-    statRow.innerHTML += `
-      <div class="stat-card">
-        <div class="stat-val">${s.val}</div>
-        <div class="stat-lbl">${s.lbl}</div>
-      </div>`;
-  });
+  document.getElementById('sb-sqmi').textContent    = parseInt(sqMi).toLocaleString();
 
   // Gallery — single image slideshow, auto-advance, arrow navigation
   const seed   = scName.replace(/\s+/g,'-').toLowerCase();

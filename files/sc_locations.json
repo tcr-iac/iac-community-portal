@@ -167,6 +167,13 @@
     "anchor_zip": "55604",
     "anchor_town": "Grand Marais"
   },
+  "30": {
+    "name": "Grand Rapids Service Center",
+    "lat": 47.24041,
+    "lng": -93.52126,
+    "anchor_zip": "55744",
+    "anchor_town": "Grand Rapids"
+  },
   "31": {
     "name": "Hallock Service Center",
     "lat": 48.78736,
@@ -251,13 +258,6 @@
     "anchor_zip": "56258",
     "anchor_town": "Marshall"
   },
-  "43": {
-    "name": "Marshfield Service Center",
-    "lat": 44.63914,
-    "lng": -90.19755,
-    "anchor_zip": "54449",
-    "anchor_town": "Marshfield"
-  },
   "44": {
     "name": "Mason City Service Center",
     "lat": 43.15389,
@@ -278,13 +278,6 @@
     "lng": -93.27119,
     "anchor_zip": "55402",
     "anchor_town": "Minneapolis"
-  },
-  "47": {
-    "name": "Minot Service Center",
-    "lat": 48.85121,
-    "lng": -100.40303,
-    "anchor_zip": "58318",
-    "anchor_town": "Bottineau"
   },
   "48": {
     "name": "Mitchell Service Center",
@@ -327,13 +320,6 @@
     "lng": -95.09433,
     "anchor_zip": "56470",
     "anchor_town": "Park Rapids"
-  },
-  "54": {
-    "name": "Pierre Service Center",
-    "lat": 44.53525,
-    "lng": -100.31906,
-    "anchor_zip": "57501",
-    "anchor_town": "Pierre"
   },
   "55": {
     "name": "Pine City Service Center",
@@ -411,13 +397,6 @@
     "lng": -96.1994,
     "anchor_zip": "56701",
     "anchor_town": "Thief River Falls"
-  },
-  "67": {
-    "name": "Tomah Service Center",
-    "lat": 43.98525,
-    "lng": -90.50496,
-    "anchor_zip": "54660",
-    "anchor_town": "Tomah"
   },
   "68": {
     "name": "Two Harbors Service Center",

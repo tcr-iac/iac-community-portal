@@ -6,9 +6,11 @@
 <title>The Information Age Community — Introduction</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
   body {
     background: #003580;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     display: flex; flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
     color: #fff;
@@ -22,16 +24,23 @@
   .org { text-align: right; font-size: 13px; color: #bcd2f0; }
 
   .stage {
-    flex: 1; display: flex; align-items: center; justify-content: center;
+    flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
     padding: 4px 70px; position: relative;
   }
   .slide-frame {
-    max-width: 1300px; width: 100%;
+    display: inline-flex;
+    max-width: 100%;
     box-shadow: 0 10px 40px rgba(0,0,0,0.45);
     border-radius: 8px; overflow: hidden;
     background: #1665c0;
   }
-  .slide-frame img { display: block; width: 100%; height: auto; }
+  .slide-frame img {
+    display: block;
+    width: auto; height: auto;
+    max-width: 1300px;
+    max-height: calc(100vh - 180px);
+    object-fit: contain;
+  }
 
   .nav-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
@@ -52,10 +61,6 @@
   }
   .dot.active { background: #fff; }
 
-  footer {
-    display: flex; gap: 14px; justify-content: center; align-items: center;
-    flex-wrap: wrap; padding: 16px 20px 26px;
-  }
   .entry-btn {
     text-decoration: none; color: #fff;
     border: 2px solid rgba(255,255,255,0.55); border-radius: 999px;
@@ -96,12 +101,6 @@
   </div>
 
   <div class="dots" id="dots"></div>
-
-  <footer>
-    <a class="entry-btn primary" href="iac_map.html">&#128269; Look up your community</a>
-    <a class="entry-btn" href="portal.html?scid=9&amp;zip=56401">Go to the Community Lens &#8594;</a>
-    <a class="entry-btn" href="iac_home.html">IAC Home</a>
-  </footer>
 
 <script>
   var slides = ["files/IAC_Intro_1.jpg", "files/IAC_Intro_2.jpg"];
