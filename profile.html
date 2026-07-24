@@ -19,7 +19,33 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', Arial, sans-serif;
-           background: var(--bg); color: var(--text); font-size: 14px; }
+           background: var(--bg); color: var(--text); font-size: 14px;
+           display: flex; flex-direction: row; min-height: 100vh; }
+
+    /* ── MAIN CONTENT — everything except the side nav, shrinks to make
+       room for it so nothing gets covered ── */
+    .main-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+    /* ── SIDE NAV — full-height vertical bar on the right edge, matching
+       the neighborhood-map.html control bar's green gradient/style ── */
+    #side-nav {
+      width: 190px; flex-shrink: 0; min-height: 100vh;
+      background: linear-gradient(180deg, #2e7d4f 0%, #1e5c39 100%);
+      color: #fff;
+      display: flex; flex-direction: column;
+      padding: 16px 14px; gap: 10px;
+    }
+    .side-nav-title {
+      font-weight: 800; font-size: 12px; text-transform: uppercase;
+      letter-spacing: 0.6px; opacity: 0.8; margin-bottom: 2px;
+    }
+    .side-btn {
+      display: block; background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35); border-radius: 6px;
+      padding: 9px 12px; font-size: 12px; font-weight: 700; color: #fff;
+      text-decoration: none; text-align: center; font-family: inherit;
+    }
+    .side-btn:hover { background: rgba(255,255,255,0.28); }
 
     /* ── HEADER ── */
     .header {
@@ -210,6 +236,8 @@
 </head>
 <body>
 
+<div class="main-content">
+
 <!-- HEADER — populated by JS -->
 <div class="header">
   <h1 id="hdr-town">Loading...</h1>
@@ -353,6 +381,16 @@
   Information Age Community · Tele-Commuter Resources ·
 </div>
 
+</div><!-- /main-content -->
+
+<!-- SIDE NAV -->
+<div id="side-nav">
+  <div class="side-nav-title">Navigate</div>
+  <a id="side-map"  class="side-btn" href="#">← Back to the Community Map</a>
+  <a id="side-lens" class="side-btn" href="#">← Back to the Lens</a>
+  <a class="side-btn" href="iac_home.html">IAC Home</a>
+</div>
+
 <script>
 // ── Read URL params ───────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
@@ -380,6 +418,8 @@ function wireNav(navScid) {
   document.getElementById('btn-sc').href  = `portal.html?scid=${navScid}&zip=${zip}`;
   document.getElementById('btn-map').href = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}`;
   document.getElementById('btn-comm').href= `community-profile.html?scid=${navScid}&zip=${zip}`;
+  document.getElementById('side-map').href  = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}`;
+  document.getElementById('side-lens').href = `portal.html?scid=${navScid}&zip=${zip}`;
 }
 
 // Zip isn't in community_data.json at all — resolve the town from the
