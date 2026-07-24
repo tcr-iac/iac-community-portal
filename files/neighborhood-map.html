@@ -28,16 +28,17 @@
       color: rgba(255,255,255,0.5); font-size: 0.78rem;
     }
 
-    /* MAP WRAPPER — position relative so inset can be absolute */
+    /* MAP WRAPPER — map + vertical control bar side by side */
     #map-wrapper {
-      position: relative;
       width: 100%;
       flex: 1;
       min-height: 0;
+      display: flex;
+      flex-direction: row;
     }
 
     /* MAIN MAP */
-    #map { width: 100%; height: 100%; }
+    #map { flex: 1; min-width: 0; height: 100%; }
 
     /* COMING SOON STATE */
     #coming-soon {
@@ -50,35 +51,43 @@
     #coming-soon p  { color: #666; font-size: 1rem; max-width: 400px; line-height: 1.6; }
     #coming-soon .icon { font-size: 3rem; margin-bottom: 1rem; }
 
-    /* LEGEND */
-    #legend {
-      background: white; border-radius: 8px;
-      padding: 10px 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      font-size: 12px; line-height: 1.9;
-      min-width: 175px;
+    /* CONTROL BAR — full-height vertical bar on the map's right edge,
+       green-themed to match the "Community Area" map fill */
+    #map-controls-bar {
+      width: 190px; flex-shrink: 0; height: 100%;
+      background: linear-gradient(180deg, #2e7d4f 0%, #1e5c39 100%);
+      color: #fff;
+      display: flex; flex-direction: column;
+      padding: 16px 14px; gap: 10px;
+      overflow-y: auto;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.18);
+      font-size: 12px;
     }
-    #legend b { display: block; margin-bottom: 4px; color: #004a99; }
+    #ctrl-title { font-weight: 800; font-size: 13px; line-height: 1.3; }
+    #ctrl-zip-count { color: rgba(255,255,255,0.75); margin-top: -4px; }
+    .ctrl-legend { display: flex; flex-direction: column; gap: 6px; }
     .legend-row { display: flex; align-items: center; gap: 8px; }
     .legend-box {
-      width: 16px; height: 16px; border-radius: 3px;
-      border: 2px solid rgba(0,0,0,0.25); flex-shrink: 0;
+      width: 14px; height: 14px; border-radius: 3px;
+      border: 2px solid rgba(255,255,255,0.4); flex-shrink: 0;
     }
-    .legend-controls { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); }
-    .legend-zoom-row { display: flex; gap: 6px; margin-bottom: 6px; }
-    .legend-ctrl-btn {
-      flex: 1; background: #fff; border: 2px solid rgba(0,0,0,0.2); border-radius: 6px;
-      font-size: 15px; font-weight: 700; color: #003580; cursor: pointer; padding: 3px 0;
-      line-height: 1.4;
+    .ctrl-divider { border-top: 1px solid rgba(255,255,255,0.25); margin: 2px 0; }
+    .ctrl-zoom-row { display: flex; gap: 6px; }
+    .ctrl-btn {
+      flex: 1; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 6px;
+      font-size: 16px; font-weight: 700; color: #fff; cursor: pointer; padding: 4px 0;
+      line-height: 1.4; font-family: inherit;
     }
-    .legend-ctrl-btn:hover { background: #eef3fb; }
-    .legend-toggle-btn {
+    .ctrl-btn:hover { background: rgba(255,255,255,0.28); }
+    .ctrl-btn-wide {
       display: block; width: 100%; box-sizing: border-box;
-      background: #fff; border: 2px solid rgba(0,0,0,0.2); border-radius: 6px;
-      padding: 6px 10px; font-size: 12px; font-weight: 600; color: #003580; cursor: pointer;
-      text-align: center; text-decoration: none;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35); border-radius: 6px;
+      padding: 7px 10px; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer;
+      text-align: center; text-decoration: none; font-family: inherit;
     }
-    .legend-toggle-btn:hover { background: #eef3fb; }
+    .ctrl-btn-wide:hover { background: rgba(255,255,255,0.28); }
+    #ctrl-back-link { margin-top: auto; background: rgba(0,0,0,0.2); }
 
     /* ADJOINING SC OUTLINE — click navigates straight to that SC's map */
     .adj-outline { cursor: pointer; }
@@ -129,6 +138,36 @@
 <!-- MAP WRAPPER -->
 <div id="map-wrapper">
   <div id="map"></div>
+  <div id="map-controls-bar">
+    <div id="ctrl-title">Loading...</div>
+    <div id="ctrl-zip-count"></div>
+
+    <div class="ctrl-legend">
+      <div class="legend-row">
+        <div class="legend-box" style="background:#2e7d4f;"></div>
+        <span>Selected Community</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#4a90d9;"></div>
+        <span>Community Area</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:rgba(0,74,153,0.12);border-color:#004a99;"></div>
+        <span>Adjoining SC</span>
+      </div>
+    </div>
+
+    <div class="ctrl-divider"></div>
+
+    <div class="ctrl-zoom-row">
+      <button id="ctrl-zoom-in" class="ctrl-btn" title="Zoom in">+</button>
+      <button id="ctrl-zoom-out" class="ctrl-btn" title="Zoom out">−</button>
+    </div>
+    <button id="ctrl-fill-toggle" class="ctrl-btn-wide">Outline View</button>
+    <button id="ctrl-basemap-toggle" class="ctrl-btn-wide">Satellite View</button>
+
+    <a id="ctrl-back-link" class="ctrl-btn-wide" href="#">← Back to the Lens</a>
+  </div>
 </div>
 
 <!-- COMING SOON STATE -->
@@ -233,43 +272,18 @@ function initMap(SC_DATA) {
     });
   }
 
-  // ── Legend (zoom, outline & basemap controls — identical in both modes) ──
-  const legend = L.control({ position: 'topright' });
-  legend.onAdd = () => {
-    const div = L.DomUtil.create('div', '');
-    div.id = 'legend';
-    const scShortName = sc.name.replace(' Service Center', '');
-    div.innerHTML = `
-      <b>${scShortName} — ${modeLabel}</b>
-      <div class="legend-row">
-        <div class="legend-box" style="background:#2e7d4f;"></div>
-        <span>Selected Community</span>
-      </div>
-      <div class="legend-row">
-        <div class="legend-box" style="background:#4a90d9;"></div>
-        <span>Community Area</span>
-      </div>
-      <div class="legend-row">
-        <div class="legend-box" style="background:rgba(0,74,153,0.12);border-color:#004a99;"></div>
-        <span>Adjoining SC</span>
-      </div>
-      <div class="legend-controls">
-        <div class="legend-zoom-row">
-          <button id="legend-zoom-in" class="legend-ctrl-btn" title="Zoom in">+</button>
-          <button id="legend-zoom-out" class="legend-ctrl-btn" title="Zoom out">−</button>
-        </div>
-        <button id="legend-fill-toggle" class="legend-toggle-btn">Outline View</button>
-        <button id="legend-basemap-toggle" class="legend-toggle-btn" style="margin-top:6px;">Satellite View</button>
-        <a class="legend-toggle-btn" style="margin-top:6px;" href="${portalUrl}">← Back to the Lens</a>
-      </div>`;
-    L.DomEvent.disableClickPropagation(div);
-    div.querySelector('#legend-zoom-in').addEventListener('click', () => map.zoomIn());
-    div.querySelector('#legend-zoom-out').addEventListener('click', () => map.zoomOut());
-    div.querySelector('#legend-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
-    div.querySelector('#legend-basemap-toggle').addEventListener('click', (e) => toggleBasemap(e.currentTarget));
-    return div;
-  };
-  legend.addTo(map);
+  // ── Control bar (zoom, outline & basemap controls — identical in both
+  // modes) — a static full-height panel docked beside the map rather than a
+  // floating Leaflet control, so no click-propagation guarding is needed.
+  const scShortName = sc.name.replace(' Service Center', '');
+  document.getElementById('ctrl-title').textContent = scShortName + ' — ' + modeLabel;
+  document.getElementById('ctrl-zip-count').textContent =
+    `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
+  document.getElementById('ctrl-back-link').href = portalUrl;
+  document.getElementById('ctrl-zoom-in').addEventListener('click', () => map.zoomIn());
+  document.getElementById('ctrl-zoom-out').addEventListener('click', () => map.zoomOut());
+  document.getElementById('ctrl-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
+  document.getElementById('ctrl-basemap-toggle').addEventListener('click', (e) => toggleBasemap(e.currentTarget));
 
   // ── Style helpers ───────────────────────────────────────────
   function styleFor(isSelected, hollow) {
@@ -450,7 +464,8 @@ function initMap(SC_DATA) {
         .then(adjData => {
           if (!adjData.features?.length) return;
           const geo = dissolveFeatures(adjData);
-          const layer = L.geoJSON(geo, {
+          let sublayer = null;
+          L.geoJSON(geo, {
             style: {
               color:       '#004a99',
               weight:      1.5,
@@ -460,13 +475,34 @@ function initMap(SC_DATA) {
               className:   'adj-outline'
             },
             onEachFeature: (feature, layer) => {
+              sublayer = layer;
               layer.on('click', () => { window.location.href = mapUrl; });
+              layer.bindTooltip(shortName, {
+                permanent: true, direction: 'center',
+                className: 'adj-label', opacity: 0.9
+              });
             }
           }).addTo(map);
-          layer.bindTooltip(shortName, {
-            permanent: true, direction: 'center',
-            className: 'adj-label', opacity: 0.9
-          });
+
+          // Leaflet opens a permanent tooltip at the layer's full-shape
+          // center (Layer.getCenter()), overwriting any position set before
+          // the layer is added to the map. A close, large neighbor's true
+          // center can fall outside the current (tightly-fit) view — e.g.
+          // Brainerd from Little Falls — leaving the label (the user's only
+          // visual click target) off-screen and effectively unreachable. Once
+          // added, re-anchor it to the centroid of the part of the shape
+          // that's actually visible, overriding Leaflet's default placement.
+          if (sublayer && typeof turf !== 'undefined') {
+            try {
+              const b = map.getBounds();
+              const viewBox = turf.bboxPolygon([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]);
+              const clipped = turf.intersect(geo, viewBox);
+              if (clipped) {
+                const c = turf.centroid(clipped).geometry.coordinates;
+                sublayer.getTooltip().setLatLng(L.latLng(c[1], c[0]));
+              }
+            } catch (e) { /* fall back to Leaflet's default center placement */ }
+          }
         })
         .catch(() => {}); // silently skip if API fails for one adjoiner
     });

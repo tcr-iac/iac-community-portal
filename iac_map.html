@@ -96,17 +96,7 @@
     #screen-map.visible { opacity: 1; pointer-events: all; }
 
     /* Map container */
-    #map { flex: 1; width: 100%; }
-
-    /* Map controls stack (result panel + legend, upper right) */
-    #map-controls-stack {
-      position: absolute;
-      top: 16px; right: 16px;
-      z-index: 999;
-      display: flex; flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
+    #map { flex: 1; min-width: 0; }
 
     /* Flag popup (searched city) */
     .flag-popup-wrap .leaflet-popup-content-wrapper {
@@ -131,22 +121,26 @@
     }
     .fp-portal-link:hover { text-decoration: underline; }
 
-    /* Legend */
+    /* Control bar — full-height vertical bar on the map's right edge,
+       green-themed to match the "Active IAC" map fill */
     #legend {
-      background: rgba(28,95,122,0.92);
-      border-radius: 10px;
-      padding: 0.7rem 1rem;
+      width: 220px; flex-shrink: 0; height: 100%;
+      background: linear-gradient(180deg, #16a34a 0%, #0f6b30 100%);
+      padding: 1rem 1.1rem;
       color: #fff;
       font-size: 0.8rem;
+      display: flex; flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: auto;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.18);
     }
-    .legend-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; }
-    .legend-row:last-child { margin-bottom: 0; }
+    .legend-row { display: flex; align-items: center; gap: 0.5rem; }
     .legend-dot {
       width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
     }
     .legend-controls {
       display: flex; flex-direction: column; gap: 0.5rem;
-      margin-top: 0.5rem; padding-top: 0.5rem;
+      margin-top: auto; padding-top: 0.5rem;
       border-top: 1px solid rgba(255,255,255,0.25);
     }
     .legend-zoom-row { display: flex; align-items: center; gap: 0.5rem; }
@@ -253,21 +247,19 @@
 
 <!-- SCREEN 2: Map -->
 <div id="screen-map">
-  <div style="position:relative; flex:1; display:flex; flex-direction:column;">
+  <div style="flex:1; display:flex; flex-direction:row;">
     <div id="map"></div>
-    <div id="map-controls-stack">
-      <div id="legend">
-        <div class="legend-row"><div class="legend-dot" style="background:#16a34a;"></div> Active IAC (Minneapolis-St Paul)</div>
-        <div class="legend-row"><div class="legend-dot" style="background:#dc2626;"></div> IAC not yet active</div>
-        <div class="legend-row"><div class="legend-dot" style="background:#4ba3d4;"></div> Service Center location</div>
-        <div class="legend-row"><div class="legend-dot" style="background:rgba(22,163,74,0.18); border:1px solid #16a34a; border-radius:2px;"></div> IAC full service area</div>
-        <div class="legend-controls">
-          <div class="legend-zoom-row">
-            <button class="legend-zoom-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
-            <button class="legend-zoom-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
-          </div>
-          <button class="legend-new-search-btn" onclick="goBack()">← New Search</button>
+    <div id="legend">
+      <div class="legend-row"><div class="legend-dot" style="background:#16a34a;"></div> Active IAC (Minneapolis-St Paul)</div>
+      <div class="legend-row"><div class="legend-dot" style="background:#dc2626;"></div> IAC not yet active</div>
+      <div class="legend-row"><div class="legend-dot" style="background:#4ba3d4;"></div> Service Center location</div>
+      <div class="legend-row"><div class="legend-dot" style="background:rgba(22,163,74,0.18); border:1px solid #16a34a; border-radius:2px;"></div> IAC full service area</div>
+      <div class="legend-controls">
+        <div class="legend-zoom-row">
+          <button class="legend-zoom-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
+          <button class="legend-zoom-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
         </div>
+        <button class="legend-new-search-btn" onclick="goBack()">← New Search</button>
       </div>
     </div>
   </div>
