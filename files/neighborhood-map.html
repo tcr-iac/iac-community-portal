@@ -340,10 +340,8 @@ function initMap(SC_DATA) {
     btn.textContent = popChangeMode ? 'Community View' : 'Population Change View';
     document.getElementById('ctrl-legend-default').style.display = popChangeMode ? 'none' : 'flex';
     document.getElementById('ctrl-legend-pop').style.display = popChangeMode ? 'flex' : 'none';
-    trackedLayers.forEach(({ layer, town, zip, isSelected }) => {
+    trackedLayers.forEach(({ layer, zip, isSelected }) => {
       layer.setStyle(styleFor(zip, isSelected, hollowMode));
-      const legend = zipPopChange[zip]?.pop_change_legend;
-      layer.setTooltipContent(popChangeMode && legend ? `${town} — ${legend}` : town);
     });
   }
 
