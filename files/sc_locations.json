@@ -335,13 +335,6 @@
     "anchor_zip": "56164",
     "anchor_town": "Pipestone"
   },
-  "57": {
-    "name": "Preston Service Center",
-    "lat": 43.62913,
-    "lng": -92.13282,
-    "anchor_zip": "55965",
-    "anchor_town": "Preston"
-  },
   "58": {
     "name": "Red Wing Service Center",
     "lat": 44.51581,
@@ -488,5 +481,19 @@
     "lng": -96.83175,
     "anchor_zip": "58102",
     "anchor_town": "Fargo"
+  },
+  "93": {
+    "name": "Waterloo Service Center",
+    "lat": 42.4778,
+    "lng": -92.3661,
+    "anchor_zip": "50701",
+    "anchor_town": "Waterloo"
+  },
+  "94": {
+    "name": "Spencer Service Center",
+    "lat": 43.1451,
+    "lng": -95.1457,
+    "anchor_zip": "51301",
+    "anchor_town": "Spencer"
   }
 }

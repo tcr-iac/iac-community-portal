@@ -142,7 +142,7 @@
     <div id="ctrl-title">Loading...</div>
     <div id="ctrl-zip-count"></div>
 
-    <div class="ctrl-legend">
+    <div id="ctrl-legend-default" class="ctrl-legend">
       <div class="legend-row">
         <div class="legend-box" style="background:#2e7d4f;"></div>
         <span>Selected Community</span>
@@ -157,6 +157,33 @@
       </div>
     </div>
 
+    <div id="ctrl-legend-pop" class="ctrl-legend" style="display:none;">
+      <div class="legend-row">
+        <div class="legend-box" style="background:#7f1d1d;"></div>
+        <span>Significant decline</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#e05252;"></div>
+        <span>Declining</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#e8c34a;"></div>
+        <span>Minimal change</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#5bbf6a;"></div>
+        <span>Expanding</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#15803d;"></div>
+        <span>Significant growth</span>
+      </div>
+      <div class="legend-row">
+        <div class="legend-box" style="background:#9ca3af;"></div>
+        <span>No data</span>
+      </div>
+    </div>
+
     <div class="ctrl-divider"></div>
 
     <div class="ctrl-zoom-row">
@@ -165,6 +192,7 @@
     </div>
     <button id="ctrl-fill-toggle" class="ctrl-btn-wide">Outline View</button>
     <button id="ctrl-basemap-toggle" class="ctrl-btn-wide">Satellite View</button>
+    <button id="ctrl-popchange-toggle" class="ctrl-btn-wide">Population Change View</button>
 
     <a id="ctrl-back-link" class="ctrl-btn-wide" href="#">← Back to the Lens</a>
   </div>
@@ -188,9 +216,42 @@ const viewMode    = params.get('view') === 'neighborhood' ? 'neighborhood' : 'co
 // used to find nearby SCs for adjacency even when secondary_scid data is sparse.
 const SC_COORDS = {"1": {lat: 45.4753, lng: -98.53042}, "2": {lat: 43.66085, lng: -93.3238}, "3": {lat: 45.87047, lng: -95.38985}, "4": {lat: 46.54784, lng: -90.85061}, "5": {lat: 43.6827, lng: -92.99148}, "6": {lat: 47.50985, lng: -94.84921}, "8": {lat: 43.62142, lng: -94.10734}, "9": {lat: 46.32259, lng: -94.11974}, "10": {lat: 44.31588, lng: -96.79518}, "11": {lat: 46.28645, lng: -96.50361}, "13": {lat: 44.94533, lng: -91.39342}, "14": {lat: 47.74189, lng: -96.55522}, "16": {lat: 48.13015, lng: -98.88798}, "17": {lat: 46.83665, lng: -95.82233}, "18": {lat: 41.58448, lng: -93.62152}, "19": {lat: 45.38425, lng: -102.53897}, "21": {lat: 46.75138, lng: -92.5399}, "22": {lat: 44.7432, lng: -91.50899}, "23": {lat: 47.98832, lng: -91.7489}, "24": {lat: 42.49244, lng: -94.18967}, "26": {lat: 44.2973, lng: -93.27414}, "27": {lat: 46.27697, lng: -96.08977}, "28": {lat: 47.86938, lng: -97.14013}, "29": {lat: 47.96201, lng: -90.55792}, "30": {lat: 47.24041, lng: -93.52126}, "31": {lat: 48.78736, lng: -96.99149}, "32": {lat: 46.0251, lng: -91.29494}, "33": {lat: 47.35766, lng: -92.95698}, "34": {lat: 44.97949, lng: -92.69305}, "35": {lat: 44.3948, lng: -98.20037}, "36": {lat: 44.89743, lng: -94.39195}, "37": {lat: 48.53122, lng: -93.13224}, "38": {lat: 46.00748, lng: -94.38032}, "39": {lat: 43.80199, lng: -91.14559}, "40": {lat: 46.88145, lng: -98.76883}, "41": {lat: 44.13193, lng: -93.97789}, "42": {lat: 44.44121, lng: -95.75906}, "44": {lat: 43.15389, lng: -93.20006}, "45": {lat: 44.84971, lng: -91.92994}, "46": {lat: 44.97608, lng: -93.27119}, "48": {lat: 43.71136, lng: -98.04155}, "49": {lat: 45.0064, lng: -95.70098}, "50": {lat: 45.58512, lng: -95.9322}, "51": {lat: 45.11907, lng: -92.52091}, "52": {lat: 44.05966, lng: -93.22639}, "53": {lat: 47.02368, lng: -95.09433}, "55": {lat: 45.83263, lng: -92.90584}, "56": {lat: 44.04936, lng: -96.33361}, "57": {lat: 43.62913, lng: -92.13282}, "58": {lat: 44.51581, lng: -92.5441}, "59": {lat: 44.75599, lng: -94.87624}, "60": {lat: 44.07679, lng: -92.5018}, "61": {lat: 45.72308, lng: -94.97982}, "62": {lat: 42.49413, lng: -96.39361}, "63": {lat: 43.538, lng: -96.69241}, "64": {lat: 45.48718, lng: -94.24307}, "66": {lat: 48.12021, lng: -96.1994}, "68": {lat: 47.25095, lng: -91.66982}, "70": {lat: 47.60027, lng: -92.48261}, "71": {lat: 44.35375, lng: -92.06518}, "72": {lat: 46.46555, lng: -95.14307}, "73": {lat: 48.80879, lng: -95.34167}, "74": {lat: 44.06342, lng: -93.51683}, "75": {lat: 44.93412, lng: -97.09424}, "76": {lat: 45.10181, lng: -95.04226}, "78": {lat: 48.23522, lng: -103.76747}, "79": {lat: 43.88404, lng: -95.13991}, "80": {lat: 43.98469, lng: -91.63143}, "81": {lat: 43.62357, lng: -95.58507}, "92": {lat: 46.9207, lng: -96.83175}};
 
+// ── Population change color scale (1-10 interpolated score) ───
+// Mirrors the buckets in community_data.json's pop_change_legend field.
+const POP_CHANGE_COLORS = {
+  1: '#7f1d1d', 2: '#e05252', 3: '#e05252', 4: '#e05252',
+  5: '#e8c34a', 6: '#e8c34a',
+  7: '#5bbf6a', 8: '#5bbf6a', 9: '#5bbf6a',
+  10: '#15803d'
+};
+const POP_CHANGE_NO_DATA = '#9ca3af';
+
+function popChangeColor(zip) {
+  const score = zipPopChange[zip]?.pop_change_score;
+  return POP_CHANGE_COLORS[score] || POP_CHANGE_NO_DATA;
+}
+
+// zip -> { pop_change_score, pop_change_legend } lookup, built from the
+// portal-wide community_data.json (keyed by zip) sitting one level up.
+let zipPopChange = {};
+
+function loadPopChangeData() {
+  return fetch('../community_data.json')
+    .then(r => r.json())
+    .then(data => {
+      zipPopChange = data;
+    })
+    .catch(err => {
+      console.warn('Could not load population change data:', err);
+    });
+}
+
 // ── Load Service Center data ─────────────────────────────────
-fetch('service_centers.json').then(r => r.json())
-.then(SC_DATA => initMap(SC_DATA))
+Promise.all([
+  fetch('service_centers.json').then(r => r.json()),
+  loadPopChangeData()
+])
+.then(([SC_DATA]) => initMap(SC_DATA))
 .catch(err => {
   console.error('Data load error:', err);
   document.getElementById('map-wrapper').style.display = 'none';
@@ -267,8 +328,22 @@ function initMap(SC_DATA) {
   function toggleOutline(btn) {
     hollowMode = !hollowMode;
     btn.textContent = hollowMode ? 'Filled View' : 'Outline View';
-    trackedLayers.forEach(({ layer, isSelected }) => {
-      layer.setStyle(styleFor(isSelected, hollowMode));
+    trackedLayers.forEach(({ layer, zip, isSelected }) => {
+      layer.setStyle(styleFor(zip, isSelected, hollowMode));
+    });
+  }
+
+  // ── Population Change view state ──────────────────────────────
+  let popChangeMode = false;
+  function togglePopChange(btn) {
+    popChangeMode = !popChangeMode;
+    btn.textContent = popChangeMode ? 'Community View' : 'Population Change View';
+    document.getElementById('ctrl-legend-default').style.display = popChangeMode ? 'none' : 'flex';
+    document.getElementById('ctrl-legend-pop').style.display = popChangeMode ? 'flex' : 'none';
+    trackedLayers.forEach(({ layer, town, zip, isSelected }) => {
+      layer.setStyle(styleFor(zip, isSelected, hollowMode));
+      const legend = zipPopChange[zip]?.pop_change_legend;
+      layer.setTooltipContent(popChangeMode && legend ? `${town} — ${legend}` : town);
     });
   }
 
@@ -284,9 +359,18 @@ function initMap(SC_DATA) {
   document.getElementById('ctrl-zoom-out').addEventListener('click', () => map.zoomOut());
   document.getElementById('ctrl-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
   document.getElementById('ctrl-basemap-toggle').addEventListener('click', (e) => toggleBasemap(e.currentTarget));
+  document.getElementById('ctrl-popchange-toggle').addEventListener('click', (e) => togglePopChange(e.currentTarget));
 
   // ── Style helpers ───────────────────────────────────────────
-  function styleFor(isSelected, hollow) {
+  function styleFor(zip, isSelected, hollow) {
+    if (popChangeMode) {
+      return {
+        color:       '#004a99',
+        weight:      isSelected ? 3.5 : 2,
+        fillColor:   popChangeColor(zip),
+        fillOpacity: hollow ? 0 : 0.55
+      };
+    }
     return {
       color:       '#004a99',
       weight:      2.5,
@@ -340,7 +424,7 @@ function initMap(SC_DATA) {
       mainGeoLayer = L.geoJSON(data, {
         style: feature => {
           const zip = feature.properties.ZCTA5;
-          return styleFor(zip === selectedZip, hollowMode);
+          return styleFor(zip, zip === selectedZip, hollowMode);
         },
         onEachFeature: (feature, layer) => {
           const zip      = feature.properties.ZCTA5;
@@ -352,7 +436,7 @@ function initMap(SC_DATA) {
           const isSelected = zip === selectedZip;
           const profileUrl = `../profile.html?zip=${zip}&scid=${scid}`;
 
-          trackedLayers.push({ layer, town, isSelected });
+          trackedLayers.push({ layer, town, zip, isSelected });
 
           layer.bindTooltip(town, {
             permanent: true, direction: 'center',
@@ -366,11 +450,11 @@ function initMap(SC_DATA) {
           });
 
           layer.on('mouseover', () => {
-            const base = styleFor(isSelected, hollowMode);
+            const base = styleFor(zip, isSelected, hollowMode);
             layer.setStyle({ ...base, weight: 3.5,
               fillOpacity: hollowMode ? 0.12 : Math.min(base.fillOpacity + 0.2, 0.7) });
           });
-          layer.on('mouseout', () => layer.setStyle(styleFor(isSelected, hollowMode)));
+          layer.on('mouseout', () => layer.setStyle(styleFor(zip, isSelected, hollowMode)));
         }
       }).addTo(map);
 

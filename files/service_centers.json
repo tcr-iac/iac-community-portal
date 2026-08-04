@@ -454,13 +454,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56045",
-        "town": "Hollandale",
-        "state": "MN",
-        "population": 966,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56089",
         "town": "Twin Lakes",
         "state": "MN",
@@ -820,13 +813,6 @@
     "name": "Austin Service Center",
     "zips": [
       {
-        "zip": "55912",
-        "town": "Austin",
-        "state": "MN",
-        "population": 29438,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50426",
         "town": "Carpenter",
         "state": "IA",
@@ -950,6 +936,111 @@
         "town": "Waltham",
         "state": "MN",
         "population": 523,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "50481",
+        "town": "Toeterville",
+        "state": "IA",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "55951",
+        "town": "Le Roy",
+        "state": "MN",
+        "population": 1354,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "56045",
+        "town": "Hollandale",
+        "state": "MN",
+        "population": 966,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "50466",
+        "town": "Riceville",
+        "state": "IA",
+        "population": 2089,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "50603",
+        "town": "Alta Vista",
+        "state": "IA",
+        "population": 410,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "50628",
+        "town": "Elma",
+        "state": "IA",
+        "population": 1309,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "50630",
+        "town": "Fredericksburg",
+        "state": "IA",
+        "population": 1353,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "50674",
+        "town": "Sumner",
+        "state": "IA",
+        "population": 3596,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52134",
+        "town": "Chester",
+        "state": "IA",
+        "population": 268,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52136",
+        "town": "Cresco",
+        "state": "IA",
+        "population": 5763,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52154",
+        "town": "Lawler",
+        "state": "IA",
+        "population": 638,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52155",
+        "town": "Lime Springs",
+        "state": "IA",
+        "population": 1181,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52163",
+        "town": "Protivin",
+        "state": "IA",
+        "population": 354,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52171",
+        "town": "Waucoma",
+        "state": "IA",
+        "population": 1172,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55961",
+        "town": "Ostrander",
+        "state": "MN",
+        "population": 517,
         "landform": "Agricultural Plain"
       }
     ],
@@ -5422,234 +5513,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50006",
-        "town": "Alden",
-        "state": "IA",
-        "population": 1503,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50025",
-        "town": "Audubon",
-        "state": "IA",
-        "population": 2893,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50026",
-        "town": "Bagley",
-        "state": "IA",
-        "population": 518,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50029",
-        "town": "Bayard",
-        "state": "IA",
-        "population": 612,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50034",
-        "town": "Blairsburg",
-        "state": "IA",
-        "population": 397,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50036",
-        "town": "Boone",
-        "state": "IA",
-        "population": 16318,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50040",
-        "town": "Boxholm",
-        "state": "IA",
-        "population": 172,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50050",
-        "town": "Churdan",
-        "state": "IA",
-        "population": 758,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50058",
-        "town": "Coon Rapids",
-        "state": "IA",
-        "population": 1885,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50064",
-        "town": "Dana",
-        "state": "IA",
-        "population": 89,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50071",
-        "town": "Dows",
-        "state": "IA",
-        "population": 793,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50075",
-        "town": "Ellsworth",
-        "state": "IA",
-        "population": 805,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50101",
-        "town": "Galt",
-        "state": "IA",
-        "population": 67,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50102",
-        "town": "Garden City",
-        "state": "IA",
-        "population": 67,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50107",
-        "town": "Grand Junction",
-        "state": "IA",
-        "population": 791,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50110",
-        "town": "Gray",
-        "state": "IA",
-        "population": 36,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50122",
-        "town": "Hubbard",
-        "state": "IA",
-        "population": 1348,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50129",
-        "town": "Jefferson",
-        "state": "IA",
-        "population": 5116,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50130",
-        "town": "Jewell",
-        "state": "IA",
-        "population": 1517,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50132",
-        "town": "Kamrar",
-        "state": "IA",
-        "population": 404,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50212",
-        "town": "Ogden",
-        "state": "IA",
-        "population": 3109,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50217",
-        "town": "Paton",
-        "state": "IA",
-        "population": 474,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50223",
-        "town": "Pilot Mound",
-        "state": "IA",
-        "population": 248,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50227",
-        "town": "Popejoy",
-        "state": "IA",
-        "population": 127,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50230",
-        "town": "Radcliffe",
-        "state": "IA",
-        "population": 1083,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50231",
-        "town": "Randall",
-        "state": "IA",
-        "population": 160,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50246",
-        "town": "Stanhope",
-        "state": "IA",
-        "population": 711,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50248",
-        "town": "Story City",
-        "state": "IA",
-        "population": 4300,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50249",
         "town": "Stratford",
         "state": "IA",
         "population": 1256,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50271",
-        "town": "Williams",
-        "state": "IA",
-        "population": 594,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50430",
-        "town": "Corwith",
-        "state": "IA",
-        "population": 524,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50510",
-        "town": "Albert City",
-        "state": "IA",
-        "population": 1055,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50515",
-        "town": "Ayrshire",
-        "state": "IA",
-        "population": 248,
         "landform": "Agricultural Plain"
       },
       {
@@ -5664,20 +5531,6 @@
         "town": "Barnum",
         "state": "IA",
         "population": 366,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50519",
-        "town": "Bode",
-        "state": "IA",
-        "population": 713,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50520",
-        "town": "Bradgate",
-        "state": "IA",
-        "population": 156,
         "landform": "Agricultural Plain"
       },
       {
@@ -5702,27 +5555,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50525",
-        "town": "Clarion",
-        "state": "IA",
-        "population": 3196,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50527",
-        "town": "Curlew",
-        "state": "IA",
-        "population": 85,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50529",
-        "town": "Dakota City",
-        "state": "IA",
-        "population": 887,
-        "landform": "Urbanised"
-      },
-      {
         "zip": "50530",
         "town": "Dayton",
         "state": "IA",
@@ -5744,41 +5576,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50535",
-        "town": "Early",
-        "state": "IA",
-        "population": 1035,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50538",
-        "town": "Farnhamville",
-        "state": "IA",
-        "population": 523,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50540",
-        "town": "Fonda",
-        "state": "IA",
-        "population": 1253,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50541",
-        "town": "Gilmore City",
-        "state": "IA",
-        "population": 1035,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50542",
-        "town": "Goldfield",
-        "state": "IA",
-        "population": 873,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50543",
         "town": "Gowrie",
         "state": "IA",
@@ -5793,45 +5590,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50545",
-        "town": "Hardy",
-        "state": "IA",
-        "population": 156,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50546",
-        "town": "Havelock",
-        "state": "IA",
-        "population": 364,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50548",
         "town": "Humboldt",
         "state": "IA",
         "population": 5482,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50551",
-        "town": "Jolley",
-        "state": "IA",
-        "population": 31,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50552",
-        "town": "Knierim",
-        "state": "IA",
-        "population": 83,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50554",
-        "town": "Laurens",
-        "state": "IA",
-        "population": 1639,
         "landform": "Agricultural Plain"
       },
       {
@@ -5842,45 +5604,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50558",
-        "town": "Livermore",
-        "state": "IA",
-        "population": 745,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50560",
-        "town": "Lu Verne",
-        "state": "IA",
-        "population": 722,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50561",
-        "town": "Lytton",
-        "state": "IA",
-        "population": 677,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50562",
-        "town": "Mallard",
-        "state": "IA",
-        "population": 346,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50563",
         "town": "Manson",
         "state": "IA",
         "population": 2461,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50565",
-        "town": "Marathon",
-        "state": "IA",
-        "population": 413,
         "landform": "Agricultural Plain"
       },
       {
@@ -5891,52 +5618,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50567",
-        "town": "Nemaha",
-        "state": "IA",
-        "population": 178,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50568",
-        "town": "Newell",
-        "state": "IA",
-        "population": 1364,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50569",
         "town": "Otho",
         "state": "IA",
         "population": 614,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50570",
-        "town": "Ottosen",
-        "state": "IA",
-        "population": 200,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50571",
-        "town": "Palmer",
-        "state": "IA",
-        "population": 260,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50573",
-        "town": "Plover",
-        "state": "IA",
-        "population": 36,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50574",
-        "town": "Pocahontas",
-        "state": "IA",
-        "population": 2103,
         "landform": "Agricultural Plain"
       },
       {
@@ -5947,20 +5632,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50576",
-        "town": "Rembrandt",
-        "state": "IA",
-        "population": 281,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50577",
-        "town": "Renwick",
-        "state": "IA",
-        "population": 361,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50579",
         "town": "Rockwell City",
         "state": "IA",
@@ -5968,269 +5639,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50581",
-        "town": "Rolfe",
-        "state": "IA",
-        "population": 751,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50582",
-        "town": "Rutland",
-        "state": "IA",
-        "population": 176,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50583",
-        "town": "Sac City",
-        "state": "IA",
-        "population": 2286,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50586",
-        "town": "Somers",
-        "state": "IA",
-        "population": 320,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50588",
-        "town": "Storm Lake",
-        "state": "IA",
-        "population": 13346,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50591",
-        "town": "Thor",
-        "state": "IA",
-        "population": 366,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50592",
-        "town": "Truesdale",
-        "state": "IA",
-        "population": 146,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50593",
-        "town": "Varina",
-        "state": "IA",
-        "population": 31,
-        "landform": "Urbanised"
-      },
-      {
         "zip": "50594",
         "town": "Vincent",
         "state": "IA",
         "population": 240,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50595",
-        "town": "Webster City",
-        "state": "IA",
-        "population": 8768,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50597",
-        "town": "West Bend",
-        "state": "IA",
-        "population": 1363,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50599",
-        "town": "Woolstock",
-        "state": "IA",
-        "population": 423,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51366",
-        "town": "Webb",
-        "state": "IA",
-        "population": 335,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51401",
-        "town": "Carroll",
-        "state": "IA",
-        "population": 12113,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51430",
-        "town": "Arcadia",
-        "state": "IA",
-        "population": 1204,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51433",
-        "town": "Auburn",
-        "state": "IA",
-        "population": 567,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51436",
-        "town": "Breda",
-        "state": "IA",
-        "population": 815,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51440",
-        "town": "Dedham",
-        "state": "IA",
-        "population": 335,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51443",
-        "town": "Glidden",
-        "state": "IA",
-        "population": 1623,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51444",
-        "town": "Halbur",
-        "state": "IA",
-        "population": 307,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51446",
-        "town": "Irwin",
-        "state": "IA",
-        "population": 437,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51447",
-        "town": "Kirkman",
-        "state": "IA",
-        "population": 132,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51449",
-        "town": "Lake City",
-        "state": "IA",
-        "population": 1951,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51450",
-        "town": "Lake View",
-        "state": "IA",
-        "population": 1532,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51451",
-        "town": "Lanesboro",
-        "state": "IA",
-        "population": 65,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51452",
-        "town": "Lidderdale",
-        "state": "IA",
-        "population": 191,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51453",
-        "town": "Lohrville",
-        "state": "IA",
-        "population": 472,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51454",
-        "town": "Manilla",
-        "state": "IA",
-        "population": 1399,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51455",
-        "town": "Manning",
-        "state": "IA",
-        "population": 2303,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51458",
-        "town": "Odebolt",
-        "state": "IA",
-        "population": 1255,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51459",
-        "town": "Ralston",
-        "state": "IA",
-        "population": 60,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51462",
-        "town": "Scranton",
-        "state": "IA",
-        "population": 940,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51463",
-        "town": "Templeton",
-        "state": "IA",
-        "population": 385,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51465",
-        "town": "Vail",
-        "state": "IA",
-        "population": 645,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51466",
-        "town": "Wall Lake",
-        "state": "IA",
-        "population": 1180,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51467",
-        "town": "Westside",
-        "state": "IA",
-        "population": 623,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51537",
-        "town": "Harlan",
-        "state": "IA",
-        "population": 6480,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51543",
-        "town": "Kimballton",
-        "state": "IA",
-        "population": 435,
         "landform": "Agricultural Plain"
       }
     ],
@@ -6896,13 +6308,6 @@
     "name": "Hallock Service Center",
     "zips": [
       {
-        "zip": "56713",
-        "town": "Argyle",
-        "state": "MN",
-        "population": 866,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56720",
         "town": "Donaldson",
         "state": "MN",
@@ -6959,34 +6364,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56757",
-        "town": "Stephen",
-        "state": "MN",
-        "population": 845,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58216",
-        "town": "Bathgate",
-        "state": "ND",
-        "population": 165,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58220",
-        "town": "Cavalier",
-        "state": "ND",
-        "population": 2215,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58222",
-        "town": "Crystal",
-        "state": "ND",
-        "population": 250,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "58225",
         "town": "Drayton",
         "state": "ND",
@@ -6994,102 +6371,32 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "58227",
-        "town": "Edinburg",
-        "state": "ND",
-        "population": 479,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58236",
-        "town": "Glasston",
-        "state": "ND",
-        "population": 40,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58237",
-        "town": "Grafton",
-        "state": "ND",
-        "population": 5051,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58238",
-        "town": "Hamilton",
-        "state": "ND",
-        "population": 145,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58241",
-        "town": "Hensel",
-        "state": "ND",
-        "population": 196,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58243",
-        "town": "Hoople",
-        "state": "ND",
-        "population": 563,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58255",
-        "town": "Maida",
-        "state": "ND",
+        "zip": "56756",
+        "town": "Stephen",
+        "state": "MN",
         "population": 0,
-        "landform": "Agricultural Plain"
+        "landform": ""
       },
       {
-        "zip": "58260",
-        "town": "Milton",
-        "state": "ND",
-        "population": 203,
-        "landform": "Agricultural Plain"
+        "zip": "56714",
+        "town": "Badger",
+        "state": "MN",
+        "population": 0,
+        "landform": ""
       },
       {
-        "zip": "58262",
-        "town": "Mountain",
-        "state": "ND",
-        "population": 129,
-        "landform": "Agricultural Plain"
+        "zip": "56740",
+        "town": "Noyes",
+        "state": "MN",
+        "population": 0,
+        "landform": ""
       },
       {
-        "zip": "58265",
-        "town": "Neche",
-        "state": "ND",
-        "population": 533,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58270",
-        "town": "Park River",
-        "state": "ND",
-        "population": 1838,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58271",
-        "town": "Pembina",
-        "state": "ND",
-        "population": 617,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58276",
-        "town": "Saint Thomas",
-        "state": "ND",
-        "population": 422,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "58282",
-        "town": "Walhalla",
-        "state": "ND",
-        "population": 1240,
-        "landform": "Agricultural Plain"
+        "zip": "56728",
+        "town": "Hallock",
+        "state": "MN",
+        "population": 0,
+        "landform": ""
       }
     ],
     "pop_2010": 21351,
@@ -8404,18 +7711,144 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "55941",
-        "town": "Hokah",
-        "state": "MN",
-        "population": 1084,
-        "landform": "Forested"
+        "zip": "52101",
+        "town": "Decorah",
+        "state": "IA",
+        "population": 12539,
+        "landform": "Agricultural Plain"
       },
       {
-        "zip": "55947",
-        "town": "La Crescent",
+        "zip": "52132",
+        "town": "Calmar",
+        "state": "IA",
+        "population": 1856,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52133",
+        "town": "Castalia",
+        "state": "IA",
+        "population": 711,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52135",
+        "town": "Clermont",
+        "state": "IA",
+        "population": 641,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52141",
+        "town": "Elgin",
+        "state": "IA",
+        "population": 1321,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52142",
+        "town": "Fayette",
+        "state": "IA",
+        "population": 1992,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52144",
+        "town": "Fort Atkinson",
+        "state": "IA",
+        "population": 1056,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52147",
+        "town": "Hawkeye",
+        "state": "IA",
+        "population": 906,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52156",
+        "town": "Luana",
+        "state": "IA",
+        "population": 795,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52161",
+        "town": "Ossian",
+        "state": "IA",
+        "population": 1558,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52162",
+        "town": "Postville",
+        "state": "IA",
+        "population": 3576,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52164",
+        "town": "Randalia",
+        "state": "IA",
+        "population": 195,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52165",
+        "town": "Ridgeway",
+        "state": "IA",
+        "population": 1125,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52166",
+        "town": "Saint Lucas",
+        "state": "IA",
+        "population": 172,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "52168",
+        "town": "Spillville",
+        "state": "IA",
+        "population": 409,
+        "landform": "Urbanised"
+      },
+      {
+        "zip": "52175",
+        "town": "West Union",
+        "state": "IA",
+        "population": 3300,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55922",
+        "town": "Canton",
         "state": "MN",
-        "population": 7319,
-        "landform": "Forested"
+        "population": 853,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55954",
+        "town": "Mabel",
+        "state": "MN",
+        "population": 1408,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55962",
+        "town": "Peterson",
+        "state": "MN",
+        "population": 758,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55974",
+        "town": "Spring Grove",
+        "state": "MN",
+        "population": 1998,
+        "landform": "Agricultural Plain"
       }
     ],
     "pop_2010": 177489,
@@ -10588,13 +10021,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "57058",
-        "town": "Salem",
-        "state": "SD",
-        "population": 1792,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "57059",
         "town": "Scotland",
         "state": "SD",
@@ -11946,13 +11372,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56156",
-        "town": "Luverne",
-        "state": "MN",
-        "population": 6398,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56170",
         "town": "Ruthton",
         "state": "MN",
@@ -11998,296 +11417,6 @@
     "pop_2010": 34360,
     "pop_2020": 34157,
     "pct_change_2010_2020": -0.005908,
-    "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
-  },
-  "57": {
-    "name": "Preston Service Center",
-    "zips": [
-      {
-        "zip": "55965",
-        "town": "Preston",
-        "state": "MN",
-        "population": 2253,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50466",
-        "town": "Riceville",
-        "state": "IA",
-        "population": 2089,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50603",
-        "town": "Alta Vista",
-        "state": "IA",
-        "population": 410,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50628",
-        "town": "Elma",
-        "state": "IA",
-        "population": 1309,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50630",
-        "town": "Fredericksburg",
-        "state": "IA",
-        "population": 1353,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50674",
-        "town": "Sumner",
-        "state": "IA",
-        "population": 3596,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52101",
-        "town": "Decorah",
-        "state": "IA",
-        "population": 12539,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52132",
-        "town": "Calmar",
-        "state": "IA",
-        "population": 1856,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52133",
-        "town": "Castalia",
-        "state": "IA",
-        "population": 711,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52134",
-        "town": "Chester",
-        "state": "IA",
-        "population": 268,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52135",
-        "town": "Clermont",
-        "state": "IA",
-        "population": 641,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52136",
-        "town": "Cresco",
-        "state": "IA",
-        "population": 5763,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52141",
-        "town": "Elgin",
-        "state": "IA",
-        "population": 1321,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52142",
-        "town": "Fayette",
-        "state": "IA",
-        "population": 1992,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52144",
-        "town": "Fort Atkinson",
-        "state": "IA",
-        "population": 1056,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52147",
-        "town": "Hawkeye",
-        "state": "IA",
-        "population": 906,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52154",
-        "town": "Lawler",
-        "state": "IA",
-        "population": 638,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52155",
-        "town": "Lime Springs",
-        "state": "IA",
-        "population": 1181,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52156",
-        "town": "Luana",
-        "state": "IA",
-        "population": 795,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52161",
-        "town": "Ossian",
-        "state": "IA",
-        "population": 1558,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52162",
-        "town": "Postville",
-        "state": "IA",
-        "population": 3576,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52163",
-        "town": "Protivin",
-        "state": "IA",
-        "population": 354,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52164",
-        "town": "Randalia",
-        "state": "IA",
-        "population": 195,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52165",
-        "town": "Ridgeway",
-        "state": "IA",
-        "population": 1125,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52166",
-        "town": "Saint Lucas",
-        "state": "IA",
-        "population": 172,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52168",
-        "town": "Spillville",
-        "state": "IA",
-        "population": 409,
-        "landform": "Urbanised"
-      },
-      {
-        "zip": "52171",
-        "town": "Waucoma",
-        "state": "IA",
-        "population": 1172,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "52175",
-        "town": "West Union",
-        "state": "IA",
-        "population": 3300,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55922",
-        "town": "Canton",
-        "state": "MN",
-        "population": 853,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55923",
-        "town": "Chatfield",
-        "state": "MN",
-        "population": 4387,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55935",
-        "town": "Fountain",
-        "state": "MN",
-        "population": 978,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55939",
-        "town": "Harmony",
-        "state": "MN",
-        "population": 1986,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55949",
-        "town": "Lanesboro",
-        "state": "MN",
-        "population": 1918,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55951",
-        "town": "Le Roy",
-        "state": "MN",
-        "population": 1354,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55954",
-        "town": "Mabel",
-        "state": "MN",
-        "population": 1408,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55961",
-        "town": "Ostrander",
-        "state": "MN",
-        "population": 517,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55962",
-        "town": "Peterson",
-        "state": "MN",
-        "population": 758,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55974",
-        "town": "Spring Grove",
-        "state": "MN",
-        "population": 1998,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55975",
-        "town": "Spring Valley",
-        "state": "MN",
-        "population": 4597,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55990",
-        "town": "Wykoff",
-        "state": "MN",
-        "population": 895,
-        "landform": "Agricultural Plain"
-      }
-    ],
-    "pop_2010": 76481,
-    "pop_2020": 74970,
-    "pct_change_2010_2020": -0.019757,
     "pop_change_score": 5,
     "pop_change_legend": "Minimal change"
   },
@@ -12383,13 +11512,6 @@
         "town": "Wanamingo",
         "state": "MN",
         "population": 1671,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55992",
-        "town": "Zumbrota",
-        "state": "MN",
-        "population": 5547,
         "landform": "Agricultural Plain"
       }
     ],
@@ -12683,6 +11805,90 @@
         "town": "Zumbro Falls",
         "state": "MN",
         "population": 1474,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55905",
+        "town": "Rochester",
+        "state": "MN",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "55935",
+        "town": "Fountain",
+        "state": "MN",
+        "population": 978,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55923",
+        "town": "Chatfield",
+        "state": "MN",
+        "population": 4387,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55979",
+        "town": "Utica",
+        "state": "MN",
+        "population": 1138,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55964",
+        "town": "Plainview",
+        "state": "MN",
+        "population": 4453,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55992",
+        "town": "Zumbrota",
+        "state": "MN",
+        "population": 5547,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55965",
+        "town": "Preston",
+        "state": "MN",
+        "population": 2253,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55972",
+        "town": "Saint Charles",
+        "state": "MN",
+        "population": 5323,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55939",
+        "town": "Harmony",
+        "state": "MN",
+        "population": 1986,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55949",
+        "town": "Lanesboro",
+        "state": "MN",
+        "population": 1918,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55975",
+        "town": "Spring Valley",
+        "state": "MN",
+        "population": 4597,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "55990",
+        "town": "Wykoff",
+        "state": "MN",
+        "population": 895,
         "landform": "Agricultural Plain"
       }
     ],
@@ -14079,6 +13285,48 @@
         "state": "SD",
         "population": 559,
         "landform": "Urbanised"
+      },
+      {
+        "zip": "57101",
+        "town": "Sioux Falls",
+        "state": "SD",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "57109",
+        "town": "Sioux Falls",
+        "state": "SD",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "57118",
+        "town": "Sioux Falls",
+        "state": "SD",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "57198",
+        "town": "Sioux Falls",
+        "state": "SD",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "57058",
+        "town": "Salem",
+        "state": "SD",
+        "population": 1792,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "56156",
+        "town": "Luverne",
+        "state": "MN",
+        "population": 6398,
+        "landform": "Agricultural Plain"
       }
     ],
     "pop_2010": 242146,
@@ -14688,13 +13936,6 @@
         "town": "Millville",
         "state": "MN",
         "population": 769,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55964",
-        "town": "Plainview",
-        "state": "MN",
-        "population": 4453,
         "landform": "Agricultural Plain"
       },
       {
@@ -15751,13 +14992,6 @@
         "landform": "Forested"
       },
       {
-        "zip": "54612",
-        "town": "Arcadia",
-        "state": "WI",
-        "population": 5745,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "54616",
         "town": "Blair",
         "state": "WI",
@@ -15786,25 +15020,11 @@
         "landform": "Forested"
       },
       {
-        "zip": "54630",
-        "town": "Galesville",
-        "state": "WI",
-        "population": 4328,
-        "landform": "Forested"
-      },
-      {
         "zip": "54659",
         "town": "Taylor",
         "state": "WI",
         "population": 1164,
         "landform": "Forested"
-      },
-      {
-        "zip": "54661",
-        "town": "Trempealeau",
-        "state": "WI",
-        "population": 3788,
-        "landform": "Agricultural Plain"
       },
       {
         "zip": "55925",
@@ -15846,20 +15066,6 @@
         "town": "Rushford",
         "state": "MN",
         "population": 2910,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55972",
-        "town": "Saint Charles",
-        "state": "MN",
-        "population": 5323,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "55979",
-        "town": "Utica",
-        "state": "MN",
-        "population": 1138,
         "landform": "Agricultural Plain"
       }
     ],
@@ -16560,5 +15766,197 @@
     "pct_change_2010_2020": 0.185455,
     "pop_change_score": 10,
     "pop_change_legend": "Significant growth"
+  },
+  "93": {
+    "name": "Waterloo Service Center",
+    "zips": [
+      {
+        "zip": "50701",
+        "town": "Waterloo",
+        "state": "IA",
+        "population": 29806,
+        "landform": ""
+      },
+      {
+        "zip": "50702",
+        "town": "Waterloo",
+        "state": "IA",
+        "population": 20447,
+        "landform": ""
+      },
+      {
+        "zip": "50703",
+        "town": "Waterloo",
+        "state": "IA",
+        "population": 18913,
+        "landform": ""
+      },
+      {
+        "zip": "50704",
+        "town": "Waterloo",
+        "state": "IA",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "50613",
+        "town": "Cedar Falls",
+        "state": "IA",
+        "population": 43667,
+        "landform": ""
+      },
+      {
+        "zip": "50614",
+        "town": "Cedar Falls",
+        "state": "IA",
+        "population": 0,
+        "landform": ""
+      },
+      {
+        "zip": "50677",
+        "town": "Waverly",
+        "state": "IA",
+        "population": 12789,
+        "landform": ""
+      },
+      {
+        "zip": "50622",
+        "town": "Denver",
+        "state": "IA",
+        "population": 3452,
+        "landform": ""
+      },
+      {
+        "zip": "50647",
+        "town": "Janesville",
+        "state": "IA",
+        "population": 1989,
+        "landform": ""
+      },
+      {
+        "zip": "50648",
+        "town": "Jesup",
+        "state": "IA",
+        "population": 3992,
+        "landform": ""
+      },
+      {
+        "zip": "50644",
+        "town": "Independence",
+        "state": "IA",
+        "population": 8795,
+        "landform": ""
+      },
+      {
+        "zip": "50624",
+        "town": "Dike",
+        "state": "IA",
+        "population": 1835,
+        "landform": ""
+      },
+      {
+        "zip": "50660",
+        "town": "New Hartford",
+        "state": "IA",
+        "population": 1294,
+        "landform": ""
+      },
+      {
+        "zip": "50638",
+        "town": "Grundy Center",
+        "state": "IA",
+        "population": 3411,
+        "landform": ""
+      },
+      {
+        "zip": "50681",
+        "town": "Westgate",
+        "state": "IA",
+        "population": 432,
+        "landform": ""
+      },
+      {
+        "zip": "50675",
+        "town": "Traer",
+        "state": "IA",
+        "population": 2372,
+        "landform": ""
+      }
+    ]
+  },
+  "94": {
+    "name": "Spencer Service Center",
+    "zips": [
+      {
+        "zip": "51301",
+        "town": "Spencer",
+        "state": "IA",
+        "population": 12606,
+        "landform": ""
+      },
+      {
+        "zip": "51351",
+        "town": "Milford",
+        "state": "IA",
+        "population": 4844,
+        "landform": ""
+      },
+      {
+        "zip": "51355",
+        "town": "Okoboji",
+        "state": "IA",
+        "population": 847,
+        "landform": ""
+      },
+      {
+        "zip": "51360",
+        "town": "Spirit Lake",
+        "state": "IA",
+        "population": 8553,
+        "landform": ""
+      },
+      {
+        "zip": "51343",
+        "town": "Greenville",
+        "state": "IA",
+        "population": 263,
+        "landform": ""
+      },
+      {
+        "zip": "51354",
+        "town": "Ocheyedan",
+        "state": "IA",
+        "population": 974,
+        "landform": ""
+      },
+      {
+        "zip": "51364",
+        "town": "Terril",
+        "state": "IA",
+        "population": 616,
+        "landform": ""
+      },
+      {
+        "zip": "51346",
+        "town": "Hartley",
+        "state": "IA",
+        "population": 2343,
+        "landform": ""
+      },
+      {
+        "zip": "51358",
+        "town": "Ruthven",
+        "state": "IA",
+        "population": 1274,
+        "landform": ""
+      },
+      {
+        "zip": "50568",
+        "town": "Newell",
+        "state": "IA",
+        "population": 1331,
+        "landform": ""
+      }
+    ]
   }
 }
