@@ -353,7 +353,7 @@ function init(DATA) {
   document.getElementById('btn-map').href =
     `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}`;
   document.getElementById('btn-nb').href  =
-    `portal.html?scid=${scid}&zip=${zip||first.zip}`;
+    `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}&view=neighborhood`;
 
   // Vision — use first non-empty vision from any community in this SC
   const vision = [first.vision1, first.vision2, first.tagline]
