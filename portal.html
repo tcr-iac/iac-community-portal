@@ -134,6 +134,58 @@
 
     .zip-filter input{padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:12px;width:120px}
 
+    /* ── Community Concerns Form ─────────────────────────────────────────────
+       Rendered inside the shared #table-overlay modal by showConcernsForm().
+       Colors/radii intentionally match the portal palette:
+       #003580/#004a99 (blue), #2e7d4f (green accent), Inter font.        */
+    .cc-form{font-size:13px}
+
+    .cc-fieldset{border:1px solid #e0e8f5;border-radius:0.6rem;padding:14px 16px 16px;margin-bottom:16px}
+
+    .cc-fieldset legend{font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:#004a99;padding:0 8px}
+
+    .cc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+
+    .cc-field{display:flex;flex-direction:column;gap:5px}
+
+    .cc-field.cc-full{grid-column:1/-1}
+
+    .cc-field label{font-size:12px;font-weight:600;color:#555}
+
+    .cc-req{color:#b3261e;margin-left:2px}
+
+    .cc-field input,.cc-field select,.cc-field textarea{font-family:inherit;font-size:13px;color:#1a1a2e;padding:8px 10px;border:1px solid #ccd6e5;border-radius:0.4rem;background:#fff;width:100%}
+
+    .cc-field textarea{resize:vertical;min-height:76px}
+
+    .cc-field input:focus,.cc-field select:focus,.cc-field textarea:focus{outline:none;border-color:#004a99;box-shadow:0 0 0 2px rgba(0,74,153,0.15)}
+
+    .cc-field select:disabled{background:#f4f6fb;color:#999;cursor:not-allowed}
+
+    .cc-field .cc-hint{font-size:11px;color:#888}
+
+    .cc-error{font-size:11px;font-weight:600;color:#b3261e;display:none}
+
+    .cc-field.cc-invalid input,.cc-field.cc-invalid select,.cc-field.cc-invalid textarea{border-color:#b3261e}
+
+    .cc-field.cc-invalid .cc-error{display:block}
+
+    .cc-filelist{font-size:11px;color:#555;margin-top:2px}
+
+    .cc-actions{display:flex;justify-content:flex-end;gap:10px;align-items:center}
+
+    .cc-btn{border:none;border-radius:0.5rem;padding:0.55rem 1.4rem;font-family:inherit;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.15s}
+
+    .cc-btn-primary{background:#2e7d4f;color:#fff;box-shadow:0 2px 8px rgba(46,125,79,0.3)}
+
+    .cc-btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(46,125,79,0.4);opacity:0.9}
+
+    .cc-btn-secondary{background:#eef2f9;color:#004a99}
+
+    .cc-btn-secondary:hover{background:#e2eaf5}
+
+    .cc-success{background:#e6f4ec;border:1px solid #cce6d6;color:#2e7d4f;border-radius:0.5rem;padding:14px 16px;font-weight:600}
+
     .menu-item{margin-bottom:0}
 
     .menu-row{display:flex;align-items:center;gap:6px;padding:7px 10px;cursor:pointer;border-radius:4px;transition:background 0.15s}
@@ -383,7 +435,7 @@ const MENUS = {
 
   ],
 
-  3: [{title:"ACCOUNTABILITY",children:[{title:"Contribution Trends",children:[{title:"The App",children:[],onclick:"window.open('https://community-system-zves.onrender.com','_blank')"},{title:"Event Summary",children:[{title:"Under Development",children:[]}]},{title:"Trend Analysis",children:[{title:"Under Development",children:[]}]}]},{title:"Community Concerns",children:[{title:"Fiscal Issues",children:[{title:"Budget",children:[{title:"Trends",children:[]}]}]},{title:"Infrastructure Type Selector",children:[{title:"Complaints",children:[]},{title:"Plans",children:[]}]},{title:"Technology",children:[]},{title:"e-Consensus Forums",children:[],file:"eConsensus_Report_Format.pdf"}]},{title:"Education",children:[]},{title:"Community Lens",children:[{title:"Updates",children:[]},{title:"Statistics",children:[]}]},{title:"Consensus Budget",children:[{title:"Budgets",children:[]}]},{title:"Service Center",children:[{title:"Neighborhood Integration",children:[]}]},{title:"TeleCenter",children:[{title:"Services",children:[]},{title:"Statistics",children:[]},{title:"Suggestions",children:[]}]},{title:"Regulatory Issues Type Selector",children:[{title:"Inquiries",children:[]},{title:"Safety",children:[{title:"Infrastructure",children:[]},{title:"Crime Statistics",children:[{title:"Historic",children:[]}]}]}]},{title:"Safety Issues",children:[{title:"Dangerous Conditions",children:[]},{title:"Crime Statistics",children:[{title:"Current Profile",children:[]}]}]},{title:"Events",children:[{title:"Public Policy",children:[{title:"The App",children:[],onclick:"window.open('https://econsensusforum.org/','_blank')"},{title:"A Report Summary",children:[],file:"eConsensus_Report_Format.pdf"}]}]}]},{title:"EVENTS",children:[{title:"Education Schedules",children:[{title:"School Calendar",children:[]}]},{title:"Entertainment",children:[]},{title:"Performances",children:[]},{title:"Public Hearings",children:[]},{title:"Public Policy Forums",children:[{title:"Results",children:[]}]},{title:"Worship",children:[{title:"Service Schedules",children:[]}]},{title:"Athletic",children:[{title:"Sports Inquiry",children:[],onclick:"window.open('https://sports-inquiry-app.onrender.com','_blank')"},{title:"Enter Scores",children:[{title:"Under Development",children:[]}]},{title:"View Historical Scores",children:[{title:"Under Development",children:[]}]}]}]},{title:"FELLOWSHIP",children:[{title:"Dinners",children:[]},{title:"Gatherings",children:[]},{title:"Festivals",children:[]},{title:"Lectures",children:[]},{title:"Raffles",children:[]},{title:"Recognition",children:[{title:"Organizations",children:[]}]},{title:"Reunions",children:[]},{title:"Announcements",children:[{title:"Under Development",children:[]}]}]},{title:"LEADERSHIP",children:[{title:"Schedules & Locations",children:[]},{title:"Results",children:[]},{title:"Service Center",children:[{title:"Government",children:[]}]},{title:"Elections Type",children:[{title:"Under Development",children:[]}]}]},{title:"PERFORMANCE",children:[{title:"Visioning Tracking",children:[{title:"IAC",children:[{title:"IAC Analysis Unit Map",children:[],file:"iac_analysis_unit_map_clean.jpg"},{title:"IAC Metro 7 ZIP Verification Map",children:[],file:"metro7_map_v3_mvp.jpg"}]}]},{title:"Viability Index",children:[{title:"The Index",children:[],file:"IAC_Viability_Index_Outline.pdf"},{title:"The IAC Community Map",children:[],onclick:"window.location.href='iac_map.html'"},{title:"The Calculator",children:[],onclick:"var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='viability-calculator.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)"}]}]},{title:"THE VISION",children:[{title:"The Process",children:[]},{title:"Tracking",children:[{title:"Institutions",children:[]},{title:"Citizens",children:[]},{title:"The Foruns",children:[{title:"Results",children:[]}]}]}]}]
+  3: [{title:"ACCOUNTABILITY",children:[{title:"Contribution Trends",children:[{title:"The App",children:[],onclick:"window.open('https://community-system-zves.onrender.com','_blank')"},{title:"Event Summary",children:[{title:"Under Development",children:[]}]},{title:"Trend Analysis",children:[{title:"Under Development",children:[]}]}]},{title:"Community Concerns",children:[{title:"Community Concerns Form",children:[],onclick:"showConcernsForm()"},{title:"Fiscal Issues",children:[{title:"Budget",children:[{title:"Trends",children:[]}]}]},{title:"Infrastructure Type Selector",children:[{title:"Complaints",children:[]},{title:"Plans",children:[]}]},{title:"Technology",children:[]},{title:"e-Consensus Forums",children:[],file:"eConsensus_Report_Format.pdf"}]},{title:"Education",children:[]},{title:"Community Lens",children:[{title:"Updates",children:[]},{title:"Statistics",children:[]}]},{title:"Consensus Budget",children:[{title:"Budgets",children:[]}]},{title:"Service Center",children:[{title:"Neighborhood Integration",children:[]}]},{title:"TeleCenter",children:[{title:"Services",children:[]},{title:"Statistics",children:[]},{title:"Suggestions",children:[]}]},{title:"Regulatory Issues Type Selector",children:[{title:"Inquiries",children:[]},{title:"Safety",children:[{title:"Infrastructure",children:[]},{title:"Crime Statistics",children:[{title:"Historic",children:[]}]}]}]},{title:"Safety Issues",children:[{title:"Dangerous Conditions",children:[]},{title:"Crime Statistics",children:[{title:"Current Profile",children:[]}]}]},{title:"Events",children:[{title:"Public Policy",children:[{title:"The App",children:[],onclick:"window.open('https://econsensusforum.org/','_blank')"},{title:"A Report Summary",children:[],file:"eConsensus_Report_Format.pdf"}]}]}]},{title:"EVENTS",children:[{title:"Education Schedules",children:[{title:"School Calendar",children:[]}]},{title:"Entertainment",children:[]},{title:"Performances",children:[]},{title:"Public Hearings",children:[]},{title:"Public Policy Forums",children:[{title:"Results",children:[]}]},{title:"Worship",children:[{title:"Service Schedules",children:[]}]},{title:"Athletic",children:[{title:"Sports Inquiry",children:[],onclick:"window.open('https://sports-inquiry-app.onrender.com','_blank')"},{title:"Enter Scores",children:[{title:"Under Development",children:[]}]},{title:"View Historical Scores",children:[{title:"Under Development",children:[]}]}]}]},{title:"FELLOWSHIP",children:[{title:"Dinners",children:[]},{title:"Gatherings",children:[]},{title:"Festivals",children:[]},{title:"Lectures",children:[]},{title:"Raffles",children:[]},{title:"Recognition",children:[{title:"Organizations",children:[]}]},{title:"Reunions",children:[]},{title:"Announcements",children:[{title:"Under Development",children:[]}]}]},{title:"LEADERSHIP",children:[{title:"Schedules & Locations",children:[]},{title:"Results",children:[]},{title:"Service Center",children:[{title:"Government",children:[]}]},{title:"Elections Type",children:[{title:"Under Development",children:[]}]}]},{title:"PERFORMANCE",children:[{title:"Visioning Tracking",children:[{title:"IAC",children:[{title:"IAC Analysis Unit Map",children:[],file:"iac_analysis_unit_map_clean.jpg"},{title:"IAC Metro 7 ZIP Verification Map",children:[],file:"metro7_map_v3_mvp.jpg"}]}]},{title:"Viability Index",children:[{title:"The Index",children:[],file:"IAC_Viability_Index_Outline.pdf"},{title:"The IAC Community Map",children:[],onclick:"window.location.href='iac_map.html'"},{title:"The Calculator",children:[],onclick:"var s=new URLSearchParams(window.location.search);var scid=s.get('scid')||'9';var zip=s.get('zip')||'';window.location.href='viability-calculator.html?scid='+encodeURIComponent(scid)+'&zip='+encodeURIComponent(zip)"}]}]},{title:"THE VISION",children:[{title:"The Process",children:[]},{title:"Tracking",children:[{title:"Institutions",children:[]},{title:"Citizens",children:[]},{title:"The Foruns",children:[{title:"Results",children:[]}]}]}]}]
 
 };
 
@@ -544,6 +596,199 @@ function showContactsTable(){
   }
   document.getElementById('overlay-inner-content').innerHTML='<table class="biz-table"><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Role</th></tr></thead><tbody>'+rows+'</tbody></table>';
   overlay.hidden=false;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMMUNITY CONCERNS FORM
+   Menu path: Community Engagement › ACCOUNTABILITY › Community Concerns ›
+              Community Concerns Form
+   Opened from the menu tree via  onclick:"showConcernsForm()"  (see MENUS[3]).
+   Renders into the shared #table-overlay modal, same as the other popups.
+
+   ── HOW TO UPDATE THE DROPDOWN OPTIONS ───────────────────────────────────────
+   Everything selectable lives in the two config objects directly below. Edit
+   them only — no other code needs to change; the form rebuilds itself from
+   these values every time it is opened.
+
+   1) CONCERN_AREAS — "Area of Concern" (first dropdown) AND the granular
+      "Specific Topic" options it populates (second dropdown).
+      • Add a new area:      add a new  "Area Name": ["topic", "topic", ...]
+                             entry. It appears in the first dropdown
+                             automatically, in the order listed here.
+      • Add/rename a topic:  edit the strings in that area's array.
+      • An area with an empty array ([]) is allowed — the Specific Topic
+        dropdown then shows "No specific topics — describe below" and is not
+        required.
+
+   2) CONCERN_STATUSES — "Current Status" dropdown. Add/remove/reorder strings.
+
+   Note: labels are used verbatim as both the option text and the submitted
+   value, so changing a label changes the stored value too.
+   ═════════════════════════════════════════════════════════════════════════ */
+var CONCERN_AREAS = {
+  "Fiscal Issues": [
+    "Budget",
+    "Taxes",
+    "Fees & Assessments",
+    "Grants & Funding",
+    "Spending Transparency"
+  ],
+  "Infrastructure": [
+    "Water",
+    "Sewer",
+    "Cable",
+    "Street",
+    "Bridge",
+    "Electrical",
+    "Phone"
+  ],
+  "Safety Issues": [
+    "Dangerous Conditions",
+    "Crime",
+    "Traffic",
+    "Emergency Services",
+    "Lighting"
+  ]
+};
+
+var CONCERN_STATUSES = ["Existing", "In Progress", "Planned", "New"];
+
+// File types accepted by the optional "Attach Files" field.
+var CONCERN_FILE_ACCEPT = "image/*,.pdf,.doc,.docx,.txt,.rtf,.xls,.xlsx";
+
+function showConcernsForm(){
+  var overlay=document.getElementById('table-overlay');
+  document.getElementById('table-overlay-title').textContent='Community Concerns Form';
+
+  // Build the "Area of Concern" options from the config object above.
+  var areaOpts='<option value="">— Select an area —</option>';
+  for(var area in CONCERN_AREAS){
+    if(!CONCERN_AREAS.hasOwnProperty(area)) continue;
+    areaOpts+='<option value="'+escapeHtml(area)+'">'+escapeHtml(area)+'</option>';
+  }
+
+  var statusOpts='<option value="">— Select a status —</option>';
+  for(var i=0;i<CONCERN_STATUSES.length;i++){
+    statusOpts+='<option value="'+escapeHtml(CONCERN_STATUSES[i])+'">'+escapeHtml(CONCERN_STATUSES[i])+'</option>';
+  }
+
+  document.getElementById('overlay-inner-content').innerHTML=
+    '<form class="cc-form" id="cc-form" novalidate>'+
+      '<fieldset class="cc-fieldset"><legend>Contact</legend><div class="cc-grid">'+
+        '<div class="cc-field" id="cc-f-name"><label for="cc-name">Name<span class="cc-req">*</span></label>'+
+          '<input type="text" id="cc-name" name="name" autocomplete="name" />'+
+          '<span class="cc-error">Please enter your name.</span></div>'+
+        '<div class="cc-field" id="cc-f-phone"><label for="cc-phone">Phone<span class="cc-req">*</span></label>'+
+          '<input type="tel" id="cc-phone" name="phone" autocomplete="tel" placeholder="(218) 555-0123" />'+
+          '<span class="cc-error">Please enter a phone number with at least 10 digits.</span></div>'+
+        '<div class="cc-field" id="cc-f-email"><label for="cc-email">Email<span class="cc-req">*</span></label>'+
+          '<input type="email" id="cc-email" name="email" autocomplete="email" placeholder="you@example.com" />'+
+          '<span class="cc-error">Please enter a valid email address.</span></div>'+
+      '</div></fieldset>'+
+      '<fieldset class="cc-fieldset"><legend>Issue</legend><div class="cc-grid">'+
+        '<div class="cc-field" id="cc-f-area"><label for="cc-area">Area of Concern<span class="cc-req">*</span></label>'+
+          '<select id="cc-area" name="area">'+areaOpts+'</select>'+
+          '<span class="cc-error">Please choose an area of concern.</span></div>'+
+        '<div class="cc-field" id="cc-f-topic"><label for="cc-topic">Specific Topic<span class="cc-req">*</span></label>'+
+          '<select id="cc-topic" name="topic" disabled><option value="">— Select an area first —</option></select>'+
+          '<span class="cc-error">Please choose a specific topic.</span></div>'+
+        '<div class="cc-field" id="cc-f-status"><label for="cc-status">Current Status<span class="cc-req">*</span></label>'+
+          '<select id="cc-status" name="status">'+statusOpts+'</select>'+
+          '<span class="cc-error">Please choose the current status.</span></div>'+
+        '<div class="cc-field cc-full" id="cc-f-desc"><label for="cc-desc">Describe Issue<span class="cc-req">*</span></label>'+
+          '<textarea id="cc-desc" name="description" maxlength="1000" placeholder="Briefly describe the issue, including location if relevant."></textarea>'+
+          '<span class="cc-error">Please describe the issue.</span></div>'+
+        '<div class="cc-field cc-full" id="cc-f-files"><label for="cc-files">Attach Files <span class="cc-hint">(optional — images or documents)</span></label>'+
+          '<input type="file" id="cc-files" name="files" multiple accept="'+CONCERN_FILE_ACCEPT+'" />'+
+          '<div class="cc-filelist" id="cc-filelist"></div></div>'+
+      '</div></fieldset>'+
+      '<div class="cc-actions">'+
+        '<button type="button" class="cc-btn cc-btn-secondary" id="cc-cancel">Cancel</button>'+
+        '<button type="submit" class="cc-btn cc-btn-primary">Submit Concern</button>'+
+      '</div>'+
+    '</form>';
+
+  var areaSel=document.getElementById('cc-area');
+  var topicSel=document.getElementById('cc-topic');
+
+  // Area of Concern → Specific Topic. Repopulates from CONCERN_AREAS on change.
+  areaSel.addEventListener('change',function(){
+    var topics=CONCERN_AREAS[areaSel.value];
+    if(!areaSel.value){
+      topicSel.innerHTML='<option value="">— Select an area first —</option>';
+      topicSel.disabled=true;
+    } else if(!topics||topics.length===0){
+      // Area configured with no granular topics — not required in that case.
+      topicSel.innerHTML='<option value="">No specific topics — describe below</option>';
+      topicSel.disabled=true;
+    } else {
+      var html='<option value="">— Select a topic —</option>';
+      for(var i=0;i<topics.length;i++){
+        html+='<option value="'+escapeHtml(topics[i])+'">'+escapeHtml(topics[i])+'</option>';
+      }
+      topicSel.innerHTML=html;
+      topicSel.disabled=false;
+    }
+    ccClearError('cc-f-topic');
+  });
+
+  document.getElementById('cc-files').addEventListener('change',function(){
+    var names=[];
+    for(var i=0;i<this.files.length;i++) names.push(this.files[i].name);
+    document.getElementById('cc-filelist').textContent=names.length?('Attached: '+names.join(', ')):'';
+  });
+
+  document.getElementById('cc-cancel').addEventListener('click',function(){overlay.hidden=true;});
+  document.getElementById('cc-form').addEventListener('submit',ccSubmit);
+
+  overlay.hidden=false;
+}
+
+function ccSetError(fieldId,on){
+  var el=document.getElementById(fieldId);
+  if(el) el.className='cc-field'+(el.className.indexOf('cc-full')>=0?' cc-full':'')+(on?' cc-invalid':'');
+}
+function ccClearError(fieldId){ ccSetError(fieldId,false); }
+
+// Validates every field except Attach Files, which is optional.
+function ccSubmit(e){
+  e.preventDefault();
+  var v=function(id){return (document.getElementById(id).value||'').trim();};
+  var ok=true;
+  var checks=[
+    ['cc-f-name',  v('cc-name').length>0],
+    ['cc-f-phone', v('cc-phone').replace(/\D/g,'').length>=10],
+    ['cc-f-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('cc-email'))],
+    ['cc-f-area',  v('cc-area').length>0],
+    // Topic is required only when the selected area actually defines topics.
+    ['cc-f-topic', document.getElementById('cc-topic').disabled||v('cc-topic').length>0],
+    ['cc-f-status',v('cc-status').length>0],
+    ['cc-f-desc',  v('cc-desc').length>0]
+  ];
+  for(var i=0;i<checks.length;i++){
+    ccSetError(checks[i][0],!checks[i][1]);
+    if(!checks[i][1]) ok=false;
+  }
+  if(!ok) return;
+
+  var files=document.getElementById('cc-files').files;
+  var fileNames=[];
+  for(var j=0;j<files.length;j++) fileNames.push(files[j].name);
+
+  // No backend yet — the submission is logged and confirmed on screen.
+  // To wire this up, POST `submission` (and the File objects above, via
+  // FormData) to your endpoint here.
+  var submission={
+    name:v('cc-name'), phone:v('cc-phone'), email:v('cc-email'),
+    area:v('cc-area'), topic:v('cc-topic'), status:v('cc-status'),
+    description:v('cc-desc'), attachments:fileNames
+  };
+  console.log('Community Concern submitted:',submission);
+
+  document.getElementById('overlay-inner-content').innerHTML=
+    '<div class="cc-success">Thank you, '+escapeHtml(submission.name)+'. Your concern regarding '+
+    escapeHtml(submission.area)+(submission.topic?' — '+escapeHtml(submission.topic):'')+
+    ' has been recorded. A community coordinator will follow up at '+escapeHtml(submission.email)+'.</div>';
 }
 
 function showMaintenanceMenu(){
