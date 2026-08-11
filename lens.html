@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAC — Go to Your Lens</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Inter', Arial, sans-serif; }
+  body {
+    background: #003580; color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2rem; text-align: center;
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 1rem; }
+  p { color: #d6edf8; max-width: 480px; line-height: 1.6; margin-bottom: 1.5rem; }
+  .search-wrap { display: flex; gap: 0.6rem; width: 100%; max-width: 460px; }
+  input {
+    flex: 1; padding: 0.8rem 1rem; font-size: 1rem; border-radius: 10px;
+    border: 2px solid #0066cc; background: #004a99; color: #fff; outline: none;
+  }
+  input::placeholder { color: rgba(255,255,255,0.6); }
+  button {
+    padding: 0.8rem 1.4rem; font-size: 1rem; font-weight: 700; border: none;
+    border-radius: 10px; background: #2e7d4f; color: #fff; cursor: pointer;
+  }
+  button:hover { background: #256a41; }
+  #status { margin-top: 1rem; color: #ffb4b4; font-size: 0.9rem; min-height: 1.2em; }
+  a.entry-btn {
+    margin-top: 1.5rem; color: #fff; text-decoration: none; font-size: 0.85rem;
+    border: 1px solid rgba(255,255,255,0.4); border-radius: 20px; padding: 0.5rem 1.2rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>Go straight to your Lens page</h1>
+<p>Type your ZIP code or city and state (e.g. "Brainerd, MN") to jump directly to your community's Lens page.</p>
+
+<div class="search-wrap">
+  <input id="q" type="text" placeholder="ZIP code or City, State..." autocomplete="off" />
+  <button onclick="go()">Go</button>
+</div>
+<div id="status"></div>
+
+<a class="entry-btn" href="iac_map.html">Or use the full map search →</a>
+
+<script>
+let townIndex = null;
+let zipToScid = {};
+
+function normalize(s) {
+  let n = String(s || '').trim().toLowerCase().replace(/\./g, '').replace(/,/g, '').replace(/\s+/g, ' ');
+  n = n.replace(/^st /, 'saint ').replace(/^ste /, 'sainte ').replace(/^mt /, 'mount ').replace(/^ft /, 'fort ');
+  return n;
+}
+
+async function loadData() {
+  const [svc, idx] = await Promise.all([
+    fetch('files/service_centers.json').then(r => r.json()),
+    fetch('iac_town_lookup_index.json').then(r => r.json())
+  ]);
+  Object.entries(svc).forEach(([scid, sc]) => {
+    (sc.zips || []).forEach(z => { zipToScid[z.zip] = scid; });
+  });
+  townIndex = idx;
+}
+const dataReady = loadData().catch(() => null);
+
+function resolveZip(query) {
+  const q = normalize(query);
+  if (!q) return null;
+
+  // Direct ZIP typed in
+  if (zipToScid[q]) return { zip: q, scid: zipToScid[q] };
+
+  if (!townIndex) return null;
+
+  // "City, State" or "City State" — exact
+  let match = townIndex.find(r => normalize(r.search_key) === q) ||
+              townIndex.find(r => normalize(r.city + ' ' + r.state) === q);
+  // City name only, unambiguous
+  if (!match) {
+    const cityMatches = townIndex.filter(r => normalize(r.city) === q);
+    if (cityMatches.length === 1) match = cityMatches[0];
+  }
+  if (match && match.representative_zip && zipToScid[match.representative_zip]) {
+    return { zip: match.representative_zip, scid: zipToScid[match.representative_zip] };
+  }
+  return null;
+}
+
+async function go() {
+  const query = document.getElementById('q').value.trim();
+  const statusEl = document.getElementById('status');
+  if (!query) return;
+  statusEl.textContent = '';
+  await dataReady;
+  const result = resolveZip(query);
+  if (result) {
+    window.location.href = `portal.html?scid=${result.scid}&zip=${result.zip}`;
+  } else {
+    statusEl.textContent = 'Could not find that community — try the full map search below.';
+  }
+}
+
+document.getElementById('q').addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+
+// Support a direct link too: lens.html?zip=56401 or lens.html?q=Brainerd,%20MN
+(async () => {
+  const params = new URLSearchParams(window.location.search);
+  const direct = params.get('zip') || params.get('q');
+  if (direct) {
+    document.getElementById('q').value = direct;
+    await go();
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -250,8 +250,16 @@ function loadPopChangeData() {
 }
 
 // ── Load Service Center data ─────────────────────────────────
+// SC_ANCHOR_ZIP: scid -> the SC's real anchor/center-town zip (from
+// sc_locations.json), used when navigating into an adjoining SC so the
+// correct town is highlighted — falls back to zips[0] only if an SC is
+// missing from sc_locations.json.
+let SC_ANCHOR_ZIP = {};
 Promise.all([
   fetch('service_centers.json').then(r => r.json()),
+  fetch('sc_locations.json').then(r => r.json()).then(loc => {
+    for (const [scid, l] of Object.entries(loc)) SC_ANCHOR_ZIP[scid] = l.anchor_zip;
+  }).catch(() => {}),
   loadPopChangeData()
 ])
 .then(([SC_DATA]) => initMap(SC_DATA))
@@ -346,6 +354,9 @@ function initMap(SC_DATA) {
     trackedLayers.forEach(({ layer, zip, isSelected }) => {
       layer.setStyle(styleFor(zip, isSelected, hollowMode));
     });
+    adjTrackedLayers.forEach(({ layer, adjSc }) => {
+      layer.setStyle(adjStyleFor(adjSc));
+    });
   }
 
   // ── Control bar (zoom, outline & basemap controls — identical in both
@@ -380,7 +391,35 @@ function initMap(SC_DATA) {
     };
   }
 
+  // ── Adjoining SC style helper — plain blue normally, colored by that
+  // SC's own aggregate population-change score when the toggle is on ──
+  function adjPopChangeColor(adjSc) {
+    const score = adjSc.pop_change_score;
+    return POP_CHANGE_COLORS[score] || POP_CHANGE_NO_DATA;
+  }
+  function adjStyleFor(adjSc) {
+    if (popChangeMode) {
+      return {
+        color:       '#004a99',
+        weight:      1.5,
+        fillColor:   adjPopChangeColor(adjSc),
+        fillOpacity: 0.35,
+        dashArray:   '5 4',
+        className:   'adj-outline'
+      };
+    }
+    return {
+      color:       '#004a99',
+      weight:      1.5,
+      fillColor:   '#4a90d9',
+      fillOpacity: 0.08,
+      dashArray:   '5 4',
+      className:   'adj-outline'
+    };
+  }
+
   const trackedLayers = [];
+  const adjTrackedLayers = [];
   let mainGeoLayer;
 
   // ── Fetch primary SC ZIP boundaries ─────────────────────────
@@ -544,7 +583,7 @@ function initMap(SC_DATA) {
 
       const adjZips = adjSc.zips.map(z => `'${z.zip}'`).join(',');
       const adjUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(adjZips)})&outFields=ZCTA5&f=geojson&outSR=4326`;
-      const anchorZip = adjSc.zips[0].zip;
+      const anchorZip = SC_ANCHOR_ZIP[adjScid] || adjSc.zips[0].zip;
       const shortName = adjSc.name.replace(' Service Center', ' SC');
       const mapUrl = `neighborhood-map.html?scid=${adjScid}&zip=${anchorZip}`;
 
@@ -555,16 +594,10 @@ function initMap(SC_DATA) {
           const geo = dissolveFeatures(adjData);
           let sublayer = null;
           L.geoJSON(geo, {
-            style: {
-              color:       '#004a99',
-              weight:      1.5,
-              fillColor:   '#4a90d9',
-              fillOpacity: 0.08,
-              dashArray:   '5 4',
-              className:   'adj-outline'
-            },
+            style: adjStyleFor(adjSc),
             onEachFeature: (feature, layer) => {
               sublayer = layer;
+              adjTrackedLayers.push({ layer, adjSc });
               layer.on('click', () => { window.location.href = mapUrl; });
               layer.bindTooltip(shortName, {
                 permanent: true, direction: 'center',
