@@ -8759,13 +8759,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50613",
-        "town": "Cedar Falls",
-        "state": "IA",
-        "population": 43680,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50619",
         "town": "Clarksville",
         "state": "IA",
@@ -8777,20 +8770,6 @@
         "town": "Colwell",
         "state": "IA",
         "population": 54,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50622",
-        "town": "Denver",
-        "state": "IA",
-        "population": 3288,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50624",
-        "town": "Dike",
-        "state": "IA",
-        "population": 1664,
         "landform": "Agricultural Plain"
       },
       {
@@ -8829,13 +8808,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50638",
-        "town": "Grundy Center",
-        "state": "IA",
-        "population": 3474,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50642",
         "town": "Holland",
         "state": "IA",
@@ -8847,13 +8819,6 @@
         "town": "Ionia",
         "state": "IA",
         "population": 1301,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50647",
-        "town": "Janesville",
-        "state": "IA",
-        "population": 2073,
         "landform": "Agricultural Plain"
       },
       {
@@ -8875,13 +8840,6 @@
         "town": "Nashua",
         "state": "IA",
         "population": 2432,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "50660",
-        "town": "New Hartford",
-        "state": "IA",
-        "population": 1092,
         "landform": "Agricultural Plain"
       },
       {
@@ -8927,13 +8885,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "50677",
-        "town": "Waverly",
-        "state": "IA",
-        "population": 12655,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "50680",
         "town": "Wellsburg",
         "state": "IA",
@@ -8941,11 +8892,11 @@
         "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 190242,
-    "pop_2020": 188475,
-    "pct_change_2010_2020": -0.009288,
-    "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_2010": 124591,
+    "pop_2020": 120038,
+    "pct_change_2010_2020": -0.036544,
+    "pop_change_score": 4,
+    "pop_change_legend": "Declining"
   },
   "45": {
     "name": "Menomonie Service Center",
@@ -13608,13 +13559,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56728",
-        "town": "Holt",
-        "state": "MN",
-        "population": 1149,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56726",
         "town": "Greenbush",
         "state": "MN",
@@ -13692,9 +13636,9 @@
         "landform": "Forested"
       }
     ],
-    "pop_2010": 27604,
-    "pop_2020": 27048,
-    "pct_change_2010_2020": -0.020142,
+    "pop_2010": 26240,
+    "pop_2020": 25817,
+    "pct_change_2010_2020": -0.01612,
     "pop_change_score": 5,
     "pop_change_legend": "Minimal change"
   },
@@ -14106,13 +14050,6 @@
         "landform": "Water-Dominated"
       },
       {
-        "zip": "56714",
-        "town": "Badger",
-        "state": "MN",
-        "population": 1115,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56724",
         "town": "Gatzke",
         "state": "MN",
@@ -14127,13 +14064,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56756",
-        "town": "Salol",
-        "state": "MN",
-        "population": 614,
-        "landform": "Forested"
-      },
-      {
         "zip": "56761",
         "town": "Wannaska",
         "state": "MN",
@@ -14141,9 +14071,9 @@
         "landform": "Forested"
       }
     ],
-    "pop_2010": 17982,
-    "pop_2020": 17653,
-    "pct_change_2010_2020": -0.018296,
+    "pop_2010": 16026,
+    "pop_2020": 15693,
+    "pct_change_2010_2020": -0.020779,
     "pop_change_score": 5,
     "pop_change_legend": "Minimal change"
   },
@@ -15226,13 +15156,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "51301",
-        "town": "Spencer",
-        "state": "IA",
-        "population": 12402,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "51331",
         "town": "Arnolds Park",
         "state": "IA",
@@ -15261,24 +15184,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "51343",
-        "town": "Greenville",
-        "state": "IA",
-        "population": 279,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "51345",
         "town": "Harris",
         "state": "IA",
         "population": 313,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51346",
-        "town": "Hartley",
-        "state": "IA",
-        "population": 2211,
         "landform": "Agricultural Plain"
       },
       {
@@ -15296,52 +15205,10 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "51351",
-        "town": "Milford",
-        "state": "IA",
-        "population": 4990,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51354",
-        "town": "Ocheyedan",
-        "state": "IA",
-        "population": 1034,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51355",
-        "town": "Okoboji",
-        "state": "IA",
-        "population": 892,
-        "landform": "Urbanised"
-      },
-      {
         "zip": "51357",
         "town": "Royal",
         "state": "IA",
         "population": 841,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51358",
-        "town": "Ruthven",
-        "state": "IA",
-        "population": 1277,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51360",
-        "town": "Spirit Lake",
-        "state": "IA",
-        "population": 8561,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "51364",
-        "town": "Terril",
-        "state": "IA",
-        "population": 855,
         "landform": "Agricultural Plain"
       },
       {
@@ -15429,9 +15296,9 @@
         "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 91599,
-    "pop_2020": 92589,
-    "pct_change_2010_2020": 0.010808,
+    "pop_2010": 59853,
+    "pop_2020": 60269,
+    "pct_change_2010_2020": 0.00695,
     "pop_change_score": 6,
     "pop_change_legend": "Minimal change"
   },
@@ -15882,7 +15749,12 @@
         "population": 2372,
         "landform": ""
       }
-    ]
+    ],
+    "pop_2010": 151423,
+    "pop_2020": 153194,
+    "pct_change_2010_2020": 0.011696,
+    "pop_change_score": 6,
+    "pop_change_legend": "Minimal change"
   },
   "94": {
     "name": "Spencer Service Center",
@@ -15957,6 +15829,11 @@
         "population": 1331,
         "landform": ""
       }
-    ]
+    ],
+    "pop_2010": 33144,
+    "pop_2020": 33651,
+    "pct_change_2010_2020": 0.015297,
+    "pop_change_score": 6,
+    "pop_change_legend": "Minimal change"
   }
 }
