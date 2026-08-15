@@ -178,6 +178,20 @@
       box-shadow: none !important;
     }
     .sc-tooltip::before { display: none !important; }
+    .sc-town-label {
+      background: rgba(0,53,128,0.88) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      color: #fff !important;
+      font-size: 0.85rem !important;
+      font-weight: 800 !important;
+      padding: 3px 8px !important;
+      border-radius: 5px !important;
+      white-space: nowrap !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35) !important;
+      cursor: pointer;
+      pointer-events: auto !important;
+    }
+    .sc-town-label::before { display: none !important; }
 
     /* ── Same-name disambiguation picker ── */
     #picker-overlay {
@@ -416,7 +430,13 @@ function drawServiceAreaBubble() {
 drawServiceAreaBubble();
 
 // ── SC CENTER DOTS ──
+// Big permanent labels only appear once zoomed in past this level — at the
+// national zoom-out, 70 always-on labels overlap and block each other's
+// clicks, so below the threshold we fall back to a small hover-only label.
+// The circle marker itself is always clickable regardless of zoom.
+const TOWN_LABEL_ZOOM = 7;
 const scMarkers = {};
+const scLabelState = {};
 Object.entries(SC_LOCATIONS).forEach(([scid, sc]) => {
   const isActive = sc.name.includes('Minneapolis-St Paul');
   const color = isActive ? '#16a34a' : '#4ba3d4';
@@ -428,12 +448,54 @@ Object.entries(SC_LOCATIONS).forEach(([scid, sc]) => {
     weight: 2,
     fillOpacity: 0.9
   }).addTo(map);
+  // Click-through to that community's neighborhood/town view, mirroring the
+  // drill-down behavior on "View the Neighborhood" — works at any zoom level.
+  const goToNeighborhood = function() {
+    window.location.href = 'files/neighborhood-map.html?scid=' + scid + '&zip=' + sc.anchor_zip + '&view=neighborhood';
+  };
+  marker.on('add', function() {
+    var el = marker.getElement();
+    if (el) el.style.cursor = 'pointer';
+  });
+  marker.on('tooltipopen', function(e) {
+    var el = e.tooltip.getElement();
+    if (el) el.onclick = goToNeighborhood;
+  });
+  marker.on('click', goToNeighborhood);
   marker.bindTooltip(sc.name.replace(' Service Center', ''), {
     permanent: false, direction: 'top', className: 'sc-tooltip',
     offset: [0, -radius]
   });
   scMarkers[scid] = marker;
+  scLabelState[scid] = 'small';
+
+  marker._setBigLabel = function() {
+    marker.unbindTooltip();
+    marker.bindTooltip(sc.anchor_town || sc.name.replace(' Service Center', ''), {
+      permanent: true, direction: 'top', className: 'sc-town-label',
+      offset: [0, -radius - 10]
+    });
+    scLabelState[scid] = 'big';
+  };
+  marker._setSmallLabel = function() {
+    marker.unbindTooltip();
+    marker.bindTooltip(sc.name.replace(' Service Center', ''), {
+      permanent: false, direction: 'top', className: 'sc-tooltip',
+      offset: [0, -radius]
+    });
+    scLabelState[scid] = 'small';
+  };
 });
+
+function updateTownLabels() {
+  const big = map.getZoom() >= TOWN_LABEL_ZOOM;
+  Object.values(scMarkers).forEach(function(marker) {
+    if (big && marker._setBigLabel) marker._setBigLabel();
+    else if (!big && marker._setSmallLabel) marker._setSmallLabel();
+  });
+}
+map.on('zoomend', updateTownLabels);
+updateTownLabels();
 
 // ── SEARCH MARKER ──
 let searchMarker = null;
