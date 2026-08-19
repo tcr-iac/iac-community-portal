@@ -1646,11 +1646,32 @@
         "state": "MN",
         "population": 1579,
         "landform": "Forested"
+      },
+      {
+        "zip": "56473",
+        "town": "Pillager",
+        "state": "MN",
+        "population": 3763,
+        "landform": ""
+      },
+      {
+        "zip": "56438",
+        "town": "Browerville",
+        "state": "MN",
+        "population": 2830,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "56466",
+        "town": "Motley",
+        "state": "MN",
+        "population": 3126,
+        "landform": "Forested"
       }
     ],
-    "pop_2010": 88092,
-    "pop_2020": 91713,
-    "pct_change_2010_2020": 0.041105,
+    "pop_2010": 97537,
+    "pop_2020": 101510,
+    "pct_change_2010_2020": 0.040733,
     "pop_change_score": 7,
     "pop_change_legend": "Expanding"
   },
@@ -1850,20 +1871,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56522",
-        "town": "Campbell",
-        "state": "MN",
-        "population": 540,
-        "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "56543",
-        "town": "Foxhome",
-        "state": "MN",
-        "population": 224,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56553",
         "town": "Kent",
         "state": "MN",
@@ -2053,9 +2060,9 @@
         "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 32982,
-    "pop_2020": 33229,
-    "pct_change_2010_2020": 0.007489,
+    "pop_2010": 32168,
+    "pop_2020": 32437,
+    "pct_change_2010_2020": 0.008362,
     "pop_change_score": 6,
     "pop_change_legend": "Minimal change"
   },
@@ -5867,11 +5874,25 @@
         "state": "MN",
         "population": 378,
         "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "56543",
+        "town": "Foxhome",
+        "state": "MN",
+        "population": 224,
+        "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "56522",
+        "town": "Campbell",
+        "state": "MN",
+        "population": 540,
+        "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 30861,
-    "pop_2020": 31954,
-    "pct_change_2010_2020": 0.035417,
+    "pop_2010": 31675,
+    "pop_2020": 32746,
+    "pct_change_2010_2020": 0.033812,
     "pop_change_score": 7,
     "pop_change_legend": "Expanding"
   },
@@ -8446,11 +8467,18 @@
         "state": "MN",
         "population": 492,
         "landform": "Agricultural Plain"
+      },
+      {
+        "zip": "56292",
+        "town": "Vesta",
+        "state": "MN",
+        "population": 582,
+        "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 35883,
-    "pop_2020": 34472,
-    "pct_change_2010_2020": -0.039322,
+    "pop_2010": 36519,
+    "pop_2020": 35014,
+    "pct_change_2010_2020": -0.041211,
     "pop_change_score": 4,
     "pop_change_legend": "Declining"
   },
@@ -11616,13 +11644,6 @@
         "landform": "Agricultural Plain"
       },
       {
-        "zip": "56292",
-        "town": "Vesta",
-        "state": "MN",
-        "population": 582,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56294",
         "town": "Wanda",
         "state": "MN",
@@ -11630,9 +11651,9 @@
         "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 35087,
-    "pop_2020": 33440,
-    "pct_change_2010_2020": -0.04694,
+    "pop_2010": 34451,
+    "pop_2020": 32898,
+    "pct_change_2010_2020": -0.045079,
     "pop_change_score": 4,
     "pop_change_legend": "Declining"
   },
@@ -13526,11 +13547,25 @@
         "state": "MN",
         "population": 7705,
         "landform": "Urbanised"
+      },
+      {
+        "zip": "56329",
+        "town": "Foley",
+        "state": "MN",
+        "population": 7615,
+        "landform": ""
+      },
+      {
+        "zip": "56333",
+        "town": "Gilman",
+        "state": "MN",
+        "population": 0,
+        "landform": ""
       }
     ],
-    "pop_2010": 299134,
-    "pop_2020": 319754,
-    "pct_change_2010_2020": 0.068932,
+    "pop_2010": 306501,
+    "pop_2020": 327369,
+    "pct_change_2010_2020": 0.068085,
     "pop_change_score": 8,
     "pop_change_legend": "Expanding"
   },
@@ -13900,13 +13935,6 @@
     "name": "Wadena Service Center",
     "zips": [
       {
-        "zip": "56438",
-        "town": "Browerville",
-        "state": "MN",
-        "population": 2830,
-        "landform": "Agricultural Plain"
-      },
-      {
         "zip": "56482",
         "town": "Wadena",
         "state": "MN",
@@ -13940,13 +13968,6 @@
         "state": "MN",
         "population": 795,
         "landform": "Agricultural Plain"
-      },
-      {
-        "zip": "56466",
-        "town": "Motley",
-        "state": "MN",
-        "population": 3126,
-        "landform": "Forested"
       },
       {
         "zip": "56477",
@@ -14005,9 +14026,9 @@
         "landform": "Agricultural Plain"
       }
     ],
-    "pop_2010": 30417,
-    "pop_2020": 31125,
-    "pct_change_2010_2020": 0.023276,
+    "pop_2010": 24352,
+    "pop_2020": 25091,
+    "pct_change_2010_2020": 0.030347,
     "pop_change_score": 6,
     "pop_change_legend": "Minimal change"
   },
