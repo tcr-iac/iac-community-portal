@@ -26,14 +26,17 @@
        room for it so nothing gets covered ── */
     .main-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 
-    /* ── SIDE NAV — full-height vertical bar on the right edge, matching
-       the neighborhood-map.html control bar's green gradient/style ── */
+    /* ── SIDE NAV — compact block pinned to the lower-right corner,
+       matching the neighborhood-map.html control bar's green gradient/style ── */
     #side-nav {
-      width: 190px; flex-shrink: 0; min-height: 100vh;
+      position: fixed; bottom: 16px; right: 16px; z-index: 50;
+      width: 170px;
       background: linear-gradient(180deg, #2e7d4f 0%, #1e5c39 100%);
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
       color: #fff;
       display: flex; flex-direction: column;
-      padding: 16px 14px; gap: 10px;
+      padding: 12px 12px; gap: 8px;
     }
     .side-nav-title {
       font-weight: 800; font-size: 12px; text-transform: uppercase;
@@ -387,7 +390,7 @@
 <div id="side-nav">
   <div class="side-nav-title">Navigate</div>
   <a id="side-map"  class="side-btn" href="#">← Back to the Community Map</a>
-  <a id="side-lens" class="side-btn" href="#">← Back to the Lens</a>
+  <a id="side-lens" class="side-btn" href="#">← Back to the Community Page</a>
   <a class="side-btn" href="iac_home.html">IAC Home</a>
 </div>
 

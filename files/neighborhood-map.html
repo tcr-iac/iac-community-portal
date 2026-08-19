@@ -194,7 +194,8 @@
     <button id="ctrl-basemap-toggle" class="ctrl-btn-wide">Satellite View</button>
     <button id="ctrl-popchange-toggle" class="ctrl-btn-wide">Population Change View</button>
 
-    <a id="ctrl-back-link" class="ctrl-btn-wide" href="#">← Back to the Neighborhood Page</a>
+    <a id="ctrl-back-link" class="ctrl-btn-wide" href="#">← Back to the Community Page</a>
+    <a id="ctrl-profile-link" class="ctrl-btn-wide" href="#" target="_blank">Community Profile</a>
     <a id="ctrl-home-link" class="ctrl-btn-wide" href="../iac_home.html">Back to Home Page</a>
     <a id="ctrl-find-link" class="ctrl-btn-wide" href="../iac_map.html">Find Your Community</a>
   </div>
@@ -367,6 +368,7 @@ function initMap(SC_DATA) {
   document.getElementById('ctrl-zip-count').textContent =
     `${sc.zips.length} community area${sc.zips.length !== 1 ? 's' : ''}`;
   document.getElementById('ctrl-back-link').href = portalUrl;
+  document.getElementById('ctrl-profile-link').href = `../community-profile.html?scid=${scid}&zip=${selectedZip}`;
   document.getElementById('ctrl-zoom-in').addEventListener('click', () => map.zoomIn());
   document.getElementById('ctrl-zoom-out').addEventListener('click', () => map.zoomOut());
   document.getElementById('ctrl-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));

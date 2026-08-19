@@ -248,6 +248,8 @@
 </head>
 <body>
 
+<img src="files/LENS_LOGO_recolored.png" alt="" style="position:fixed; top:16px; left:20px; height:42px; z-index:20;" />
+
 <!-- SCREEN 1: Welcome -->
 <div id="screen-welcome">
   <a href="iac_home.html" style="position:fixed; bottom:20px; right:20px; color:#fff; font-size:0.85rem; font-weight:700; text-decoration:none; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); border-radius:6px; padding:0.5rem 0.9rem;">← Back to Home Page</a>
@@ -274,6 +276,7 @@
           <button class="legend-zoom-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
           <button class="legend-zoom-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
         </div>
+        <a id="access-community-btn" class="legend-new-search-btn" style="display:none; box-sizing:border-box; text-align:center; text-decoration:none; background:#1e88e5;" href="#">Access Community Page →</a>
         <button class="legend-new-search-btn" onclick="goBack()">← New Search</button>
         <a class="legend-new-search-btn" style="display:block; box-sizing:border-box; text-align:center; text-decoration:none;" href="iac_home.html">← Back to Home Page</a>
       </div>
@@ -419,7 +422,7 @@ function drawServiceAreaBubble() {
   const hull = lower.concat(upper);
 
   L.polygon(hull, {
-    color: '#16a34a',
+    color: '#ffffff',
     weight: 1.5,
     fillColor: '#16a34a',
     fillOpacity: 0.07,
@@ -514,6 +517,7 @@ function clearHighlight() {
     highlightedScid = null;
   }
   if (searchMarker) { map.removeLayer(searchMarker); searchMarker = null; }
+  document.getElementById('access-community-btn').style.display = 'none';
 }
 
 function showResult(record) {
@@ -547,14 +551,19 @@ function showResult(record) {
 
   // Popup on the flag itself — replaces the old white result panel
   let popupHtml = '<div class="fp-city">' + record.city + ', ' + record.state + '</div>';
+  const accessBtn = document.getElementById('access-community-btn');
   if (active) {
     popupHtml += '<div class="fp-status-active">● Active IAC</div>';
     if (target) {
       const zip = record.representative_zip || target.sc.anchor_zip;
-      popupHtml += '<a class="fp-portal-link" href="portal.html?scid=' + target.scid + '&zip=' + zip + '">Open portal →</a>';
+      accessBtn.href = 'portal.html?scid=' + target.scid + '&zip=' + zip;
+      accessBtn.style.display = 'block';
+    } else {
+      accessBtn.style.display = 'none';
     }
   } else {
     popupHtml += '<div class="fp-status-inactive">● IAC not yet active</div>';
+    accessBtn.style.display = 'none';
   }
 
   searchMarker.bindPopup(popupHtml, { className: 'flag-popup-wrap', closeButton: true }).openPopup();
