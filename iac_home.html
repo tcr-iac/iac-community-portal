@@ -157,7 +157,7 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 
 <header class="top-bar">
     <div style="display:flex;align-items:center;gap:14px;">
-        <img src="files/LENS_LOGO_recolored.png" alt="" style="height:44px;cursor:pointer;" onclick="officeView('files/Tools-Intro-for-Tom.pptx')" />
+        <a href="doc-viewer.html?path=files/Tools-Intro-for-Tom.pptx&title=Tools%20Intro"><img src="files/LENS_LOGO_recolored.png" alt="" style="height:44px;cursor:pointer;" /></a>
         <div>
             <div class="iac-logo">IAC</div>
             <div class="iac-sub">Information Age Community</div>
@@ -177,10 +177,9 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
             strengthening global competitiveness and enhancing the long-term viability of six lifestyles within a dynamic ecosystem.
         </p>
         <div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:16px;align-items:center;">
-        <a href="community-profile.html?scid=all" class="video-btn" style="text-decoration:none;">View the IAC</a>
-        <a href="iac_map.html" class="video-btn" style="text-decoration:none;">Find your Community &#8594;</a>
+        <a href="iac_map.html" class="video-btn" style="text-decoration:none;">View the IAC</a>
         <a href="intro.html" class="video-btn" style="text-decoration:none;">The IAC Principles</a>
-        <a href="image-doc.html?src=files/IAC_ZIP_Code_Base_Map.jpg&title=IAC%20Full%20Map" target="_blank" class="video-btn" style="text-decoration:none;">View the Full IAC Map</a>
+        <a href="iac_map.html" class="video-btn" style="text-decoration:none;">Find your Community &#8594;</a>
         </div>
     </section>
 
@@ -188,10 +187,10 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
         <div class="section">
             <div class="group-label">Community Concepts</div>
             <div class="btn-group">
-                <button onclick="officeView('files/Community-TeleCenter-Network.doc')" class="nav-btn" style="cursor:pointer;font-family:inherit;">The TeleCenter</button>
-                <button onclick="officeView('files/MSP-Community-Alliance.docx')" class="nav-btn" style="cursor:pointer;font-family:inherit;">Community Alliance</button>
+                <a href="doc-viewer.html?path=files/Community-TeleCenter-Network.doc&title=The%20TeleCenter" class="nav-btn">The TeleCenter</a>
+                <a href="doc-viewer.html?path=files/MSP-Community-Alliance.docx&title=Community%20Alliance" class="nav-btn">Community Alliance</a>
                 <a href="image-doc.html?src=files/Stewardship.jpg&title=Governance" class="nav-btn">Governance</a>
-                <button onclick="officeView('files/Regional-Integration-Transit.doc')" class="nav-btn" style="cursor:pointer;font-family:inherit;">Regional Transit</button>
+                <a href="doc-viewer.html?path=files/Regional-Integration-Transit.doc&title=Regional%20Transit" class="nav-btn">Regional Transit</a>
             </div>
         </div>
         <hr class="divider">
@@ -199,7 +198,7 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
             <div class="group-label">Strategic Tools</div>
             <div class="btn-group">
                 <a href="econsensus-doc.html" class="nav-btn">E-Consensus Forum</a>
-                <a href="image-doc.html?src=files/Community-Information-System.jpg&title=Community%20Information%20System" class="nav-btn">Community Information System</a>
+                <a href="#" class="nav-btn">Visioning Process</a>
                 <a href="iac_map.html" class="nav-btn">The Lens</a>
                 <button onclick="openViabilityChooser()" class="nav-btn" style="cursor:pointer;font-family:inherit;">Viability Index</button>
                 <a href="files/The-mini-WVP-Overview.pptx" target="_blank" class="nav-btn">Workforce Virtualization</a>
@@ -301,14 +300,6 @@ function closeViabilityChooser() {
 }
 function goViability(scid, zip) {
     window.location.href = 'files/neighborhood-map.html?scid=' + scid + '&zip=' + zip + '&view=neighborhood&pop=1';
-}
-
-// Opens a PPT/DOC file in Office's online viewer (presentation/read mode)
-// instead of just downloading the raw file. Needs the file reachable over
-// a public URL, so this points at the live GitHub Pages copy.
-function officeView(path) {
-    var fileUrl = 'https://tcr-iac.github.io/iac-community-portal/' + path;
-    window.open('https://view.officeapps.live.com/op/view.aspx?src=' + encodeURIComponent(fileUrl), '_blank');
 }
 </script>
 

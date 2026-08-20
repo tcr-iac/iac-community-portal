@@ -419,10 +419,26 @@ function init(DATA) {
 
 function wireNav(navScid) {
   document.getElementById('btn-sc').href  = `portal.html?scid=${navScid}&zip=${zip}`;
-  document.getElementById('btn-map').href = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}&view=neighborhood`;
   document.getElementById('btn-comm').href= `community-profile.html?scid=${navScid}&zip=${zip}`;
-  document.getElementById('side-map').href  = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}&view=neighborhood`;
   document.getElementById('side-lens').href = `portal.html?scid=${navScid}&zip=${zip}`;
+
+  // The map should always come back highlighting the trade center, not
+  // whichever neighborhood we just visited — so look up the SC's own
+  // anchor ZIP rather than reusing the current page's zip.
+  const mapHref = anchorZip =>
+    `files/neighborhood-map.html?scid=${navScid}&zip=${anchorZip}&view=neighborhood`;
+  document.getElementById('btn-map').href  = mapHref(zip);
+  document.getElementById('side-map').href = mapHref(zip);
+  fetch('files/sc_locations.json')
+    .then(r => r.json())
+    .then(loc => {
+      const anchorZip = loc[navScid]?.anchor_zip;
+      if (anchorZip) {
+        document.getElementById('btn-map').href  = mapHref(anchorZip);
+        document.getElementById('side-map').href = mapHref(anchorZip);
+      }
+    })
+    .catch(() => { /* keep the zip-based fallback already wired above */ });
 }
 
 // Zip isn't in community_data.json at all — resolve the town from the

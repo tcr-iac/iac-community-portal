@@ -393,23 +393,10 @@ function initMap(SC_DATA) {
     };
   }
 
-  // ── Adjoining SC style helper — plain blue normally, colored by that
-  // SC's own aggregate population-change score when the toggle is on ──
-  function adjPopChangeColor(adjSc) {
-    const score = adjSc.pop_change_score;
-    return POP_CHANGE_COLORS[score] || POP_CHANGE_NO_DATA;
-  }
+  // ── Adjoining SC style helper — always a plain outline, no fill. Even in
+  // Population Change view, adjoining SCs stay uncolored: per John, coloring
+  // them masks the selected community's own illustration. ──
   function adjStyleFor(adjSc) {
-    if (popChangeMode) {
-      return {
-        color:       '#004a99',
-        weight:      1.5,
-        fillColor:   adjPopChangeColor(adjSc),
-        fillOpacity: 0.35,
-        dashArray:   '5 4',
-        className:   'adj-outline'
-      };
-    }
     return {
       color:       '#004a99',
       weight:      1.5,

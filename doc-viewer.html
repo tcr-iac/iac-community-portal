@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="page-title">IAC — Document</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Inter', Arial, sans-serif; }
+  body { background: #003580; display: flex; flex-direction: column; }
+  header { padding: 14px 28px; color: #fff; font-weight: 800; letter-spacing: 1px; }
+  #doc-frame { flex: 1; border: 0; background: #fff; }
+  a.back-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 20;
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 700;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px; padding: 9px 20px;
+  }
+  a.back-btn:hover { background: rgba(255,255,255,0.22); }
+</style>
+</head>
+<body>
+<header id="page-header">Document</header>
+<iframe id="doc-frame" src=""></iframe>
+<a href="iac_home.html" class="back-btn">&#8592; Back to Home Page</a>
+<script>
+  // Read-only inline preview via Google's viewer — avoids popping Office's
+  // online editor (which shows a fetch/loading + editing-style interface)
+  // in a new tab; this stays on-page and renders straight to a document view.
+  const params = new URLSearchParams(window.location.search);
+  const path  = params.get('path')  || '';
+  const title = params.get('title') || 'Document';
+  const fileUrl = window.location.origin + window.location.pathname.replace(/doc-viewer\.html$/, '') + path;
+  document.getElementById('doc-frame').src =
+    'https://docs.google.com/gview?url=' + encodeURIComponent(fileUrl) + '&embedded=true';
+  document.getElementById('page-header').textContent = title;
+  document.getElementById('page-title').textContent = title + ' — IAC';
+</script>
+</body>
+</html>
