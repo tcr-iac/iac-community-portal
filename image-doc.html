@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="page-title">IAC — Document</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Inter', Arial, sans-serif; }
+  body { background: #003580; display: flex; flex-direction: column; }
+  header { padding: 14px 28px; color: #fff; font-weight: 800; letter-spacing: 1px; }
+  #doc-wrap { flex: 1; display: flex; align-items: center; justify-content: center; overflow: auto; padding: 20px; }
+  #doc-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 40px rgba(0,0,0,0.45); border-radius: 4px; }
+  a.back-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 20;
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 700;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px; padding: 9px 20px;
+  }
+  a.back-btn:hover { background: rgba(255,255,255,0.22); }
+</style>
+</head>
+<body>
+<header id="page-header">Document</header>
+<div id="doc-wrap"><img id="doc-img" src="" alt="" /></div>
+<a href="iac_home.html" class="back-btn">&#8592; Back to Home Page</a>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const src   = params.get('src')   || '';
+  const title = params.get('title') || 'Document';
+  document.getElementById('doc-img').src = src;
+  document.getElementById('doc-img').alt = title;
+  document.getElementById('page-header').textContent = title;
+  document.getElementById('page-title').textContent = title + ' — IAC';
+</script>
+</body>
+</html>

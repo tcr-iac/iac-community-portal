@@ -132,7 +132,7 @@
 <div id="info-bar">
   <span id="sc-label">Loading...</span>
   <span id="zip-count"></span>
-  <span id="info-hint">Click any community to view its profile · Adjoining centers shown in blue</span>
+  <span id="info-hint">Click any community to view its profile · Adjoining centers outlined</span>
 </div>
 
 <!-- MAP WRAPPER -->
@@ -152,7 +152,7 @@
         <span>Community Area</span>
       </div>
       <div class="legend-row">
-        <div class="legend-box" style="background:rgba(0,74,153,0.12);border-color:#004a99;"></div>
+        <div class="legend-box" style="background:transparent;border-color:#004a99;border-style:dashed;"></div>
         <span>Adjoining SC</span>
       </div>
     </div>
@@ -413,8 +413,7 @@ function initMap(SC_DATA) {
     return {
       color:       '#004a99',
       weight:      1.5,
-      fillColor:   '#4a90d9',
-      fillOpacity: 0.08,
+      fillOpacity: 0,
       dashArray:   '5 4',
       className:   'adj-outline'
     };

@@ -419,9 +419,9 @@ function init(DATA) {
 
 function wireNav(navScid) {
   document.getElementById('btn-sc').href  = `portal.html?scid=${navScid}&zip=${zip}`;
-  document.getElementById('btn-map').href = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}`;
+  document.getElementById('btn-map').href = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}&view=neighborhood`;
   document.getElementById('btn-comm').href= `community-profile.html?scid=${navScid}&zip=${zip}`;
-  document.getElementById('side-map').href  = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}`;
+  document.getElementById('side-map').href  = `files/neighborhood-map.html?scid=${navScid}&zip=${zip}&view=neighborhood`;
   document.getElementById('side-lens').href = `portal.html?scid=${navScid}&zip=${zip}`;
 }
 

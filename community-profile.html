@@ -218,7 +218,7 @@
       </div>
     </div>
     <div class="sidebar-nav">
-      <a href="iac_home.html"  class="s-btn s-btn-iac">IAC Home</a>
+      <a href="iac_map.html"  class="s-btn s-btn-iac">← Back to Community Search Page</a>
       <a id="btn-map" href="#" class="s-btn s-btn-map">← Back to the Community Page</a>
       <a id="btn-nb"  href="#" class="s-btn s-btn-nb">View Communities</a>
     </div>
@@ -278,22 +278,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="section-row"><td colspan="5">I. The Fundamentals</td></tr>
-              <tr><td>Human Continuity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Economic Function</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Infrastructure &amp; Connectivity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Civic &amp; Institutional Stability</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr class="section-row"><td colspan="5">II. The Relationships</td></tr>
-              <tr><td>Essential Service Ecosystem</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Ecosystem Connectivity &amp; Flow</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Ecosystem Role &amp; Embeddedness</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr class="section-row"><td colspan="5">III. The Viability Potential</td></tr>
-              <tr><td>Transition Pressure</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Adaptive Capacity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
-              <tr><td>Strategic Opportunity</td><td>TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr class="section-row"><td colspan="5">I. The Fundamentals <span id="vi-fund-wt"></span></td></tr>
+              <tr><td>Human Continuity</td><td id="vi-hc">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Economic Function</td><td id="vi-ef">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Infrastructure &amp; Connectivity</td><td id="vi-ic">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Civic &amp; Institutional Stability</td><td id="vi-cis">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr class="section-row"><td colspan="5">II. The Relationships <span id="vi-rel-wt"></span></td></tr>
+              <tr><td>Essential Service Ecosystem</td><td id="vi-ese">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Ecosystem Connectivity &amp; Flow</td><td id="vi-ecf">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Ecosystem Role &amp; Embeddedness</td><td id="vi-ere">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr class="section-row"><td colspan="5">III. The Viability Potential <span id="vi-pot-wt"></span></td></tr>
+              <tr><td>Transition Pressure</td><td id="vi-tp">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Adaptive Capacity</td><td id="vi-ac">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr><td>Strategic Opportunity</td><td id="vi-so">TBD</td><td>—</td><td>TBD</td><td>TBD</td></tr>
+              <tr class="section-row"><td colspan="4">Final Viability Index Score</td><td id="vi-final">TBD</td></tr>
             </tbody>
           </table>
         </div>
+        <div id="vi-source-note" style="display:none; font-size:11px; color:var(--muted); margin-top:8px; font-style:italic;"></div>
       </div>
 
       <!-- JURISDICTION -->
@@ -333,35 +335,50 @@ fetch('community_data.json')
   });
 
 function init(DATA) {
-  const communities = Object.values(DATA).filter(c => c.scid === scid);
+  const isAll = scid === 'all';
+  const communities = isAll
+    ? Object.values(DATA)
+    : Object.values(DATA).filter(c => c.scid === scid);
   if (!communities.length) return;
 
   const first  = communities[0];
-  const scName = first.sc_name;
+  const scName = isAll ? 'Information Age Community' : first.sc_name;
+  const scCount = isAll ? new Set(communities.map(c => c.scid)).size : 1;
 
   // Sidebar & header
-  document.title = `${scName} — Service Center`;
+  document.title = isAll ? 'IAC — Full Community Report' : `${scName} — Service Center`;
   document.getElementById('sb-name').textContent  = scName;
   document.getElementById('hdr-name').textContent = scName;
-  document.getElementById('col-sc').textContent   = scName;
+  document.getElementById('col-sc').textContent   = isAll ? 'Full IAC' : scName;
 
   // States/counties for sidebar sub
   const counties = [...new Set(communities.map(c=>c.county).filter(Boolean))];
-  document.getElementById('sb-sub').textContent   = first.state || '';
+  document.getElementById('sb-sub').textContent = isAll
+    ? `${scCount} Service Centers`
+    : (first.state || '');
 
-  // Nav links
-  document.getElementById('btn-map').href =
-    `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}`;
-  document.getElementById('btn-nb').href  =
-    `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}&view=neighborhood`;
+  // Nav links — for the full-IAC report there's no single neighborhood map to
+  // return to, so both buttons go back to the national search map instead.
+  if (isAll) {
+    document.getElementById('btn-map').style.display = 'none';
+    document.getElementById('btn-nb').href = 'iac_map.html';
+    document.getElementById('btn-nb').textContent = 'Explore the IAC Map';
+  } else {
+    document.getElementById('btn-map').href =
+      `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}`;
+    document.getElementById('btn-nb').href  =
+      `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}&view=neighborhood`;
+  }
 
   // Vision — use first non-empty vision from any community in this SC
-  const vision = [first.vision1, first.vision2, first.tagline]
+  const vision = isAll ? '' : [first.vision1, first.vision2, first.tagline]
     .find(v => v && v !== 'nan') || '';
   if (vision) {
     document.getElementById('hdr-sub').textContent = first.tagline !== 'nan' ? first.tagline : '';
     document.getElementById('vision-block').style.display = '';
     document.getElementById('vision-text').textContent    = `"${vision}"`;
+  } else if (isAll) {
+    document.getElementById('hdr-sub').textContent = 'A Minneapolis–St. Paul Information Age Community — full footprint report';
   }
 
   // Aggregate
@@ -376,6 +393,30 @@ function init(DATA) {
     });
   });
   const sqMi = (grandTotal/640).toFixed(0);
+
+  // Viability Index — real sample data exists only for Brainerd (scid 9) so far,
+  // from the May 2025 report Precious/John sent. Every other SC stays TBD
+  // rather than guessing at numbers we don't have.
+  if (scid === '9') {
+    document.getElementById('vi-fund-wt').textContent = '(Score 7.21 · Weight 35%)';
+    document.getElementById('vi-hc').textContent  = '7.49';
+    document.getElementById('vi-ef').textContent  = '6.91';
+    document.getElementById('vi-ic').textContent  = '7.61';
+    document.getElementById('vi-cis').textContent = '7.25';
+    document.getElementById('vi-rel-wt').textContent = '(Score 7.27 · Weight 35%)';
+    document.getElementById('vi-ese').textContent = '7.21';
+    document.getElementById('vi-ecf').textContent = '7.59';
+    document.getElementById('vi-ere').textContent = '7.03';
+    document.getElementById('vi-pot-wt').textContent = '(Score 6.89 · Weight 30%)';
+    document.getElementById('vi-tp').textContent  = '5.83';
+    document.getElementById('vi-ac').textContent  = '7.19';
+    document.getElementById('vi-so').textContent  = '7.66';
+    document.getElementById('vi-final').textContent = '7.74';
+    document.getElementById('sb-viability').textContent = '7.74';
+    const note = document.getElementById('vi-source-note');
+    note.style.display = 'block';
+    note.textContent = 'Community-level scores from the May 15, 2025 Viability Monitor report. Trend/Peer Avg/IAC Avg not yet available.';
+  }
 
   // Sidebar stats
   document.getElementById('sb-pop').textContent     = totalPop.toLocaleString();
