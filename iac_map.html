@@ -378,14 +378,19 @@ function loadIACPolygons() {
       Object.entries(boundaries).forEach(function(entry) {
         const iacName = entry[0];
         const points = entry[1];
-        const isActive = iacName === "Minneapolis-St Paul";
+
+        // Minneapolis-St Paul (ours) gets its own accurate, current-data
+        // boundary from drawServiceAreaBubble() below — this file's copy is
+        // a stale convex hull from the old geojson dump, so skip it here to
+        // avoid drawing two conflicting shapes on top of each other.
+        if (iacName === "Minneapolis-St Paul") return;
 
         L.polygon(points, {
-          color: isActive ? "#16a34a" : "#dc2626",
-          weight: isActive ? 2 : 1.5,
-          fillColor: isActive ? "#16a34a" : "#dc2626",
-          fillOpacity: isActive ? 0.12 : 0.06,
-          opacity: isActive ? 1 : 0.6
+          color: "#dc2626",
+          weight: 1.5,
+          fillColor: "#dc2626",
+          fillOpacity: 0.06,
+          opacity: 0.6
         }).bindTooltip(iacName + " IAC", {
           permanent: false,
           direction: "center"
@@ -399,37 +404,53 @@ function loadIACPolygons() {
 
 loadIACPolygons();
 
-// ── IAC FULL SERVICE AREA (convex hull of all SC locations) ──
+// ── IAC FULL SERVICE AREA ──
+// Real dissolved footprint (files/iac_full_service_area.json), precomputed
+// from the true zip-level boundary by scripts/build_service_area.py —
+// traces the IAC's actual edge, so gaps like Bismarck/Minot/Tomah (never
+// part of the IAC) are correctly excluded. A convex hull of SC anchor
+// points can't do that; it's blind to real gaps and always overshoots to
+// the outermost points. Falls back to that old convex hull only if the
+// precomputed file can't be loaded.
 function drawServiceAreaBubble() {
-  const points = Object.values(SC_LOCATIONS).map(sc => [sc.lat, sc.lng]);
-
-  // Andrew's monotone chain convex hull
-  function cross(o, a, b) {
-    return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-  }
-  const sorted = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-  const lower = [];
-  for (const p of sorted) {
-    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
-    lower.push(p);
-  }
-  const upper = [];
-  for (let i = sorted.length - 1; i >= 0; i--) {
-    const p = sorted[i];
-    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
-    upper.push(p);
-  }
-  lower.pop();
-  upper.pop();
-  const hull = lower.concat(upper);
-
-  L.polygon(hull, {
+  const style = {
     color: '#ffffff',
     weight: 1.5,
     fillColor: '#16a34a',
     fillOpacity: 0.07,
     interactive: false
-  }).addTo(map);
+  };
+
+  fetch('files/iac_full_service_area.json')
+    .then(r => { if (!r.ok) throw new Error('missing'); return r.json(); })
+    .then(rings => { rings.forEach(ringSet => L.polygon(ringSet, style).addTo(map)); })
+    .catch(() => drawConvexHullFallback());
+
+  function drawConvexHullFallback() {
+    const points = Object.values(SC_LOCATIONS).map(sc => [sc.lat, sc.lng]);
+
+    // Andrew's monotone chain convex hull
+    function cross(o, a, b) {
+      return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    }
+    const sorted = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const lower = [];
+    for (const p of sorted) {
+      while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+      lower.push(p);
+    }
+    const upper = [];
+    for (let i = sorted.length - 1; i >= 0; i--) {
+      const p = sorted[i];
+      while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+      upper.push(p);
+    }
+    lower.pop();
+    upper.pop();
+    const hull = lower.concat(upper);
+
+    L.polygon(hull, style).addTo(map);
+  }
 }
 
 drawServiceAreaBubble();

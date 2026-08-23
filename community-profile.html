@@ -16,6 +16,19 @@
       --border:    #c8d8eb;
       --bg:        #f0f5fb;
     }
+    /* Neighborhood pages are green, Community/Service Center pages are blue —
+       the full-IAC report gets its own soft earth-tone palette so it reads
+       as a distinct "level" rather than just another Service Center page. */
+    body.iac-wide {
+      --blue:      #8b5e3c;
+      --blue-dark: #5b4636;
+      --blue-light:#f2e8da;
+      --accent:    #7c8a5f;
+      --text:      #3a2f26;
+      --muted:     #7a6a5a;
+      --border:    #ddd0bd;
+      --bg:        #faf5ee;
+    }
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:'Segoe UI',Arial,sans-serif;
            background:var(--bg); color:var(--text); font-size:14px; }
@@ -58,7 +71,7 @@
     .s-btn-iac { background:rgba(255,255,255,0.12); color:#fff; }
     .s-btn-map { background:rgba(255,255,255,0.12); color:#fff;
                  border:1px solid rgba(255,255,255,0.25); }
-    .s-btn-nb  { background:var(--accent); color:#fff; }
+    .s-btn-nb  { background-color:var(--accent); color:#fff; }
     .s-btn:hover { opacity:0.85; transform:translateX(2px); }
 
     /* ── MAIN ── */
@@ -336,6 +349,7 @@ fetch('community_data.json')
 
 function init(DATA) {
   const isAll = scid === 'all';
+  if (isAll) document.body.classList.add('iac-wide');
   const communities = isAll
     ? Object.values(DATA)
     : Object.values(DATA).filter(c => c.scid === scid);
@@ -363,6 +377,7 @@ function init(DATA) {
     document.getElementById('btn-map').style.display = 'none';
     document.getElementById('btn-nb').href = 'iac_map.html';
     document.getElementById('btn-nb').textContent = 'Explore the IAC Map';
+    document.getElementById('btn-nb').style.setProperty('background-color', '#7c8a5f', 'important');
   } else {
     document.getElementById('btn-map').href =
       `files/neighborhood-map.html?scid=${scid}&zip=${zip||first.zip}`;
