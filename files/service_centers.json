@@ -350,7 +350,14 @@
     "pop_2020": 59762,
     "pct_change_2010_2020": 0.010808,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 45.99,
+    "pop_balance_score": 7,
+    "pop_size_total": 59762,
+    "pop_size_score": 4,
+    "pop_balance_pct": 45.99,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "2": {
     "name": "Albert Lea Service Center",
@@ -472,7 +479,14 @@
     "pop_2020": 39838,
     "pct_change_2010_2020": -0.010826,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 45.0,
+    "pop_balance_score": 8,
+    "pop_size_total": 38973,
+    "pop_size_score": 4,
+    "pop_balance_pct": 45.0,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Below average"
   },
   "3": {
     "name": "Alexandria Service Center",
@@ -580,7 +594,14 @@
     "pop_2020": 51095,
     "pct_change_2010_2020": 0.072793,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 48.35,
+    "pop_balance_score": 7,
+    "pop_size_total": 51095,
+    "pop_size_score": 4,
+    "pop_balance_pct": 48.35,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "4": {
     "name": "Ashland Service Center",
@@ -807,7 +828,14 @@
     "pop_2020": 44369,
     "pct_change_2010_2020": 0.044788,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 74.1,
+    "pop_balance_score": 4,
+    "pop_size_total": 44369,
+    "pop_size_score": 4,
+    "pop_balance_pct": 74.1,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Below average"
   },
   "5": {
     "name": "Austin Service Center",
@@ -1048,7 +1076,14 @@
     "pop_2020": 47788,
     "pct_change_2010_2020": 0.015124,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 24.55,
+    "pop_balance_score": 10,
+    "pop_size_total": 39387,
+    "pop_size_score": 4,
+    "pop_balance_pct": 24.55,
+    "pop_balance_legend": "Very dispersed",
+    "pop_size_legend": "Below average"
   },
   "6": {
     "name": "Bemidji Service Center",
@@ -1247,7 +1282,14 @@
     "pop_2020": 65036,
     "pct_change_2010_2020": 0.034271,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 46.73,
+    "pop_balance_score": 7,
+    "pop_size_total": 65036,
+    "pop_size_score": 5,
+    "pop_balance_pct": 46.73,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Average"
   },
   "8": {
     "name": "Blue Earth Service Center",
@@ -1516,7 +1558,14 @@
     "pop_2020": 52540,
     "pct_change_2010_2020": -0.045213,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 91.82,
+    "pop_balance_score": 2,
+    "pop_size_total": 52540,
+    "pop_size_score": 4,
+    "pop_balance_pct": 91.82,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Below average"
   },
   "9": {
     "name": "Brainerd Service Center",
@@ -1673,7 +1722,14 @@
     "pop_2020": 101510,
     "pct_change_2010_2020": 0.040733,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 69.82,
+    "pop_balance_score": 5,
+    "pop_size_total": 101510,
+    "pop_size_score": 5,
+    "pop_balance_pct": 69.82,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Average"
   },
   "10": {
     "name": "Brookings Service Center",
@@ -1851,7 +1907,14 @@
     "pop_2020": 43131,
     "pct_change_2010_2020": 0.016905,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 46.65,
+    "pop_balance_score": 7,
+    "pop_size_total": 45496,
+    "pop_size_score": 4,
+    "pop_balance_pct": 46.65,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "11": {
     "name": "Breckenridge-Wahpeton Service Center",
@@ -2064,7 +2127,14 @@
     "pop_2020": 32437,
     "pct_change_2010_2020": 0.008362,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 87.83,
+    "pop_balance_score": 2,
+    "pop_size_total": 32481,
+    "pop_size_score": 4,
+    "pop_balance_pct": 87.83,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Below average"
   },
   "13": {
     "name": "Chippewa Falls Service Center",
@@ -2207,7 +2277,14 @@
     "pop_2020": 88696,
     "pct_change_2010_2020": 0.044453,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 61.69,
+    "pop_balance_score": 6,
+    "pop_size_total": 88696,
+    "pop_size_score": 5,
+    "pop_balance_pct": 61.69,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Average"
   },
   "14": {
     "name": "Crookston Service Center",
@@ -2350,7 +2427,14 @@
     "pop_2020": 26098,
     "pct_change_2010_2020": -0.037294,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 65.65,
+    "pop_balance_score": 5,
+    "pop_size_total": 26098,
+    "pop_size_score": 3,
+    "pop_balance_pct": 65.65,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Small"
   },
   "16": {
     "name": "Devils Lake Service Center",
@@ -2808,7 +2892,14 @@
     "pop_2020": 48570,
     "pct_change_2010_2020": -0.066787,
     "pop_change_score": 3,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 79.22,
+    "pop_balance_score": 3,
+    "pop_size_total": 48633,
+    "pop_size_score": 4,
+    "pop_balance_pct": 79.22,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Below average"
   },
   "17": {
     "name": "Detroit Lakes Service Center",
@@ -2951,7 +3042,14 @@
     "pop_2020": 60188,
     "pct_change_2010_2020": 0.073348,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 70.45,
+    "pop_balance_score": 4,
+    "pop_size_total": 60188,
+    "pop_size_score": 4,
+    "pop_balance_pct": 70.45,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Below average"
   },
   "18": {
     "name": "Des Moines Service Center",
@@ -4914,7 +5012,14 @@
     "pop_2020": 1100216,
     "pct_change_2010_2020": 0.102574,
     "pop_change_score": 9,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 80.26,
+    "pop_balance_score": 3,
+    "pop_size_total": 1124216,
+    "pop_size_score": 9,
+    "pop_balance_pct": 80.26,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Large"
   },
   "19": {
     "name": "Dickinson Service Center",
@@ -5120,7 +5225,14 @@
     "pop_2020": 38531,
     "pct_change_2010_2020": 0.087341,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 98.85,
+    "pop_balance_score": 1,
+    "pop_size_total": 38531,
+    "pop_size_score": 4,
+    "pop_balance_pct": 98.85,
+    "pop_balance_legend": "Very concentrated",
+    "pop_size_legend": "Below average"
   },
   "21": {
     "name": "Cloquet Service Center",
@@ -5354,7 +5466,14 @@
     "pop_2020": 170206,
     "pct_change_2010_2020": 0.003881,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 89.87,
+    "pop_balance_score": 2,
+    "pop_size_total": 170206,
+    "pop_size_score": 6,
+    "pop_balance_pct": 89.87,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "22": {
     "name": "Eau Claire Service Center",
@@ -5469,7 +5588,14 @@
     "pop_2020": 132427,
     "pct_change_2010_2020": 0.061326,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 68.78,
+    "pop_balance_score": 5,
+    "pop_size_total": 132427,
+    "pop_size_score": 6,
+    "pop_balance_pct": 68.78,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Average"
   },
   "23": {
     "name": "Ely Service Center",
@@ -5507,7 +5633,14 @@
     "pop_2020": 7369,
     "pct_change_2010_2020": -0.052706,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 26.57,
+    "pop_balance_score": 10,
+    "pop_size_total": 7482,
+    "pop_size_score": 1,
+    "pop_balance_pct": 26.57,
+    "pop_balance_legend": "Very dispersed",
+    "pop_size_legend": "Very small"
   },
   "24": {
     "name": "Fort Dodge Service Center",
@@ -5657,7 +5790,14 @@
     "pop_2020": 188868,
     "pct_change_2010_2020": -0.023166,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 47.42,
+    "pop_balance_score": 7,
+    "pop_size_total": 54191,
+    "pop_size_score": 4,
+    "pop_balance_pct": 47.42,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "26": {
     "name": "Faribault Service Center",
@@ -5793,7 +5933,14 @@
     "pop_2020": 145702,
     "pct_change_2010_2020": 0.071252,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 78.97,
+    "pop_balance_score": 3,
+    "pop_size_total": 145702,
+    "pop_size_score": 6,
+    "pop_balance_pct": 78.97,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "27": {
     "name": "Fergus Falls Service Center",
@@ -5894,7 +6041,14 @@
     "pop_2020": 32746,
     "pct_change_2010_2020": 0.033812,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 41.28,
+    "pop_balance_score": 8,
+    "pop_size_total": 32746,
+    "pop_size_score": 4,
+    "pop_balance_pct": 41.28,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Below average"
   },
   "28": {
     "name": "Grand Forks Service Center",
@@ -6149,7 +6303,14 @@
     "pop_2020": 93790,
     "pct_change_2010_2020": 0.069844,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 54.58,
+    "pop_balance_score": 6,
+    "pop_size_total": 93790,
+    "pop_size_score": 5,
+    "pop_balance_pct": 54.58,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Average"
   },
   "29": {
     "name": "Grand Marais Service Center",
@@ -6201,7 +6362,14 @@
     "pop_2020": 5600,
     "pct_change_2010_2020": 0.081917,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 34.62,
+    "pop_balance_score": 9,
+    "pop_size_total": 5600,
+    "pop_size_score": 1,
+    "pop_balance_pct": 34.62,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Very small"
   },
   "30": {
     "name": "Grand Rapids Service Center",
@@ -6323,7 +6491,14 @@
     "pop_2020": 40187,
     "pct_change_2010_2020": 0.002045,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 49.99,
+    "pop_balance_score": 7,
+    "pop_size_total": 40187,
+    "pop_size_score": 4,
+    "pop_balance_pct": 49.99,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "31": {
     "name": "Hallock Service Center",
@@ -6424,7 +6599,14 @@
     "pop_2020": 20009,
     "pct_change_2010_2020": -0.062854,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 82.97,
+    "pop_balance_score": 3,
+    "pop_size_total": 7230,
+    "pop_size_score": 1,
+    "pop_balance_pct": 82.97,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Very small"
   },
   "32": {
     "name": "Hayward Service Center",
@@ -6672,7 +6854,14 @@
     "pop_2020": 82295,
     "pct_change_2010_2020": 0.036461,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 84.61,
+    "pop_balance_score": 3,
+    "pop_size_total": 82295,
+    "pop_size_score": 5,
+    "pop_balance_pct": 84.61,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "33": {
     "name": "Hibbing Service Center",
@@ -6766,7 +6955,14 @@
     "pop_2020": 33884,
     "pct_change_2010_2020": -0.016886,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 49.62,
+    "pop_balance_score": 7,
+    "pop_size_total": 33884,
+    "pop_size_score": 4,
+    "pop_balance_pct": 49.62,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "34": {
     "name": "Hudson Service Center",
@@ -6902,7 +7098,14 @@
     "pop_2020": 311757,
     "pct_change_2010_2020": 0.104691,
     "pop_change_score": 9,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 89.35,
+    "pop_balance_score": 2,
+    "pop_size_total": 311757,
+    "pop_size_score": 7,
+    "pop_balance_pct": 89.35,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Above average"
   },
   "35": {
     "name": "Huron Service Center",
@@ -7087,7 +7290,14 @@
     "pop_2020": 33720,
     "pct_change_2010_2020": 0.042962,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 52.03,
+    "pop_balance_score": 7,
+    "pop_size_total": 33720,
+    "pop_size_score": 4,
+    "pop_balance_pct": 52.03,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "36": {
     "name": "Hutchinson Service Center",
@@ -7307,7 +7517,14 @@
     "pop_2020": 103239,
     "pct_change_2010_2020": 0.028635,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 81.92,
+    "pop_balance_score": 3,
+    "pop_size_total": 103239,
+    "pop_size_score": 5,
+    "pop_balance_pct": 81.92,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "37": {
     "name": "International Falls Service Center",
@@ -7387,7 +7604,14 @@
     "pop_2020": 12763,
     "pct_change_2010_2020": -0.098021,
     "pop_change_score": 3,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 30.09,
+    "pop_balance_score": 9,
+    "pop_size_total": 12763,
+    "pop_size_score": 2,
+    "pop_balance_pct": 30.09,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Small"
   },
   "38": {
     "name": "Little Falls Service Center",
@@ -7474,7 +7698,14 @@
     "pop_2020": 30089,
     "pct_change_2010_2020": 0.017242,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 49.96,
+    "pop_balance_score": 7,
+    "pop_size_total": 30089,
+    "pop_size_score": 3,
+    "pop_balance_pct": 49.96,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Small"
   },
   "39": {
     "name": "La Crosse Service Center",
@@ -7876,7 +8107,14 @@
     "pop_2020": 184097,
     "pct_change_2010_2020": 0.03723,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 76.0,
+    "pop_balance_score": 4,
+    "pop_size_total": 212893,
+    "pop_size_score": 6,
+    "pop_balance_pct": 76.0,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Average"
   },
   "40": {
     "name": "Jamestown Service Center",
@@ -8152,7 +8390,14 @@
     "pop_2020": 41426,
     "pct_change_2010_2020": 0.005656,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 57.02,
+    "pop_balance_score": 6,
+    "pop_size_total": 41528,
+    "pop_size_score": 4,
+    "pop_balance_pct": 57.02,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Below average"
   },
   "41": {
     "name": "Mankato Service Center",
@@ -8330,7 +8575,14 @@
     "pop_2020": 138589,
     "pct_change_2010_2020": 0.06079,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 63.4,
+    "pop_balance_score": 5,
+    "pop_size_total": 138589,
+    "pop_size_score": 6,
+    "pop_balance_pct": 63.4,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Average"
   },
   "42": {
     "name": "Marshall Service Center",
@@ -8480,7 +8732,14 @@
     "pop_2020": 35014,
     "pct_change_2010_2020": -0.041211,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 55.79,
+    "pop_balance_score": 6,
+    "pop_size_total": 35014,
+    "pop_size_score": 4,
+    "pop_balance_pct": 55.79,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Below average"
   },
   "44": {
     "name": "Mason City Service Center",
@@ -8924,7 +9183,14 @@
     "pop_2020": 120038,
     "pct_change_2010_2020": -0.036544,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 75.9,
+    "pop_balance_score": 4,
+    "pop_size_total": 120241,
+    "pop_size_score": 5,
+    "pop_balance_pct": 75.9,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Average"
   },
   "45": {
     "name": "Menomonie Service Center",
@@ -9039,7 +9305,14 @@
     "pop_2020": 57766,
     "pct_change_2010_2020": 0.025875,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 53.71,
+    "pop_balance_score": 6,
+    "pop_size_total": 57766,
+    "pop_size_score": 4,
+    "pop_balance_pct": 53.71,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Below average"
   },
   "46": {
     "name": "Minneapolis-St Paul Service Center",
@@ -9980,7 +10253,14 @@
     "pop_2020": 2928520,
     "pct_change_2010_2020": 0.112227,
     "pop_change_score": 9,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 73.07,
+    "pop_balance_score": 4,
+    "pop_size_total": 2928520,
+    "pop_size_score": 10,
+    "pop_balance_pct": 73.07,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Very large"
   },
   "48": {
     "name": "Mitchell Service Center",
@@ -10347,7 +10627,14 @@
     "pop_2020": 67116,
     "pct_change_2010_2020": 0.007339,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 71.43,
+    "pop_balance_score": 4,
+    "pop_size_total": 65662,
+    "pop_size_score": 5,
+    "pop_balance_pct": 71.43,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Average"
   },
   "49": {
     "name": "Montevideo Service Center",
@@ -10448,7 +10735,14 @@
     "pop_2020": 27377,
     "pct_change_2010_2020": -0.022285,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 72.12,
+    "pop_balance_score": 4,
+    "pop_size_total": 27377,
+    "pop_size_score": 3,
+    "pop_balance_pct": 72.12,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Small"
   },
   "50": {
     "name": "Morris Service Center",
@@ -10626,7 +10920,14 @@
     "pop_2020": 25879,
     "pct_change_2010_2020": -0.017278,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 74.32,
+    "pop_balance_score": 4,
+    "pop_size_total": 25879,
+    "pop_size_score": 3,
+    "pop_balance_pct": 74.32,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Small"
   },
   "51": {
     "name": "New Richmond Service Center",
@@ -10839,7 +11140,14 @@
     "pop_2020": 121897,
     "pct_change_2010_2020": 0.059283,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 83.74,
+    "pop_balance_score": 3,
+    "pop_size_total": 121897,
+    "pop_size_score": 5,
+    "pop_balance_pct": 83.74,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "52": {
     "name": "Owatonna Service Center",
@@ -10898,7 +11206,14 @@
     "pop_2020": 41481,
     "pct_change_2010_2020": 0.018564,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 28.42,
+    "pop_balance_score": 10,
+    "pop_size_total": 41481,
+    "pop_size_score": 4,
+    "pop_balance_pct": 28.42,
+    "pop_balance_legend": "Very dispersed",
+    "pop_size_legend": "Below average"
   },
   "53": {
     "name": "Park Rapids Service Center",
@@ -10985,7 +11300,14 @@
     "pop_2020": 31412,
     "pct_change_2010_2020": 0.060786,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 66.04,
+    "pop_balance_score": 5,
+    "pop_size_total": 31412,
+    "pop_size_score": 3,
+    "pop_balance_pct": 66.04,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Small"
   },
   "55": {
     "name": "Pine City Service Center",
@@ -11254,7 +11576,14 @@
     "pop_2020": 154444,
     "pct_change_2010_2020": 0.034925,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 94.02,
+    "pop_balance_score": 2,
+    "pop_size_total": 154444,
+    "pop_size_score": 6,
+    "pop_balance_pct": 94.02,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "56": {
     "name": "Pipestone Service Center",
@@ -11397,7 +11726,14 @@
     "pop_2020": 34157,
     "pct_change_2010_2020": -0.005908,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 79.64,
+    "pop_balance_score": 3,
+    "pop_size_total": 27887,
+    "pop_size_score": 3,
+    "pop_balance_pct": 79.64,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Small"
   },
   "58": {
     "name": "Red Wing Service Center",
@@ -11498,7 +11834,14 @@
     "pop_2020": 54091,
     "pct_change_2010_2020": 0.017762,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 61.72,
+    "pop_balance_score": 5,
+    "pop_size_total": 48930,
+    "pop_size_score": 4,
+    "pop_balance_pct": 61.72,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Below average"
   },
   "59": {
     "name": "Redwood Falls Service Center",
@@ -11655,7 +11998,14 @@
     "pop_2020": 32898,
     "pct_change_2010_2020": -0.045079,
     "pop_change_score": 4,
-    "pop_change_legend": "Declining"
+    "pop_change_legend": "Declining",
+    "pop_balance_rural_share": 80.52,
+    "pop_balance_score": 1,
+    "pop_size_total": 32915,
+    "pop_size_score": 4,
+    "pop_balance_pct": 95.6,
+    "pop_balance_legend": "Very concentrated",
+    "pop_size_legend": "Below average"
   },
   "60": {
     "name": "Rochester Service Center",
@@ -11868,7 +12218,14 @@
     "pop_2020": 180981,
     "pct_change_2010_2020": 0.121174,
     "pop_change_score": 9,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 72.91,
+    "pop_balance_score": 4,
+    "pop_size_total": 214234,
+    "pop_size_score": 6,
+    "pop_balance_pct": 72.91,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Average"
   },
   "61": {
     "name": "Sauk Center Service Center",
@@ -11969,7 +12326,14 @@
     "pop_2020": 31444,
     "pct_change_2010_2020": 0.008693,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 74.0,
+    "pop_balance_score": 4,
+    "pop_size_total": 31444,
+    "pop_size_score": 3,
+    "pop_balance_pct": 74.0,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Small"
   },
   "62": {
     "name": "Sioux City Service Center",
@@ -12868,7 +13232,14 @@
     "pop_2020": 346290,
     "pct_change_2010_2020": 0.020725,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 83.27,
+    "pop_balance_score": 3,
+    "pop_size_total": 534773,
+    "pop_size_score": 8,
+    "pop_balance_pct": 83.27,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Large"
   },
   "63": {
     "name": "Sioux Falls Service Center",
@@ -13305,7 +13676,14 @@
     "pop_2020": 291283,
     "pct_change_2010_2020": 0.202923,
     "pop_change_score": 10,
-    "pop_change_legend": "Significant growth"
+    "pop_change_legend": "Significant growth",
+    "pop_balance_rural_share": 33.42,
+    "pop_balance_score": 9,
+    "pop_size_total": 299564,
+    "pop_size_score": 7,
+    "pop_balance_pct": 33.42,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Above average"
   },
   "64": {
     "name": "St Cloud Service Center",
@@ -13567,7 +13945,14 @@
     "pop_2020": 327369,
     "pct_change_2010_2020": 0.068085,
     "pop_change_score": 8,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 76.14,
+    "pop_balance_score": 4,
+    "pop_size_total": 327369,
+    "pop_size_score": 7,
+    "pop_balance_pct": 76.14,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Above average"
   },
   "66": {
     "name": "Thief River Falls Service Center",
@@ -13675,7 +14060,14 @@
     "pop_2020": 25817,
     "pct_change_2010_2020": -0.01612,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 50.43,
+    "pop_balance_score": 7,
+    "pop_size_total": 25817,
+    "pop_size_score": 3,
+    "pop_balance_pct": 50.43,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Small"
   },
   "68": {
     "name": "Two Harbors Service Center",
@@ -13741,7 +14133,14 @@
     "pop_2020": 43945,
     "pct_change_2010_2020": 0.028266,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 84.02,
+    "pop_balance_score": 3,
+    "pop_size_total": 43945,
+    "pop_size_score": 4,
+    "pop_balance_pct": 84.02,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Below average"
   },
   "70": {
     "name": "Virginia Service Center",
@@ -13842,7 +14241,14 @@
     "pop_2020": 33565,
     "pct_change_2010_2020": -0.026424,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 70.72,
+    "pop_balance_score": 4,
+    "pop_size_total": 33565,
+    "pop_size_score": 4,
+    "pop_balance_pct": 70.72,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Below average"
   },
   "71": {
     "name": "Wabasha Service Center",
@@ -13929,7 +14335,14 @@
     "pop_2020": 26454,
     "pct_change_2010_2020": 0.001856,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 81.77,
+    "pop_balance_score": 3,
+    "pop_size_total": 21934,
+    "pop_size_score": 3,
+    "pop_balance_pct": 81.77,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Small"
   },
   "72": {
     "name": "Wadena Service Center",
@@ -14030,7 +14443,14 @@
     "pop_2020": 25091,
     "pct_change_2010_2020": 0.030347,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 72.4,
+    "pop_balance_score": 4,
+    "pop_size_total": 25091,
+    "pop_size_score": 3,
+    "pop_balance_pct": 72.4,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Small"
   },
   "73": {
     "name": "Warroad Service Center",
@@ -14096,7 +14516,14 @@
     "pop_2020": 15693,
     "pct_change_2010_2020": -0.020779,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 67.3,
+    "pop_balance_score": 5,
+    "pop_size_total": 15693,
+    "pop_size_score": 2,
+    "pop_balance_pct": 67.3,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Small"
   },
   "74": {
     "name": "Waseca Service Center",
@@ -14162,7 +14589,14 @@
     "pop_2020": 25028,
     "pct_change_2010_2020": -0.016234,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 50.18,
+    "pop_balance_score": 7,
+    "pop_size_total": 25028,
+    "pop_size_score": 3,
+    "pop_balance_pct": 50.18,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Small"
   },
   "75": {
     "name": "Watertown Service Center",
@@ -14424,7 +14858,14 @@
     "pop_2020": 53686,
     "pct_change_2010_2020": 0.021637,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 51.4,
+    "pop_balance_score": 7,
+    "pop_size_total": 53686,
+    "pop_size_score": 4,
+    "pop_balance_pct": 51.4,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "76": {
     "name": "Willmar Service Center",
@@ -14532,7 +14973,14 @@
     "pop_2020": 47583,
     "pct_change_2010_2020": 0.037345,
     "pop_change_score": 7,
-    "pop_change_legend": "Expanding"
+    "pop_change_legend": "Expanding",
+    "pop_balance_rural_share": 48.35,
+    "pop_balance_score": 7,
+    "pop_size_total": 47583,
+    "pop_size_score": 4,
+    "pop_balance_pct": 48.35,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Below average"
   },
   "78": {
     "name": "Williston Service Center",
@@ -14745,7 +15193,14 @@
     "pop_2020": 62233,
     "pct_change_2010_2020": 0.834429,
     "pop_change_score": 10,
-    "pop_change_legend": "Significant growth"
+    "pop_change_legend": "Significant growth",
+    "pop_balance_rural_share": 52.5,
+    "pop_balance_score": 7,
+    "pop_size_total": 73522,
+    "pop_size_score": 5,
+    "pop_balance_pct": 52.5,
+    "pop_balance_legend": "Somewhat dispersed",
+    "pop_size_legend": "Average"
   },
   "79": {
     "name": "Windom Service Center",
@@ -14930,7 +15385,14 @@
     "pop_2020": 40418,
     "pct_change_2010_2020": -0.029557,
     "pop_change_score": 5,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 85.14,
+    "pop_balance_score": 3,
+    "pop_size_total": 40418,
+    "pop_size_score": 4,
+    "pop_balance_pct": 85.14,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Below average"
   },
   "80": {
     "name": "Winona Service Center",
@@ -15024,7 +15486,14 @@
     "pop_2020": 75946,
     "pct_change_2010_2020": 0.000857,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 39.11,
+    "pop_balance_score": 8,
+    "pop_size_total": 55856,
+    "pop_size_score": 4,
+    "pop_balance_pct": 39.11,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Below average"
   },
   "81": {
     "name": "Worthington Service Center",
@@ -15321,7 +15790,14 @@
     "pop_2020": 60269,
     "pct_change_2010_2020": 0.00695,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 74.59,
+    "pop_balance_score": 4,
+    "pop_size_total": 60269,
+    "pop_size_score": 4,
+    "pop_balance_pct": 74.59,
+    "pop_balance_legend": "Somewhat concentrated",
+    "pop_size_legend": "Below average"
   },
   "92": {
     "name": "Fargo-Moorhead Service Center",
@@ -15653,7 +16129,14 @@
     "pop_2020": 249613,
     "pct_change_2010_2020": 0.185455,
     "pop_change_score": 10,
-    "pop_change_legend": "Significant growth"
+    "pop_change_legend": "Significant growth",
+    "pop_balance_rural_share": 30.7,
+    "pop_balance_score": 9,
+    "pop_size_total": 251469,
+    "pop_size_score": 6,
+    "pop_balance_pct": 30.81,
+    "pop_balance_legend": "Dispersed",
+    "pop_size_legend": "Average"
   },
   "93": {
     "name": "Waterloo Service Center",
@@ -15775,7 +16258,14 @@
     "pop_2020": 153194,
     "pct_change_2010_2020": 0.011696,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 80.54,
+    "pop_balance_score": 3,
+    "pop_size_total": 153194,
+    "pop_size_score": 6,
+    "pop_balance_pct": 80.54,
+    "pop_balance_legend": "Concentrated",
+    "pop_size_legend": "Average"
   },
   "94": {
     "name": "Spencer Service Center",
@@ -15855,6 +16345,13 @@
     "pop_2020": 33651,
     "pct_change_2010_2020": 0.015297,
     "pop_change_score": 6,
-    "pop_change_legend": "Minimal change"
+    "pop_change_legend": "Minimal change",
+    "pop_balance_rural_share": 62.54,
+    "pop_balance_score": 5,
+    "pop_size_total": 33651,
+    "pop_size_score": 4,
+    "pop_balance_pct": 62.54,
+    "pop_balance_legend": "Balanced",
+    "pop_size_legend": "Below average"
   }
 }

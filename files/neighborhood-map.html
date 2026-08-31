@@ -89,6 +89,30 @@
     .ctrl-btn-wide:hover { background: rgba(255,255,255,0.28); }
     #ctrl-back-link { margin-top: auto; background: rgba(0,0,0,0.2); }
 
+    .ctrl-select-label {
+      font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85);
+      margin-top: 4px; margin-bottom: -2px;
+    }
+    .ctrl-select {
+      display: block; width: 100%; box-sizing: border-box;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35); border-radius: 6px;
+      padding: 7px 8px; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer;
+      font-family: inherit;
+    }
+    .ctrl-select:hover { background: rgba(255,255,255,0.28); }
+    .ctrl-select option { color: #1a1a1a; }
+
+    .pie-marker-wrap { display:flex; flex-direction:column; align-items:center; pointer-events:auto; }
+    .pie-marker-label {
+      margin-top:2px; font-size:10px; font-weight:700; color:#1a2b4a;
+      background:rgba(255,255,255,0.9); padding:1px 5px; border-radius:3px;
+      white-space:nowrap; box-shadow:0 1px 2px rgba(0,0,0,0.25);
+    }
+    .pie-marker-pending {
+      width:16px; height:16px; border-radius:50%;
+      background:#bdbdbd; border:2px solid #888;
+    }
+
     /* ADJOINING SC OUTLINE — click navigates straight to that SC's map */
     .adj-outline { cursor: pointer; }
 
@@ -157,31 +181,43 @@
       </div>
     </div>
 
-    <div id="ctrl-legend-pop" class="ctrl-legend" style="display:none;">
+    <div id="ctrl-legend-scale" class="ctrl-legend" style="display:none;">
       <div class="legend-row">
         <div class="legend-box" style="background:#7f1d1d;"></div>
-        <span>Significant decline</span>
+        <span id="legend-label-1"></span>
       </div>
       <div class="legend-row">
         <div class="legend-box" style="background:#e05252;"></div>
-        <span>Declining</span>
+        <span id="legend-label-2"></span>
       </div>
       <div class="legend-row">
         <div class="legend-box" style="background:#e8c34a;"></div>
-        <span>Minimal change</span>
+        <span id="legend-label-3"></span>
       </div>
       <div class="legend-row">
         <div class="legend-box" style="background:#5bbf6a;"></div>
-        <span>Expanding</span>
+        <span id="legend-label-4"></span>
       </div>
       <div class="legend-row">
         <div class="legend-box" style="background:#15803d;"></div>
-        <span>Significant growth</span>
+        <span id="legend-label-5"></span>
       </div>
       <div class="legend-row">
         <div class="legend-box" style="background:#9ca3af;"></div>
         <span>No data</span>
       </div>
+    </div>
+
+    <div id="ctrl-legend-landform" class="ctrl-legend" style="display:none;">
+      <!-- populated dynamically from LANDFORM_COLORS -->
+    </div>
+
+    <div id="ctrl-legend-pie" class="ctrl-legend" style="display:none;">
+      <b>Community Profile</b>
+      <div class="legend-row"><div class="legend-box" style="background:#c0392b;"></div><span>Top — Economy</span></div>
+      <div class="legend-row"><div class="legend-box" style="background:#4a90d9;"></div><span>Right — Role</span></div>
+      <div class="legend-row"><div class="legend-box" style="background:#5ab870;"></div><span>Left — Identity</span></div>
+      <div class="legend-row"><div class="legend-box" style="background:#333333;opacity:0.6;"></div><span>Ring — Border Scale</span></div>
     </div>
 
     <div class="ctrl-divider"></div>
@@ -192,7 +228,19 @@
     </div>
     <button id="ctrl-fill-toggle" class="ctrl-btn-wide">Outline View</button>
     <button id="ctrl-basemap-toggle" class="ctrl-btn-wide">Satellite View</button>
-    <button id="ctrl-popchange-toggle" class="ctrl-btn-wide">Population Change View</button>
+    <label for="ctrl-indicator-select" class="ctrl-select-label">View Indicator</label>
+    <select id="ctrl-indicator-select" class="ctrl-select">
+      <option value="none">Community View</option>
+      <option value="pop_change">Population Change</option>
+      <option value="pop_balance">Population Balance</option>
+      <option value="pop_size">Population Size</option>
+      <option value="lfpr">Labor Force Participation</option>
+      <option value="income">Median Household Income</option>
+      <option value="unemployment">Unemployment Rate</option>
+      <option value="poverty">Poverty Rate</option>
+      <option value="landform">Dominant Landform</option>
+    </select>
+    <button id="ctrl-pie-toggle" class="ctrl-btn-wide">Show Community Profile</button>
 
     <a id="ctrl-back-link" class="ctrl-btn-wide" href="#">← Back to the Community Page</a>
     <a id="ctrl-profile-link" class="ctrl-btn-wide" href="#" target="_blank">Community Profile</a>
@@ -220,22 +268,74 @@ const startInPopChangeView = params.get('pop') === '1';
 // used to find nearby SCs for adjacency even when secondary_scid data is sparse.
 const SC_COORDS = {"1": {lat: 45.4753, lng: -98.53042}, "2": {lat: 43.66085, lng: -93.3238}, "3": {lat: 45.87047, lng: -95.38985}, "4": {lat: 46.54784, lng: -90.85061}, "5": {lat: 43.6827, lng: -92.99148}, "6": {lat: 47.50985, lng: -94.84921}, "8": {lat: 43.62142, lng: -94.10734}, "9": {lat: 46.32259, lng: -94.11974}, "10": {lat: 44.31588, lng: -96.79518}, "11": {lat: 46.28645, lng: -96.50361}, "13": {lat: 44.94533, lng: -91.39342}, "14": {lat: 47.74189, lng: -96.55522}, "16": {lat: 48.13015, lng: -98.88798}, "17": {lat: 46.83665, lng: -95.82233}, "18": {lat: 41.58448, lng: -93.62152}, "19": {lat: 45.38425, lng: -102.53897}, "21": {lat: 46.75138, lng: -92.5399}, "22": {lat: 44.7432, lng: -91.50899}, "23": {lat: 47.98832, lng: -91.7489}, "24": {lat: 42.49244, lng: -94.18967}, "26": {lat: 44.2973, lng: -93.27414}, "27": {lat: 46.27697, lng: -96.08977}, "28": {lat: 47.86938, lng: -97.14013}, "29": {lat: 47.96201, lng: -90.55792}, "30": {lat: 47.24041, lng: -93.52126}, "31": {lat: 48.78736, lng: -96.99149}, "32": {lat: 46.0251, lng: -91.29494}, "33": {lat: 47.35766, lng: -92.95698}, "34": {lat: 44.97949, lng: -92.69305}, "35": {lat: 44.3948, lng: -98.20037}, "36": {lat: 44.89743, lng: -94.39195}, "37": {lat: 48.53122, lng: -93.13224}, "38": {lat: 46.00748, lng: -94.38032}, "39": {lat: 43.80199, lng: -91.14559}, "40": {lat: 46.88145, lng: -98.76883}, "41": {lat: 44.13193, lng: -93.97789}, "42": {lat: 44.44121, lng: -95.75906}, "44": {lat: 43.15389, lng: -93.20006}, "45": {lat: 44.84971, lng: -91.92994}, "46": {lat: 44.97608, lng: -93.27119}, "48": {lat: 43.71136, lng: -98.04155}, "49": {lat: 45.0064, lng: -95.70098}, "50": {lat: 45.58512, lng: -95.9322}, "51": {lat: 45.11907, lng: -92.52091}, "52": {lat: 44.05966, lng: -93.22639}, "53": {lat: 47.02368, lng: -95.09433}, "55": {lat: 45.83263, lng: -92.90584}, "56": {lat: 44.04936, lng: -96.33361}, "58": {lat: 44.51581, lng: -92.5441}, "59": {lat: 44.75599, lng: -94.87624}, "60": {lat: 44.07679, lng: -92.5018}, "61": {lat: 45.72308, lng: -94.97982}, "62": {lat: 42.49413, lng: -96.39361}, "63": {lat: 43.538, lng: -96.69241}, "64": {lat: 45.48718, lng: -94.24307}, "66": {lat: 48.12021, lng: -96.1994}, "68": {lat: 47.25095, lng: -91.66982}, "70": {lat: 47.60027, lng: -92.48261}, "71": {lat: 44.35375, lng: -92.06518}, "72": {lat: 46.46555, lng: -95.14307}, "73": {lat: 48.80879, lng: -95.34167}, "74": {lat: 44.06342, lng: -93.51683}, "75": {lat: 44.93412, lng: -97.09424}, "76": {lat: 45.10181, lng: -95.04226}, "78": {lat: 48.23522, lng: -103.76747}, "79": {lat: 43.88404, lng: -95.13991}, "80": {lat: 43.98469, lng: -91.63143}, "81": {lat: 43.62357, lng: -95.58507}, "92": {lat: 46.9207, lng: -96.83175}, "93": {lat: 42.4778, lng: -92.3661}, "94": {lat: 43.1451, lng: -95.1457}};
 
-// ── Population change color scale (1-10 interpolated score) ───
-// Mirrors the buckets in community_data.json's pop_change_legend field.
-const POP_CHANGE_COLORS = {
+// ── Indicator color scale (1-10 interpolated score) — shared by every
+// numeric indicator (Population Change, Labor Force Participation,
+// Median Household Income, Unemployment Rate, Poverty Rate). All five
+// fields are pre-scored 1-10 in community_data.json with "10 = best".
+const SCALE_COLORS = {
   1: '#7f1d1d', 2: '#e05252', 3: '#e05252', 4: '#e05252',
   5: '#e8c34a', 6: '#e8c34a',
   7: '#5bbf6a', 8: '#5bbf6a', 9: '#5bbf6a',
   10: '#15803d'
 };
-const POP_CHANGE_NO_DATA = '#9ca3af';
+const SCALE_NO_DATA = '#9ca3af';
 
-function popChangeColor(zip) {
-  const score = zipPopChange[zip]?.pop_change_score;
-  return POP_CHANGE_COLORS[score] || POP_CHANGE_NO_DATA;
+// ── Dominant Landform categorical colors ─────────────────────
+const LANDFORM_COLORS = {
+  'Agricultural Plain': '#d9c66b',
+  'Forested':            '#2f6b3a',
+  'Grassland/Open':      '#a3c96b',
+  'Urbanised':           '#8a8a8a',
+  'Water-Dominated':     '#4a90d9',
+  'Wetland':             '#5fb8a8',
+  'Barren':              '#c9b79c'
+};
+const LANDFORM_NO_DATA = '#9ca3af';
+
+// ── Which community_data.json field + legend labels each dropdown
+// option maps to. "field: null" (landform) is handled separately since
+// it's categorical, not a 1-10 score.
+const INDICATOR_CONFIG = {
+  pop_change:   { field: 'pop_change_score',                legend: ['Significant decline','Declining','','Expanding','Significant growth'], title: 'Population Change View', communityLevel: false },
+  lfpr:         { field: 'labor_force_participation_score', legend: ['Lowest participation','Low participation','','High participation','Highest participation'], title: 'Labor Force Participation View', communityLevel: false },
+  income:       { field: 'median_household_income_score',   legend: ['Lowest income','Below average','','Above average','Highest income'], title: 'Median Household Income View', communityLevel: false },
+  unemployment: { field: 'unemployment_rate_score',          legend: ['Highest unemployment','Above average','','Below average','Lowest unemployment'], title: 'Unemployment Rate View', communityLevel: false },
+  poverty:      { field: 'poverty_rate_score',                legend: ['Highest poverty','Above average','','Below average','Lowest poverty'], title: 'Poverty Rate View', communityLevel: false },
+  pop_balance:  { field: 'pop_balance_score',                 legend: ['Most rural-heavy','Rural-leaning','','Trade Center-concentrated','Most Trade Center-concentrated'], title: 'Population Balance View', communityLevel: true },
+  pop_size:     { field: 'pop_size_score',                    legend: ['Smallest Community','Below average size','','Above average size','Largest Community'], title: 'Population Size View', communityLevel: true },
+};
+
+// Community-level indicators (pop_change, pop_balance, pop_size) are scored
+// once per Service Center and apply uniformly to every ZIP inside it —
+// John was explicit these should read "for the entire community, not the
+// ZIP codes individually." Zip-level indicators (lfpr/income/unemployment/
+// poverty/landform) keep their existing per-ZIP coloring.
+const COMMUNITY_LEVEL_INDICATORS = new Set(['pop_change', 'pop_balance', 'pop_size']);
+
+function indicatorScoreColor(zip, indicatorKey) {
+  const cfg = INDICATOR_CONFIG[indicatorKey];
+  if (!cfg) return SCALE_NO_DATA;
+  const score = zipPopChange[zip]?.[cfg.field];
+  return SCALE_COLORS[score] || SCALE_NO_DATA;
 }
 
-// zip -> { pop_change_score, pop_change_legend } lookup, built from the
+// Community-level indicators (Population Change, Population Balance,
+// Population Size) read their score straight off the Service Center
+// record itself, not per ZIP — every ZIP in that Community gets the
+// same color, matching how these three are actually defined.
+function communityScoreColor(scRecord, indicatorKey) {
+  const cfg = INDICATOR_CONFIG[indicatorKey];
+  if (!cfg || !scRecord) return SCALE_NO_DATA;
+  const score = scRecord[cfg.field];
+  return SCALE_COLORS[score] || SCALE_NO_DATA;
+}
+
+function landformColor(zip) {
+  const landform = zipPopChange[zip]?.dominant_landform;
+  return LANDFORM_COLORS[landform] || LANDFORM_NO_DATA;
+}
+
+// zip -> full community_data.json record lookup, built from the
 // portal-wide community_data.json (keyed by zip) sitting one level up.
 let zipPopChange = {};
 
@@ -255,12 +355,80 @@ function loadPopChangeData() {
 // sc_locations.json), used when navigating into an adjoining SC so the
 // correct town is highlighted — falls back to zips[0] only if an SC is
 // missing from sc_locations.json.
-let SC_ANCHOR_ZIP = {};
+// ── Community Profile pie chart (Economy / Role / Identity) ──
+// Same visual model as the IAC-wide prototype: 3 equal wedges,
+// top=Economy (red), right=Role (blue), left=Identity (green),
+// with a ring showing Border Scale. Colors/opacity come straight
+// from sc_classification.json, precomputed per Service Center.
+function describeArc(cx, cy, r, startDeg, endDeg) {
+  const toRad = d => (d - 90) * Math.PI / 180;
+  const x1 = cx + r * Math.cos(toRad(startDeg));
+  const y1 = cy + r * Math.sin(toRad(startDeg));
+  const x2 = cx + r * Math.cos(toRad(endDeg));
+  const y2 = cy + r * Math.sin(toRad(endDeg));
+  const largeArc = (endDeg - startDeg) > 180 ? 1 : 0;
+  return `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+}
+
+function buildPieSVG(cls) {
+  const size = 34, r = 14, cx = size / 2, cy = size / 2;
+  const border = cls.border_style || { width: 6, opacity: 0.12, dash: 'none' };
+  const bw = Math.max(1.5, (border.width || 6) * 0.4);
+
+  const econArc  = describeArc(cx, cy, r, 0, 120);
+  const roleArc  = describeArc(cx, cy, r, 120, 240);
+  const identArc = describeArc(cx, cy, r, 240, 360);
+
+  const econColor  = cls.econ_color  || '#cccccc';
+  const roleColor  = cls.role_color  || '#cccccc';
+  const identColor = cls.ident_color || '#cccccc';
+
+  return `
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+      <path d="${econArc}"  fill="${econColor}"  stroke="#fff" stroke-width="0.5"/>
+      <path d="${roleArc}"  fill="${roleColor}"  stroke="#fff" stroke-width="0.5"/>
+      <path d="${identArc}" fill="${identColor}" stroke="#fff" stroke-width="0.5"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none"
+              stroke="#222" stroke-width="${bw}"
+              stroke-opacity="${border.opacity}"
+              stroke-dasharray="${border.dash === 'none' ? 'none' : '3,2'}"/>
+    </svg>`;
+}
+
+function pieMarkerFor(scidKey, scName) {
+  const coords = SC_COORDS[scidKey];
+  const cls = SC_CLASSIFICATION[scidKey];
+  if (!coords) return null;
+
+  const hasData = cls && cls.economic_type && cls.role_type && cls.identity_type;
+  const shortName = (scName || '').replace(' Service Center', '');
+
+  const iconHtml = hasData
+    ? `<div class="pie-marker-wrap">${buildPieSVG(cls)}<div class="pie-marker-label">${shortName}</div></div>`
+    : `<div class="pie-marker-wrap"><div class="pie-marker-pending" title="Classification pending"></div><div class="pie-marker-label">${shortName}</div></div>`;
+
+  const icon = L.divIcon({ html: iconHtml, className: '', iconSize: [70, 50], iconAnchor: [35, 25] });
+  const marker = L.marker([coords.lat, coords.lng], { icon, interactive: true });
+
+  const popupHtml = hasData
+    ? `<div style="font-size:12px;"><b>${scName}</b><br>Border Scale: ${cls.border_scale || 'N/A'}<br>
+       Economy: ${cls.econ_abbr || cls.economic_type}<br>Role: ${cls.role_abbr || cls.role_type}<br>
+       Identity: ${cls.ident_abbr || cls.identity_type}</div>`
+    : `<div style="font-size:12px;"><b>${scName}</b><br>Classification data pending review</div>`;
+  marker.bindPopup(popupHtml);
+  return marker;
+}
+
+let pieChartMode = false;
+let pieMarkers = [];
+let SC_CLASSIFICATION = {};
+
 Promise.all([
   fetch('service_centers.json').then(r => r.json()),
   fetch('sc_locations.json').then(r => r.json()).then(loc => {
     for (const [scid, l] of Object.entries(loc)) SC_ANCHOR_ZIP[scid] = l.anchor_zip;
   }).catch(() => {}),
+  fetch('sc_classification.json').then(r => r.json()).then(cls => { SC_CLASSIFICATION = cls; }).catch(() => {}),
   loadPopChangeData()
 ])
 .then(([SC_DATA]) => initMap(SC_DATA))
@@ -272,6 +440,8 @@ Promise.all([
   cs.querySelector('h2').textContent  = 'Data Unavailable';
   cs.querySelector('p').textContent   = 'Could not load map data. Please try again.';
 });
+
+let SC_ANCHOR_ZIP = {};
 
 function initMap(SC_DATA) {
   const sc = SC_DATA[scid];
@@ -345,19 +515,57 @@ function initMap(SC_DATA) {
     });
   }
 
-  // ── Population Change view state ──────────────────────────────
-  let popChangeMode = false;
-  function togglePopChange(btn) {
-    popChangeMode = !popChangeMode;
-    btn.textContent = popChangeMode ? 'Community View' : 'Population Change View';
-    document.getElementById('ctrl-legend-default').style.display = popChangeMode ? 'none' : 'flex';
-    document.getElementById('ctrl-legend-pop').style.display = popChangeMode ? 'flex' : 'none';
+  // ── Indicator view state ────────────────────────────────────
+  let currentIndicator = 'none';
+  function handleIndicatorChange(select) {
+    currentIndicator = select.value;
+    const isActive = currentIndicator !== 'none';
+
+    document.getElementById('ctrl-legend-default').style.display = isActive ? 'none' : 'flex';
+    document.getElementById('ctrl-legend-scale').style.display =
+      (isActive && currentIndicator !== 'landform') ? 'flex' : 'none';
+    document.getElementById('ctrl-legend-landform').style.display =
+      (currentIndicator === 'landform') ? 'flex' : 'none';
+
+    if (isActive && currentIndicator !== 'landform') {
+      const labels = INDICATOR_CONFIG[currentIndicator].legend;
+      document.getElementById('legend-label-1').textContent = labels[0];
+      document.getElementById('legend-label-2').textContent = labels[1];
+      document.getElementById('legend-label-3').textContent = 'Average';
+      document.getElementById('legend-label-4').textContent = labels[3];
+      document.getElementById('legend-label-5').textContent = labels[4];
+    }
+    if (currentIndicator === 'landform') {
+      buildLandformLegend();
+    }
+
+    document.getElementById('ctrl-title').textContent =
+      scShortName + ' — ' + (isActive ? INDICATOR_CONFIG[currentIndicator]?.title || 'Dominant Landform View' : modeLabel);
+
     trackedLayers.forEach(({ layer, zip, isSelected }) => {
       layer.setStyle(styleFor(zip, isSelected, hollowMode));
     });
     adjTrackedLayers.forEach(({ layer, adjSc }) => {
       layer.setStyle(adjStyleFor(adjSc));
     });
+  }
+
+  function buildLandformLegend() {
+    const box = document.getElementById('ctrl-legend-landform');
+    if (box.dataset.built) return; // build once
+    const present = new Set();
+    trackedLayers.forEach(({ zip }) => {
+      const lf = zipPopChange[zip]?.dominant_landform;
+      if (lf) present.add(lf);
+    });
+    let html = '';
+    present.forEach(lf => {
+      const color = LANDFORM_COLORS[lf] || LANDFORM_NO_DATA;
+      html += `<div class="legend-row"><div class="legend-box" style="background:${color};"></div><span>${lf}</span></div>`;
+    });
+    html += `<div class="legend-row"><div class="legend-box" style="background:${LANDFORM_NO_DATA};"></div><span>No data</span></div>`;
+    box.innerHTML = html;
+    box.dataset.built = '1';
   }
 
   // ── Control bar (zoom, outline & basemap controls — identical in both
@@ -373,15 +581,24 @@ function initMap(SC_DATA) {
   document.getElementById('ctrl-zoom-out').addEventListener('click', () => map.zoomOut());
   document.getElementById('ctrl-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
   document.getElementById('ctrl-basemap-toggle').addEventListener('click', (e) => toggleBasemap(e.currentTarget));
-  document.getElementById('ctrl-popchange-toggle').addEventListener('click', (e) => togglePopChange(e.currentTarget));
+  document.getElementById('ctrl-indicator-select').addEventListener('change', (e) => handleIndicatorChange(e.currentTarget));
+  document.getElementById('ctrl-pie-toggle').addEventListener('click', (e) => togglePieChart(e.currentTarget));
 
   // ── Style helpers ───────────────────────────────────────────
   function styleFor(zip, isSelected, hollow) {
-    if (popChangeMode) {
+    if (currentIndicator !== 'none') {
+      let fillColor;
+      if (currentIndicator === 'landform') {
+        fillColor = landformColor(zip);
+      } else if (COMMUNITY_LEVEL_INDICATORS.has(currentIndicator)) {
+        fillColor = communityScoreColor(sc, currentIndicator); // same color for every ZIP in this Community
+      } else {
+        fillColor = indicatorScoreColor(zip, currentIndicator);
+      }
       return {
         color:       '#004a99',
         weight:      isSelected ? 3.5 : 2,
-        fillColor:   popChangeColor(zip),
+        fillColor:   fillColor,
         fillOpacity: hollow ? 0 : 0.55
       };
     }
@@ -393,9 +610,10 @@ function initMap(SC_DATA) {
     };
   }
 
-  // ── Adjoining SC style helper — always a plain outline, no fill. Even in
-  // Population Change view, adjoining SCs stay uncolored: per John, coloring
-  // them masks the selected community's own illustration. ──
+  // ── Adjoining SC style helper — always a plain outline, no fill. Even
+  // when a community-level indicator view is active, adjoining SCs stay
+  // uncolored: per John, coloring them masks the selected community's own
+  // illustration. ──
   function adjStyleFor(adjSc) {
     return {
       color:       '#004a99',
@@ -443,6 +661,25 @@ function initMap(SC_DATA) {
   }
 
   const adjScids = [...new Set([...dataAdj, ...nearAdj])];
+
+  function togglePieChart(btn) {
+    pieChartMode = !pieChartMode;
+    btn.textContent = pieChartMode ? 'Hide Community Profile' : 'Show Community Profile';
+    document.getElementById('ctrl-legend-pie').style.display = pieChartMode ? 'flex' : 'none';
+
+    if (pieChartMode) {
+      const mainMarker = pieMarkerFor(scid, sc.name);
+      if (mainMarker) { mainMarker.addTo(map); pieMarkers.push(mainMarker); }
+      adjScids.forEach(adjScid => {
+        const adjSc = SC_DATA[adjScid];
+        const m = pieMarkerFor(adjScid, adjSc ? adjSc.name : '');
+        if (m) { m.addTo(map); pieMarkers.push(m); }
+      });
+    } else {
+      pieMarkers.forEach(m => map.removeLayer(m));
+      pieMarkers = [];
+    }
+  }
 
   fetch(apiUrl)
     .then(r => r.json())
@@ -494,7 +731,9 @@ function initMap(SC_DATA) {
       updateLabelSizes();
 
       if (startInPopChangeView) {
-        togglePopChange(document.getElementById('ctrl-popchange-toggle'));
+        const select = document.getElementById('ctrl-indicator-select');
+        select.value = 'pop_change';
+        handleIndicatorChange(select);
       }
 
       // ── Load adjoining SCs ──────────────────────────────────
