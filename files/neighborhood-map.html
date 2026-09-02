@@ -305,12 +305,14 @@ const INDICATOR_CONFIG = {
   pop_size:     { field: 'pop_size_score',                    legend: ['Smallest Community','Below average size','','Above average size','Largest Community'], title: 'Population Size View', communityLevel: true },
 };
 
-// Community-level indicators (pop_change, pop_balance, pop_size) are scored
-// once per Service Center and apply uniformly to every ZIP inside it —
-// John was explicit these should read "for the entire community, not the
-// ZIP codes individually." Zip-level indicators (lfpr/income/unemployment/
-// poverty/landform) keep their existing per-ZIP coloring.
-const COMMUNITY_LEVEL_INDICATORS = new Set(['pop_change', 'pop_balance', 'pop_size']);
+// Community-level indicators (pop_balance, pop_size) are scored once per
+// Service Center and apply uniformly to every ZIP inside it — those two
+// fields don't exist per-ZIP in community_data.json at all. Population
+// Change is NOT community-level: it has always had a real per-ZIP score
+// and needs to keep showing that distinction. Zip-level indicators
+// (pop_change/lfpr/income/unemployment/poverty/landform) keep their
+// existing per-ZIP coloring.
+const COMMUNITY_LEVEL_INDICATORS = new Set(['pop_balance', 'pop_size']);
 
 function indicatorScoreColor(zip, indicatorKey) {
   const cfg = INDICATOR_CONFIG[indicatorKey];

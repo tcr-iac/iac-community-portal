@@ -738,6 +738,17 @@ document.getElementById('city-input').addEventListener('focus', function() {
 
 // Preload town index in background
 loadTownIndex().catch(() => null);
+
+// Arriving from "View the IAC" (vs "Find Your Community") should drop
+// straight into the full map with every Service Center visible, skipping
+// the search-first welcome screen — the welcome screen still exists for
+// direct/search-first entry, and "← New Search" goes back to it.
+if (new URLSearchParams(window.location.search).get('view') === 'map') {
+  document.getElementById('screen-welcome').style.display = 'none';
+  const mapScreen = document.getElementById('screen-map');
+  mapScreen.classList.add('visible');
+  setTimeout(() => map.invalidateSize(), 100);
+}
 </script>
 </body>
 </html>
