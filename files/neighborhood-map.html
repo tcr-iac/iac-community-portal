@@ -738,8 +738,12 @@ function initMap(SC_DATA) {
         handleIndicatorChange(select);
       }
 
-      // ── Load adjoining SCs ──────────────────────────────────
-      loadAdjoiningServiceCenters(adjScids, SC_DATA, map);
+      // ── Load adjoining SCs — data-linked neighbors always show; anything
+      // else currently on screen shows too, and it's re-checked on every
+      // zoom/pan so panning around reveals whatever's actually visible
+      // rather than a fixed list computed once at load. ──
+      refreshAdjacency();
+      map.on('zoomend moveend', refreshAdjacency);
     })
     .catch(err => {
       console.error('Map error:', err);
@@ -801,61 +805,120 @@ function initMap(SC_DATA) {
     return merged || fc;
   }
 
-  // ── Load adjoining Service Center boundaries ────────────────
+  // ── Adjoining Service Center boundaries ──────────────────────
   // Each adjoining SC is dissolved into a single outer boundary (no internal
   // ZIP lines) with a permanent centered label — same treatment everywhere,
-  // rather than rendering every individual ZIP polygon.
-  function loadAdjoiningServiceCenters(adjScids, SC_DATA, map) {
-    adjScids.forEach(adjScid => {
-      const adjSc = SC_DATA[adjScid];
-      if (!adjSc || adjSc.zips.length < 1) return;
+  // rather than rendering every individual ZIP polygon. Fetched geometry is
+  // cached forever per SC (adjGeoCache) so panning an SC in and out of view
+  // repeatedly only costs one network round trip; adjLayers tracks which
+  // ones are currently added to the map.
+  const adjGeoCache = {};
+  const adjLayers = {};
+  const adjFetchInFlight = new Set();
 
-      const adjZips = adjSc.zips.map(z => `'${z.zip}'`).join(',');
-      const adjUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(adjZips)})&outFields=ZCTA5&f=geojson&outSR=4326`;
-      const anchorZip = SC_ANCHOR_ZIP[adjScid] || adjSc.zips[0].zip;
-      const shortName = adjSc.name.replace(' Service Center', ' SC');
-      const mapUrl = `neighborhood-map.html?scid=${adjScid}&zip=${anchorZip}`;
+  function addAdjLayerFromGeo(adjScid, adjSc, geo) {
+    let sublayer = null;
+    const anchorZip = SC_ANCHOR_ZIP[adjScid] || adjSc.zips[0].zip;
+    const shortName = adjSc.name.replace(' Service Center', ' SC');
+    const mapUrl = `neighborhood-map.html?scid=${adjScid}&zip=${anchorZip}`;
+    L.geoJSON(geo, {
+      style: adjStyleFor(adjSc),
+      onEachFeature: (feature, layer) => {
+        sublayer = layer;
+        adjTrackedLayers.push({ layer, adjSc });
+        layer.on('click', () => { window.location.href = mapUrl; });
+        layer.bindTooltip(shortName, {
+          permanent: true, direction: 'center',
+          className: 'adj-label', opacity: 0.9
+        });
+      }
+    }).addTo(map);
+    adjLayers[adjScid] = sublayer;
 
-      fetch(adjUrl)
-        .then(r => r.json())
-        .then(adjData => {
-          if (!adjData.features?.length) return;
-          const geo = dissolveFeatures(adjData);
-          let sublayer = null;
-          L.geoJSON(geo, {
-            style: adjStyleFor(adjSc),
-            onEachFeature: (feature, layer) => {
-              sublayer = layer;
-              adjTrackedLayers.push({ layer, adjSc });
-              layer.on('click', () => { window.location.href = mapUrl; });
-              layer.bindTooltip(shortName, {
-                permanent: true, direction: 'center',
-                className: 'adj-label', opacity: 0.9
-              });
-            }
-          }).addTo(map);
+    // Leaflet opens a permanent tooltip at the layer's full-shape center
+    // (Layer.getCenter()), overwriting any position set before the layer is
+    // added to the map. A close, large neighbor's true center can fall
+    // outside the current view — e.g. Brainerd from Little Falls — leaving
+    // the label (the user's only visual click target) off-screen and
+    // effectively unreachable. Once added, re-anchor it to the centroid of
+    // the part of the shape that's actually visible.
+    if (sublayer && typeof turf !== 'undefined') {
+      try {
+        const b = map.getBounds();
+        const viewBox = turf.bboxPolygon([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]);
+        const clipped = turf.intersect(geo, viewBox);
+        if (clipped) {
+          const c = turf.centroid(clipped).geometry.coordinates;
+          sublayer.getTooltip().setLatLng(L.latLng(c[1], c[0]));
+        }
+      } catch (e) { /* fall back to Leaflet's default center placement */ }
+    }
+  }
 
-          // Leaflet opens a permanent tooltip at the layer's full-shape
-          // center (Layer.getCenter()), overwriting any position set before
-          // the layer is added to the map. A close, large neighbor's true
-          // center can fall outside the current (tightly-fit) view — e.g.
-          // Brainerd from Little Falls — leaving the label (the user's only
-          // visual click target) off-screen and effectively unreachable. Once
-          // added, re-anchor it to the centroid of the part of the shape
-          // that's actually visible, overriding Leaflet's default placement.
-          if (sublayer && typeof turf !== 'undefined') {
-            try {
-              const b = map.getBounds();
-              const viewBox = turf.bboxPolygon([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]);
-              const clipped = turf.intersect(geo, viewBox);
-              if (clipped) {
-                const c = turf.centroid(clipped).geometry.coordinates;
-                sublayer.getTooltip().setLatLng(L.latLng(c[1], c[0]));
-              }
-            } catch (e) { /* fall back to Leaflet's default center placement */ }
-          }
-        })
-        .catch(() => {}); // silently skip if API fails for one adjoiner
+  function removeAdjLayer(adjScid) {
+    const layer = adjLayers[adjScid];
+    if (!layer) return;
+    map.removeLayer(layer);
+    const idx = adjTrackedLayers.findIndex(t => t.layer === layer);
+    if (idx !== -1) adjTrackedLayers.splice(idx, 1);
+    delete adjLayers[adjScid];
+  }
+
+  function ensureAdjShown(adjScid) {
+    if (adjLayers[adjScid]) return; // already on map
+    const adjSc = SC_DATA[adjScid];
+    if (!adjSc || adjSc.zips.length < 1) return;
+    if (adjGeoCache[adjScid]) {
+      addAdjLayerFromGeo(adjScid, adjSc, adjGeoCache[adjScid]);
+      return;
+    }
+    if (adjFetchInFlight.has(adjScid)) return;
+    adjFetchInFlight.add(adjScid);
+
+    const adjZips = adjSc.zips.map(z => `'${z.zip}'`).join(',');
+    const adjUrl  = `${apiBase}?where=ZCTA5%20IN%20(${encodeURIComponent(adjZips)})&outFields=ZCTA5&f=geojson&outSR=4326`;
+    fetch(adjUrl)
+      .then(r => r.json())
+      .then(adjData => {
+        adjFetchInFlight.delete(adjScid);
+        if (!adjData.features?.length) return;
+        const geo = dissolveFeatures(adjData);
+        adjGeoCache[adjScid] = geo;
+        addAdjLayerFromGeo(adjScid, adjSc, geo);
+      })
+      .catch(() => { adjFetchInFlight.delete(adjScid); }); // silently skip if API fails for one adjoiner
+  }
+
+  // Any SC (other than this one) whose marker currently falls inside the
+  // visible map area — recomputed on every zoom/pan. Each one costs a
+  // TIGERweb fetch plus a client-side polygon dissolve, so zooming out far
+  // enough to bring dozens into view at once can overwhelm the browser tab
+  // (confirmed by testing — 20+ at once crashed it). Capped to the nearest
+  // MAX_VIEWPORT_ADJ, same idea as "just on the screen" but bounded.
+  const MAX_VIEWPORT_ADJ = 10;
+  function computeViewportAdj() {
+    const bounds = map.getBounds();
+    const here = SC_COORDS[scid];
+    return Object.keys(SC_COORDS)
+      .filter(id => {
+        if (id === scid) return false;
+        const c = SC_COORDS[id];
+        return bounds.contains([c.lat, c.lng]);
+      })
+      .sort((a, b) => {
+        if (!here) return 0;
+        const da = Math.hypot(SC_COORDS[a].lat - here.lat, SC_COORDS[a].lng - here.lng);
+        const db = Math.hypot(SC_COORDS[b].lat - here.lat, SC_COORDS[b].lng - here.lng);
+        return da - db;
+      })
+      .slice(0, MAX_VIEWPORT_ADJ);
+  }
+
+  function refreshAdjacency() {
+    const wanted = new Set([...dataAdj, ...computeViewportAdj()]);
+    wanted.forEach(id => ensureAdjShown(id));
+    Object.keys(adjLayers).forEach(id => {
+      if (!wanted.has(id) && !dataAdj.includes(id)) removeAdjLayer(id);
     });
   }
 
