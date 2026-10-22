@@ -1,0 +1,2 @@
+indicator_id,geo_level,geo_id,geo_name,year,raw_value,moe,numerator,denominator,source_id,source_detail,researcher,collected_date,notes
+edu_high_school_graduation_rate,school_district,0000000,EXAMPLE DISTRICT - DELETE THIS ROW,2024,0,,,,state_ed_acgr,"e.g. state graduation file 2024, all students",XX,2026-01-01,EXAMPLE ROW ONLY - not real data

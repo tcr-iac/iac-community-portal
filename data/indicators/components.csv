@@ -1,0 +1,9 @@
+component_id,component_name,display_order,in_top10_structure,weight,notes
+economy,Economy,1,yes,,
+infrastructure_housing,Infrastructure & Housing,2,yes,,
+education,Education,3,yes,,
+health_human_services,Health & Human Services,4,yes,,
+safety_governance,Safety & Governance,5,yes,,
+connectivity_access,Connectivity & Access,6,yes,,
+community_culture_qol,"Community, Culture & Quality of Life",7,yes,,
+population_land,Population & Land (existing Lens views),8,no,,Holds existing Population/Landform Lens views; placement NEEDS CONFIRMATION

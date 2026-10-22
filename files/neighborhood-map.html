@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+  <!-- Indicator Master loader (data/indicators -> scripts/build_indicators.py -> files/indicators) -->
+  <script src="js/iac-indicators.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -101,6 +103,8 @@
     }
     .ctrl-select:hover { background: rgba(255,255,255,0.28); }
     .ctrl-select option { color: #1a1a1a; }
+    .ctrl-select optgroup { color: #1a1a1a; }
+    #ctrl-indicator-meta { font-size: 10px; color: rgba(255,255,255,0.75); line-height: 1.35; }
 
     .pie-marker-wrap { display:flex; flex-direction:column; align-items:center; pointer-events:auto; }
     .pie-marker-label {
@@ -206,6 +210,8 @@
         <div class="legend-box" style="background:#9ca3af;"></div>
         <span>No data</span>
       </div>
+      <!-- Source / year line — filled only for Indicator Master indicators -->
+      <div id="ctrl-indicator-meta" style="display:none;"></div>
     </div>
 
     <div id="ctrl-legend-landform" class="ctrl-legend" style="display:none;">
@@ -332,6 +338,44 @@ function communityScoreColor(scRecord, indicatorKey) {
   return SCALE_COLORS[score] || SCALE_NO_DATA;
 }
 
+// ── Indicator Master indicators (files/indicators/*.json) ─────
+// Loaded by js/iac-indicators.js. These are appended to the dropdown under
+// their component (e.g. "Education") at init; the eight options above stay
+// exactly as they were. Each one is registered in INDICATOR_CONFIG with a
+// `masterId`, so the existing legend/title code works unchanged, and is
+// coloured from its 1–10 score with the same SCALE_COLORS.
+let indicatorStore = null;
+
+function masterScoreColor(zip, scid, indicatorKey) {
+  const cfg = INDICATOR_CONFIG[indicatorKey];
+  if (!cfg || !indicatorStore) return SCALE_NO_DATA;
+  const geoId = cfg.communityLevel ? scid : zip;   // service_center-level → same colour for every ZIP
+  return SCALE_COLORS[indicatorStore.score(cfg.masterId, geoId)] || SCALE_NO_DATA;
+}
+
+function addMasterIndicatorOptions(select) {
+  if (!indicatorStore) return;
+  indicatorStore.selectorEntries().forEach(({ component, entries }) => {
+    const group = document.createElement('optgroup');
+    group.label = component.name;
+    entries.forEach(e => {
+      if (INDICATOR_CONFIG[e.id]) return;   // never shadow an existing option
+      const opt = document.createElement('option');
+      opt.value = e.id;
+      opt.textContent = e.enabled ? e.label : `${e.label} (${e.reason})`;
+      opt.disabled = !e.enabled;
+      group.appendChild(opt);
+      INDICATOR_CONFIG[e.id] = {
+        masterId: e.id,
+        legend: e.legend || ['Lowest', 'Below average', '', 'Above average', 'Highest'],
+        title: e.label + ' View',
+        communityLevel: e.geoLevel === 'service_center'
+      };
+    });
+    if (group.children.length) select.appendChild(group);
+  });
+}
+
 function landformColor(zip) {
   const landform = zipPopChange[zip]?.dominant_landform;
   return LANDFORM_COLORS[landform] || LANDFORM_NO_DATA;
@@ -431,7 +475,11 @@ Promise.all([
     for (const [scid, l] of Object.entries(loc)) SC_ANCHOR_ZIP[scid] = l.anchor_zip;
   }).catch(() => {}),
   fetch('sc_classification.json').then(r => r.json()).then(cls => { SC_CLASSIFICATION = cls; }).catch(() => {}),
-  loadPopChangeData()
+  loadPopChangeData(),
+  // Optional: if the Indicator Master is missing the page works exactly as before.
+  (window.IACIndicators ? IACIndicators.load('indicators/') : Promise.reject(new Error('iac-indicators.js not loaded')))
+    .then(store => { indicatorStore = store; })
+    .catch(err => console.warn('Indicator Master not loaded; showing built-in indicators only:', err))
 ])
 .then(([SC_DATA]) => initMap(SC_DATA))
 .catch(err => {
@@ -540,6 +588,10 @@ function initMap(SC_DATA) {
     if (currentIndicator === 'landform') {
       buildLandformLegend();
     }
+    const metaEl = document.getElementById('ctrl-indicator-meta');
+    const masterId = INDICATOR_CONFIG[currentIndicator]?.masterId;
+    metaEl.textContent = masterId && indicatorStore ? indicatorStore.provenance(masterId) : '';
+    metaEl.style.display = metaEl.textContent ? 'block' : 'none';
 
     document.getElementById('ctrl-title').textContent =
       scShortName + ' — ' + (isActive ? INDICATOR_CONFIG[currentIndicator]?.title || 'Dominant Landform View' : modeLabel);
@@ -583,6 +635,7 @@ function initMap(SC_DATA) {
   document.getElementById('ctrl-zoom-out').addEventListener('click', () => map.zoomOut());
   document.getElementById('ctrl-fill-toggle').addEventListener('click', (e) => toggleOutline(e.currentTarget));
   document.getElementById('ctrl-basemap-toggle').addEventListener('click', (e) => toggleBasemap(e.currentTarget));
+  addMasterIndicatorOptions(document.getElementById('ctrl-indicator-select'));
   document.getElementById('ctrl-indicator-select').addEventListener('change', (e) => handleIndicatorChange(e.currentTarget));
   document.getElementById('ctrl-pie-toggle').addEventListener('click', (e) => togglePieChart(e.currentTarget));
 
@@ -592,6 +645,8 @@ function initMap(SC_DATA) {
       let fillColor;
       if (currentIndicator === 'landform') {
         fillColor = landformColor(zip);
+      } else if (INDICATOR_CONFIG[currentIndicator]?.masterId) {
+        fillColor = masterScoreColor(zip, scid, currentIndicator);
       } else if (COMMUNITY_LEVEL_INDICATORS.has(currentIndicator)) {
         fillColor = communityScoreColor(sc, currentIndicator); // same color for every ZIP in this Community
       } else {
@@ -736,6 +791,15 @@ function initMap(SC_DATA) {
         const select = document.getElementById('ctrl-indicator-select');
         select.value = 'pop_change';
         handleIndicatorChange(select);
+      }
+
+      // Deep link to any enabled indicator: ?indicator=<option value>
+      // (e.g. income, or an Indicator Master id such as edu_bachelors_degree_or_higher)
+      const startIndicator = params.get('indicator');
+      if (startIndicator && !startInPopChangeView) {
+        const select = document.getElementById('ctrl-indicator-select');
+        const opt = [...select.options].find(o => o.value === startIndicator && !o.disabled);
+        if (opt) { select.value = startIndicator; handleIndicatorChange(select); }
       }
 
       // ── Load adjoining SCs — data-linked neighbors always show; anything

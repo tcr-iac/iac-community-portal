@@ -1,0 +1,3648 @@
+{
+ "schema_version": "1.0",
+ "generated_at": "2026-10-07T11:08:49+00:00",
+ "generated_by": "scripts/build_indicators.py from data/indicators/*.csv - do not edit by hand",
+ "components": [
+  {
+   "id": "economy",
+   "name": "Economy",
+   "display_order": 1,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "infrastructure_housing",
+   "name": "Infrastructure & Housing",
+   "display_order": 2,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "education",
+   "name": "Education",
+   "display_order": 3,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "health_human_services",
+   "name": "Health & Human Services",
+   "display_order": 4,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "safety_governance",
+   "name": "Safety & Governance",
+   "display_order": 5,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "connectivity_access",
+   "name": "Connectivity & Access",
+   "display_order": 6,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "community_culture_qol",
+   "name": "Community, Culture & Quality of Life",
+   "display_order": 7,
+   "in_top10_structure": true,
+   "weight": null
+  },
+  {
+   "id": "population_land",
+   "name": "Population & Land (existing Lens views)",
+   "display_order": 8,
+   "in_top10_structure": false,
+   "weight": null
+  }
+ ],
+ "sources": {
+  "acs5_b15003": {
+   "source_name": "ACS 5-Year Estimates, Educational Attainment for the Population 25 Years and Over",
+   "publisher": "U.S. Census Bureau",
+   "dataset_or_table": "B15003",
+   "url": "https://api.census.gov/data/{year}/acs/acs5",
+   "native_geo_levels": "zcta;county;state;school_district",
+   "release_cycle": "Annual (December)",
+   "years_available": "2012-latest (B15003); 2010-2011 via B15002; 2000 via Census SF3 P037",
+   "reliability_1to5": "5",
+   "zip_availability": "High",
+   "notes": "Reliability/ZIP scales from IAC_Viability_Index_Implementation.pdf. ZCTA != USPS ZIP: PO-box ZIPs have no ACS data. ZCTA definitions changed in 2010 and 2020."
+  },
+  "state_ed_acgr": {
+   "source_name": "4-Year Adjusted Cohort Graduation Rate",
+   "publisher": "State education agencies (MN MDE, IA DE, ND DPI, SD DOE, WI DPI); NCES EDFacts",
+   "dataset_or_table": "District/school graduation files",
+   "url": null,
+   "native_geo_levels": "school;school_district",
+   "release_cycle": "Annual",
+   "years_available": "Varies by state (ACGR standard since 2010-11)",
+   "reliability_1to5": "4",
+   "zip_availability": "Moderate",
+   "notes": "District overlay (crosswalk to ZIP) needed. Small-cohort suppression is common in rural districts."
+  },
+  "state_ed_assessment": {
+   "source_name": "State Assessment Proficiency (ELA and Math)",
+   "publisher": "State education agencies (MCA, ISASP, NDSA, SD assessments, WI Forward)",
+   "dataset_or_table": "State assessment results",
+   "url": null,
+   "native_geo_levels": "school;school_district",
+   "release_cycle": "Annual",
+   "years_available": "Varies; 2020 largely missing (COVID test waivers)",
+   "reliability_1to5": "3",
+   "zip_availability": "Moderate",
+   "notes": "Tests and cut scores differ by state: raw proficiency is NOT comparable across MN/IA/ND/SD/WI. Cross-state alternative: Stanford Education Data Archive (SEDA)."
+  },
+  "state_ed_attendance": {
+   "source_name": "Chronic Absenteeism",
+   "publisher": "State education agencies; U.S. Dept. of Education EDFacts / CRDC",
+   "dataset_or_table": "Attendance / chronic absence files",
+   "url": null,
+   "native_geo_levels": "school;school_district",
+   "release_cycle": "Annual",
+   "years_available": "Varies by state",
+   "reliability_1to5": "3",
+   "zip_availability": "Moderate",
+   "notes": "MN publishes 'consistent attendance' (inverse of chronic absence). Confirm definition per state."
+  },
+  "nces_ccd": {
+   "source_name": "Common Core of Data",
+   "publisher": "National Center for Education Statistics",
+   "dataset_or_table": "CCD school and district files",
+   "url": "https://nces.ed.gov/ccd/",
+   "native_geo_levels": "school;school_district",
+   "release_cycle": "Annual",
+   "years_available": "1986-latest",
+   "reliability_1to5": "4",
+   "zip_availability": "Moderate",
+   "notes": "Candidate source for Student-Teacher Ratio."
+  },
+  "legacy_community_data": {
+   "source_name": "Existing community_data.json / service_centers.json fields",
+   "publisher": "IAC project team",
+   "dataset_or_table": "community_data.json; files/service_centers.json",
+   "url": null,
+   "native_geo_levels": "zip;service_center",
+   "release_cycle": "UNKNOWN",
+   "years_available": "2010; 2020; 2024",
+   "reliability_1to5": "UNKNOWN",
+   "zip_availability": "High",
+   "notes": "Provenance and scoring script not in repository. NEEDS CONFIRMATION (likely ACS 5-year 2024 and Decennial 2010/2020)."
+  }
+ },
+ "indicators": [
+  {
+   "id": "eco_median_household_income",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 1,
+   "name": "Median Household Income",
+   "short_label": "Median Household Income",
+   "status": "published",
+   "definition": null,
+   "unit": "USD",
+   "value_type": "currency",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [
+    2024
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 38750.0,
+    "best": 153750.0,
+    "status": "legacy_inferred"
+   },
+   "legend": [
+    "Lowest income",
+    "Below average",
+    "",
+    "Above average",
+    "Highest income"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_zip_field",
+    "selector_key": "income",
+    "score_field": "median_household_income_score",
+    "raw_field": "median_household_income_2024"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Scoring params inferred from existing scores (99.1% agreement); NEEDS CONFIRMATION"
+  },
+  {
+   "id": "eco_per_capita_income",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 2,
+   "name": "Per Capita Income",
+   "short_label": "Per Capita Income",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/economy.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "eco_poverty_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 3,
+   "name": "Poverty Rate",
+   "short_label": "Poverty Rate",
+   "status": "published",
+   "definition": null,
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "lower_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [
+    2024
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 40.5,
+    "best": 0.0,
+    "status": "legacy_inferred"
+   },
+   "legend": [
+    "Highest poverty",
+    "Above average",
+    "",
+    "Below average",
+    "Lowest poverty"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_zip_field",
+    "selector_key": "poverty",
+    "score_field": "poverty_rate_score",
+    "raw_field": "poverty_rate_2024"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Scoring params inferred from existing scores (99.5% agreement); NEEDS CONFIRMATION"
+  },
+  {
+   "id": "eco_unemployment_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 4,
+   "name": "Unemployment Rate",
+   "short_label": "Unemployment Rate",
+   "status": "published",
+   "definition": null,
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "lower_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [
+    2024
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 18.5,
+    "best": 0.0,
+    "status": "legacy_inferred"
+   },
+   "legend": [
+    "Highest unemployment",
+    "Above average",
+    "",
+    "Below average",
+    "Lowest unemployment"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_zip_field",
+    "selector_key": "unemployment",
+    "score_field": "unemployment_rate_score",
+    "raw_field": "unemployment_rate_2024"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Scoring params inferred from existing scores (99.2% agreement); NEEDS CONFIRMATION"
+  },
+  {
+   "id": "eco_labor_force_participation_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 5,
+   "name": "Labor Force Participation Rate",
+   "short_label": "Labor Force Participation",
+   "status": "published",
+   "definition": null,
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 35.3,
+    "best": 79.9,
+    "status": "legacy_inferred"
+   },
+   "legend": [
+    "Lowest participation",
+    "Low participation",
+    "",
+    "High participation",
+    "Highest participation"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_zip_field",
+    "selector_key": "lfpr",
+    "score_field": "labor_force_participation_score",
+    "raw_field": "labor_force_participation_pct"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Raw field carries no year; scoring params inferred (98.7% agreement); NEEDS CONFIRMATION"
+  },
+  {
+   "id": "eco_employment_growth",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 6,
+   "name": "Employment Growth",
+   "short_label": "Employment Growth",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/economy.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "eco_business_establishment_density",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 7,
+   "name": "Business Establishment Density",
+   "short_label": "Business Establishment Density",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/economy.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "eco_business_establishment_growth",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 8,
+   "name": "Business Establishment Growth",
+   "short_label": "Business Establishment Growth",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/economy.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "eco_industry_diversity",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 9,
+   "name": "Industry Diversity",
+   "short_label": "Industry Diversity",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/economy.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "eco_total_sales_per_capita",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "economy",
+   "priority_rank": 10,
+   "name": "Total Sales per Capita",
+   "short_label": "Total Sales per Capita",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/economy.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_housing_cost_burden",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 1,
+   "name": "Housing Cost Burden",
+   "short_label": "Housing Cost Burden",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_median_home_value",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 2,
+   "name": "Median Home Value",
+   "short_label": "Median Home Value",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_median_gross_rent",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 3,
+   "name": "Median Gross Rent",
+   "short_label": "Median Gross Rent",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_homeownership_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 4,
+   "name": "Homeownership Rate",
+   "short_label": "Homeownership Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_housing_vacancy_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 5,
+   "name": "Housing Vacancy Rate",
+   "short_label": "Housing Vacancy Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_housing_availability_supply",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 6,
+   "name": "Housing Availability / Supply",
+   "short_label": "Housing Availability / Supply",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_broadband_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 7,
+   "name": "Broadband Access",
+   "short_label": "Broadband Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_water_sewer_infrastructure",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 8,
+   "name": "Water & Sewer Infrastructure",
+   "short_label": "Water & Sewer Infrastructure",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_road_transportation_infrastructure",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 9,
+   "name": "Road / Transportation Infrastructure",
+   "short_label": "Road / Transportation Infrastructure",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "inf_infrastructure_condition_investment",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "infrastructure_housing",
+   "priority_rank": 10,
+   "name": "Infrastructure Condition / Investment",
+   "short_label": "Infrastructure Condition / Investment",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/infrastructure_housing.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_high_school_graduation_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 1,
+   "name": "High School Graduation Rate",
+   "short_label": "HS Graduation Rate",
+   "status": "defined",
+   "definition": "Four-year adjusted cohort graduation rate (ACGR): share of a 9th-grade cohort (adjusted for transfers) graduating with a regular diploma within 4 years.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "school_district",
+   "source_id": "state_ed_acgr",
+   "source_variables": "4-year ACGR, all students",
+   "derivation": null,
+   "methodology": "Collect district ACGR per state; allocate to ZIP via data/indicators/crosswalks/school_district_to_zip.csv (population-weighted).",
+   "release_cycle": "Annual",
+   "years_planned": [
+    2010,
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 60.0,
+    "best": 100.0,
+    "status": "provisional"
+   },
+   "legend": [
+    "Lowest graduation rate",
+    "Below average",
+    "",
+    "Above average",
+    "Highest graduation rate"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": "4-Year Graduation Rate",
+    "match_type": "Exact Match",
+    "rationale": "The 4-year ACGR is the federal standard definition of the high school graduation rate. Geography differs (district, not ZIP), so a crosswalk is required before mapping."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": "Do NOT substitute ACS 'HS diploma or higher (adults 25+)': that is attainment, Related but Different."
+  },
+  {
+   "id": "edu_postsecondary_educational_attainment",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 2,
+   "name": "Postsecondary Educational Attainment",
+   "short_label": "Postsecondary Attainment",
+   "status": "defined",
+   "definition": "Share of adults 25+ holding an associate's degree or higher.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "acs5_b15003",
+   "source_variables": "(B15003_021E..B15003_025E) / B15003_001E",
+   "derivation": null,
+   "methodology": "ACS 5-year estimate at ZCTA level; produced by scripts/fetch_acs_education.py.",
+   "release_cycle": "Annual (ACS 5-year, December)",
+   "years_planned": [
+    2012,
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 15.0,
+    "best": 65.0,
+    "status": "provisional"
+   },
+   "legend": [
+    "Lowest attainment",
+    "Below average",
+    "",
+    "Above average",
+    "Highest attainment"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator measures adult attainment. Definition (associate's+ vs some college+) NEEDS CONFIRMATION."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_bachelors_degree_or_higher",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 3,
+   "name": "Bachelor's Degree or Higher",
+   "short_label": "Bachelor's or Higher",
+   "status": "defined",
+   "definition": "Share of adults 25+ holding a bachelor's degree or higher.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "acs5_b15003",
+   "source_variables": "(B15003_022E..B15003_025E) / B15003_001E",
+   "derivation": null,
+   "methodology": "ACS 5-year estimate at ZCTA level; produced by scripts/fetch_acs_education.py.",
+   "release_cycle": "Annual (ACS 5-year, December)",
+   "years_planned": [
+    2012,
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 5.0,
+    "best": 50.0,
+    "status": "provisional"
+   },
+   "legend": [
+    "Lowest attainment",
+    "Below average",
+    "",
+    "Above average",
+    "Highest attainment"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator; ACS provides an exact, standard measure at ZCTA level."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_k_12_academic_proficiency",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 4,
+   "name": "K–12 Academic Proficiency",
+   "short_label": "K–12 Proficiency",
+   "status": "defined",
+   "definition": "Share of tested students meeting the state proficiency standard; composite = mean of ELA and Math measures.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "school_district",
+   "source_id": "state_ed_assessment",
+   "source_variables": null,
+   "derivation": "mean_of_measures",
+   "methodology": "Average of edu_k12_ela_proficiency and edu_k12_math_proficiency for the same geography and year.",
+   "release_cycle": "Annual",
+   "years_planned": [
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 20.0,
+    "best": 80.0,
+    "status": "provisional"
+   },
+   "legend": [
+    "Lowest proficiency",
+    "Below average",
+    "",
+    "Above average",
+    "Highest proficiency"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": "Reading / ELA + Math",
+    "match_type": "Strong Match",
+    "rationale": "ELA and Math together are the standard composite for academic proficiency; each alone is only Partial."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": "State tests and cut scores differ (MN/IA/ND/SD/WI), so raw proficiency is not comparable across states. RECOMMENDED: SEDA cross-state scale or within-state scoring. NEEDS CONFIRMATION."
+  },
+  {
+   "id": "edu_early_childhood_education_readiness",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 5,
+   "name": "Early Childhood Education / Readiness",
+   "short_label": "Early Childhood Education / Readiness",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator provided yet."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_school_absenteeism",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 6,
+   "name": "School Absenteeism",
+   "short_label": "Chronic Absenteeism",
+   "status": "defined",
+   "definition": "Chronic absenteeism: share of students missing 10% or more of enrolled school days.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "lower_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "school_district",
+   "source_id": "state_ed_attendance",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": "Collect district chronic-absence rate; allocate to ZIP via crosswalk.",
+   "release_cycle": "Annual",
+   "years_planned": [
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 40.0,
+    "best": 0.0,
+    "status": "provisional"
+   },
+   "legend": [
+    "Highest absenteeism",
+    "Above average",
+    "",
+    "Below average",
+    "Lowest absenteeism"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": "Attendance / Chronic Absence",
+    "match_type": "Strong Match",
+    "rationale": "Chronic absence is the standard absenteeism measure. 'Attendance rate' is related but inverse and not interchangeable; researchers must report chronic absence. MN reports 'consistent attendance' (inverse)."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_student_teacher_ratio",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 7,
+   "name": "Student–Teacher Ratio",
+   "short_label": "Student–Teacher Ratio",
+   "status": "planned",
+   "definition": null,
+   "unit": "ratio",
+   "value_type": "ratio",
+   "direction": "lower_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "school_district",
+   "source_id": "nces_ccd",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator provided yet."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": "Candidate source: NCES Common Core of Data (school/district level)."
+  },
+  {
+   "id": "edu_educational_opportunity_school_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 8,
+   "name": "Educational Opportunity / School Access",
+   "short_label": "Educational Opportunity / School Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator provided yet."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_workforce_skill_alignment",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 9,
+   "name": "Workforce Skill Alignment",
+   "short_label": "Workforce Skill Alignment",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator provided yet."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "edu_adult_education_lifelong_learning",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "education",
+   "priority_rank": 10,
+   "name": "Adult Education / Lifelong Learning",
+   "short_label": "Adult Education / Lifelong Learning",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": "No Match",
+    "rationale": "No researcher indicator provided yet."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_life_expectancy",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 1,
+   "name": "Life Expectancy",
+   "short_label": "Life Expectancy",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_chronic_disease_prevalence",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 2,
+   "name": "Chronic Disease Prevalence",
+   "short_label": "Chronic Disease Prevalence",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_mental_health",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 3,
+   "name": "Mental Health",
+   "short_label": "Mental Health",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_self_reported_health",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 4,
+   "name": "Self-Reported Health",
+   "short_label": "Self-Reported Health",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_uninsured_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 5,
+   "name": "Uninsured Rate",
+   "short_label": "Uninsured Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_primary_care_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 6,
+   "name": "Primary Care Access",
+   "short_label": "Primary Care Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_preventable_hospitalizations",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 7,
+   "name": "Preventable Hospitalizations",
+   "short_label": "Preventable Hospitalizations",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_substance_abuse_overdose",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 8,
+   "name": "Substance Abuse / Overdose",
+   "short_label": "Substance Abuse / Overdose",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_healthcare_provider_availability",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 9,
+   "name": "Healthcare Provider Availability",
+   "short_label": "Healthcare Provider Availability",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "hhs_access_to_human_social_services",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "health_human_services",
+   "priority_rank": 10,
+   "name": "Access to Human / Social Services",
+   "short_label": "Access to Human / Social Services",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/health_human_services.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_violent_crime_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 1,
+   "name": "Violent Crime Rate",
+   "short_label": "Violent Crime Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_property_crime_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 2,
+   "name": "Property Crime Rate",
+   "short_label": "Property Crime Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_homicide_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 3,
+   "name": "Homicide Rate",
+   "short_label": "Homicide Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_traffic_fatality_rate",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 4,
+   "name": "Traffic Fatality Rate",
+   "short_label": "Traffic Fatality Rate",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_emergency_response_time",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 5,
+   "name": "Emergency Response Time",
+   "short_label": "Emergency Response Time",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_perceived_safety",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 6,
+   "name": "Perceived Safety",
+   "short_label": "Perceived Safety",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_local_government_fiscal_health",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 7,
+   "name": "Local Government Fiscal Health",
+   "short_label": "Local Government Fiscal Health",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_government_service_accessibility",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 8,
+   "name": "Government Service Accessibility",
+   "short_label": "Government Service Accessibility",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_civic_participation",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 9,
+   "name": "Civic Participation",
+   "short_label": "Civic Participation",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "saf_voter_participation",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "safety_governance",
+   "priority_rank": 10,
+   "name": "Voter Participation",
+   "short_label": "Voter Participation",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/safety_governance.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_broadband_adoption",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 1,
+   "name": "Broadband Adoption",
+   "short_label": "Broadband Adoption",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_high_speed_internet_availability",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 2,
+   "name": "High-Speed Internet Availability",
+   "short_label": "High-Speed Internet Availability",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_average_commute_time",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 3,
+   "name": "Average Commute Time",
+   "short_label": "Average Commute Time",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_transportation_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 4,
+   "name": "Transportation Access",
+   "short_label": "Transportation Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_public_transit_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 5,
+   "name": "Public Transit Access",
+   "short_label": "Public Transit Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_distance_to_healthcare",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 6,
+   "name": "Distance to Healthcare",
+   "short_label": "Distance to Healthcare",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_distance_to_grocery_essential_services",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 7,
+   "name": "Distance to Grocery / Essential Services",
+   "short_label": "Distance to Grocery / Essential Services",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_employment_accessibility",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 8,
+   "name": "Employment Accessibility",
+   "short_label": "Employment Accessibility",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_digital_connectivity",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 9,
+   "name": "Digital Connectivity",
+   "short_label": "Digital Connectivity",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "con_regional_connectivity_market_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "connectivity_access",
+   "priority_rank": 10,
+   "name": "Regional Connectivity / Market Access",
+   "short_label": "Regional Connectivity / Market Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/connectivity_access.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_social_connectedness",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 1,
+   "name": "Social Connectedness",
+   "short_label": "Social Connectedness",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_volunteerism",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 2,
+   "name": "Volunteerism",
+   "short_label": "Volunteerism",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_civic_community_organization_participation",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 3,
+   "name": "Civic / Community Organization Participation",
+   "short_label": "Civic / Community Organization Participation",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_social_trust",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 4,
+   "name": "Social Trust",
+   "short_label": "Social Trust",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_social_isolation",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 5,
+   "name": "Social Isolation",
+   "short_label": "Social Isolation",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_residential_stability",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 6,
+   "name": "Residential Stability",
+   "short_label": "Residential Stability",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_community_event_cultural_participation",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 7,
+   "name": "Community Event / Cultural Participation",
+   "short_label": "Community Event / Cultural Participation",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_parks_recreation_access",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 8,
+   "name": "Parks & Recreation Access",
+   "short_label": "Parks & Recreation Access",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_cultural_heritage_resources",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 9,
+   "name": "Cultural / Heritage Resources",
+   "short_label": "Cultural / Heritage Resources",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "ccq_sense_of_belonging_community_satisfaction",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "community_culture_qol",
+   "priority_rank": 10,
+   "name": "Sense of Belonging / Community Satisfaction",
+   "short_label": "Sense of Belonging / Community Satisfaction",
+   "status": "planned",
+   "definition": null,
+   "unit": null,
+   "value_type": null,
+   "direction": null,
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": null,
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": null,
+    "worst": null,
+    "best": null,
+    "status": null
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/community_culture_qol.json"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": null
+  },
+  {
+   "id": "pop_population_change",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "population_land",
+   "priority_rank": 1,
+   "name": "Population Change",
+   "short_label": "Population Change",
+   "status": "published",
+   "definition": null,
+   "unit": "fraction",
+   "value_type": "ratio",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [
+    2010,
+    2020
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": -0.15,
+    "best": 0.15,
+    "status": "legacy_inferred"
+   },
+   "legend": [
+    "Significant decline",
+    "Declining",
+    "",
+    "Expanding",
+    "Significant growth"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_zip_field",
+    "selector_key": "pop_change",
+    "score_field": "pop_change_score",
+    "raw_field": "pct_change_2010_2020"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Also exists at SC level in service_centers.json; scoring params inferred (98.9% agreement)"
+  },
+  {
+   "id": "pop_population_balance",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "population_land",
+   "priority_rank": 2,
+   "name": "Population Balance",
+   "short_label": "Population Balance",
+   "status": "published",
+   "definition": null,
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "neutral",
+   "geo_level": "service_center",
+   "native_geo_level": "service_center",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": "UNKNOWN",
+    "worst": null,
+    "best": null,
+    "status": "legacy_unknown"
+   },
+   "legend": [
+    "Most rural-heavy",
+    "Rural-leaning",
+    "",
+    "Trade Center-concentrated",
+    "Most Trade Center-concentrated"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_sc_field",
+    "selector_key": "pop_balance",
+    "score_field": "pop_balance_score",
+    "raw_field": "pop_balance_pct"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Community-level (one score per Service Center)"
+  },
+  {
+   "id": "pop_population_size",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "population_land",
+   "priority_rank": 3,
+   "name": "Population Size",
+   "short_label": "Population Size",
+   "status": "published",
+   "definition": null,
+   "unit": "persons",
+   "value_type": "count",
+   "direction": "neutral",
+   "geo_level": "service_center",
+   "native_geo_level": "service_center",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": "UNKNOWN",
+    "worst": null,
+    "best": null,
+    "status": "legacy_unknown"
+   },
+   "legend": [
+    "Smallest Community",
+    "Below average size",
+    "",
+    "Above average size",
+    "Largest Community"
+   ],
+   "weight": null,
+   "binding": {
+    "type": "legacy_sc_field",
+    "selector_key": "pop_size",
+    "score_field": "pop_size_score",
+    "raw_field": "pop_size_total"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Community-level (one score per Service Center)"
+  },
+  {
+   "id": "pop_dominant_landform",
+   "level": "indicator",
+   "parent_id": null,
+   "component_id": "population_land",
+   "priority_rank": 4,
+   "name": "Dominant Landform",
+   "short_label": "Dominant Landform",
+   "status": "published",
+   "definition": null,
+   "unit": "category",
+   "value_type": "category",
+   "direction": "neutral",
+   "geo_level": "zip",
+   "native_geo_level": "zip",
+   "source_id": "legacy_community_data",
+   "source_variables": null,
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": null,
+   "years_planned": [],
+   "scoring": {
+    "method": "categorical",
+    "worst": null,
+    "best": null,
+    "status": "legacy_unknown"
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "legacy_zip_field",
+    "selector_key": "landform",
+    "score_field": null,
+    "raw_field": "dominant_landform"
+   },
+   "research": {
+    "indicator": null,
+    "match_type": null,
+    "rationale": null
+   },
+   "data": null,
+   "notes": "Categorical; colored by LANDFORM_COLORS in neighborhood-map.html"
+  },
+  {
+   "id": "edu_k12_ela_proficiency",
+   "level": "measure",
+   "parent_id": "edu_k_12_academic_proficiency",
+   "component_id": "education",
+   "priority_rank": null,
+   "name": "K–12 Reading / ELA Proficiency",
+   "short_label": "K–12 Reading / ELA Proficiency",
+   "status": "defined",
+   "definition": "Share of tested students meeting the state proficiency standard.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "school_district",
+   "source_id": "state_ed_assessment",
+   "source_variables": "ELA, all tested grades, all students",
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": "Annual",
+   "years_planned": [
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 20.0,
+    "best": 80.0,
+    "status": "provisional"
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": "Reading / ELA",
+    "match_type": "Partial Match",
+    "rationale": "One subject of the K–12 proficiency composite."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": "Measure (not shown in selector); feeds edu_k_12_academic_proficiency."
+  },
+  {
+   "id": "edu_k12_math_proficiency",
+   "level": "measure",
+   "parent_id": "edu_k_12_academic_proficiency",
+   "component_id": "education",
+   "priority_rank": null,
+   "name": "K–12 Math Proficiency",
+   "short_label": "K–12 Math Proficiency",
+   "status": "defined",
+   "definition": "Share of tested students meeting the state proficiency standard.",
+   "unit": "percent",
+   "value_type": "percent",
+   "direction": "higher_is_better",
+   "geo_level": "zip",
+   "native_geo_level": "school_district",
+   "source_id": "state_ed_assessment",
+   "source_variables": "Math, all tested grades, all students",
+   "derivation": null,
+   "methodology": null,
+   "release_cycle": "Annual",
+   "years_planned": [
+    2020,
+    "latest"
+   ],
+   "scoring": {
+    "method": "linear_bands",
+    "worst": 20.0,
+    "best": 80.0,
+    "status": "provisional"
+   },
+   "legend": null,
+   "weight": null,
+   "binding": {
+    "type": "values_file",
+    "values_file": "values/education.json"
+   },
+   "research": {
+    "indicator": "Math",
+    "match_type": "Partial Match",
+    "rationale": "One subject of the K–12 proficiency composite."
+   },
+   "data": {
+    "years_available": [],
+    "latest_year": null,
+    "geo_count_latest": 0
+   },
+   "notes": "Measure (not shown in selector); feeds edu_k_12_academic_proficiency."
+  }
+ ]
+}
